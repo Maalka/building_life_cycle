@@ -8,6 +8,7 @@ This README would normally document whatever steps are necessary to get your app
 * Version
 * [Learn Data Quality Tool](https://bitbucket.org/tutorials/dataqualitytool)
 
+##Feature Notes from Rimas
 * import your PM export
 * run some tests re: national averages
 * present some reports about the quality of your "code"
