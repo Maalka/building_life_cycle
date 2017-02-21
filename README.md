@@ -8,7 +8,14 @@ This README would normally document whatever steps are necessary to get your app
 * Version
 * [Learn Data Quality Tool](https://bitbucket.org/tutorials/dataqualitytool)
 
+* import your PM export
+* run some tests re: national averages
+* present some reports about the quality of your "code"
+
+
 ### How do I get set up? ###
+
+
 
 * Summary of set up
 * Configuration
