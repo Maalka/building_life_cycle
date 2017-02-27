@@ -1,7 +1,12 @@
 # README #
 
-This README would normally document whatever steps are necessary to get your application up and running.
+TEMPORARY DOCUEMENTATION
 
+# Data Import Template (from PM Export File)
+# Data Validation
+# Documentation 
+
+===
 ### What is this repository for? ###
 
 * Quick summary
