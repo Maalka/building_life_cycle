@@ -1,0 +1,31 @@
+<!--
+  ~ Copyright (c) 2017. Maalka Inc. All Rights Reserved
+  -->
+
+<form name="form" class="ui form">
+	<div class="ui equal width center aligned padded grid">
+		<div class="row">
+			<div class="column">
+				<button class="ui blue button"
+						ngf-select
+						ng-model="file"
+						name="file"
+						ngf-max-size="20MB" ng-class="{disabled: loadingFileFiller.attachmentName !== undefined}">
+							{{ file.name || "Select Energy Start Portfolio Manager Report" }}
+				</button>
+			</div>
+			<div class="column">
+				<h4 ng-if ="!file && loadingFileFiller.attachmentName === undefined" class="ui header">
+					<div class="content">
+						Upload your data here
+					</div>
+				</h4>
+				<h4 ng-if="file && loadingFileFiller.attachmentName === undefined && !meter.valid" class="ui header">
+					<div class="content">
+						please complete all form fields above
+					</div>
+				</h4>
+			</div>
+		</div>
+	</div>
+</form>

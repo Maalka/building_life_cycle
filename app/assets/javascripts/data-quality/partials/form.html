@@ -1,0 +1,29 @@
+<!--
+  ~ Copyright (c) 2017. Maalka Inc. All Rights Reserved
+  -->
+
+<div>
+    <form class="ui form" novalidate ng-class="{'error': !forms.sensitivityForm.$valid && forms.hasValidated}" name="forms.sensitivityForm" ng-cloak>
+        <div class="ui error message" ng-if="!forms.sensitivityForm.$valid && forms.hasValidated">
+            <div class="header">
+                There were some errors with your submission
+            </div>
+            <ul class="list">
+                <li>Make sure you have filled out all of the required fields</li>
+                <li>Please note that commas are not allowed in the numeric fields</li>
+            </ul>
+        </div>
+
+        <h3 class="ui header">
+        	SELECT ENERGY STAR - PORTFOLIO MANAGER REPORT
+        </h3>
+
+        <div class="entry">
+            <div class="ui fluid card">
+                <div class="content">
+                    <files model="model.value" file="model.file" meter="getMeter()"></files>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

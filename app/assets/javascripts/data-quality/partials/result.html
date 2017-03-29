@@ -1,0 +1,19 @@
+<!--
+  ~ Copyright (c) 2017. Maalka Inc. All Rights Reserved
+  -->
+
+<div>
+    <h3 class="ui header">
+        Results
+    </h3>
+    <h3 class="ui header" ng-if="model.value.result.length > 0 && model.value.status === 'OK'" >
+        Details
+    </h3>
+    <div class="ui fluid card" ng-if="model.value.result.length > 0 && model.value.status === 'OK'" >
+        <div class="content">
+            <h4>Metadata</h4>
+            <h4>Model</h4>
+        </div>
+    </div>
+</div>
+

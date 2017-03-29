@@ -1,0 +1,18 @@
+<!--
+  ~ Copyright (c) 2017. Maalka Inc. All Rights Reserved
+  -->
+<div class="ui">
+    <div class="ui container" style="padding-top:14px">
+<div>
+    <div class="ui stackable grid container" style="padding-top:14px">
+        <div class="three wide column computer only tablet only" ng-if="media === 'print'"></div>
+        <div class="thirteen wide column" ng-if="media === 'print'">
+	        <div ng-include src="'javascripts/sensitivity/partials/guide_content.html'">Not Defined</div>
+        </div>
+
+        <div class="one wide column computer only tablet only" ng-if="media !== 'print'"></div>
+        <div class="fourteen wide column" ng-if="media !== 'print'">
+	        <div ng-include src="'javascripts/sensitivity/partials/guide_content.html'">Not Defined</div>
+        </div>
+    </div>
+</div>

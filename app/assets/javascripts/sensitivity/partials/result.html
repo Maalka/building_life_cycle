@@ -1,0 +1,62 @@
+<!--
+  ~ Copyright (c) 2017. Maalka Inc. All Rights Reserved
+  -->
+
+<div>
+    <h3 class="ui header">
+        Results
+    </h3>
+    <div class="ui basic segment">
+        <div class="content">
+            <div ng-if="model.value.result.length > 0 && model.value.status === 'OK'">
+                <div style="width: 100%; height: 300px"
+                    sensitivity-graph
+                    data-model="model.value"></div>
+            </div>
+            <div ng-if="model.value.status === undefined" class="ui">
+                <h4>Enter Building Data</h4>
+                Please enter the relevent building data and csv
+            </div>
+            <div ng-if="model.value.status==='KO' && model.value.message === 'LINEAR_REGRESSION_EXCEPTION'">
+                <h4>Error calculating linear regression</h4>
+                {{ model.value.result }}
+            </div>
+            <div ng-if="model.value.status==='KO' && model.value.message === 'SEGMENTED_REGRESSION_EXCEPTION'">
+                <h4>Error calculating segmented regression</h4>
+                {{ model.value.result }}
+            </div>
+            <div ng-if="model.value.status==='KO' && model.value.message === 'SEGMENTED_REGRESSION_FITTING_EXCEPTION'">
+                <h4>Error calculating regression: Possibly not enough datapoints</h4>
+                {{ model.value.result }}
+            </div>
+            <div ng-if="model.value.status==='KO' && model.value.message === 'BASIC_REGRESSION_EXCEPTION'">
+                <h4>Error calculating regression</h4>
+                {{ model.value.result }}
+            </div>
+            <div ng-if="model.value.status==='KO' && model.value.message === 'METER_EXCEPTION'">
+                <h4>Error calculating csv data</h4>
+                {{ model.value.result }}
+            </div>
+            <div ng-if="model.value.status==='KO' && model.value.message === 'BUILDING_EXCEPTION'">
+                <h4>Error calculating metadata</h4>
+                {{ model.value.result }}
+            </div>
+            <div ng-if="model.value.status==='KO'">
+                <h4>Error parsing csv</h4>
+                The csv does not contain the necessary fields.
+            </div>
+        </div>
+    </div>
+    <h3 class="ui header" ng-if="model.value.result.length > 0 && model.value.status === 'OK'" >
+        Details
+    </h3>
+    <div class="ui fluid card" ng-if="model.value.result.length > 0 && model.value.status === 'OK'" >
+        <div class="content">
+            <h4>Metadata</h4>
+            <json-formatter json="model.value.metadata" open="0"></json-formatter>
+            <h4>Model</h4>
+            <json-formatter json="model.value.result" open="10"></json-formatter>
+        </div>
+    </div>
+</div>
+
