@@ -49,7 +49,7 @@ case class ObservedPrimaryOccupancyClassification(guid: String,
   def isValid(refId: UUID, value: Option[Seq[BEDESTransformResult]]): Future[Validator.MapValid] = {
     sourceValidateFromComponents(value).map { results =>
       if (results.exists(_.valid == false)) {
-        Validator.MapValid(valid = false, Option("Built before 1800"))
+        Validator.MapValid(valid = false, Option("No Observed Primary Occupancy Classification"))
       } else {
         Validator.MapValid(valid = true, None)
       }

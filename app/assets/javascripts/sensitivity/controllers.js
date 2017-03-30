@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2017. Maalka Inc. All Rights Reserved
  */
-define(['angular', 'matchmedia-ng', 'angular-file-upload'], function(angular) {
+define(['angular', 'matchmedia-ng', 'angular-file-upload', 'ng-csv'], function(angular) {
   'use strict';
   var DashboardCtrl = function($rootScope, $scope, $window, $sce, $timeout, $q, $log, playRoutes, Upload, matchmedia) {
 
@@ -114,88 +114,6 @@ define(['angular', 'matchmedia-ng', 'angular-file-upload'], function(angular) {
             console.log('progress: ' + progressPercentage + '% ' + evt.config.data.inputData.name);
         });
      };
-
-    $scope.getMeter = function() {
-
-        if($scope.forms.sensitivityForm === undefined) {
-            return undefined;
-        }
-        if($scope.forms.sensitivityForm.$valid){
-            $scope.meter.valid = true;
-        } else {
-            $scope.meter.valid = false;
-        }
-
-        $scope.meter.filter = [];
-        $scope.meter.ddThreshold = $scope.meter.ddThreshold ? $scope.meter.ddThreshold  : 65;
-        $scope.meter.ddType = $scope.meter.ddType ? $scope.meter.ddType  : "avg";
-        $scope.meter.frequency = $scope.meter.frequency ? $scope.meter.frequency  : "month";
-        $scope.daysOfWeek.forEach(function (v){
-            if($scope.filter[v.name]===true){
-                $scope.meter.filter.push(v.name);
-            }
-        });
-
-        return $scope.meter;
-    };
-
-    $scope.daysOfWeek = [
-        {
-            name: "monday",
-            default: false,
-            type: "checkbox",
-            title: "M",
-        },
-        {
-            name: "tuesday",
-            default: false,
-            type: "checkbox",
-            title: "Tu",
-        },
-        {
-            name: "wednesday",
-            default: false,
-            type: "checkbox",
-            title: "W",
-        },
-        {
-            name: "thursday",
-            default: false,
-            type: "checkbox",
-            title: "Th",
-        },
-        {
-            name: "friday",
-            default: false,
-            type: "checkbox",
-            title: "F",
-        },
-        {
-            name: "saturday",
-            default: false,
-            type: "checkbox",
-            title: "Sa",
-        },
-        {
-            name: "sunday",
-            default: false,
-            type: "checkbox",
-            title: "Su",
-        }
-    ];
-
-    $scope.thresholdOptions =  [
-            {id:"avg",name:"Average"},
-            {id:"min",name:"Minimum"},
-            {id:"max",name:"Maximum"}
-    ];
-
-    $scope.frequencyOptions =  [
-            {id:"day",name:"Day"},
-            {id:"month",name:"Month"}
-    ];
-
-
   };
 
   DashboardCtrl.$inject = ['$rootScope', '$scope', '$window','$sce','$timeout', '$q', '$log', 'playRoutes', 'Upload', 'matchmedia'];

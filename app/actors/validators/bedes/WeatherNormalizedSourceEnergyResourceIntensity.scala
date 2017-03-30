@@ -4,7 +4,7 @@ import java.util.UUID
 
 import actors.ValidatorActors.BedesValidators.{BedesValidator, BedesValidatorCompanion}
 import actors.validators.Validator
-import actors.validators.basic.Exists
+import actors.validators.basic.{ Exists, WithinRange }
 import akka.actor.{ActorSystem, Props}
 import akka.stream.ActorMaterializer
 import akka.stream.scaladsl.Sink
@@ -40,10 +40,11 @@ case class WeatherNormalizedSourceEnergyResourceIntensity(guid: String,
 
   implicit val materializer = ActorMaterializer()
 
-  val validator = "bedes_premises_city"
-  val bedesCompositeName = "Premises City"
+  val validator = "bedes_weather_normalized_source_energy_resource_intensity"
+  val bedesCompositeName = "Weather Normalized Source Energy Resource Intensity"
 
-  val componentValidators = Seq(propsWrapper(Exists.props))
+  val componentValidators = Seq(propsWrapper(Exists.props),
+    propsWrapper(WithinRange.props, Option(Json.obj("min" -> 0))))
 
   def isValid(refId: UUID, value: Option[Seq[BEDESTransformResult]]): Future[Validator.MapValid] = {
     sourceValidateFromComponents(value).map { results =>

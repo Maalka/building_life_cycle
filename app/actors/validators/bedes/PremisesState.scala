@@ -41,8 +41,8 @@ case class PremisesState(guid: String,
   implicit val materializer = ActorMaterializer()
 
 
-  val validator = "bedes_premises_city"
-  val bedesCompositeName = "Premises City"
+  val validator = "bedes_premises_state"
+  val bedesCompositeName = "Premises State"
 
   val componentValidators = Seq(propsWrapper(Exists.props))
 

@@ -24,6 +24,7 @@ import scala.util.control.NonFatal
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.duration._
 import cats.syntax.either._
+import play.api.libs.json.{JsString, Json}
 /**
   * Created by clayteeter on 3/28/17.
   */
@@ -49,13 +50,13 @@ class DataQuality @Inject()(implicit actorSystem: ActorSystem) extends Controlle
       ActorMaterializerSettings(actorSystem).withSupervisionStrategy(decider)
     )
 
-
-
     val validateFlow = Flow.fromGraph(GraphDSL.create() { implicit builder =>
       // validators
       import GraphDSL.Implicits._
 
+      // PremisesNameIdentifier must be the first response
       val validators = Seq(
+        PremisesNameIdentifier,
         CompletedConstructionStatusDate,
         CustomEnergyMeteredPremisesLabel,
         DeliveredAndGeneratedOnsiteRenewableElectricityResourceValue,
@@ -63,7 +64,6 @@ class DataQuality @Inject()(implicit actorSystem: ActorSystem) extends Controlle
         PortfolioManagerPropertyIdentifier,
         PremisesAddressLine1,
         PremisesCity,
-        PremisesNameIdentifier,
         PremisesState,
         SiteEnergyResourceIntensity,
         WeatherNormalizedSourceEnergyResourceIntensity
@@ -88,9 +88,12 @@ class DataQuality @Inject()(implicit actorSystem: ActorSystem) extends Controlle
         .fold(Seq.empty[BEDESTransformResult])(_ :+ _._1)
         .mergeSubstreams
         .via(validateFlow)
-          .map(_.map(_.right.get))
+        .map(_.map(_.right.get))
         .runWith(Sink.seq) map { res =>
-        Ok(res.toString)
+        Ok(Json.obj(
+          "result" -> Json.toJson(res.map(Json.toJson(_))),
+          "status" -> JsString("OK")
+        ))
       }
     }.getOrElse {
       Future(Ok("Failure"))

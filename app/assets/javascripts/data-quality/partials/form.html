@@ -3,8 +3,11 @@
   -->
 
 <div>
-    <form class="ui form" novalidate ng-class="{'error': !forms.sensitivityForm.$valid && forms.hasValidated}" name="forms.sensitivityForm" ng-cloak>
-        <div class="ui error message" ng-if="!forms.sensitivityForm.$valid && forms.hasValidated">
+    <form class="ui form" novalidate 
+    	ng-class="{'error': !forms.dataQualityForm.$valid}" 
+    	name="forms.dataQualityForm" ng-cloak>
+        <div class="ui error message" 
+        	ng-if="!forms.dataQualityForm.$valid">
             <div class="header">
                 There were some errors with your submission
             </div>
@@ -14,14 +17,11 @@
             </ul>
         </div>
 
-        <h3 class="ui header">
-        	SELECT ENERGY STAR - PORTFOLIO MANAGER REPORT
-        </h3>
-
         <div class="entry">
+            <h3 class="ui header">Energy Star Portfolio Manager Report</h3>
             <div class="ui fluid card">
                 <div class="content">
-                    <files model="model.value" file="model.file" meter="getMeter()"></files>
+                    <files model="model.value" file="model.file"></files>
                 </div>
             </div>
         </div>

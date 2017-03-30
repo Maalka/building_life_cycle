@@ -6,13 +6,24 @@
     <h3 class="ui header">
         Results
     </h3>
-    <h3 class="ui header" ng-if="model.value.result.length > 0 && model.value.status === 'OK'" >
-        Details
-    </h3>
-    <div class="ui fluid card" ng-if="model.value.result.length > 0 && model.value.status === 'OK'" >
-        <div class="content">
-            <h4>Metadata</h4>
-            <h4>Model</h4>
+    <div class="ui fluid card" >
+        <div class="content" style="overflow-x: scroll">
+            <table class="ui very basic table" >
+                <thead>
+                    <tr >
+                        <th></th>
+                        <th ng-repeat="h in verificationHeaders">{{ h }}</th>
+                    </tr>
+                <tbody>
+                    <tr ng-repeat="p in verificationRows"> {{ p}}
+                        <td>{{ verificationPropertyName(p) }}</td>
+                        <td class="center aligned" ng-repeat="r in verificationRow(p)" data-tooltip="{{r.value}} : {{ r.message }}">
+                            <i class="green checkmark icon" ng-if="r.valid"></i>
+                            <i class="red close icon" ng-if="!r.valid"></i>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>

@@ -102,11 +102,14 @@ trait BedesValidator extends Actor with ActorLogging with Validator[Seq[BEDESTra
     val future = for {
       valids <- isValid(refId, value)
     } yield {
-      self forward UpdateObjectValidatedDocument(refId, guid, validator, validatorCategory, valid = valids.valid, valids.message, valids.details)
+      val ov = value.flatMap{_.find(_.getCompositeName.contains(bedesCompositeName))}.flatMap(_.getData.headOption).flatMap(_._2)
+
+      self forward UpdateObjectValidatedDocument(refId, validator, bedesCompositeName,
+        validatorCategory, valid = valids.valid, ov, valids.message, valids.details)
     }
     future.recover {
       case NonFatal(th) =>
-        self forward UpdateObjectValidatedDocument(refId, guid, validator, validatorCategory, valid = false, Option(th.getMessage))
+        self forward UpdateObjectValidatedDocument(refId, validator, bedesCompositeName, validatorCategory, valid = false, Option(th.getMessage))
     }
   }
 

@@ -9,11 +9,11 @@ define(['angular', 'matchmedia-ng', 'angular-file-upload'], function(angular) {
     $scope.forms = {'hasValidated': false};
     $scope.matchmedia = matchmedia;
     $scope.mainColumnWidth = "";
-    $scope.meter = {};
     $scope.model = {
         'value': {},
         'file': undefined
     };
+    $scope.form = {};
     $scope.filter = [];
     $scope.hideDays = true;
 
@@ -53,53 +53,70 @@ define(['angular', 'matchmedia-ng', 'angular-file-upload'], function(angular) {
     });
 
 
-    $scope.$watch("meter.frequency", function (v) {
-        if(v==="day"){
-            $scope.hideDays = false;
-        } else {
-            $scope.hideDays = true;
-        }
-
-    });
-
-    $scope.computeBenchmarkMix = function(results){
-
-        console.log(results);
-        var metricsTable = [
-            //the return after weather normalization
-        ];
-        return metricsTable;
-    };
-
     $scope.submitErrors = function () {
-        for (var i = 0; i < $scope.forms.sensitivityForm.$error.required.length; i++){
-            $log.info($scope.forms.sensitivityForm.$error.required[i].$name);
+        for (var i = 0; i < $scope.forms.dataQualityForm.$error.required.length; i++){
+            $log.info($scope.forms.dataQualityForm.$error.required[i].$name);
         }
     };
 
     $scope.submitFile = function() {
-        if($scope.forms.sensitivityForm.$valid){
-            if ($scope.model.file.name && $scope.meter) {
+        if($scope.forms.dataQualityForm.$valid){
+            if ($scope.model.file.name) {
                 $scope.upload($scope.model.file, $scope.meter);
             }
         }
     };
 
+    $scope.verificationRows = [];
+    $scope.verificationHeaders = [];
+
+    var verificationRows = [];
+    $scope.verificationRow = function(i) { 
+        return verificationRows[i];
+    };
+    $scope.verificationPropertyName = function(i) { 
+        return verificationRows[i][0].value;
+    };
+
+    var parseHeaders = function(row) { 
+        var j;
+        for (j = 0; j < row.length; j += 1) {
+            $scope.verificationHeaders[j] = row[j].validator;
+        }
+    };
+
+    var parseServerResponse = function(model) { 
+        var i, j, first = true;
+        verificationRows = [];
+        if(model.result !== undefined) { 
+            for(i = 0; i < model.result.length; i += 1) {
+                if (first) { 
+                    parseHeaders(model.result[i]);
+                    first = false;
+                }
+                verificationRows[i] = model.result[i];
+                $scope.verificationRows[i] = i;
+            }
+        }
+    };
+
+
     $scope.loadingFileFiller = {};
+    $scope.data = 
 
     $scope.upload = function (file,form) {
         $scope.loadingFileFiller.loading = true;
 
         Upload.upload({
             url: playRoutes.controllers.DataQuality.validate().url,
-            data: {inputData: file,
-                   "userSubmitted": JSON.stringify(form)
-                  }
+            data: {
+                inputData: file
+            }
 
         }).then(function (resp) {
             console.log('Success ' + resp.config.data.inputData.name + 'uploaded. Response: ' + resp.data);
             $scope.loadingFileFiller = {};
-            $scope.model.value = resp.data;
+            parseServerResponse(resp.data)  ;
 
         }, function (resp) {
             $scope.loadingFileFiller = {'loading': true};
@@ -114,87 +131,6 @@ define(['angular', 'matchmedia-ng', 'angular-file-upload'], function(angular) {
             console.log('progress: ' + progressPercentage + '% ' + evt.config.data.inputData.name);
         });
      };
-
-    $scope.getMeter = function() {
-
-        if($scope.forms.sensitivityForm === undefined) {
-            return undefined;
-        }
-        if($scope.forms.sensitivityForm.$valid){
-            $scope.meter.valid = true;
-        } else {
-            $scope.meter.valid = false;
-        }
-
-        $scope.meter.filter = [];
-        $scope.meter.ddThreshold = $scope.meter.ddThreshold ? $scope.meter.ddThreshold  : 65;
-        $scope.meter.ddType = $scope.meter.ddType ? $scope.meter.ddType  : "avg";
-        $scope.meter.frequency = $scope.meter.frequency ? $scope.meter.frequency  : "month";
-        $scope.daysOfWeek.forEach(function (v){
-            if($scope.filter[v.name]===true){
-                $scope.meter.filter.push(v.name);
-            }
-        });
-
-        return $scope.meter;
-    };
-
-    $scope.daysOfWeek = [
-        {
-            name: "monday",
-            default: false,
-            type: "checkbox",
-            title: "M",
-        },
-        {
-            name: "tuesday",
-            default: false,
-            type: "checkbox",
-            title: "Tu",
-        },
-        {
-            name: "wednesday",
-            default: false,
-            type: "checkbox",
-            title: "W",
-        },
-        {
-            name: "thursday",
-            default: false,
-            type: "checkbox",
-            title: "Th",
-        },
-        {
-            name: "friday",
-            default: false,
-            type: "checkbox",
-            title: "F",
-        },
-        {
-            name: "saturday",
-            default: false,
-            type: "checkbox",
-            title: "Sa",
-        },
-        {
-            name: "sunday",
-            default: false,
-            type: "checkbox",
-            title: "Su",
-        }
-    ];
-
-    $scope.thresholdOptions =  [
-            {id:"avg",name:"Average"},
-            {id:"min",name:"Minimum"},
-            {id:"max",name:"Maximum"}
-    ];
-
-    $scope.frequencyOptions =  [
-            {id:"day",name:"Day"},
-            {id:"month",name:"Month"}
-    ];
-
 
   };
 

@@ -41,8 +41,8 @@ case class CompletedConstructionStatusDate(guid: String,
   // the materializer to use.  this must be an ActorMaterializer
 
   implicit val materializer = ActorMaterializer()
-  val validator = "bedes_weather_normalized_source_energy_resource_intensity"
-  val bedesCompositeName = "Weather Normalized Source Energy Resource Intensity"
+  val validator = "bedes_completed_construction_status_dfate"
+  val bedesCompositeName = "Completed Construction Status Date"
 
   val componentValidators = Seq(propsWrapper(Exists.props),
     propsWrapper(WithinRange.props, Option(Json.obj("min" -> new DateTime(1800, 1, 1, 1, 1).getMillis))))

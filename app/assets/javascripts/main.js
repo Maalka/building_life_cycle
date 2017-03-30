@@ -77,6 +77,7 @@
       'highcharts': './highcharts-theme',
       'maalkaflags': './highcharts/maalkaFlags',
       'matchmedia-ng': '../lib/matchmedia-ng/matchmedia-ng',
+      'ng-csv': '../lib/ng-csv/build/ng-csv',
       'semantic': './semantic-ui/semantic.min',
       'jsRoutes': '/jsroutes',
       'json-formatter': '../lib/json-formatter/dist/json-formatter',
