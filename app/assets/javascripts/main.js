@@ -21,11 +21,15 @@
         deps: ['jquery'],
         exports: 'angular'
       },
+      'ng-infinite-scroll': {
+        deps: ['angular']
+      },
       'angular-file-upload': {
         deps: ['angular']
       },
       'angular-route': ['angular'],
       'angular-cookies': ['angular'],
+
       'maalka-templates': {
         deps: ['angular']
       },
@@ -54,12 +58,11 @@
       'json-formatter': {
         deps: ['angular']
       },
+      'moment': {
+        export: 'moment'
+      },
       'semantic': {
         deps: ['jquery', 'angular']
-      },
-      'semantic-daterangepicker': { 
-        deps: ['semantic', 'moment'],
-        exports: "semantic-daterangepicker"
       }
     },
     paths: {
@@ -76,13 +79,13 @@
       'highcharts-exporting': '../lib/highstock/modules/exporting',
       'highcharts': './highcharts-theme',
       'maalkaflags': './highcharts/maalkaFlags',
+      'moment': '../lib/moment/min/moment-with-locales',
       'matchmedia-ng': '../lib/matchmedia-ng/matchmedia-ng',
       'ng-csv': '../lib/ng-csv/build/ng-csv',
+      'ng-infinite-scroll': '../lib/ngInfiniteScroll/build/ng-infinite-scroll',      
       'semantic': './semantic-ui/semantic.min',
       'jsRoutes': '/jsroutes',
       'json-formatter': '../lib/json-formatter/dist/json-formatter',
-      'semantic-daterangepicker': './semantic-ui-daterangepicker/daterangepicker',
-      'moment': './semantic-ui-daterangepicker/moment',
       'maalka-templates': '../templates'
     }
   });
