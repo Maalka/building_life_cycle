@@ -30,14 +30,12 @@ libraryDependencies ++= Seq(
   cache,
   ws,
   specs2 % Test,
-  "org.scalatestplus" %% "play" % "1.4.0-M3" % "test",
+  "org.scalatestplus.play" %% "scalatestplus-play" % "1.5.1" % "test",
 
-  "com.typesafe.akka" %% "akka-slf4j" % "2.4.17",
-  "com.typesafe.akka" %% "akka-stream" % "2.4.17",
-  "com.typesafe.akka" %% "akka-contrib" % "2.4.17",
-  "com.typesafe.akka" %% "akka-testkit" % "2.4.17",
-  "org.typelevel" %% "cats" % "0.9.0",
-
+  "com.typesafe.akka" %% "akka-slf4j" % "2.4.14",
+  "com.typesafe.akka" %% "akka-stream" % "2.4.14",
+  "com.typesafe.akka" %% "akka-contrib" % "2.4.14",
+  "com.typesafe.akka" %% "akka-testkit" % "2.4.14",
 
   "org.webjars" % "requirejs" % "2.1.22",
   "org.webjars" % "jquery" % "2.1.3",
