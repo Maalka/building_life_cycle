@@ -23,7 +23,6 @@ import scala.concurrent.Future
 import scala.util.control.NonFatal
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.duration._
-import cats.syntax.either._
 import play.api.libs.json.{JsString, Json}
 /**
   * Created by clayteeter on 3/28/17.
