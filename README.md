@@ -10,13 +10,14 @@ TEMPORARY DOCUEMENTATION
 
 # Data Validation
 
-**Building parameters**
-    * Use type parameters validated by national ranges (see national average document)
-    * Property Floor Area-Building(s) (if > 0)
-    * Year Built (if > 1800)
-    * Property Name (if exists)
-    * Location
-    * * Address (if exists)
+# Building parameters
+
+  * Use type parameters validated by national ranges (see national average document)
+  * Property Floor Area-Building(s) (if > 0)
+  * Year Built (if > 1800)
+  * Property Name (if exists)
+  * Location
+  * * Address (if exists)
     * * City (if exists)
     * * State (if one of 50 states)
     * * Country (if exists)
