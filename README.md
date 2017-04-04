@@ -10,7 +10,7 @@ TEMPORARY DOCUEMENTATION
 
 # Data Validation
 
-# Building parameters
+### Building parameters ###
 
   * Use type parameters validated by national ranges (see national average document)
   * Property Floor Area-Building(s) (if > 0)
@@ -48,7 +48,7 @@ TEMPORARY DOCUEMENTATION
         Wholesale club/supercenter    |
         Worship facility    |
 
-# Energy parameters
+### Energy parameters ###
  
   * Metered Areas (Energy)
     * Should Exist, Should  = "Whole Building"
