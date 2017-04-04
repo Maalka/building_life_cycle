@@ -26,27 +26,27 @@ TEMPORARY DOCUEMENTATION
     * if("Primary Property Type - EPA Calculated" is in Property List Below) {ES Score shoud be 1-100}
     
         
-        Bank branch    |
-        Barracks    |
-        Courthouse    |
-        Data center   |
-        Distribution center    |
-        Financial office    |
-        Hospital (general medical & surgical)    |
-        Hotel    |
-        K-12 school    |
-        Medical office    |
-        Multifamily housing    |
-        Non-refrigerated warehouse    |
-        Office    |
-        Refrigerated warehouse    |
-        Residence hall/ dormitory    |
-        Retail store    |
-        Senior care community    |
-        Supermarket/grocery store    |
-        Wastewater treatment plant    |
-        Wholesale club/supercenter    |
-        Worship facility    |
+        Bank branch |
+        Barracks |
+        Courthouse |
+        Data center |
+        Distribution center |
+        Financial office |
+        Hospital (general medical & surgical) |
+        Hotel |
+        K-12 school |
+        Medical office |
+        Multifamily housing |
+        Non-refrigerated warehouse |
+        Office |
+        Refrigerated warehouse |
+        Residence hall/ dormitory |
+        Retail store |
+        Senior care community |
+        Supermarket/grocery store |
+        Wastewater treatment plant |
+        Wholesale club/supercenter |
+        Worship facility |
 
 ### Energy parameters ###
  
