@@ -4,7 +4,7 @@ TEMPORARY DOCUEMENTATION
 
 # Data Import Template (from PM Export File)
   -  the following .xls export is a custom set of parameters created in Portfolio Manager using annual energy data. 
-  * Time Frame:  # Current Energy Year #
+  * Time Frame: **Current Energy Year** 
   * Portfolio Manager fields
     * 
 
