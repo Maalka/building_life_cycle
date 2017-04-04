@@ -11,40 +11,40 @@ TEMPORARY DOCUEMENTATION
 # Data Validation
 
 **Building parameters**
-* Use type parameters validated by national ranges (see national average document)
-* Property Floor Area-Building(s) (if > 0)
-* Year Built (if > 1800)
-* Property Name (if exists)
-* Location
-* * Address (if exists)
-* * City (if exists)
-* * State (if one of 50 states)
-* * Country (if exists)
-* * Zipcode (if 6 digits, numeric)
-* ENERGY STAR Score
-* * if("Primary Property Type - EPA Calculated" is in Property List Below) {ES Score shoud be 1-100}
+    * Use type parameters validated by national ranges (see national average document)
+    * Property Floor Area-Building(s) (if > 0)
+    * Year Built (if > 1800)
+    * Property Name (if exists)
+    * Location
+    * * Address (if exists)
+    * * City (if exists)
+    * * State (if one of 50 states)
+    * * Country (if exists)
+    * * Zipcode (if 6 digits, numeric)
+    * ENERGY STAR Score
+    * * if("Primary Property Type - EPA Calculated" is in Property List Below) {ES Score shoud be 1-100}
 
-Bank branch
-Barracks
-Courthouse
-Data center
-Distribution center
-Financial office
-Hospital (general medical & surgical)
-Hotel
-K-12 school
-Medical office
-Multifamily housing
-Non-refrigerated warehouse
-Office
-Refrigerated warehouse
-Residence hall/ dormitory
-Retail store
-Senior care community
-Supermarket/grocery store
-Wastewater treatment plant
-Wholesale club/supercenter
-Worship facility
+Bank branch|
+Barracks|
+Courthouse|
+Data center|
+Distribution center|
+Financial office|
+Hospital (general medical & surgical)|
+Hotel|
+K-12 school|
+Medical office|
+Multifamily housing|
+Non-refrigerated warehouse|
+Office|
+Refrigerated warehouse|
+Residence hall/ dormitory|
+Retail store|
+Senior care community|
+Supermarket/grocery store|
+Wastewater treatment plant|
+Wholesale club/supercenter|
+Worship facility|
 
 **Energy parameters** 
 Metered Areas (Energy)
