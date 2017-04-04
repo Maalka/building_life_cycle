@@ -3,7 +3,17 @@
 TEMPORARY DOCUEMENTATION
 
 # Data Import Template (from PM Export File)
-  - what the .xls export is
+  -  the following .xls export is a custom set of parameters created in Portfolio Manager using annual energy data. 
+  * Time Frame:  # Current Energy Year #
+  * Portfolio Manager fields
+    * 
+
+To share this template with other portfolios in portfolio manager, please send them the following link:
+
+ https://portfoliomanager.energystar.gov/pm/reports/template/1732437/share/cddf455b-df6a-491f-a63f-ec9f4110b28b
+
+Careful! Clicking on the link will create a copy of the template into your own account.
+
   - having the .xls as the import via 
   - a (python) command line tool 
   - output is a csv 
