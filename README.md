@@ -64,3 +64,20 @@ Documentation Website.
 
 * Repo owner or admin
 * Other community or team contact
+
+
+## Dependencies
+
+This application based on Play! Framework. Additional dependencies are 
+
+## Run
+
+from *sbt* command line run:
+
+*sbt run*
+
+Now the application can be invoked either from a browser or from the command line (curl)
+
+## Call from browser
+
+Point your browser to http://localhost:9000/
