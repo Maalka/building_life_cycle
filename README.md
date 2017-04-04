@@ -35,7 +35,6 @@ Careful! Clicking on the link will create a copy of the template into your own a
   * ENERGY STAR Score
     * if("Primary Property Type - EPA Calculated" is in Property List Below) {ES Score shoud be 1-100}
     
-        
         Bank branch |
         Barracks |
         Courthouse |
