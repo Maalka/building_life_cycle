@@ -47,12 +47,12 @@ Wholesale club/supercenter
 Worship facility
 
 **Energy parameters** 
-* Metered Areas (Energy)
-* * Should Exist, Should  = "Whole Building"
-* Electricity Use-Grid Purchase & Generate
-* * Should Exist, Should be > 0, Should not be "Not Available"
-* Natural Gas Use (kBtu)
-* * Should Exist, Should be > 0, Should not be "Not Available"
+Metered Areas (Energy)
+Should Exist, Should  = "Whole Building"
+Electricity Use-Grid Purchase & Generate
+Should Exist, Should be > 0, Should not be "Not Available"
+Natural Gas Use (kBtu)
+Should Exist, Should be > 0, Should not be "Not Available"
 * Site EUI (kBtu/ft2)
 * * Should exist, Should be >0, Should not be "Not Available", Should be >40 & <375
 * Weather Normalized Source EUI (kBtu/ft2)
