@@ -7,47 +7,45 @@ TEMPORARY DOCUEMENTATION
   * Time Frame: **Current Energy Year** 
   * Portfolio Manager fields
     * 
-<dl>
-<dt>Property Id</dt><dd>xxx </dd>
-<dt>Property Name<dt><dd></dd>
-<dt>Year Ending<dt><dd></dd>
-<dt>Address 1<dt><dd></dd>
-<dt>City<dt><dd></dd>
-<dt>Country<dt><dd></dd>
-<dt>State/Province<dt><dd></dd>
-<dt>Postal Code<dt><dd></dd>
-<dt>Property GFA - EPA Calculated (Parking) (ft²)<dt><dd></dd>
-<dt>Property GFA - EPA Calculated (Buildings) (ft²)<dt><dd></dd>
-<dt>Property GFA - EPA Calculated (Buildings and Parking) (ft²) <dt><dd></dd>
-<dt>Primary Property Type - EPA Calculated<dt><dd></dd>
-<dt>Electricity Use - Grid Purchase and Generated from Onsite Renewable Systems (kWh)<dt><dd></dd>
-<dt>Electricity Use - Grid Purchase and Generated from Onsite Renewable Systems (kBtu) <dt><dd></dd>
-<dt>Electricity Use - Grid Purchase (kWh) <dt><dd></dd>
-<dt>Electricity Use - Grid Purchase (kBtu) <dt><dd></dd>
-<dt>Electricity Use - Generated from Onsite Renewable Systems and Used Onsite (kWh) <dt><dd></dd>
-<dt>Electricity Use - Generated from Onsite Renewable Systems and Used Onsite (kBtu) <dt><dd></dd>
-<dt>Natural Gas Use (kBtu)<dt><dd></dd>
-<dt>Fuel Oil #1 Use (kBtu)<dt><dd></dd>
-<dt>Fuel Oil #2 Use (kBtu)<dt><dd></dd>
-<dt>Fuel Oil #4 Use (kBtu)<dt><dd></dd>
-<dt>Fuel Oil #5 & 6 Use (kBtu)<dt><dd></dd>
-<dt>Diesel #2 Use (kBtu)<dt><dd></dd>
-<dt>Kerosene Use (kBtu)<dt><dd></dd>
-<dt>Propane Use (kBtu)<dt><dd></dd>
-<dt>District Steam Use (kBtu)<dt><dd></dd>
-<dt>District Hot Water Use (kBtu)<dt><dd></dd>
-<dt>District Chilled Water Use (kBtu)<dt><dd></dd>
-<dt>Coal - Anthracite Use (kBtu)<dt><dd></dd>
-<dt>Coal - Bituminous Use (kBtu)<dt><dd></dd>
-<dt>Coke Use (kBtu)<dt><dd></dd>
-<dt>Wood Use (kBtu)<dt><dd></dd>
-<dt>Other Use (kBtu)<dt><dd></dd>
-<dt>Site EUI (kBtu/ft²)<dt><dd></dd>
-<dt>Source EUI (kBtu/ft²)<dt><dd></dd>
-<dt>Weather Normalized Source EUI (kBtu/ft²)<dt><dd></dd>
-<dt>Address 2<dt><dd></dd>
-<dt>Energy Current Date<dt><dd></dd>
-</dl>
+:Property Id ::xxx
+:Property Name::xxx
+:Year Ending::xxx
+:Address 1::xxx	
+:City::xxx
+:Country::xxx
+:State/Province::xxx
+:Postal Code::xxx
+:Property GFA - EPA Calculated (Parking) (ft²)::xxx
+:Property GFA - EPA Calculated (Buildings) (ft²)::xxx
+:Property GFA - EPA Calculated (Buildings and Parking) (ft²) ::xxx
+:Primary Property Type - EPA Calculated::xxx
+:Electricity Use - Grid Purchase and Generated from Onsite Renewable Systems (kWh)::xxx
+:Electricity Use - Grid Purchase and Generated from Onsite Renewable Systems (kBtu) ::xxx
+:Electricity Use - Grid Purchase (kWh) ::xxx
+:Electricity Use - Grid Purchase (kBtu) ::xxx
+:Electricity Use - Generated from Onsite Renewable Systems and Used Onsite (kWh) ::xxx
+:Electricity Use - Generated from Onsite Renewable Systems and Used Onsite (kBtu) ::xxx
+:Natural Gas Use (kBtu)::xxx
+:Fuel Oil #1 Use (kBtu)::xxx
+:Fuel Oil #2 Use (kBtu)::xxx
+:Fuel Oil #4 Use (kBtu)::xxx
+:Fuel Oil #5 & 6 Use (kBtu)::xxx
+:Diesel #2 Use (kBtu)::xxx
+:Kerosene Use (kBtu)::xxx
+:Propane Use (kBtu)::xxx
+:District Steam Use (kBtu)::xxx
+:District Hot Water Use (kBtu)::xxx
+:District Chilled Water Use (kBtu)::xxx
+:Coal - Anthracite Use (kBtu)::xxx
+:Coal - Bituminous Use (kBtu)::xxx
+:Coke Use (kBtu)::xxx
+:Wood Use (kBtu)::xxx
+:Other Use (kBtu)::xxx
+:Site EUI (kBtu/ft²)::xxx
+:Source EUI (kBtu/ft²)::xxx
+:Weather Normalized Source EUI (kBtu/ft²)::xxx
+:Address 2::xxx
+:Energy Current Date::xxx
 
 To share this template with other portfolios in portfolio manager, please send them the following link:
 
