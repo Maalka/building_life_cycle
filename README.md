@@ -53,6 +53,7 @@ Data is imported from an Excel spreadsheet that is populated from within Portfol
 ## Sharing the Template
 You may obtain a copy of the template that will allow you to export and validate your Portfolio Manager data. This is accomplished by first signing into the Energy Star Portfolio Manager site, and then clicking on the following link. Careful! Clicking on the link will create a copy of the template within your own account.
 
+![Alt text](http://cms.maalka.net/resources/DataQualityScreen.png)
 
  [Copy Validation Template to your Portfolio Manager Account](https://portfoliomanager.energystar.gov/pm/reports/template/1732437/share/cddf455b-df6a-491f-a63f-ec9f4110b28b)
 
