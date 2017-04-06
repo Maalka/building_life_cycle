@@ -35,49 +35,6 @@ Data is imported from an Excel spreadsheet that is populated from within Portfol
 
 
   
-## Template Field Definitions
-
-  * **Property Id**  - The Portfolio Mangager property ID
-  * **Property Name** - A user friendly name of the property
-  * **Year Ending** - The Date of the final data entry
-  * **Address 1** - Street address of the property
-  * **City** - The city of the property
-  * **Country** - The country
-  * **State/Province** - The state or provence
-  * **Postal Code** - Address postal code
-  * **Property GFA** - Gross Floor Area should include all space within the building(s), including classrooms, administrative space, conference rooms, kitchens used by staff, lobbies, cafeterias, auditoriums, stairways, atriums, elevator shafts, and storage areas.
-    * **EPA Calculated** (Parking) (ft²) - Area of parking associated with the property
-    * **EPA Calculated** (Buildings) (ft²) - Floor area of the building (all floors and uses)
-    * **EPA Calculated** (Buildings and Parking) (ft²)  - Combination of building and parking areas
-  * **Primary Property Type (EPA Calculated)**- The primary use of the property (reference the Portfolio Manager Glossary)
-  * **Electricity Use** - The total of electric power used by the property represented by the specific source of the electricity. Note that in general, a single property will have only a subset of these metered sources.
-    * **Grid Purchase and Generated from Onsite Renewable Systems (kWh)** - Total electricity used as measured in kilowatt hours
-    * **Grid Purchase and Generated from Onsite Renewable Systems (kBtu)**  - Total electricity used as measured in thousands of British Thermo Units
-    * **Grid Purchase (kWh)**  - Total electricity purchased from the electrical grid as measured in kilowatt hours
-    * **Grid Purchase (kBtu)**  - Total electricity purchased from the electrical grid as measured in thousands of British Thermo Units
-    * **Generated from Onsite Renewable Systems and Used Onsite (kWh)**  - Total electricity generated and used on the property as measured in kilowatt hours
-    * **Generated from Onsite Renewable Systems and Used Onsite (kBtu)**  - Total electricity generated and used on the property as measured in thousands of British Thermo Units
-  * **Natural Gas Use (kBtu)** - Total natural gas used on the property as measured in thousands of British Thermo Units
-  * **Fuel Oil #1 Use (kBtu)** - Total #1 fuel oil used on the property as measured in thousands of British Thermo Units
-  * **Fuel Oil #2 Use (kBtu)** - Total #2 fuel oil used on the property as measured in thousands of British Thermo Units
-  * **Fuel Oil #4 Use (kBtu)** - Total #4 fuel oil used on the property as measured in thousands of British Thermo Units
-  * **Fuel Oil #5 & 6 Use (kBtu)** - Total #5 or #6 fuel oil used on the property as measured in thousands of British Thermo Units
-  * **Diesel #2 Use (kBtu)** - Total #2 diesel used on the property as measured in thousands of British Thermo Units
-  * **Kerosene Use (kBtu)** - Total kerosene used on the property as measured in thousands of British Thermo Units
-  * **Propane Use (kBtu)** - Total propane used on the property as measured in thousands of British Thermo Units
-  * **District Steam Use (kBtu)** - Total district steam used on the property as measured in thousands of British Thermo Units
-  * **District Hot Water Use (kBtu)** - Total district hot water used on the property as measured in thousands of British Thermo Units
-  * **District Chilled Water Use (kBtu)** - Total district chilled water used on the property as measured in thousands of British Thermo Units
-  * **Coal - Anthracite Use (kBtu)** - Total anthracite coal used on the property as measured in thousands of British Thermo Units
-  * **Coal - Bituminous Use (kBtu)** - Total bituminous coal used on the property as measured in thousands of British Thermo Units
-  * **Coke Use (kBtu)** - Total coke used on the property as measured in thousands of British Thermo Units
-  * **Wood Use (kBtu)** - Total wood product used on the property as measured in thousands of British Thermo Units
-  * **Other Use (kBtu)** - Total any other energy source used on the property as measured in thousands of British Thermo Units
-  * **Site EUI (kBtu/ft²)** - The Energy Use Intensity of the site as calculated by on-site energy uses.
-  * **Source EUI (kBtu/ft²)** - The Energy Use Intensity of the site as calculated by factoring in losses and characteristics of the off-site energy generation facilities.
-  * **Weather Normalized Source EUI (kBtu/ft²)** - Source EUI as normalized by local weather metrics.
-  * **Address 2** - If needed, a second address line
-  * **Energy Current Date** - The date of the most recent energy consumption metrics
 
 ## Sample Template
 
@@ -147,6 +104,52 @@ You may obtain a copy of the template that will allow you to export and validate
   * Weather Normalized Source EUI (kBtu/ft2)
     * Should exist, should be >0, should not be "Not Available"
 
+# Municipal Benchmark Report Field Definitions
+The **Municipal Benchmark Report** is a Portfolio Manager custom report that is used to collect information from your Portfolio Manager buildings. It is uploaded into your Portfolio Manager account, populated with your portfolio data, and downloaded for validation using the Data Quality tool. This downloaded report is a standard Microsoft Excel spreadsheet that has rows for each of your buildings and columns representing the data for those buildings.
+
+The following data fields are contained in the **Municipal Benchmark Report**:
+
+  * **Property Id**  - The Portfolio Mangager property ID
+  * **Property Name** - A user friendly name of the property
+  * **Year Ending** - The Date of the final data entry
+  * **Address 1** - Street address of the property
+  * **City** - The city of the property
+  * **Country** - The country
+  * **State/Province** - The state or provence
+  * **Postal Code** - Address postal code
+  * **Property GFA** - Gross Floor Area should include all space within the building(s), including classrooms, administrative space, conference rooms, kitchens used by staff, lobbies, cafeterias, auditoriums, stairways, atriums, elevator shafts, and storage areas.
+    * **EPA Calculated** (Parking) (ft²) - Area of parking associated with the property
+    * **EPA Calculated** (Buildings) (ft²) - Floor area of the building (all floors and uses)
+    * **EPA Calculated** (Buildings and Parking) (ft²)  - Combination of building and parking areas
+  * **Primary Property Type (EPA Calculated)**- The primary use of the property (reference the Portfolio Manager Glossary)
+  * **Electricity Use** - The total of electric power used by the property represented by the specific source of the electricity. Note that in general, a single property will have only a subset of these metered sources.
+    * **Grid Purchase and Generated from Onsite Renewable Systems (kWh)** - Total electricity used as measured in kilowatt hours
+    * **Grid Purchase and Generated from Onsite Renewable Systems (kBtu)**  - Total electricity used as measured in thousands of British Thermo Units
+    * **Grid Purchase (kWh)**  - Total electricity purchased from the electrical grid as measured in kilowatt hours
+    * **Grid Purchase (kBtu)**  - Total electricity purchased from the electrical grid as measured in thousands of British Thermo Units
+    * **Generated from Onsite Renewable Systems and Used Onsite (kWh)**  - Total electricity generated and used on the property as measured in kilowatt hours
+    * **Generated from Onsite Renewable Systems and Used Onsite (kBtu)**  - Total electricity generated and used on the property as measured in thousands of British Thermo Units
+  * **Natural Gas Use (kBtu)** - Total natural gas used on the property as measured in thousands of British Thermo Units
+  * **Fuel Oil #1 Use (kBtu)** - Total #1 fuel oil used on the property as measured in thousands of British Thermo Units
+  * **Fuel Oil #2 Use (kBtu)** - Total #2 fuel oil used on the property as measured in thousands of British Thermo Units
+  * **Fuel Oil #4 Use (kBtu)** - Total #4 fuel oil used on the property as measured in thousands of British Thermo Units
+  * **Fuel Oil #5 & 6 Use (kBtu)** - Total #5 or #6 fuel oil used on the property as measured in thousands of British Thermo Units
+  * **Diesel #2 Use (kBtu)** - Total #2 diesel used on the property as measured in thousands of British Thermo Units
+  * **Kerosene Use (kBtu)** - Total kerosene used on the property as measured in thousands of British Thermo Units
+  * **Propane Use (kBtu)** - Total propane used on the property as measured in thousands of British Thermo Units
+  * **District Steam Use (kBtu)** - Total district steam used on the property as measured in thousands of British Thermo Units
+  * **District Hot Water Use (kBtu)** - Total district hot water used on the property as measured in thousands of British Thermo Units
+  * **District Chilled Water Use (kBtu)** - Total district chilled water used on the property as measured in thousands of British Thermo Units
+  * **Coal - Anthracite Use (kBtu)** - Total anthracite coal used on the property as measured in thousands of British Thermo Units
+  * **Coal - Bituminous Use (kBtu)** - Total bituminous coal used on the property as measured in thousands of British Thermo Units
+  * **Coke Use (kBtu)** - Total coke used on the property as measured in thousands of British Thermo Units
+  * **Wood Use (kBtu)** - Total wood product used on the property as measured in thousands of British Thermo Units
+  * **Other Use (kBtu)** - Total any other energy source used on the property as measured in thousands of British Thermo Units
+  * **Site EUI (kBtu/ft²)** - The Energy Use Intensity of the site as calculated by on-site energy uses.
+  * **Source EUI (kBtu/ft²)** - The Energy Use Intensity of the site as calculated by factoring in losses and characteristics of the off-site energy generation facilities.
+  * **Weather Normalized Source EUI (kBtu/ft²)** - Source EUI as normalized by local weather metrics.
+  * **Address 2** - If needed, a second address line
+  * **Energy Current Date** - The date of the most recent energy consumption metrics
 
 # Visualization 
 # Documentation 
