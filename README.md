@@ -27,7 +27,7 @@ Data is imported from an Excel spreadsheet that is populated from within Portfol
 # Using the Data Quality Tool
 
 1. Sign in to your Energy Star Portfolio Manager Account
-2. Upload the Data Quality Tool PM Report to your PM Account by pressing this link.
+2. Upload the Data Quality Tool PM Report to your PM Account by pressing this link.  [Copy Validation Template to your Portfolio Manager Account](https://portfoliomanager.energystar.gov/pm/reports/template/1732437/share/cddf455b-df6a-491f-a63f-ec9f4110b28b)
     * you will be taken to the Portfolio Manager Custom Reports dashboard.
     * there will be a new custom report named **Municipal Portfolio Benchmark** report
 3. Select the **Municipal Portfolio Benchmark** report and select **I want to" ... "Edit this Template"**
@@ -49,11 +49,22 @@ Data is imported from an Excel spreadsheet that is populated from within Portfol
   
 
 ## Sample Template
+You can also test out the **Data Quality Tool** using a [Sample PM Report](http://cms.maalka.net/resources/Municipal%20Portfolio%20Benchmariking_test%20report.xlsx). This will provide you with a full run-through of the tool. 
+
+1. [Download the Sample Report](http://cms.maalka.net/resources/Municipal%20Portfolio%20Benchmariking_test%20report.xlsx) (note - this picks up at step #5 above)
+2. go to the [**Data Quality Tool**](https://dataquality.maalka.com)
+3. Press the **Select Energy Star Portfolio Manager Report" button
+    * You will be presented with a select local file dialog
+    * Select the **Municipal Portfolio Benchmariking_test report.xlsx** Excel (xlsx) file that was downloaded in #2 above
+4. Press the **Validate** link within the Data Quality Tool.
+
+You will see the following screen: 
+![Alt text](http://cms.maalka.net/resources/DataQualityScreen.png)
 
 ## Sharing the Template
 You may obtain a copy of the template that will allow you to export and validate your Portfolio Manager data. This is accomplished by first signing into the Energy Star Portfolio Manager site, and then clicking on the following link. Careful! Clicking on the link will create a copy of the template within your own account.
 
-![Alt text](http://cms.maalka.net/resources/DataQualityScreen.png)
+
 
  [Copy Validation Template to your Portfolio Manager Account](https://portfoliomanager.energystar.gov/pm/reports/template/1732437/share/cddf455b-df6a-491f-a63f-ec9f4110b28b)
 
