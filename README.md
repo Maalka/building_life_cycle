@@ -11,6 +11,29 @@ Data is imported from an Excel spreadsheet that is populated from within Portfol
 
   * [PM GLossary](https://portfoliomanager.energystar.gov/pm/glossary)
   * [Property Type Definitions(PDF)](https://www.energystar.gov/sites/default/files/tools/Property%20Use%20Details%20and%20Definition%20Jan%202017.pdf)
+
+# Using the Data Quality Tool
+
+1. Sign in to your Energy Star Portfolio Manager Account
+2. Upload the Data Quality Tool PM Report to your PM Account by pressing this link.
+    * you will be taken to the Portfolio Manager Custom Reports dashboard.
+    * there will be a new custom report named **Municipal Portfolio Benchmark** report
+3. Select the **Municipal Portfolio Benchmark** report and select **I want to" ... "Edit this Template"**
+    * During the edit process, you will add the buildings from within your PM account that you wish to review the data quality.
+    * Save the edit template
+4. Select the **I want to" ... "Generate New Report"**
+    * This will populate the **Municipal Portfolio Benchmark** report with data from the buildings you selected during step #3.
+    * You will need to wait for the new report to be completed.
+5. Select the **I want to" ... "Download Current Report in Excel"**
+    * This will download the report to your local machine
+    * You are now ready to upload the report to the Data Quality Tool.
+6. Switch back to the **Data Quality Tool** in your browser
+7. Press the **Select Energy Star Portfolio Manager Report" button
+    * You will be presented with a select local file dialog
+    * Select the **Municipal Portfolio Benchmark** Excel (xlsx) file that was downloaded from Portfolio Manager
+8. Press the **Validate** link within the Data Quality Tool.
+
+
   
 ## Template Field Definitions
 
