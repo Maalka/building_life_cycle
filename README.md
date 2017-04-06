@@ -62,7 +62,7 @@ You will see the following screen:
 ![Alt text](http://cms.maalka.net/resources/DataQualityScreen.png)
 
 ## Sharing the Template
-You may obtain a copy of the template that will allow you to export and validate your Portfolio Manager data. This is accomplished by first signing into the Energy Star Portfolio Manager site, and then clicking on the following link. Careful! Clicking on the link will create a copy of the template within your own account.
+You may obtain a copy of the template that will allow you to export and validate your Portfolio Manager data. This is accomplished by first signing into the Energy Star Portfolio Manager site, and then clicking on the following link. 
 
 
 
