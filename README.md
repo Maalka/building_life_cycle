@@ -9,8 +9,7 @@ The Data Quality Tools allows you to:
 * The time frame of the validation is the **Current Energy Year** 
 * Easily find data that needs your attention
 
-The **Data Quality Tool** is one of many open source tools created by the [Maalka Team](http://www.maalka.com) with support from the U.S. Department of Energy Better Buildings Initiative.
-
+The **Data Quality Tool** is one of many open source tools created by the [Maalka Team](http://www.maalka.com) with support from the U.S. Department of Energy Better Buildings [Municipal Portfolio Benchmarking](https://www.maalka.com/mpb).
 
 # Portfolio Manager fields
 Data is imported from an Excel spreadsheet that is populated from within Portfolio Manager. Please references:
@@ -19,7 +18,12 @@ Data is imported from an Excel spreadsheet that is populated from within Portfol
   * [Property Type Definitions(PDF)](https://www.energystar.gov/sites/default/files/tools/Property%20Use%20Details%20and%20Definition%20Jan%202017.pdf)
 
 # Using the Data Quality Tool
-The Data Quality Tool provides a way to validate information you have stored in PM.  This includes your building meta data; it's address, when it was built, etc. as well as the metered consumption data. It can easily lead you 
+The Data Quality Tool provides a way to validate information you have stored in PM.  This includes your building meta data; it's address, the date it was built, etc. It also provides validation of current year resource consumption and analytics. It can easily lead you directly to solutions to data problems and helps in curating your Portfolio Manager data.  
+
+The steps below provide guidance in extracting your portfolio data and using the Data Quality Tool. In addition, we have prepared [a video tutorial](http://xxxxx) to help.
+
+##Data Quality Tool Steps:
+
 1. Sign in to your Energy Star Portfolio Manager Account
 2. Upload the Data Quality Tool PM Report to your PM Account by pressing this link.  [Copy Validation Template to your Portfolio Manager Account](https://portfoliomanager.energystar.gov/pm/reports/template/1732437/share/cddf455b-df6a-491f-a63f-ec9f4110b28b)
     * you will be taken to the Portfolio Manager Custom Reports dashboard.
