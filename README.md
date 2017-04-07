@@ -4,6 +4,7 @@
 The [**Data Quality Tool**](https://dataquality.maalka.com) is a simple, open source, application that allows you to validate the data you have stored within the [Energy Star Portfolio Manager (PM)](https://portfoliomanager.energystar.gov/). The tool provides an easy way to identify problems with both your building's meta data and resource consumption data. 
 
 The Data Quality Tools allows you to:
+
 * Validate PM  building meta data
 * Validate Resource Consumption data
 * The time frame of the validation is the **Current Energy Year** 
