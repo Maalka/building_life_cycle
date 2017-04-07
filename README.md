@@ -18,14 +18,8 @@ Data is imported from an Excel spreadsheet that is populated from within Portfol
   * [PM GLossary](https://portfoliomanager.energystar.gov/pm/glossary)
   * [Property Type Definitions(PDF)](https://www.energystar.gov/sites/default/files/tools/Property%20Use%20Details%20and%20Definition%20Jan%202017.pdf)
 
-
-# Data Import Template (from PM Export File)
-  -  the following .xls export is a custom set of parameters created in Portfolio Manager using annual energy data. 
-  *
-
-
 # Using the Data Quality Tool
-
+The Data Quality Tool provides a way to validate information you have stored in PM.  This includes your building meta data; it's address, when it was built, etc. as well as the metered consumption data. It can easily lead you 
 1. Sign in to your Energy Star Portfolio Manager Account
 2. Upload the Data Quality Tool PM Report to your PM Account by pressing this link.  [Copy Validation Template to your Portfolio Manager Account](https://portfoliomanager.energystar.gov/pm/reports/template/1732437/share/cddf455b-df6a-491f-a63f-ec9f4110b28b)
     * you will be taken to the Portfolio Manager Custom Reports dashboard.
