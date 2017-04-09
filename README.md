@@ -7,7 +7,7 @@ The Data Quality Tools allows you to:
 
 * Validate PM  building meta data
 * Validate Resource Consumption data
-* The time frame of the validation is the **Current Energy Year** 
+* Access the time frame of the validation in the **Current Energy Year** 
 * Easily find data that needs your attention
 
 The **Data Quality Tool** is one of many open source tools created by the [Maalka Team](http://www.maalka.com) with support from the U.S. Department of Energy Better Buildings [Municipal Portfolio Benchmarking](https://www.maalka.com/mpb) project.
@@ -67,7 +67,7 @@ You may obtain a copy of the template that will allow you to export and validate
 
  [Copy Validation Template to your Portfolio Manager Account](https://portfoliomanager.energystar.gov/pm/reports/template/1732437/share/cddf455b-df6a-491f-a63f-ec9f4110b28b)
 
-**Careful! Clicking on the link will create a copy of the template into your own account.**
+****Be Aware!** Clicking on the link will create a copy of the template into your own account.**
 
 
 
