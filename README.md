@@ -76,6 +76,7 @@ You may obtain a copy of the template that will allow you to export and validate
   - output is a csv 
 
 # Data Validation
+The **Data Validation Tool** applies a collection of rules to the data in the PM report. These rules are represented in the open source tool as a collection of programmatic conditions. They allow access to various information concerning your buildings.
 
 ### Building parameters ###
 
