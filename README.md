@@ -58,22 +58,8 @@ You can also test out the **Data Quality Tool** using a [Sample PM Report](http:
 4. Press the **Validate** link within the Data Quality Tool.
 
 You will see the following screen: 
+
 ![Alt text](http://cms.maalka.net/resources/DataQualityScreen.png)
-
-## Sharing the Template
-You may obtain a copy of the template that will allow you to export and validate your Portfolio Manager data. This is accomplished by first signing into the Energy Star Portfolio Manager site, and then clicking on the following link. 
-
-
-
- [Copy Validation Template to your Portfolio Manager Account](https://portfoliomanager.energystar.gov/pm/reports/template/1732437/share/cddf455b-df6a-491f-a63f-ec9f4110b28b)
-
-****Be Aware!** Clicking on the link will create a copy of the template into your own account.**
-
-
-
-  - having the .xls as the import via 
-  - a (python) command line tool 
-  - output is a csv 
 
 # Data Validation
 The **Data Validation Tool** applies a collection of rules to the data in the PM report. These rules are represented in the open source tool as a collection of programmatic conditions. They allow access to various information concerning your buildings.
