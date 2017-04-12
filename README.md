@@ -27,8 +27,8 @@ The steps below provide guidance in extracting your portfolio data and using the
 
 1. Sign in to your Energy Star Portfolio Manager Account
 2. Upload the Data Quality Tool PM Report to your PM Account by pressing this link.  [Copy Validation Template to your Portfolio Manager Account](https://portfoliomanager.energystar.gov/pm/reports/template/1732437/share/cddf455b-df6a-491f-a63f-ec9f4110b28b)
-    * you will be taken to the Portfolio Manager Custom Reports dashboard.
-    * there will be a new custom report named **Municipal Portfolio Benchmark** report
+    * You will be taken to the Portfolio Manager Custom Reports dashboard.
+    * There you will find a new custom report named **Municipal Portfolio Benchmark** report
 3. Select the **Municipal Portfolio Benchmark** report and select **I want to" ... "Edit this Template"**
     * During the edit process, you will add the buildings from within your PM account that you wish to review the data quality.
     * Save the edit template
@@ -172,10 +172,9 @@ The following data fields are contained in the **Municipal Benchmark Report**:
 * Documentation Website: Hosted on GitHub.  
 * Close set of validation rules
 * 12 month check
-* Close to chicago
+* Close to Chicago
 * PM Template
 * What the XLS import is. 
-
 * Develop the PM Template and develop the actual tool.  
 Data Validation checker.
 Documentation Website.
