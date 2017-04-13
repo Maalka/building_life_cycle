@@ -234,8 +234,6 @@ define(['angular'], function(angular) {
         },
         link: function (scope, elm) {
           $timeout(function () {
-            console.log(elm);
-
             angular.element(elm).popup({
               inline: scope.inline === undefined ? !(scope.popup) : scope.inline,
               popup: scope.popup === undefined ? undefined : angular.element(scope.popup),
