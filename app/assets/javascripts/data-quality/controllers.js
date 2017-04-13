@@ -1,9 +1,10 @@
 /*
  * Copyright (c) 2017. Maalka Inc. All Rights Reserved
  */
-define(['angular', 'matchmedia-ng', 'angular-file-upload'], function(angular) {
+define(['angular', 'moment', 'matchmedia-ng', 'angular-file-upload', 'moment'], function(angular, moment) {
   'use strict';
-  var DataQualityCtrl = function($rootScope, $scope, $window, $sce, $timeout, $q, $log, playRoutes, Upload, matchmedia) {
+  var DataQualityCtrl = function($rootScope, $scope, $window, $sce, $timeout, $q, 
+                            $log, playRoutes, Upload, matchmedia) {
 
     $rootScope.pageTitle = "Data Quality Tool";
     $scope.forms = {'hasValidated': false};
@@ -71,6 +72,7 @@ define(['angular', 'matchmedia-ng', 'angular-file-upload'], function(angular) {
     $scope.verificationHeaders = [];
 
     var verificationRows = [];
+
     $scope.verificationRow = function(i) { 
         return verificationRows[i];
     };
@@ -85,6 +87,36 @@ define(['angular', 'matchmedia-ng', 'angular-file-upload'], function(angular) {
         }
     };
 
+    /**
+      * Generate the tooltip for the status table
+      */
+    $scope.tooltip = function (r, i) {
+        var str, value;
+        var message = r.value;
+
+
+        if (r.value === null || r.value === undefined || r.value === "") {
+            message = "Not Defined";
+        } else if (r.valueType === "Date") {
+            message = moment(r.value).toString();
+        }
+        str = $scope.verificationHeaders[i] + ": " + message || "Not Defined";
+        if (r.message) { 
+            str += " (" + r.message + ")";
+        }
+        return str;
+    };
+
+    $scope.loadMore = function () { 
+        var i;
+        var last = $scope.verificationRows.length - 1;
+        for(i = last; i < last + 8; i += 1) {
+            if (i >= 0 && i < verificationRows.length) {
+                $scope.verificationRows[i] = $scope.verificationRow(i);
+            }
+        }
+    };
+
     var parseServerResponse = function(model) { 
         var i, j, first = true;
         verificationRows = [];
@@ -95,14 +127,23 @@ define(['angular', 'matchmedia-ng', 'angular-file-upload'], function(angular) {
                     first = false;
                 }
                 verificationRows[i] = model.result[i];
-                $scope.verificationRows[i] = i;
             }
+            verificationRows = verificationRows.sort(function (a, b) { 
+                if (a[0].value < b[0].value) { 
+                    return -1;
+                }
+                if (a[0].value > b[0].value) { 
+                    return 1;
+                }
+                return 0;
+            });
         }
     };
 
 
-    $scope.loadingFileFiller = {};
-    $scope.data = 
+    $scope.loadingFileFiller = {
+        loading: false
+    };
 
     $scope.upload = function (file,form) {
         $scope.loadingFileFiller.loading = true;
@@ -115,8 +156,10 @@ define(['angular', 'matchmedia-ng', 'angular-file-upload'], function(angular) {
 
         }).then(function (resp) {
             console.log('Success ' + resp.config.data.inputData.name + 'uploaded. Response: ' + resp.data);
-            $scope.loadingFileFiller = {};
-            parseServerResponse(resp.data)  ;
+            parseServerResponse(resp.data);
+            $scope.loadingFileFiller = {
+                loading: false
+            };
 
         }, function (resp) {
             $scope.loadingFileFiller = {'loading': true};
@@ -134,7 +177,8 @@ define(['angular', 'matchmedia-ng', 'angular-file-upload'], function(angular) {
 
   };
 
-  DataQualityCtrl.$inject = ['$rootScope', '$scope', '$window','$sce','$timeout', '$q', '$log', 'playRoutes', 'Upload', 'matchmedia'];
+  DataQualityCtrl.$inject = ['$rootScope', '$scope', '$window','$sce','$timeout', 
+        '$q', '$log', 'playRoutes', 'Upload', 'matchmedia'];
   return {
     DataQualityCtrl: DataQualityCtrl
   };

@@ -6,8 +6,9 @@
  * dashboard/main.js is the entry module which serves as an entry point so other modules only have
  * to include a single module.
  */
-define(['angular', './routes', './services', 'common'], function(angular) {
+define(['angular', './routes', './services', 'common', 'ng-infinite-scroll'], function(angular) {
   'use strict';
 
-  return angular.module('dataQuality.dashboard', ['ngRoute', 'dataQuality.routes', 'dataQuality.services', 'maalka.common.directives']);
+  return angular.module('dataQuality.dashboard', ['ngRoute', 'dataQuality.routes', 
+                    'dataQuality.services', 'maalka.common.directives', 'infinite-scroll']);
 });

@@ -35,6 +35,7 @@ object Validator {
                                            validatorCategory: Option[String],
                                            valid: Boolean,
                                            value: Option[Any],
+                                           valueType: Option[String] = None,
                                            message: Option[String] = None,
                                            details: Seq[ValidatedDocumentDetails] = Seq()
                                           )
@@ -55,6 +56,7 @@ object Validator {
         case Some(obj: DateTime) => Json.toJson(obj)
         case _ => Json.toJson(None)
       }),
+      ("valueType", Json.toJson(obj.valueType)),
       ("message", Json.toJson(obj.message)),
       ("details", Json.toJson(obj.details))
     )

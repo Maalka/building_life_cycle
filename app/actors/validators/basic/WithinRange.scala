@@ -8,6 +8,7 @@ import models.MaalkaMeterData
 import play.api.libs.json.JsObject
 
 import scala.concurrent.Future
+import scala.util.{Failure, Success, Try}
 
 /**
   * Validates that MaterData includes 'usage' that is within range passed in as argument
@@ -46,12 +47,21 @@ case class WithinRange(guid: String,
   def isValid(refId: UUID, value: Option[MaalkaMeterData]):Future[MapValid] = {
     Future {
       value.flatMap{ v => v.usage }.flatMap { v =>
+        Console.println(v)
+        Console.println(arguments)
         arguments.map { arg =>
-          (arg \ "min").asOpt[Int] -> (arg \ "max").asOpt[Int] match {
-            case (Some(l), Some(r)) if l < v && r > v => true
-            case (Some(l), None) if l < v => true
-            case (None, Some(r)) if r > v => true
-            case (None, None) => false
+          Try {
+            (arg \ "min").asOpt[Float] -> (arg \ "max").asOpt[Float] match {
+              case (Some(l), Some(r)) if l < v && r > v => true
+              case (Some(l), None) if l < v => true
+              case (None, Some(r)) if r > v => true
+              case a => false
+            }
+          } match {
+            case Success(h) => h
+            case Failure(th) =>
+              logger.error(th, "Error validating")
+              throw th
           }
         }.map( (v, _))
       }.map {

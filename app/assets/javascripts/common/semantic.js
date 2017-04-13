@@ -2,7 +2,7 @@
  * Copyright (c) 2017. Maalka Inc. All Rights Reserved
  */
  
-define(['angular', 'semantic-daterangepicker'], function(angular) {
+define(['angular'], function(angular) {
   'use strict';
 
     var mod = angular.module('maalka.common.semantic', []);
@@ -248,33 +248,6 @@ define(['angular', 'semantic-daterangepicker'], function(angular) {
               }
             });
           }, 0);
-        }
-      };
-    }]);
-    mod.directive('daterangepicker', [function() {
-      return {
-        restrict: "A",
-        scope: {
-          xeditable: "=",
-          model: "=",
-          startDate: "=",
-          format: "="
-        },
-        link: function(scope, elm) { 
-          var format = scope.format || "MM/DD/YYYY";
-          angular.element(elm).daterangepicker({
-            "autoApply": true,
-            "startDate": scope.model,
-            "singleDatePicker": true
-          }).on('apply.daterangepicker', function(ev, picker) { 
-            scope.model = picker.startDate.format(format);
-            angular.element(elm).submit();
-          }).on('show.daterangepicker', function () {
-            angular.element(".daterangepicker").on('click', function (e) { 
-              // stop the calendar click events from triggering the xeditable directive;
-              e.stopPropagation();
-            });
-          });
         }
       };
     }]);
