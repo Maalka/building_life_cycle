@@ -45,28 +45,30 @@ case class WithinRange(guid: String,
   import play.api.libs.concurrent.Execution.Implicits._
 
   def isValid(refId: UUID, value: Option[MaalkaMeterData]):Future[MapValid] = {
+    log.debug("Found value: {}", value)
     Future {
       value.flatMap{ v => v.usage }.flatMap { v =>
-        Console.println(v)
-        Console.println(arguments)
         arguments.map { arg =>
-          Try {
-            (arg \ "min").asOpt[Float] -> (arg \ "max").asOpt[Float] match {
-              case (Some(l), Some(r)) if l < v && r > v => true
-              case (Some(l), None) if l < v => true
-              case (None, Some(r)) if r > v => true
-              case a => false
-            }
-          } match {
-            case Success(h) => h
-            case Failure(th) =>
-              logger.error(th, "Error validating")
-              throw th
+          val min = (arg \ "min").asOpt[Int] orElse (arg \ "min").asOpt[String].map(_.toInt)
+          val max = (arg \ "max").asOpt[Int] orElse (arg \ "max").asOpt[String].map(_.toInt)
+
+          val g = MapValid(true, Option(v.toString))
+
+          (min, max) match {
+            case (Some(l), Some(r)) if v > l && v < r => true
+            case (Some(l), None) if v > l => true
+            case (None, Some(r)) if v < r => true
+            case (None, None) => false
+            case _ => false
           }
+
         }.map( (v, _))
       }.map {
-        case (v, true) => MapValid(valid = true, Option(v.toString))
-        case (v, false) => MapValid(valid = false, Option(v.toString))
+        case (v, true) =>
+          val g = MapValid(true, Option(v.toString))
+          MapValid(true, Option(v.toString))
+        case (v, false) =>
+          MapValid(false, Option(v.toString))
       }.getOrElse(
         MapValid(valid = false, Option("Not Defined"))
       )
