@@ -44,6 +44,7 @@ case class Numeric(guid: String,
   val validator = "validation_numeric"
 
   def isValid(refId: UUID, value: Option[MaalkaMeterData]): Future[MapValid] = {
+    log.debug("Validation Numaric: {}", value)
     Future {
       value match {
         case Some(a) =>

@@ -108,11 +108,12 @@ trait BedesValidator extends Actor with ActorLogging with Validator[Seq[BEDESTra
         v._2.map(_ -> d)
       }
       self forward UpdateObjectValidatedDocument(refId, validator, bedesCompositeName,
-        validatorCategory, valid = valids.valid, ov.map(_._1), ov.map(_._2),
+        validatorCategory, valid = valids.valid, ov.map(_._1), ov.flatMap(_._2),
         valids.message, valids.details)
     }
     future.recover {
       case NonFatal(th) =>
+        log.error(th, "Error Validating")
         self forward UpdateObjectValidatedDocument(refId, validator,
           bedesCompositeName, validatorCategory,
           valid = false, Option(th.getMessage))
@@ -124,8 +125,15 @@ trait BedesValidator extends Actor with ActorLogging with Validator[Seq[BEDESTra
       val jobId = UUID.randomUUID()
       val actor = context.actorOf(validator(guid, name, propertyId, validatorCategory, None))
 
-      val md = value.flatMap(_.find(_.getCompositeName.contains(bedesCompositeName)))
+      val md = Try {
+        value.flatMap(_.find(_.getCompositeName.contains(bedesCompositeName)))
           .flatMap(transformResultToMeterData)
+      } match {
+        case Success(v) => v
+        case Failure(th) =>
+          log.error(th, "Error")
+          throw th
+      }
 
       actor ? Validator.Value(jobId, md)
 

@@ -19,8 +19,7 @@ dockerRepository := Some("maalka")
 dockerUpdateLatest := true
 
 scalaVersion := "2.11.8"
-
-lazy val maalkaBedes = RootProject( uri("ssh://git@bitbucket.org/maalka/bedes.git#feature/volttron"))
+lazy val maalkaBedes = RootProject( uri("ssh://git@bitbucket.org/maalka/bedes.git#feature/Play25migration"))
 lazy val maalkaApp = (project in file(".")).enablePlugins(SbtWeb, PlayScala, SbtNativePackager,
   BuildInfoPlugin).dependsOn(maalkaBedes)
 
@@ -48,7 +47,8 @@ libraryDependencies ++= Seq(
   "org.webjars.bower" % "ng-file-upload" % "12.2.13",
   "org.webjars.bower" % "ng-csv" % "0.3.6",
   "org.webjars.bower" % "ngInfiniteScroll" % "1.3.0",
-  "org.webjars.bower" % "moment" % "2.18.1"
+  "org.webjars.bower" % "moment" % "2.18.1",
+  "net.sourceforge.htmlunit" % "htmlunit" % "2.27"
 
 )
 
