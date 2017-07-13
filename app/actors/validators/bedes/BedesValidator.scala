@@ -13,13 +13,14 @@ import akka.stream.{ActorMaterializer, ActorMaterializerSettings, Supervision}
 import akka.stream.scaladsl.Source
 import com.maalka.bedes.BEDESTransformResult
 import models.MaalkaMeterData
+import org.joda.time.DateTime
 import play.api.libs.json.JsObject
 
 import scala.concurrent.Future
 import scala.util.control.NonFatal
 import scala.concurrent.duration._
 import scala.concurrent.ExecutionContext.Implicits.global
-import scala.util.{Failure, Try, Success}
+import scala.util.{Failure, Success, Try}
 
 trait BedesValidatorCompanion {
   def props(guid: String,
@@ -70,16 +71,24 @@ trait BedesValidator extends Actor with ActorLogging with Validator[Seq[BEDESTra
 
   def transformResultToMeterData(transformResult: BEDESTransformResult): Option[MaalkaMeterData] = {
     val meterData = transformResult.getData.toSeq collect {
+      case (key, Some(value: DateTime)) =>
+        log.debug("Transforming datetime: {}", value)
+        MaalkaMeterData(None, None, "",
+          Option(transformResult.startTime), Option(transformResult.endTime), usage = Option(value.getMillis),
+          cost = None, estimatedValue = None)
       case (key, Some(value: Long)) =>
+        log.debug("Transforming long: {}", value)
         MaalkaMeterData(None, None, "",
           Option(transformResult.startTime), Option(transformResult.endTime), usage = Option(value),
           cost = None, estimatedValue = None)
 
       case (key, Some(value: Int)) =>
+        log.debug("Transforming int: {}", value)
         MaalkaMeterData(None, None, "",
           Option(transformResult.startTime), Option(transformResult.endTime), usage = Option(value),
           cost = None, estimatedValue = None)
       case (key, Some(value: Double)) =>
+        log.debug("Transforming double: {}", value)
         MaalkaMeterData(None, None, "",
           Option(transformResult.startTime), Option(transformResult.endTime), usage = Option(value),
           cost = None, estimatedValue = None)

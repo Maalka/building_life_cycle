@@ -49,11 +49,11 @@ case class WithinRange(guid: String,
     Future {
       value.flatMap{ v => v.usage }.flatMap { v =>
         arguments.map { arg =>
-          val min = (arg \ "min").asOpt[Int] orElse (arg \ "min").asOpt[String].map(_.toInt)
-          val max = (arg \ "max").asOpt[Int] orElse (arg \ "max").asOpt[String].map(_.toInt)
+          val min = (arg \ "min").asOpt[Long] orElse (arg \ "min").asOpt[String].map(_.toLong)
+          val max = (arg \ "max").asOpt[Long] orElse (arg \ "max").asOpt[String].map(_.toLong)
 
           val g = MapValid(true, Option(v.toString))
-
+          log.debug("Arguments: min {} max {} value", min, max, value)
           (min, max) match {
             case (Some(l), Some(r)) if v > l && v < r => true
             case (Some(l), None) if v > l => true
