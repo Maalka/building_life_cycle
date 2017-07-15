@@ -1,23 +1,20 @@
+package tests.actors.validators.bedes
+
 import java.util.UUID
 
 import actors.validators.Validator
 import actors.validators.Validator.UpdateObjectValidatedDocument
-import actors.validators.bedes.PremisesAddressLine1
-import akka.actor.{Actor, ActorSystem, Props}
+import actors.validators.bedes.PremisesCity
+import akka.actor.ActorSystem
 import akka.testkit.{ImplicitSender, _}
+import com.maalka.bedes.{BEDESTransformTable, BedesDefinition}
 import org.junit.runner.RunWith
-import org.scalatest._
 import org.specs2.mutable.SpecificationLike
-import org.specs2.specification._
 import org.specs2.runner.JUnitRunner
-import com.maalka.bedes.{BEDESRow, BEDESTransformResult, BEDESTransformTable, BedesDefinition}
-import org.apache.poi.ss.formula.functions.Rows
-
-import scala.concurrent.duration._
 
 
 @RunWith(classOf[JUnitRunner])
-class PremisesAddressLine1Spec() extends TestKit(ActorSystem("MySpec")) with ImplicitSender
+class PremisesCitySpec() extends TestKit(ActorSystem("MySpec")) with ImplicitSender
   with SpecificationLike {
   sequential
 
@@ -28,9 +25,9 @@ class PremisesAddressLine1Spec() extends TestKit(ActorSystem("MySpec")) with Imp
       val bedesDefinition = BedesDefinition()
 
       val transformResult = BEDESTransformTable.defaultTable.findBedesComposite(
-        "Address 1", None, None, bedesDefinition, false)
+        "City", None, None, bedesDefinition, false)
 
-      system.actorOf(PremisesAddressLine1.props("", "", "", None, None)) ! Validator.Value(UUID.randomUUID(), Option(Seq(transformResult)))
+      system.actorOf(PremisesCity.props("", "", "", None, None)) ! Validator.Value(UUID.randomUUID(), Option(Seq(transformResult)))
       val validationResult = expectMsgClass(classOf[UpdateObjectValidatedDocument])
       validationResult.valid mustEqual false
     }
@@ -40,9 +37,9 @@ class PremisesAddressLine1Spec() extends TestKit(ActorSystem("MySpec")) with Imp
       val bedesDefinition = BedesDefinition()
 
       val transformResult = BEDESTransformTable.defaultTable.findBedesComposite(
-        "Address 1", Some("Address 1"), None, bedesDefinition, false)
+        "City", Some("City"), None, bedesDefinition, false)
 
-      system.actorOf(PremisesAddressLine1.props("", "", "", None, None)) ! Validator.Value(UUID.randomUUID(), Option(Seq(transformResult)))
+      system.actorOf(PremisesCity.props("", "", "", None, None)) ! Validator.Value(UUID.randomUUID(), Option(Seq(transformResult)))
       val validationResult = expectMsgClass(classOf[UpdateObjectValidatedDocument])
       Console.println(validationResult)
       validationResult.valid mustEqual true

@@ -1,19 +1,20 @@
+package tests.actors.validators.bedes
+
 import java.util.UUID
 
 import actors.validators.Validator
 import actors.validators.Validator.UpdateObjectValidatedDocument
-import actors.validators.bedes.PremisesCountry
+import actors.validators.bedes.PremisesAddressLine1
 import akka.actor.ActorSystem
 import akka.testkit.{ImplicitSender, _}
+import com.maalka.bedes.{BEDESTransformTable, BedesDefinition}
 import org.junit.runner.RunWith
 import org.specs2.mutable.SpecificationLike
 import org.specs2.runner.JUnitRunner
-import com.maalka.bedes.{BEDESTransformTable, BedesDefinition}
-
 
 
 @RunWith(classOf[JUnitRunner])
-class PremisesCountrySpec() extends TestKit(ActorSystem("MySpec")) with ImplicitSender
+class PremisesAddressLine1Spec() extends TestKit(ActorSystem("MySpec")) with ImplicitSender
   with SpecificationLike {
   sequential
 
@@ -24,9 +25,9 @@ class PremisesCountrySpec() extends TestKit(ActorSystem("MySpec")) with Implicit
       val bedesDefinition = BedesDefinition()
 
       val transformResult = BEDESTransformTable.defaultTable.findBedesComposite(
-        "Country", None, None, bedesDefinition)
+        "Address 1", None, None, bedesDefinition, false)
 
-      system.actorOf(PremisesCountry.props("", "", "", None, None)) ! Validator.Value(UUID.randomUUID(), Option(Seq(transformResult)))
+      system.actorOf(PremisesAddressLine1.props("", "", "", None, None)) ! Validator.Value(UUID.randomUUID(), Option(Seq(transformResult)))
       val validationResult = expectMsgClass(classOf[UpdateObjectValidatedDocument])
       validationResult.valid mustEqual false
     }
@@ -36,10 +37,11 @@ class PremisesCountrySpec() extends TestKit(ActorSystem("MySpec")) with Implicit
       val bedesDefinition = BedesDefinition()
 
       val transformResult = BEDESTransformTable.defaultTable.findBedesComposite(
-        "Country", Some("Country"), None, bedesDefinition)
+        "Address 1", Some("Address 1"), None, bedesDefinition, false)
 
-      system.actorOf(PremisesCountry.props("", "", "", None, None)) ! Validator.Value(UUID.randomUUID(), Option(Seq(transformResult)))
+      system.actorOf(PremisesAddressLine1.props("", "", "", None, None)) ! Validator.Value(UUID.randomUUID(), Option(Seq(transformResult)))
       val validationResult = expectMsgClass(classOf[UpdateObjectValidatedDocument])
+      Console.println(validationResult)
       validationResult.valid mustEqual true
     }
   }

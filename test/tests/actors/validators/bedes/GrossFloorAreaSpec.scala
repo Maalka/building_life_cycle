@@ -1,19 +1,16 @@
+package tests.actors.validators.bedes
+
 import java.util.UUID
 
 import actors.validators.Validator
 import actors.validators.Validator.UpdateObjectValidatedDocument
 import actors.validators.bedes.GrossFloorArea
-import akka.actor.{Actor, ActorSystem, Props}
+import akka.actor.ActorSystem
 import akka.testkit.{ImplicitSender, _}
+import com.maalka.bedes.{BEDESTransformTable, BedesDefinition}
 import org.junit.runner.RunWith
-import org.scalatest._
 import org.specs2.mutable.SpecificationLike
-import org.specs2.specification._
 import org.specs2.runner.JUnitRunner
-import com.maalka.bedes.{BEDESRow, BEDESTransformResult, BEDESTransformTable, BedesDefinition}
-import org.apache.poi.ss.formula.functions.Rows
-
-import scala.concurrent.duration._
 
 
 @RunWith(classOf[JUnitRunner])

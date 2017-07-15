@@ -133,7 +133,6 @@ trait BedesValidator extends Actor with ActorLogging with Validator[Seq[BEDESTra
     Source.fromIterator { () => componentValidators.toIterator }.mapAsync(1) { validator =>
       val jobId = UUID.randomUUID()
       val actor = context.actorOf(validator(guid, name, propertyId, validatorCategory, None))
-
       val md = Try {
         value.flatMap(_.find(_.getCompositeName.contains(bedesCompositeName)))
           .flatMap(transformResultToMeterData)
@@ -143,7 +142,6 @@ trait BedesValidator extends Actor with ActorLogging with Validator[Seq[BEDESTra
           log.error(th, "Error")
           throw th
       }
-
       actor ? Validator.Value(jobId, md)
 
     }.fold(Seq.empty[UpdateObjectValidatedDocument]) {

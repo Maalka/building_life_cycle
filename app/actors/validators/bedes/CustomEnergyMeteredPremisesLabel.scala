@@ -51,7 +51,7 @@ case class CustomEnergyMeteredPremisesLabel(guid: String,
   def isValid(refId: UUID, value: Option[Seq[BEDESTransformResult]]): Future[Validator.MapValid] = {
     sourceValidateFromComponents(value).map { results =>
       if (results.exists(_.valid == false)) {
-        Validator.MapValid(valid = false, Option("Whole Building Energy Use"))
+        Validator.MapValid(valid = false, Option("Missing Whole Building Energy Use"))
       } else {
         Validator.MapValid(valid = true, None)
       }

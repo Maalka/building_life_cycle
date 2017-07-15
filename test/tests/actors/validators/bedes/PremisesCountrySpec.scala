@@ -1,23 +1,21 @@
+package tests.actors.validators.bedes
+
 import java.util.UUID
 
 import actors.validators.Validator
 import actors.validators.Validator.UpdateObjectValidatedDocument
-import actors.validators.bedes.{PremisesAddressLine1, PremisesCity}
-import akka.actor.{Actor, ActorSystem, Props}
+import actors.validators.bedes.PremisesCountry
+import akka.actor.ActorSystem
 import akka.testkit.{ImplicitSender, _}
+import com.maalka.bedes.{BEDESTransformTable, BedesDefinition}
 import org.junit.runner.RunWith
-import org.scalatest._
 import org.specs2.mutable.SpecificationLike
-import org.specs2.specification._
 import org.specs2.runner.JUnitRunner
-import com.maalka.bedes.{BEDESRow, BEDESTransformResult, BEDESTransformTable, BedesDefinition}
-import org.apache.poi.ss.formula.functions.Rows
 
-import scala.concurrent.duration._
 
 
 @RunWith(classOf[JUnitRunner])
-class PremisesCitySpec() extends TestKit(ActorSystem("MySpec")) with ImplicitSender
+class PremisesCountrySpec() extends TestKit(ActorSystem("MySpec")) with ImplicitSender
   with SpecificationLike {
   sequential
 
@@ -28,11 +26,12 @@ class PremisesCitySpec() extends TestKit(ActorSystem("MySpec")) with ImplicitSen
       val bedesDefinition = BedesDefinition()
 
       val transformResult = BEDESTransformTable.defaultTable.findBedesComposite(
-        "City", None, None, bedesDefinition, false)
+        "Country", None, None, bedesDefinition)
 
-      system.actorOf(PremisesCity.props("", "", "", None, None)) ! Validator.Value(UUID.randomUUID(), Option(Seq(transformResult)))
+      system.actorOf(PremisesCountry.props("", "", "", None, None)) ! Validator.Value(UUID.randomUUID(), Option(Seq(transformResult)))
       val validationResult = expectMsgClass(classOf[UpdateObjectValidatedDocument])
       validationResult.valid mustEqual false
+      success
     }
   }
   "An string BEDESTransformResult " should {
@@ -40,12 +39,12 @@ class PremisesCitySpec() extends TestKit(ActorSystem("MySpec")) with ImplicitSen
       val bedesDefinition = BedesDefinition()
 
       val transformResult = BEDESTransformTable.defaultTable.findBedesComposite(
-        "City", Some("City"), None, bedesDefinition, false)
+        "Country", Some("Country"), None, bedesDefinition)
 
-      system.actorOf(PremisesCity.props("", "", "", None, None)) ! Validator.Value(UUID.randomUUID(), Option(Seq(transformResult)))
+      system.actorOf(PremisesCountry.props("", "", "", None, None)) ! Validator.Value(UUID.randomUUID(), Option(Seq(transformResult)))
       val validationResult = expectMsgClass(classOf[UpdateObjectValidatedDocument])
-      Console.println(validationResult)
       validationResult.valid mustEqual true
+      success
     }
   }
 }
