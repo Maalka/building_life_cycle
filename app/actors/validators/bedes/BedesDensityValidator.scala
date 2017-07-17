@@ -46,11 +46,11 @@ case class BedesDensityValidator(guid: String,
     (arg \ "compositeName").asOpt[String]
   }.get
 
-  val min: Option[Long] = arguments.flatMap { arg =>
-    (arg \ "min").asOpt[Long] orElse (arg \ "min").asOpt[String].map(_.toLong)
+  val min: Option[Double] = arguments.flatMap { arg =>
+    (arg \ "min").asOpt[Double] orElse (arg \ "min").asOpt[String].map(_.toLong)
   }
-  val max: Option[Long] = arguments.flatMap { arg =>
-    (arg \ "max").asOpt[Long] orElse (arg \ "max").asOpt[String].map(_.toLong)
+  val max: Option[Double] = arguments.flatMap { arg =>
+    (arg \ "max").asOpt[Double] orElse (arg \ "max").asOpt[String].map(_.toLong)
   }
 
   val componentValidators = Seq(
@@ -96,7 +96,6 @@ case class BedesDensityValidator(guid: String,
           case results if results.lift(2).exists(!_.valid) =>
             MapValid(valid = false, Option("%s out of range (%s - %s)".format(bedesCompositeName, min, max)))
           case results =>
-            Console.println(results)
             MapValid(valid = true, None)
         }.runWith(Sink.head)
       case None =>

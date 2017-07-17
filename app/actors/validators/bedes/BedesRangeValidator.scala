@@ -42,6 +42,7 @@ case class BedesRangeValidator(guid: String,
   implicit val materializer = ActorMaterializer()
 
   val validator = "bedes_range_validator"
+
   override val bedesCompositeName: String = arguments.flatMap { arg =>
     (arg \ "compositeName").asOpt[String]
   }.get
@@ -69,7 +70,6 @@ case class BedesRangeValidator(guid: String,
       case results if results.lift(2).exists(!_.valid) =>
         MapValid(valid = false, Option("%s out of range (%s - %s)".format(bedesCompositeName, min, max)))
       case results =>
-        Console.println(results)
         MapValid(valid = true, None)
     }.runWith(Sink.head)
   }

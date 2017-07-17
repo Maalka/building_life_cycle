@@ -93,7 +93,6 @@ case class EnergyStarScoreAssessmentValue(guid: String,
         case results if results.lift(2).exists(!_.valid) =>
           MapValid(valid = false, Option("ENERGY STAR Score Assessment Value out of range (1 - 100)"))
         case results =>
-          Console.println(results)
           MapValid(valid = true, None)
       }.runWith(Sink.head)
 
