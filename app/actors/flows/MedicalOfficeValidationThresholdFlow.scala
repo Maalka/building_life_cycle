@@ -21,10 +21,12 @@ class MedicalOfficeValidationThresholdFlow @Inject ()( override implicit val act
 
   val bedesUse = Seq("Medical Office", "Health care-Outpatient non-diagnostic")
 
+  val parentValidator = "Medical Office"
+
   val rangeFields = Seq(
-    BedesValidationThreshold("Site Energy Resource Intensity", 84, 570),
+    BedesValidationThreshold("Source Energy Resource Intensity", 84, 570),
     //BedesValidationThreshold("Health Care-Outpatient Non-diagnostic Gross Area", 7114, 202354))
-    BedesValidationThreshold("Gross Floor Area", 7114, 202354)
+    BedesValidationThreshold("EPA Calculated Gross Floor Area", 7114, 202354)
   )
 
   val densityFields = Seq(

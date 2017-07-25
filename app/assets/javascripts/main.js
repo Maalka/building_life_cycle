@@ -83,7 +83,7 @@
       'matchmedia-ng': '../lib/matchmedia-ng/matchmedia-ng',
       'ng-csv': '../lib/ng-csv/build/ng-csv',
       'ng-infinite-scroll': '../lib/ngInfiniteScroll/build/ng-infinite-scroll',      
-      'semantic': '../semantic-ui/semantic.min',
+      'semantic': '../lib/semantic-ui/dist/semantic',
       'jsRoutes': '/jsroutes',
       'json-formatter': '../lib/json-formatter/dist/json-formatter',
       'maalka-templates': '../templates'

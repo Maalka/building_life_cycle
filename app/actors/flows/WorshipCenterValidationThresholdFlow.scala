@@ -21,10 +21,12 @@ class WorshipCenterValidationThresholdFlow @Inject ()( override implicit val act
 
   val bedesUse = Seq("Worship Facility", "Assembly-Religious")
 
+  val parentValidator = "Worship Facility"
+
   val rangeFields = Seq(
-    BedesValidationThreshold("Site Energy Resource Intensity", 29, 228),
+    BedesValidationThreshold("Source Energy Resource Intensity", 29, 228),
     //BedesValidationThreshold("Assembly-Religious Gross Area", 5136, 110000),
-    BedesValidationThreshold("Gross Floor Area", 5136, 110000),
+    BedesValidationThreshold("EPA Calculated Gross Floor AreaEPA Calculated Gross Floor Area", 5136, 110000),
 
     BedesValidationThreshold("Assembly-Religious Business Average Weekly Hours", 10, 98)
   )

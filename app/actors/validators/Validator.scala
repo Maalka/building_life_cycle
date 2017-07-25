@@ -29,10 +29,13 @@ object Validator {
   case class Validate(refId: UUID, value: Option[Any] = None) extends ActorMessage
   case class Validated(refId: UUID) extends ActorMessage
   case class ValidatedDocumentDetails(valid: Boolean, message: Option[String])
+
+  implicit val validatedDocumentDetailFormatter = Json.format[ValidatedDocumentDetails]
   case class UpdateObjectValidatedDocument(refId: UUID,
                                            validatorKey: String,
                                            validator: String,
                                            validatorCategory: Option[String],
+                                           parentValidator: Option[String] = None,
                                            valid: Boolean,
                                            value: Option[Any],
                                            valueType: Option[String] = None,
@@ -45,16 +48,16 @@ object Validator {
       ("refId", Json.toJson(obj.refId)),
       ("validatorKey", Json.toJson(obj.validatorKey)),
       ("validator", Json.toJson(obj.validator)),
+      ("parentValidator", Json.toJson(obj.parentValidator)),
       ("validatorCategory", Json.toJson(obj.validatorCategory)),
       ("valid", Json.toJson(obj.valid)),
-      ("value", obj.value match {
-        case Some(obj: Long) => Json.toJson(obj)
-        case Some(obj: String) => Json.toJson(obj)
-        case Some(obj: Double) => Json.toJson(obj)
-        case Some(obj: Float) => Json.toJson(obj)
-        case Some(obj: Int) => Json.toJson(obj)
-        case Some(obj: DateTime) => Json.toJson(obj)
-        case _ => Json.toJson(None)
+      ("value", obj.value.collect {
+        case obj: Long => Json.toJson(obj)
+        case obj: String => Json.toJson(obj)
+        case obj: Double => Json.toJson(obj)
+        case obj: Float => Json.toJson(obj)
+        case obj: Int => Json.toJson(obj)
+        case obj: DateTime => Json.toJson(obj)
       }),
       ("valueType", Json.toJson(obj.valueType)),
       ("message", Json.toJson(obj.message)),

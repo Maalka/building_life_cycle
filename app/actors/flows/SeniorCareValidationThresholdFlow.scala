@@ -21,10 +21,12 @@ class SeniorCareValidationThresholdFlow @Inject ()( override implicit val actorS
 
   val bedesUse = Seq("Senior Care Community", "Skilled nursing facility")
 
+  val parentValidator = "Senior Care Community"
+
   val rangeFields = Seq(
-    BedesValidationThreshold("Site Energy Resource Intensity", 103, 433),
+    BedesValidationThreshold("Source Energy Resource Intensity", 103, 433),
     //BedesValidationThreshold("Health Care-Skilled Nursing Facility Gross Area", 16036, 230700)),
-  BedesValidationThreshold("Gross Floor Area", 16036, 230700))
+  BedesValidationThreshold("EPA Calculated Gross Floor Area", 16036, 230700))
 
 
   val densityFields = Seq(

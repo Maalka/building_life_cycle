@@ -21,9 +21,11 @@ class HospitalValidationThresholdFlow @Inject ()( override implicit val actorSys
 
   override val bedesUse = Seq("Hospital (General Medical & Surgical)", "Health care-Inpatient hospital")
 
+  val parentValidator = "Hospital (General Medical & Surgical)"
+
   override val rangeFields = Seq(
-    BedesValidationThreshold("Site Energy Resource Intensity", 211, 211),
-    BedesValidationThreshold("Gross Floor Area", 54000, 1426994))
+    BedesValidationThreshold("Source Energy Resource Intensity", 211, 211),
+    BedesValidationThreshold("EPA Calculated Gross Floor Area", 54000, 1426994))
 
   override val densityFields = Seq(
     BedesValidationThreshold("Health Care-Inpatient Hospital Workers on Main Shift Quantity", 1.2, 4.0),

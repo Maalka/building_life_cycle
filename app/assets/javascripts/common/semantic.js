@@ -225,30 +225,28 @@ define(['angular'], function(angular) {
     }]);
     mod.directive('popup', ["$log", "$timeout", function ($log, $timeout) { 
       return {
-        restrict: "E",
+        restrict: "EA",
         scope: {
           "inline" : "=",
           "popup" : "=",
           "on": "=",
-          "position": "="
+          "popupPosition": "="
         },
-        link: function (scope, elm) {
-          $timeout(function () {
+        link: function (scope, elm, attr) {
             angular.element(elm).popup({
               inline: scope.inline === undefined ? !(scope.popup) : scope.inline,
-              popup: scope.popup === undefined ? undefined : angular.element(scope.popup),
+              popup: scope.popup === undefined ? undefined : $(scope.popup),
               hoverable: true,
-              debug: true,
-              position : "bottom right",
+              position : scope.popupPosition === undefined ? "left center" : scope.popupPosition,
               delay: {
-                show: 300,
-                hide: 800
+                show: 0,
+                hide: 50
               }
             });
-          }, 0);
         }
       };
     }]);
+
     mod.directive('menu', ["$log", function ($log) {
       return {
         restrict: "C",

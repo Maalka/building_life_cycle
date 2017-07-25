@@ -24,7 +24,7 @@ import com.maalka.bedes.BEDESTransformResult
 class  ValidateFlow @Inject () (implicit actorSystem: ActorSystem,
                                 bankValidationFlow: BankValidationThresholdFlow,
                                 courhouseValidationFlow: CourthouseValidationThresholdFlow,
-                                financialOfficeValiatinFlow: FinancialOfficeValidationThresholdFlow,
+                                financialOfficeValiationFlow: FinancialOfficeValidationThresholdFlow,
                                 hospitalValidationFlow: HospitalValidationThresholdFlow,
                                 hotelValidationFlow: HotelValidationThresholdFlow,
                                 k12SchoolsValidationFlow: K12SchoolsValidationThresholdFlow,
@@ -62,7 +62,7 @@ class  ValidateFlow @Inject () (implicit actorSystem: ActorSystem,
     val thresholdValidators = Seq(
       bankValidationFlow,
       courhouseValidationFlow,
-      financialOfficeValiatinFlow,
+      //financialOfficeValiationFlow,
       hospitalValidationFlow,
       hotelValidationFlow,
       k12SchoolsValidationFlow,
@@ -102,13 +102,20 @@ class  ValidateFlow @Inject () (implicit actorSystem: ActorSystem,
 
 
     val in = builder.add(Broadcast[Seq[BEDESTransformResult]](2))
-    val o = builder.add(Merge[Seq[Seq[Either[Throwable, UpdateObjectValidatedDocument]]]](2))
+
+    val o = builder.add(ZipWith[Seq[Seq[Either[Throwable, UpdateObjectValidatedDocument]]],
+      Seq[Seq[Either[Throwable, UpdateObjectValidatedDocument]]],
+      Seq[Seq[Either[Throwable, UpdateObjectValidatedDocument]]]] {
+      case (a, b) => a ++ b
+    })
 
     in.out(0) ~> thresholdFanOut
     in.out(1) ~> validatorsFanOut
 
-    thresholdZip ~> o
-    validatorsZip ~> o
+
+    validatorsZip ~> o.in0
+    thresholdZip ~> o.in1
+
     FlowShape(in.in, o.out)
 
   })

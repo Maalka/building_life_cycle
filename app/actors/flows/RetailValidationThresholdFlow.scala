@@ -20,10 +20,12 @@ class RetailValidationThresholdFlow @Inject ()( override implicit val actorSyste
 
   override val bedesUse = Seq("Retail Store", "Retail-Dry goods retail")
 
+  val parentValidator = "Retail Store"
+
   override val rangeFields = Seq(
-    BedesValidationThreshold("Site Energy Resource Intensity", 69, 400),
+    BedesValidationThreshold("Source Energy Resource Intensity", 69, 400),
     //BedesValidationThreshold("Retail-Dry Goods Retail Gross Area", 7016, 127455),
-    BedesValidationThreshold("Gross Floor Area", 7016, 127455),
+    BedesValidationThreshold("EPA Calculated Gross Floor Area", 7016, 127455),
 
       BedesValidationThreshold("Retail-Dry Goods Retail Business Average Weekly Hours", 71, 168)
   )

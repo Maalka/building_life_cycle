@@ -57,7 +57,8 @@ class DataQuality @Inject()(
 
     request.body.file("inputData").map { file =>
       Source.fromIterator(() => BEDESTransform.fromXLS(None, file.ref.file, None, None))
-        .groupBy(1000, _._1.propertyId.get)
+        .groupBy(10000, _._1.propertyId.get)
+          .log("Validating Property")
         .fold(Seq.empty[BEDESTransformResult])(_ :+ _._1)
         .mergeSubstreams
         .via(validateFlow.run)

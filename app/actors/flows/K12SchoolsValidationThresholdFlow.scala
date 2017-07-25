@@ -21,10 +21,12 @@ class K12SchoolsValidationThresholdFlow @Inject ()( override implicit val actorS
 
   val bedesUse = Seq("K-12 School", "Education")
 
+  val parentValidator = "K-12 School"
+
   val rangeFields = Seq(
-    BedesValidationThreshold("Site Energy Resource Intensity", 56, 208),
+    BedesValidationThreshold("Source Energy Resource Intensity", 56, 208),
     //BedesValidationThreshold("Education Gross Area", 23211, 284599))
-    BedesValidationThreshold("Gross Floor Area", 23211, 284599)
+    BedesValidationThreshold("EPA Calculated Gross Floor Area", 23211, 284599)
   )
 
 

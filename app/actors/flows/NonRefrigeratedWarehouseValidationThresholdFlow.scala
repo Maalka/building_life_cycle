@@ -21,10 +21,12 @@ class NonRefrigeratedWarehouseValidationThresholdFlow @Inject ()( override impli
 
   override val bedesUse = Seq("Non-Refrigerated Warehouse", "Warehouse-Unrefrigerated")
 
+  val parentValidator = "Non-Refrigerated Warehouse"
+
   override val rangeFields = Seq(
-    BedesValidationThreshold("Site Energy Resource Intensity", 14, 274),
+    BedesValidationThreshold("Source Energy Resource Intensity", 14, 274),
     //BedesValidationThreshold("Warehouse-Unrefrigerated Gross Area", 9992, 887014),
-    BedesValidationThreshold("Gross Floor Area", 9992, 887014),
+    BedesValidationThreshold("EPA Calculated Gross Floor Area", 9992, 887014),
     BedesValidationThreshold("Warehouse-Unrefrigerated Business Average Weekly Hours", 40, 168)
 
   )

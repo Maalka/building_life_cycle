@@ -21,10 +21,12 @@ class ResidenceHallValidationThresholdFlow @Inject ()( override implicit val act
 
   val bedesUse = Seq("Residence Hall/Dormitory", "Lodging-Institutional")
 
+  val parentValidator = "Residence Hall/Dormitory"
+
   val rangeFields = Seq(
-    BedesValidationThreshold("Site Energy Resource Intensity", 39, 311),
+    BedesValidationThreshold("Source Energy Resource Intensity", 39, 311),
 //    BedesValidationThreshold("Lodging-Institutional Gross Area", 6599, 320747))
-    BedesValidationThreshold("Gross Floor Area", 6599, 320747)
+    BedesValidationThreshold("EPA Calculated Gross Floor Area", 6599, 320747)
   )
 
 

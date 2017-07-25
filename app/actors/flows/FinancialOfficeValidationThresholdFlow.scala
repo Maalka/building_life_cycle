@@ -21,10 +21,12 @@ class FinancialOfficeValidationThresholdFlow @Inject ()( override implicit val a
 
   override val bedesUse = Seq("Financial Office", "Office")
 
+  val parentValidator = "Financial Office"
+
   override val rangeFields = Seq(
-    BedesValidationThreshold("Site Energy Resource Intensity", 98, 525),
+    BedesValidationThreshold("Source Energy Resource Intensity", 98, 525),
     //BedesValidationThreshold("Office Gross Area", 10000, 1034547),
-    BedesValidationThreshold("Gross Floor Area", 10000, 1034547),
+    BedesValidationThreshold("EPA Calculated Gross Floor Area", 10000, 1034547),
 
     BedesValidationThreshold("Office Business Average Weekly Hours", 44, 130)
   )

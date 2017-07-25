@@ -116,7 +116,7 @@ trait BedesValidator extends Actor with ActorLogging with Validator[Seq[BEDESTra
       }.flatMap { case (v, d) =>
         v._2.map(_ -> d)
       }
-      self forward UpdateObjectValidatedDocument(refId, validator, bedesCompositeName,
+      self forward UpdateObjectValidatedDocument(refId, validator, bedesCompositeName, None,
         validatorCategory, valid = valids.valid, ov.map(_._1), ov.flatMap(_._2),
         valids.message, valids.details)
     }
@@ -124,7 +124,7 @@ trait BedesValidator extends Actor with ActorLogging with Validator[Seq[BEDESTra
       case NonFatal(th) =>
         log.error(th, "Error Validating")
         self forward UpdateObjectValidatedDocument(refId, validator,
-          bedesCompositeName, validatorCategory,
+          bedesCompositeName, None, validatorCategory,
           valid = false, Option(th.getMessage))
     }
   }

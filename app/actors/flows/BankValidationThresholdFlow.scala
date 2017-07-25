@@ -21,10 +21,12 @@ class BankValidationThresholdFlow @Inject ()( override implicit val actorSystem:
 
   val bedesUse = Seq("Bank Branch", "Bank")
 
+  val parentValidator = "Bank"
+
   override val rangeFields = Seq(
-    BedesValidationThreshold("Site Energy Resource Intensity", 100, 512),
+    BedesValidationThreshold("Source Energy Resource Intensity", 100, 512),
     //BedesValidationThreshold("Bank Gross Area", 2000, 16403))
-    BedesValidationThreshold("Gross Floor Area", 2000, 16403))
+    BedesValidationThreshold("EPA Calculated Gross Floor Area", 2000, 16403))
     BedesValidationThreshold("Bank Business Average Weekly Hours", 41, 77)
 
   override val densityFields = Seq(

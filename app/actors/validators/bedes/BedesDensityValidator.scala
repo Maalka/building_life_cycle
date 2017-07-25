@@ -62,39 +62,46 @@ case class BedesDensityValidator(guid: String,
 
   def isValid(refId: UUID, value: Option[Seq[BEDESTransformResult]]): Future[Validator.MapValid] = {
     value.map { tr =>
-      tr.find(_.getCompositeName.contains("Gross Floor Area")).flatMap(_.getDataValue) ->
+      tr.find(_.getCompositeName.contains("EPA Calculated Gross Floor Area")).flatMap(_.getDataValue) ->
         tr.find(_.getCompositeName.contains(bedesCompositeName))
     }.filter(_._1.isDefined).flatMap {
       case (Some(gfa: Double), tr) =>
-
         log.debug("Found GFA and CompositeName: {}", bedesCompositeName)
         tr.map { t =>
-          t.setDataValue(t.getDataValue.map {
+          var value = t.getDataValue.map {
             case v: Int =>
-              v / gfa
+              v / gfa * 1000
             case v: Float =>
-              v / gfa
+              v / gfa * 1000
             case v: Long =>
-              v / gfa
+              v / gfa * 1000
             case v: Double =>
             case None => None
             case i =>
               log.warning("Invalid GFA type: {}", i)
               None
-          })
+          }
+          log.debug("Setting Value to: {}", value)
+          (gfa, t.setDataValue(value))
         }
       case i =>
         log.debug("Could Not find GFA and CompositeName: {} - {}", bedesCompositeName, i)
         None
     } match {
-      case Some(tr) =>
+      case Some((gfa, tr)) =>
         sourceValidateFromComponents(Option(Seq(tr))).map {
           case results if !results.head.valid =>
             MapValid(valid = false, Option("%s is not a number".format(bedesCompositeName)))
           case results if results.lift(1).exists(!_.valid) =>
             MapValid(valid = false, Option("%s is missing".format(bedesCompositeName)))
           case results if results.lift(2).exists(!_.valid) =>
-            MapValid(valid = false, Option("%s out of range (%s - %s)".format(bedesCompositeName, min, max)))
+            MapValid(valid = false, Option("%s out of range (%s - %s)".format(bedesCompositeName,
+              min.map{ a =>
+                (math rint (a * gfa / 1000)  * 100) / 100
+              }.getOrElse(0),
+              max.map{ a =>
+                (math rint (a * gfa / 1000)  * 100) / 100
+              }.getOrElse(0))))
           case results =>
             MapValid(valid = true, None)
         }.runWith(Sink.head)

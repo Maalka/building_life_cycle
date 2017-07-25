@@ -4,7 +4,7 @@
 define(['angular', 'moment', 'matchmedia-ng', 'angular-file-upload', 'moment'], function(angular, moment) {
   'use strict';
   var DataQualityCtrl = function($rootScope, $scope, $window, $sce, $timeout, $q, 
-                            $log, playRoutes, Upload, matchmedia) {
+                            $log, playRoutes, Upload, matchmedia, fileUtilities) {
 
     $rootScope.pageTitle = "Data Quality Tool";
     $scope.forms = {'hasValidated': false};
@@ -68,78 +68,158 @@ define(['angular', 'moment', 'matchmedia-ng', 'angular-file-upload', 'moment'], 
         }
     };
 
-    $scope.verificationRows = [];
-    $scope.verificationHeaders = [];
+    $scope.validation = [];
 
     var verificationRows = [];
 
-    $scope.verificationRow = function(i) { 
-        return verificationRows[i];
-    };
-    $scope.verificationPropertyName = function(i) { 
-        return verificationRows[i][0].value;
-    };
+    var parse = function(row) {
+        var j, k;
+        var parsed = [];
+        var tmp;
 
-    var parseHeaders = function(row) { 
-        var j;
         for (j = 0; j < row.length; j += 1) {
-            $scope.verificationHeaders[j] = row[j].validator;
+            tmp = {
+                validators: [],
+                field: undefined,
+                valid: true
+            };
+            for (k = 0; k < row[j].length; k += 1) {
+                tmp.field = row[j][k].validator;
+                if (row[j][k].valid === false) {
+                    tmp.valid = false;
+                }
+                tmp.validators[k] = row[j][k];
+            }
+            parsed.push(tmp);
         }
+        return parsed;
     };
 
     /**
       * Generate the tooltip for the status table
       */
-    $scope.tooltip = function (r, i) {
-        var str, value;
-        var message = r.value;
+    var generateTooltip = function (propertyIndex, fieldIndex) {
+        var str, value, parentValidator;
+        var validators = verificationRows[propertyIndex].validated[fieldIndex].validators.reduce(function (a, b) {
+            parentValidator = b.parentValidator;
+            if (b.valueType === "Date") {
+                value = moment(b.value);
+            } else {
+                value = b.value;
+            }
+            a.push({
+                message: b.message,
+                field: b.validator,
+                value: parentValidator === null ? undefined : b.value,
+                valid: b.valid
+            });
+            return a;
+        }, []).filter(function (validator) {
+            if (parentValidator !== null) {
+                return true;
+            } else {
+                return validator.message !== "" && validator.message !== undefined && validator.message !== null;
+            }
+        });
 
-
-        if (r.value === null || r.value === undefined || r.value === "") {
-            message = "Not Defined";
-        } else if (r.valueType === "Date") {
-            message = moment(r.value).toString();
-        }
-        str = $scope.verificationHeaders[i] + ": " + message || "Not Defined";
-        if (r.message) { 
-            str += " (" + r.message + ")";
-        }
-        return str;
+        return {
+            'field': str = parentValidator || verificationRows[propertyIndex].validated[fieldIndex].field,
+            'value': parentValidator === undefined ? undefined : (value || "Not Defined"),
+            'validators': validators
+        };
     };
 
-    $scope.loadMore = function () { 
+    var verificationRow = function (i) {
+        return {
+            i: i,
+            propertyName: verificationRows[i].propertyName,
+            fields: verificationRows[i].validated.map(function (m, j) {
+                return {
+                    i: i,
+                    tooltip: generateTooltip(i, j),
+                    valid: m.valid
+                };
+            })
+        };
+    };
+
+    $scope.loadMore = function () {
         var i;
-        var last = $scope.verificationRows.length - 1;
-        for(i = last; i < last + 8; i += 1) {
-            if (i >= 0 && i < verificationRows.length) {
-                $scope.verificationRows[i] = $scope.verificationRow(i);
+        var last = verificationRows.length - 1;
+        for(i = 0; i < 20; i += 1) {
+            if ($scope.validation.length < verificationRows.length) {
+                $scope.validation.push(verificationRow($scope.validation.length));
             }
         }
+    };
+
+    $scope.download = function () { 
+        var headers = [];
+        var rows = [];
+        var row, sourceRow, toolTip, validator, validatorMessages, validatorMessage, tooltip;
+        var i, j, k; 
+        headers.push("Property Name");
+        for (i = 0; i < $scope.validation.length; i += 1) {
+            sourceRow = $scope.validation[i];
+            row = [];
+            row.push("\"" + sourceRow.propertyName.replace("\"", "\"\"") + "\"");
+            for (j = 0; j < sourceRow.fields.length; j += 1) {
+                tooltip = sourceRow.fields[j].tooltip;
+                validatorMessages = [];
+
+                if (tooltip.field !== "" && tooltip.field !== undefined) {
+                    headers[j + 1] = tooltip.field;
+                    if (sourceRow.fields[j].valid) {
+                        validatorMessages.push("OK");
+                    } else {
+                        for (k = 0; k < tooltip.validators.length; k += 1) { 
+                            validator = tooltip.validators[k];
+                            if (!validator.valid) {
+                                validatorMessage = validator.message + " (" + (validator.value || tooltip.value) + ")";
+                                validatorMessages.push(validatorMessage.replace("\"", "\"\""));
+                            }
+                        }
+                    }
+
+                    row[j + 1] = "\"" + validatorMessages.join(", \n") + "\"";
+                    console.log(rows);
+                }
+            }
+            rows.push(row);
+            row = [];
+        }
+        return fileUtilities.generateCSV([headers, rows]);
+    };
+
+    var sortVerificationRows = function (a, b) {
+       if (a.propertyName < b.propertyName) {
+           return -1;
+       }
+       if (a.propertyName > b.propertyName) {
+           return 1;
+       }
+       return 0;
     };
 
     var parseServerResponse = function(model) { 
-        var i, j, first = true;
+        var i, j, propertyName, first = true;
         verificationRows = [];
-        if(model.result !== undefined) { 
+        if(model.result !== undefined) {
             for(i = 0; i < model.result.length; i += 1) {
-                if (first) { 
-                    parseHeaders(model.result[i]);
-                    first = false;
+                if (model.result[i][0][0] !== undefined) {
+                    propertyName = model.result[i][0][0].value;
+                } else {
+                    propertyName = "Unknonwn";
                 }
-                verificationRows[i] = model.result[i];
+                verificationRows.push({
+                    propertyName: propertyName,
+                    validated: parse(model.result[i])
+                });
             }
-            verificationRows = verificationRows.sort(function (a, b) { 
-                if (a[0].value < b[0].value) { 
-                    return -1;
-                }
-                if (a[0].value > b[0].value) { 
-                    return 1;
-                }
-                return 0;
-            });
+            verificationRows = verificationRows.sort(sortVerificationRows);
+            $scope.loadMore();
         }
     };
-
 
     $scope.loadingFileFiller = {
         loading: false
@@ -147,6 +227,8 @@ define(['angular', 'moment', 'matchmedia-ng', 'angular-file-upload', 'moment'], 
 
     $scope.upload = function (file,form) {
         $scope.loadingFileFiller.loading = true;
+        verificationRows = [];
+        $scope.validation = [];
 
         Upload.upload({
             url: playRoutes.controllers.DataQuality.validate().url,
@@ -156,18 +238,26 @@ define(['angular', 'moment', 'matchmedia-ng', 'angular-file-upload', 'moment'], 
 
         }).then(function (resp) {
             console.log('Success ' + resp.config.data.inputData.name + 'uploaded. Response: ' + resp.data);
+            verificationRows = [];
+            $scope.validation = [];
+
             parseServerResponse(resp.data);
+
             $scope.loadingFileFiller = {
                 loading: false
+
             };
 
         }, function (resp) {
-            $scope.loadingFileFiller = {'loading': true};
+            $scope.loadingFileFiller = {
+            'loading': true
+            };
             $scope.model.value = resp.data;
 
         }, function (evt) {
             var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
             $scope.loadingFileFiller = {
+                loading: true,
                 progressPercentage: progressPercentage,
                 attachmentName: evt.config.data.inputData.name
             };
@@ -178,7 +268,7 @@ define(['angular', 'moment', 'matchmedia-ng', 'angular-file-upload', 'moment'], 
   };
 
   DataQualityCtrl.$inject = ['$rootScope', '$scope', '$window','$sce','$timeout', 
-        '$q', '$log', 'playRoutes', 'Upload', 'matchmedia'];
+        '$q', '$log', 'playRoutes', 'Upload', 'matchmedia', 'fileUtilities'];
   return {
     DataQualityCtrl: DataQualityCtrl
   };

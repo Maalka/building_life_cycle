@@ -21,10 +21,12 @@ class CourthouseValidationThresholdFlow @Inject ()( override implicit val actorS
 
   override val bedesUse = Seq("Courthouse")
 
+  val parentValidator = "Courthouse"
+
   override val rangeFields = Seq(
-    BedesValidationThreshold("Site Energy Resource Intensity", 81, 335),
+    BedesValidationThreshold("Source Energy Resource Intensity", 81, 335),
 //    BedesValidationThreshold("Courthouse Gross Area", 10000, 490000),
-    BedesValidationThreshold("Gross Floor Area", 10000, 490000),
+    BedesValidationThreshold("EPA Calculated Gross Floor Area", 10000, 490000),
     BedesValidationThreshold("Courthouse Business Average Weekly Hours", 40, 96)
   )
 

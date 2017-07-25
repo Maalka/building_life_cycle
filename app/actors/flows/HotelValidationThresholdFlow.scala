@@ -21,10 +21,12 @@ class HotelValidationThresholdFlow @Inject ()( override implicit val actorSystem
 
   val bedesUse = Seq("Hotel", "Lodging with extended amenities")
 
+  val parentValidator = "Hotel"
+
   val rangeFields = Seq(
-    BedesValidationThreshold("Site Energy Resource Intensity", 89, 344),
+    BedesValidationThreshold("Source Energy Resource Intensity", 89, 344),
     //BedesValidationThreshold("Lodging with Extended Amenities Gross Area", 21289, 617226))
-    BedesValidationThreshold("Gross Floor Area", 21289, 617226)
+    BedesValidationThreshold("EPA Calculated Gross Floor Area", 21289, 617226)
   )
 
 

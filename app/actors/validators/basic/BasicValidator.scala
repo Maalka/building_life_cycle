@@ -43,12 +43,12 @@ trait BasicValidator[A] extends Actor with ActorLogging with Validator[A] {
     val future = for {
       valids <- isValid(refId, value)
     } yield {
-      self forward UpdateObjectValidatedDocument(refId, guid, validator,
+      self forward UpdateObjectValidatedDocument(refId, guid, validator, None,
         validatorCategory, valid = valids.valid, value, None, valids.message, valids.details)
     }
     future.recover {
       case NonFatal(th) =>
-        self forward UpdateObjectValidatedDocument(refId, guid, validator, validatorCategory,
+        self forward UpdateObjectValidatedDocument(refId, guid, validator, validatorCategory, None,
           valid = false, value, None, Option(th.getMessage))
     }
   }
