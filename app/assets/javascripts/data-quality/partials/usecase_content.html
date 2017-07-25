@@ -1,0 +1,160 @@
+
+<h1 class="ui horizontal divider header">Temperature Sensitivity Use Case</h1>
+<div class="ui hidden divider"></div>
+
+<div class="sixteen wide column" style="font-size: 15px;">
+    Buildings usually use different amounts of energy depending on how hot or cold it is outside. The Maalka Temperature Sensitivity Tool allows
+    you to create a model that explains how your energy consumption depends on temperature so that you can do things like:
+
+    <ul class="icon1" style="padding-left:15%">
+        <div class="ui middle aligned list">
+            <div class="item">
+                <img class="ui image" src="/assets/images/1.png">
+                <div class="content">
+                    <div class="description" style="color:#808285">Predict the end-uses of your building (heating, cooling, baseload)</div>
+                </div>
+            </div>
+            <div class="item">
+                <img class="ui image" src="/assets/images/2.png">
+                <div class="content">
+                    <div class="description" style="color:#808285">Analyze if your building is improving over time</div>
+                </div>
+            </div>
+            <div class="item">
+                <img class="ui image" src="/assets/images/3.png">
+                <div class="content">
+                    <div class="description" style="color:#808285">Identify problems in you building’s performance</div>
+                </div>
+            </div>
+        </div>
+    </ul>
+
+</div>
+
+<div class="ui hidden divider"></div>
+
+<div class="sixteen wide column" style="font-size: 15px;">
+For example, cooling systems are often driven by electricity. Therefore, electricity-use is expected to significantly increase in buildings as
+temperature increases past a certain point (typically 65 F). Understanding at which temperature electricity begins to increase tells us a lot
+about the building.
+</div>
+
+<div class="ui hidden divider"></div>
+<div class="one wide column computer only tablet only" ng-if="media === 'print'"></div>
+<div class="fourteen wide column" ng-if="media === 'print'">
+    <img class="ui centered image" src="/assets/images/Energy-Graphic.png">
+</div>
+
+<div class="two wide column computer only tablet only" ng-if="media !== 'print'"></div>
+<div class="fourteen wide column" ng-if="media !== 'print'">
+    <img class="ui centered image" src="/assets/images/Energy-Graphic.png">
+</div>
+
+<div class="ui hidden divider"></div>
+<div class="sixteen wide column" style="font-size: 15px;">
+    The Maalka Temperature Sensitivity Tool allows you to upload your energy data with associated temperature entries to see when this happens.
+    If you use the sample file in the User Guide, you will see a plot output that looks like the following:
+</div>
+<div class="ui hidden divider"></div>
+<div class="three wide column computer only tablet only" ng-if="media === 'print'"></div>
+<div class="thirteen wide column" ng-if="media === 'print'">
+    <img class="ui centered image" src="/assets/images/Temperature-Sensitivity-Screen-Shot.png">
+</div>
+
+<div class="two wide column computer only tablet only" ng-if="media !== 'print'"></div>
+<div class="fourteen wide column" ng-if="media !== 'print'">
+    <img class="ui centered image" src="/assets/images/Temperature-Sensitivity-Screen-Shot.png">
+</div>
+
+<div class="ui hidden divider"></div>
+<div class="sixteen wide column" style="font-size: 15px;">
+    <i style="color:#06a1f9"> What does this tell us?</i>
+</div>
+
+<div class="ui hidden divider"></div>
+<div class="sixteen wide column" style="font-size: 15px;">
+    The plot shows us that between 02/01/2010 and 02/01/2017, our electricity-use is increasing signficantly with each degree increase in temperature
+    starting at 35° F. This continues until 71° F is reached and then remains relatively constant. This is a sample file, but if this was a
+    real building we would have reason to investigate why this increase happens at such a low temperature. Energy of a good building would
+    start increasing at around 70° F, when the building begins to require some conditioning to keep occupants cool.
+</div>
+
+<div class="ui hidden divider"></div>
+<div class="sixteen wide column" style="font-size: 15px;">
+    <i style="color:#06a1f9">What else can we do with the tool?</i>
+</div>
+<div class="ui hidden divider"></div>
+<div class="sixteen wide column" style="font-size: 15px;">
+    If we click in the Details Box, we can actually see the equation that describes the temperature sensitivity model of our data. This is great
+    because we can use this equation to compare our building’s energy-use over time.
+</div>
+
+<div class="ui hidden divider"></div>
+<div class="three wide column computer only tablet only" ng-if="media === 'print'"></div>
+<div class="thirteen wide column" ng-if="media === 'print'">
+    <img class="ui centered image" src="/assets/images/Data-and-equation.png">
+</div>
+
+<div class="two wide column computer only tablet only" ng-if="media !== 'print'"></div>
+<div class="fourteen wide column" ng-if="media !== 'print'">
+    <img class="ui centered image" src="/assets/images/Data-and-equation.png">
+</div>
+
+<div class="ui hidden divider"></div>
+<div class="sixteen wide column" style="font-size: 15px;">
+    The equation, which is reflected in the plot, provides important information about how our electricity-use is impacted by temperature at different
+    ranges. You can tell that between 35° F and 71° F, electricity-use changes much faster than it does over other ranges. We can now
+    apply this model and equation to compare electricity-use over time.
+</div>
+
+<div class="ui hidden divider"></div>
+<div class="sixteen wide column" style="font-size: 15px;">
+    <i style="color:#06a1f9">How can we use this equation?</i>
+</div>
+
+<div class="ui hidden divider"></div>
+<div class="sixteen wide column" style="font-size: 15px;">
+    Let us look at the first part of the equation, which says that for temperatures below 35° F, the predicted electricity-use is 4.33 minus the temperature*
+    0.0153. For any period in the future, if the temperature is below 35° F, we can plug in that temperature into this part of our equation
+    and get a value for predicted electricity-use based on our buildings current behavior. If we use all the parts of the equation, then we can
+    predict the electricity-use for any temperature. That means we can plot predicted electricity-use over time as in the example below.
+</div>
+
+<div class="ui hidden divider"></div>
+<div class="three wide column computer only tablet only" ng-if="media === 'print'"></div>
+<div class="thirteen wide column" ng-if="media === 'print'">
+    <img class="ui centered image" src="/assets/images/chart.png">
+</div>
+
+<div class="two wide column computer only tablet only" ng-if="media !== 'print'"></div>
+<div class="fourteen wide column" ng-if="media !== 'print'">
+    <img class="ui centered image" src="/assets/images/chart.png">
+</div>
+
+<div class="ui hidden divider"></div>
+<div class="sixteen wide column" style="font-size: 15px;">
+    In the plot above, we have taken the equation from the Temperature Sensitivity Tool and applied it to monthly electricity-use as it is reported
+    to determine if the building’s performance is improving over time. In this plot, the purple bars represent actual energy value, the blue line
+    represents the predicted energy based on the model equation, and the red and green bars below represent the difference between the actual
+    and predicted energy values. If the building is using more energy than the model predicts based on previous performance, then the difference
+    is displayed as a red bar. In this case, the building is doing worse over time. We can add all the red and green bars to see the overall change
+    over time.
+</div>
+
+<div class="ui hidden divider"></div>
+<div class="sixteen wide column" style="font-size: 15px;">
+    <i style="color:#06a1f9">How can we use this analysis?</i>
+</div>
+<div class="ui hidden divider"></div>
+<div class="sixteen wide column" style="font-size: 15px;">
+    Whenever a building is changed, like with improved insulation or a new boiler system, it is often desirable to know if the change has had an
+    impact on the building’s energy efficiency. This also applies to measuring progress towards energy-use reduction goals. If your analysis
+    simply measures the change in energy over time, your conclusions might be flawed because the changes might be due to external variables
+    like temperature. For example, if your building is in a very hot climate and your analysis is over an abnormally cool period, you may think that
+    the building’s efficiency has improved when in fact it is only using less energy because the cooling systems have not been needed. The
+    Maalka Temperature Sensitivity Tool generates a model that you can apply to control for temperature in your analysis. That way, you can be
+    confident that changes in energy-use for your building are due to changes in your building’s performance and not from uncontrollable weather
+    patterns.
+</div>
+<div class="ui hidden divider"></div>
+<div class="ui hidden divider"></div>
