@@ -47,11 +47,11 @@ case class BedesRangeValidator(guid: String,
     (arg \ "compositeName").asOpt[String]
   }.get
 
-  val min: Option[Long] = arguments.flatMap { arg =>
-    (arg \ "min").asOpt[Long] orElse (arg \ "min").asOpt[String].map(_.toLong)
+  val min: Option[Double] = arguments.flatMap { arg =>
+    (arg \ "min").asOpt[Double] orElse (arg \ "min").asOpt[String].map(_.toDouble)
   }
-  val max: Option[Long] = arguments.flatMap { arg =>
-    (arg \ "max").asOpt[Long] orElse (arg \ "max").asOpt[String].map(_.toLong)
+  val max: Option[Double] = arguments.flatMap { arg =>
+    (arg \ "max").asOpt[Double] orElse (arg \ "max").asOpt[String].map(_.toDouble)
   }
 
   val componentValidators = Seq(

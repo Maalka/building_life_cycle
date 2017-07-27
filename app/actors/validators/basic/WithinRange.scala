@@ -53,7 +53,7 @@ case class WithinRange(guid: String,
           val max = (arg \ "max").asOpt[Double] orElse (arg \ "max").asOpt[String].map(_.toDouble)
 
           val g = MapValid(true, Option(v.toString))
-          log.debug("Arguments: min {} max {} value", min, max, value)
+          log.debug("Arguments: min {} max {} value {}", min, max, value)
           (min, max) match {
             case (Some(l), Some(r)) if v > l && v < r => true
             case (Some(l), None) if v > l => true

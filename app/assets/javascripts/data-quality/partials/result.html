@@ -29,15 +29,19 @@
                                 <div ng-if = "r.tooltip.field !== undefined && r.tooltip.field !== ''">
                                     <i class="green checkmark icon" popup data.popup = "'#tooltip-' + p.i + '-' + r.i" ng-if="r.valid"></i>
                                     <i class="red close icon" popup data.popup = "'#tooltip-' + p.i + '-' + r.i" ng-if="!r.valid"></i>
-                                    <div class="ui popup left aligned" id = "tooltip-{{p.i}}-{{r.i}}">
+                                    <div class="ui popup left aligned" 
+                                        id = "tooltip-{{p.i}}-{{r.i}}">
                                         <div class="ui content">
                                             <div class="ui description left aligned">
                                                 <div class="ui grid">
                                                     <div class="ui row">
-                                                        <div class="sixteen wide column" ng-if = "r.tooltip.value !== undefined">
+                                                        <div class="sixteen wide column" 
+                                                            ng-if = "r.tooltip.validators.length === 1" 
+                                                            >
                                                             <b>{{ r.tooltip.field }}</b>: {{ r.tooltip.value }}
                                                         </div>
-                                                        <div class="sixteen wide column" ng-if = "r.tooltip.value === undefined">
+                                                        <div class="sixteen wide column" 
+                                                            ng-if = "r.tooltip.validators.length > 1">
                                                             <b>{{ r.tooltip.field }}</b>
                                                         </div>
                                                     </div>

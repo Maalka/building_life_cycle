@@ -47,10 +47,10 @@ case class BedesDensityValidator(guid: String,
   }.get
 
   val min: Option[Double] = arguments.flatMap { arg =>
-    (arg \ "min").asOpt[Double] orElse (arg \ "min").asOpt[String].map(_.toLong)
+    (arg \ "min").asOpt[Double] orElse (arg \ "min").asOpt[String].map(_.toDouble)
   }
   val max: Option[Double] = arguments.flatMap { arg =>
-    (arg \ "max").asOpt[Double] orElse (arg \ "max").asOpt[String].map(_.toLong)
+    (arg \ "max").asOpt[Double] orElse (arg \ "max").asOpt[String].map(_.toDouble)
   }
 
   val componentValidators = Seq(
@@ -70,11 +70,11 @@ case class BedesDensityValidator(guid: String,
         tr.map { t =>
           var value = t.getDataValue.map {
             case v: Int =>
-              v / gfa * 1000
+              v / gfa * 1000.0
             case v: Float =>
-              v / gfa * 1000
+              v / gfa * 1000.0
             case v: Long =>
-              v / gfa * 1000
+              v / gfa * 1000.0
             case v: Double =>
             case None => None
             case i =>
@@ -82,7 +82,11 @@ case class BedesDensityValidator(guid: String,
               None
           }
           log.debug("Setting Value to: {}", value)
-          (gfa, t.setDataValue(value))
+          (gfa,
+            t.setDataValue(value).setBedesType("Double")
+          )
+
+
         }
       case i =>
         log.debug("Could Not find GFA and CompositeName: {} - {}", bedesCompositeName, i)
