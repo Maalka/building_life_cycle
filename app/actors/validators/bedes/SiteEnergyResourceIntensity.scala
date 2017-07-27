@@ -60,10 +60,14 @@ case class SiteEnergyResourceIntensity(guid: String,
   val validator = "bedeas_site_energy_resource_intensity"
   val bedesCompositeName = "Site Energy Resource Intensity"
 
+  val min:Option[Double] = Some(0)
+  val max:Option[Double] = Some(375)
+
+
   val componentValidators = Seq(propsWrapper(Numeric.props),
-    propsWrapper(WithinRange.props, Option(Json.obj("min" -> 0))),
+    propsWrapper(WithinRange.props, Option(Json.obj("min" -> min))),
     propsWrapper(WithinRange.props, Option(Json.obj("min" -> 40, "max" -> 375))),
-    propsWrapper(WithinRange.props, Option(Json.obj("min" -> 375))))
+    propsWrapper(WithinRange.props, Option(Json.obj("min" -> max))))
 
   def isValid(refId: UUID, value: Option[Seq[BEDESTransformResult]]): Future[Validator.MapValid] = {
     sourceValidateFromComponents(value).map { results =>

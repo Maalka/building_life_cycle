@@ -167,5 +167,22 @@ trait BedesValidator extends Actor with ActorLogging with Validator[Seq[BEDESTra
         l
     }
   }
+
+  def formatMapValidRangeResponse(bedesCompositeName: String, min: Option[Double], max: Option[Double]): MapValid = {
+    val formatter = java.text.NumberFormat.getIntegerInstance
+    if (min.isDefined && max.isDefined) {
+      MapValid(valid = false, Option("%s out of range (%s - %s)".format(bedesCompositeName,
+        formatter.format(min.get),
+        formatter.format(max.get))))
+    } else if (min.isDefined && max.isEmpty) {
+      MapValid(valid = false, Option("%s is not greater then %s".format(bedesCompositeName,
+        formatter.format(min.get))))
+    } else if (min.isEmpty && max.isDefined) {
+      MapValid(valid = false, Option("%s is not less then %s".format(bedesCompositeName,
+        formatter.format(max.get))))
+    } else {
+      MapValid(valid = false, Option("%s: No min or max defined in validator"))
+    }
+  }
 }
 

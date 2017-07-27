@@ -78,13 +78,15 @@ case class BedesRangeValidator(guid: String,
 
 
   def isValid(refId: UUID, value: Option[Seq[BEDESTransformResult]]): Future[Validator.MapValid] = {
+    val formatter = java.text.NumberFormat.getIntegerInstance
+
     sourceValidateFromComponents(value).map {
       case results if !results.head.valid =>
         MapValid(valid = false, Option("%s is not a number".format(bedesCompositeName)))
       case results if results.lift(1).exists(!_.valid) =>
         MapValid(valid = false, Option("%s is missing".format(bedesCompositeName)))
       case results if results.lift(2).exists(!_.valid) =>
-        MapValid(valid = false, Option("%s out of range (%s - %s)".format(bedesCompositeName, min.getOrElse("Not Defined"), max.getOrElse("Not Defined"))))
+        formatMapValidRangeResponse(bedesCompositeName, min, max)
       case results =>
         MapValid(valid = true, None)
     }.runWith(Sink.head)

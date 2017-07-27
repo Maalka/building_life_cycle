@@ -61,12 +61,15 @@ case class CompletedConstructionStatusDate(guid: String,
   val bedesCompositeName = "Completed Construction Status Date"
 
   val componentValidators = Seq(propsWrapper(Exists.props),
-    propsWrapper(WithinRange.props, Option(Json.obj("min" -> new DateTime(1800, 1, 1, 1, 1).getMillis))))
+    propsWrapper(WithinRange.props, Option(
+      Json.obj("min" -> new DateTime(1800, 1, 1, 1, 1).getMillis,
+        "max" -> new DateTime(2020, 1, 1, 1, 1).getMillis)
+    )))
 
   def isValid(refId: UUID, value: Option[Seq[BEDESTransformResult]]): Future[Validator.MapValid] = {
     sourceValidateFromComponents(value).map { results =>
       if (results.exists(_.valid == false)) {
-        Validator.MapValid(valid = false, Option("Built before 1800"))
+        Validator.MapValid(valid = false, Option("Out of range (1800 - 2020)"))
       } else {
         Validator.MapValid(valid = true, None)
       }

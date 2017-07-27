@@ -70,7 +70,9 @@ case class Numeric(guid: String,
             // can be cast to a double.
             case (_, Some(usage)) if (allCatch opt usage.toDouble).isDefined => MapValid(valid = true, Option(usage))
 
-            case (_, Some(usage)) => MapValid(valid=false, Option(usage))
+            case (_, Some(usage)) =>
+              log.debug("Not a number: {}", usage)
+                MapValid(valid=false, Option(usage))
             case _ => MapValid(valid = false, Option("Not Defined"))
           }
         case None => MapValid(valid = false, Option("Not Defined"))

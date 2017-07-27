@@ -62,7 +62,8 @@ case class PremisesZIPCode(guid: String,
 
   val componentValidators = Seq(
     propsWrapper(Exists.props),
-    propsWrapper(Length.props, Option(Json.obj("expectedLength" -> 5)))
+    propsWrapper(Length.props, Option(Json.obj("expectedLength" -> 5))),
+      propsWrapper(Length.props, Option(Json.obj("expectedLength" -> 10)))
 
   )
 
@@ -70,8 +71,8 @@ case class PremisesZIPCode(guid: String,
     sourceValidateFromComponents(value).map {
       case results if results.headOption.exists(!_.valid) =>
         Validator.MapValid(valid = false, Option("Missing Premises ZIP Code"))
-      case results if results.lift(1).exists(!_.valid) =>
-        Validator.MapValid(valid = false, Option("Premises Zip Code is not a length of 5"))
+      case results if results.lift(1).exists(!_.valid) && results.lift(2).exists(!_.valid) =>
+        Validator.MapValid(valid = false, Option("Premises Zip Code is not valid"))
       case results =>
         Validator.MapValid(valid = true, None)
     }.runWith(Sink.head)

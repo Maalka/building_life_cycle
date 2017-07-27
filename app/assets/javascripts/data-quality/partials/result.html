@@ -48,12 +48,11 @@
                                                 <div class="ui grid">
                                                     <div class="ui row">
                                                         <div class="sixteen wide column" 
-                                                            ng-if = "r.tooltip.validators.length === 1" 
-                                                            >
+                                                            ng-if = "r.tooltip.validators.length === 0">
                                                             <b>{{ r.tooltip.field }}</b>: {{ r.tooltip.value }}
                                                         </div>
                                                         <div class="sixteen wide column" 
-                                                            ng-if = "r.tooltip.validators.length > 1">
+                                                            ng-if = "r.tooltip.validators.length > 0">
                                                             <b>{{ r.tooltip.field }}</b>
                                                         </div>
                                                     </div>

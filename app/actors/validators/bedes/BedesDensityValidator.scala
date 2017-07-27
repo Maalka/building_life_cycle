@@ -54,6 +54,7 @@ case class BedesDensityValidator(guid: String,
                                  override val arguments: Option[JsObject] = None)(implicit actorSystem: ActorSystem) extends BedesValidator {
 
   // the materializer to use.  this must be an ActorMaterializer
+  private val bedesGFACompositeField = play.Play.application.configuration.getString("maalka.bedesGFACompositeField")
 
   implicit val materializer = ActorMaterializer()
 
@@ -78,7 +79,7 @@ case class BedesDensityValidator(guid: String,
 
   def isValid(refId: UUID, value: Option[Seq[BEDESTransformResult]]): Future[Validator.MapValid] = {
     value.map { tr =>
-      tr.find(_.getCompositeName.contains("EPA Calculated Gross Floor Area")).flatMap(_.getDataValue) ->
+      tr.find(_.getCompositeName.contains(bedesGFACompositeField)).flatMap(_.getDataValue) ->
         tr.find(_.getCompositeName.contains(bedesCompositeName))
     }.filter(_._1.isDefined).flatMap {
       case (Some(gfa: Double), tr) =>
@@ -115,18 +116,19 @@ case class BedesDensityValidator(guid: String,
           case results if results.lift(1).exists(!_.valid) =>
             MapValid(valid = false, Option("%s is missing".format(bedesCompositeName)))
           case results if results.lift(2).exists(!_.valid) =>
-            MapValid(valid = false, Option("%s out of range (%s - %s)".format(bedesCompositeName,
-              min.map{ a =>
-                (math rint (a * gfa / 1000)  * 100) / 100
-              }.getOrElse(0),
-              max.map{ a =>
-                (math rint (a * gfa / 1000)  * 100) / 100
-              }.getOrElse(0))))
+            val formatter = java.text.NumberFormat.getIntegerInstance
+            val calculatedMin = min.map { a =>
+              (math rint (a * gfa / 1000)  * 100) / 100
+            }
+            val calculatedMax = max.map{ a =>
+              (math rint (a * gfa / 1000)  * 100) / 100
+            }
+            formatMapValidRangeResponse(bedesCompositeName, calculatedMin, calculatedMax)
           case results =>
             MapValid(valid = true, None)
         }.runWith(Sink.head)
       case None =>
-        Future.successful(MapValid(valid = false, Option("%s or Gross Floor Area is missing".format(bedesCompositeName))))
+        Future.successful(MapValid(valid = false, Option("%s or %s is missing".format(bedesCompositeName, bedesGFACompositeField))))
     }
   }
 }

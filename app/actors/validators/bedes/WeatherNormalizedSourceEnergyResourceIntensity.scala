@@ -59,13 +59,18 @@ case class WeatherNormalizedSourceEnergyResourceIntensity(guid: String,
   val validator = "bedes_weather_normalized_source_energy_resource_intensity"
   val bedesCompositeName = "Weather Normalized Source Energy Resource Intensity"
 
+
+  val min: Option[Double] = Some(0)
+  val max: Option[Double] = None
   val componentValidators = Seq(propsWrapper(Exists.props),
-    propsWrapper(WithinRange.props, Option(Json.obj("min" -> 0))))
+    propsWrapper(WithinRange.props, Option(Json.obj("min" -> min))))
 
   def isValid(refId: UUID, value: Option[Seq[BEDESTransformResult]]): Future[Validator.MapValid] = {
     sourceValidateFromComponents(value).map { results =>
-      if (results.exists(_.valid == false)) {
+      if (results.head.valid == false) {
         Validator.MapValid(valid = false, Option("No weather-normalized source energy use intensity (EUI)"))
+      } else if (results.lift(1).exists(!_.valid)) {
+        formatMapValidRangeResponse(bedesCompositeName, min, max)
       } else {
         Validator.MapValid(valid = true, None)
       }

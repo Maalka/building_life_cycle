@@ -3,7 +3,7 @@
  */
 define(['angular', 'moment', 'matchmedia-ng', 'angular-file-upload', 'moment'], function(angular, moment) {
   'use strict';
-  var DataQualityCtrl = function($rootScope, $scope, $window, $sce, $timeout, $q, 
+  var DataQualityCtrl = function($rootScope, $scope, $window, $sce, $timeout, $q, $filter,
                             $log, playRoutes, Upload, matchmedia, fileUtilities) {
 
     $rootScope.pageTitle = "Data Quality Tool";
@@ -103,14 +103,21 @@ define(['angular', 'moment', 'matchmedia-ng', 'angular-file-upload', 'moment'], 
         var validators = verificationRows[propertyIndex].validated[fieldIndex].validators.reduce(function (a, b) {
             parentValidator = b.parentValidator;
             if (b.valueType === "Date") {
-                value = moment(b.value);
-            } else {
+                value = moment.utc(b.value).format("ll");
+            } else if (b.valueType === "String") {
                 value = b.value;
+            } else {
+                var int = parseInt(b.value);
+                if (!isNaN(int)) {
+                    value = $filter("number")(int, 0);
+                } else {
+                    value = b.value;
+                }
             }
             a.push({
                 message: b.message,
                 field: b.validator,
-                value: parentValidator === null ? undefined : b.value,
+                value: parentValidator === null ? undefined : value,
                 valid: b.valid
             });
             return a;
@@ -169,20 +176,22 @@ define(['angular', 'moment', 'matchmedia-ng', 'angular-file-upload', 'moment'], 
 
                 if (tooltip.field !== "" && tooltip.field !== undefined) {
                     headers[j + 1] = tooltip.field;
-                    if (sourceRow.fields[j].valid) {
-                        validatorMessages.push("OK");
+                    if (tooltip.validators.length === 0) { 
+                        if (sourceRow.fields[j].valid) { 
+                            validatorMessages.push("OK - " + tooltip.value);
+                        }
                     } else {
                         for (k = 0; k < tooltip.validators.length; k += 1) { 
                             validator = tooltip.validators[k];
                             if (!validator.valid) {
                                 validatorMessage = validator.message + " (" + (validator.value || tooltip.value) + ")";
                                 validatorMessages.push(validatorMessage.replace("\"", "\"\""));
+                            } else {
+                                validatorMessage = "OK - " + validator.value;
                             }
                         }
                     }
-
                     row[j + 1] = "\"" + validatorMessages.join(", \n") + "\"";
-                    console.log(rows);
                 }
             }
             rows.push(row);
@@ -268,7 +277,7 @@ define(['angular', 'moment', 'matchmedia-ng', 'angular-file-upload', 'moment'], 
   };
 
   DataQualityCtrl.$inject = ['$rootScope', '$scope', '$window','$sce','$timeout', 
-        '$q', '$log', 'playRoutes', 'Upload', 'matchmedia', 'fileUtilities'];
+        '$q', '$filter', '$log', 'playRoutes', 'Upload', 'matchmedia', 'fileUtilities'];
   return {
     DataQualityCtrl: DataQualityCtrl
   };

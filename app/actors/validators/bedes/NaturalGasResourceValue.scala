@@ -60,15 +60,18 @@ case class NaturalGasResourceValue(guid: String,
   val validator = "bedeas_natural_gas_resource_value"
   val bedesCompositeName = "Natural Gas Resource Value"
 
+  val min:Option[Double] = Some(0)
+  val max:Option[Double] = None
+
   val componentValidators = Seq(propsWrapper(Exists.props),
-    propsWrapper(WithinRange.props, Option(Json.obj("min" -> 0))))
+    propsWrapper(WithinRange.props, Option(Json.obj("min" -> min))))
 
   def isValid(refId: UUID, value: Option[Seq[BEDESTransformResult]]): Future[Validator.MapValid] = {
     sourceValidateFromComponents(value).map {
       case results if results.headOption.exists(!_.valid) =>
         Validator.MapValid(valid = false, Option("No Natural Gas Resource Value"))
       case results if results.lift(1).exists(!_.valid) =>
-        Validator.MapValid(valid = false, Option("Natural Gas Resource Value less then 0"))
+        formatMapValidRangeResponse(bedesCompositeName, min, None)
       case results =>
         MapValid(valid = true, None)
     }

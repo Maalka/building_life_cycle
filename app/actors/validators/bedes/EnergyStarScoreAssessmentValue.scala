@@ -32,7 +32,7 @@ import scala.concurrent.Future
 
 import scala.concurrent.ExecutionContext.Implicits.global
 
-object EnergyStarScoreAssessmentValue {
+object EnergyStarScoreAssessmentValue extends BedesValidatorCompanion {
 
   def props(guid: String,
             name: String,
@@ -83,9 +83,13 @@ case class EnergyStarScoreAssessmentValue(guid: String,
     "Wholesale Club/Supercenter", "Retail-Hypermarket",
     "Worship Facility", "Assembly-Religious")
 
+
+  val min:Option[Double] = Some(1)
+  val max: Option[Double] = Some(1000)
+
   val componentValidators = Seq(propsWrapper(Numeric.props),
     propsWrapper(Exists.props, None),
-    propsWrapper(WithinRange.props, Option(Json.obj("min" -> 1, "max" -> 100))))
+    propsWrapper(WithinRange.props, Option(Json.obj("min" -> min, "max" -> max))))
 
   def isValid(refId: UUID, value: Option[Seq[BEDESTransformResult]]): Future[Validator.MapValid] = {
     log.debug("ENERGY STAR Score Assessment Value: {}", value)
@@ -100,14 +104,13 @@ case class EnergyStarScoreAssessmentValue(guid: String,
     } match {
       case Some(tr) =>
         log.debug("Use and TR: {}", tr)
-
         sourceValidateFromComponents(Option(Seq(tr))).map {
         case results if !results.head.valid =>
           MapValid(valid = false, Option("ENERGY STAR Score Assessment Value is not a number"))
         case results if results.lift(1).exists(!_.valid) =>
           MapValid(valid = false, Option("ENERGY STAR Score Assessment Value is missing"))
         case results if results.lift(2).exists(!_.valid) =>
-          MapValid(valid = false, Option("ENERGY STAR Score Assessment Value out of range (1 - 100)"))
+          formatMapValidRangeResponse(bedesCompositeName, min, max)
         case results =>
           MapValid(valid = true, None)
       }.runWith(Sink.head)

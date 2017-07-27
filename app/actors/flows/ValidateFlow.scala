@@ -59,16 +59,26 @@ class  ValidateFlow @Inject () (implicit actorSystem: ActorSystem,
     // PremisesNameIdentifier must be the first response
     val validators = Seq(
       PremisesNameIdentifier,
-      CompletedConstructionStatusDate,
-      CustomEnergyMeteredPremisesLabel,
-      DeliveredAndGeneratedOnsiteRenewableElectricityResourceValue,
-      ObservedPrimaryOccupancyClassification,
-      PortfolioManagerPropertyIdentifier,
       PremisesAddressLine1,
       PremisesCity,
-      PremisesState,
+      //PremisesState,
+      PremisesZIPCode,
+      GrossFloorArea,
+
+      CompletedConstructionStatusDate,
+
+      CustomEnergyMeteredPremisesLabel,
+
+      DeliveredAndGeneratedOnsiteRenewableElectricityResourceValue,
+
+      ObservedPrimaryOccupancyClassification,
+
+      PortfolioManagerPropertyIdentifier,
+      WeatherNormalizedSourceEnergyResourceIntensity,
+
       SiteEnergyResourceIntensity,
-      WeatherNormalizedSourceEnergyResourceIntensity
+      EnergyStarScoreAssessmentValue
+
     )
 
     val thresholdValidators = Seq(
