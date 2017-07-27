@@ -1,6 +1,7 @@
 # README #
 
 # Data Quality Tool #
+Verson 1.0
 The [**Data Quality Tool**](https://dataquality.maalka.com) is a simple, open source, application that allows you to validate the data you have stored within the [Energy Star Portfolio Manager (PM)](https://portfoliomanager.energystar.gov/). The tool provides an easy way to identify problems with both your building's meta data and resource consumption data. 
 
 The Data Quality Tools allows you to:
@@ -43,9 +44,6 @@ The steps below provide guidance in extracting your portfolio data and using the
     * You will be presented with a select local file dialog
     * Select the **Municipal Portfolio Benchmark** Excel (xlsx) file that was downloaded from Portfolio Manager
 8. Press the **Validate** link within the Data Quality Tool.
-
-
-  
 
 ## Sample Template
 You can also test out the **Data Quality Tool** using a [Sample PM Report](http://cms.maalka.net/resources/Municipal%20Portfolio%20Benchmariking_test%20report.xlsx). This will provide you with a full run-through of the tool. 
@@ -161,28 +159,18 @@ The following data fields are contained in the **Municipal Benchmark Report**:
   * **Address 2** - If needed, a second address line
   * **Energy Current Date** - The date of the most recent energy consumption metrics
 
-# Visualization 
-# Documentation 
-=== from the confluence
 
-## Data Quality
-* PM Importer: This tool will import an XLS export from PM reports. 
-* Data Validation checker:  Apply a subset of the rules that are in the Chicago Data Set.  This will require the generalization of the BEDES importer, Chicago controller and CSV engines.   ... 80% done
-* Data Validation visualization: What format is this in.  This could be a templated XLS file or a website that Maalka manages.  
-* Documentation Website: Hosted on GitHub.  
-* Close set of validation rules
-* 12 month check
-* Close to Chicago
-* PM Template
-* What the XLS import is. 
-* Develop the PM Template and develop the actual tool.  
-Data Validation checker.
-Documentation Website.
-===
 ### What is this repository for? ###
 
-* Quick summary
-* Version
-* [Learn Data Quality Tool](https://bitbucket.org/maalka/tutorials/dataqualitytool)
+* [Learn Data Quality Tool](https://dataquality.maalka.com/#/usecase)
 
-##Feature Notes from Rimas
+## Run
+* from sbt command line run: sbt run
+
+* Now the application can be invoked either from a browser or from the command line (curl)
+
+* To Set which gfa field to use:
+maalka {
+ bedesOccupencyTypeCompositeField = "Observed Primary Occupancy Classification"
+}
+
