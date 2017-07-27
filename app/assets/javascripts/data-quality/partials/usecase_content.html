@@ -14,168 +14,38 @@
   ~    See the License for the specific language governing permissions and
   ~    limitations under the License.
   -->
+<body class="mceContentBody aui-theme-default wiki-content fullsize">
+        <h1>Annual Benchmarking Data Quality Use Case</h1>
+        <p>
+            Cities across the United States are instituting energy benchmarking initiatives to understand how much energy their commercial buildings are using. By targeting the highest energy users with strategies to improve energy efficiency, they can progress towards their emissions reduction goals and reduce costs for building owners.
+        </p>
+        <p>
+            There are already over <a href="http://www.imt.org/resources/detail/map-u.s.-building-benchmarking-policies">20 cities</a>, <a href="http://www.2030districts.org/districts">20 districts</a>, and <a href="https://betterbuildingssolutioncenter.energy.gov/challenge/partner-list">200 corporations</a> managing benchmarking initiatives and the list is growing each month. In fact, every city in the <a href="http://www.energy.ca.gov/benchmarking/documents/AB_802_benchmarking_provisions.pdf">State of California</a> is required to begin benchmarking commercial buildings in 2018 and over 7,000 cities around the world are adopting similar commitments through the <a href="http://www.globalcovenantofmayors.org/">Global Covenant of Mayors</a>.
+        </p align="center">
+            <img class="confluence-embedded-image image-center" height="250" src="./assets/images/image2017-7-14_17-58-22.png">
+        </center>
 
-<h1 class="ui horizontal divider header">Annual Benchmarking Data Quality Use Case
-</h1>
-<div class="ui hidden divider"></div>
+        <p align="center">
+            US Cities with Benchmarking Initiatives: 
+                <a href="http://www.imt.org/resources/detail/map-u.s.-building-benchmarking-policies">
+                    http://www.imt.org/resources/detail/map-u.s.-building-benchmarking-policies</a>
+        </p>
+        <p>
+            <em>
+                <span style="color: rgb(51,102,255);">
+                    How are cities currently managing energy benchmarking program data?
+                </span>
 
-<div class="sixteen wide column" style="font-size: 15px;">
-    Cities across the United States are instituting energy benchmarking initiatives to understand how much energy their commercial buildings are using. By targeting the highest energy users with 
-    strategies to improve energy efficiency, they can progress towards their emissions reduction goals and reduce costs for building owners.  
-
-    There are already over 20 cities, 20 districts, and 200 corporations managing benchmarking initiatives and the list is growing each month. In fact, every 
-    city in the State of California is required to begin benchmarking commercial buildings in 2018 and over 7,000 cities around the world are adopting similar commitments through the Global Covenant of Mayors.
-
-
-    <ul class="icon1" style="padding-left:15%">
-        <div class="ui middle aligned list">
-            <div class="item">
-                <img class="ui image" src="/assets/images/1.png">
-                <div class="content">
-                    <div class="description" style="color:#808285">Predict the end-uses of your building (heating, cooling, baseload)</div>
-                </div>
-            </div>
-            <div class="item">
-                <img class="ui image" src="/assets/images/2.png">
-                <div class="content">
-                    <div class="description" style="color:#808285">Analyze if your building is improving over time</div>
-                </div>
-            </div>
-            <div class="item">
-                <img class="ui image" src="/assets/images/3.png">
-                <div class="content">
-                    <div class="description" style="color:#808285">Identify problems in you building’s performance</div>
-                </div>
-            </div>
-        </div>
-    </ul>
-
-</div>
-
-<div class="ui hidden divider"></div>
-
-<div class="sixteen wide column" style="font-size: 15px;">
-For example, cooling systems are often driven by electricity. Therefore, electricity-use is expected to significantly increase in buildings as
-temperature increases past a certain point (typically 65 F). Understanding at which temperature electricity begins to increase tells us a lot
-about the building.
-</div>
-
-<div class="ui hidden divider"></div>
-<div class="one wide column computer only tablet only" ng-if="media === 'print'"></div>
-<div class="fourteen wide column" ng-if="media === 'print'">
-    <img class="ui centered image" src="/assets/images/Energy-Graphic.png">
-</div>
-
-<div class="two wide column computer only tablet only" ng-if="media !== 'print'"></div>
-<div class="fourteen wide column" ng-if="media !== 'print'">
-    <img class="ui centered image" src="/assets/images/Energy-Graphic.png">
-</div>
-
-<div class="ui hidden divider"></div>
-<div class="sixteen wide column" style="font-size: 15px;">
-    The Maalka Temperature Sensitivity Tool allows you to upload your energy data with associated temperature entries to see when this happens.
-    If you use the sample file in the User Guide, you will see a plot output that looks like the following:
-</div>
-<div class="ui hidden divider"></div>
-<div class="three wide column computer only tablet only" ng-if="media === 'print'"></div>
-<div class="thirteen wide column" ng-if="media === 'print'">
-    <img class="ui centered image" src="/assets/images/Temperature-Sensitivity-Screen-Shot.png">
-</div>
-
-<div class="two wide column computer only tablet only" ng-if="media !== 'print'"></div>
-<div class="fourteen wide column" ng-if="media !== 'print'">
-    <img class="ui centered image" src="/assets/images/Temperature-Sensitivity-Screen-Shot.png">
-</div>
-
-<div class="ui hidden divider"></div>
-<div class="sixteen wide column" style="font-size: 15px;">
-    <i style="color:#06a1f9"> What does this tell us?</i>
-</div>
-
-<div class="ui hidden divider"></div>
-<div class="sixteen wide column" style="font-size: 15px;">
-    The plot shows us that between 02/01/2010 and 02/01/2017, our electricity-use is increasing signficantly with each degree increase in temperature
-    starting at 35° F. This continues until 71° F is reached and then remains relatively constant. This is a sample file, but if this was a
-    real building we would have reason to investigate why this increase happens at such a low temperature. Energy of a good building would
-    start increasing at around 70° F, when the building begins to require some conditioning to keep occupants cool.
-</div>
-
-<div class="ui hidden divider"></div>
-<div class="sixteen wide column" style="font-size: 15px;">
-    <i style="color:#06a1f9">What else can we do with the tool?</i>
-</div>
-<div class="ui hidden divider"></div>
-<div class="sixteen wide column" style="font-size: 15px;">
-    If we click in the Details Box, we can actually see the equation that describes the temperature sensitivity model of our data. This is great
-    because we can use this equation to compare our building’s energy-use over time.
-</div>
-
-<div class="ui hidden divider"></div>
-<div class="three wide column computer only tablet only" ng-if="media === 'print'"></div>
-<div class="thirteen wide column" ng-if="media === 'print'">
-    <img class="ui centered image" src="/assets/images/Data-and-equation.png">
-</div>
-
-<div class="two wide column computer only tablet only" ng-if="media !== 'print'"></div>
-<div class="fourteen wide column" ng-if="media !== 'print'">
-    <img class="ui centered image" src="/assets/images/Data-and-equation.png">
-</div>
-
-<div class="ui hidden divider"></div>
-<div class="sixteen wide column" style="font-size: 15px;">
-    The equation, which is reflected in the plot, provides important information about how our electricity-use is impacted by temperature at different
-    ranges. You can tell that between 35° F and 71° F, electricity-use changes much faster than it does over other ranges. We can now
-    apply this model and equation to compare electricity-use over time.
-</div>
-
-<div class="ui hidden divider"></div>
-<div class="sixteen wide column" style="font-size: 15px;">
-    <i style="color:#06a1f9">How can we use this equation?</i>
-</div>
-
-<div class="ui hidden divider"></div>
-<div class="sixteen wide column" style="font-size: 15px;">
-    Let us look at the first part of the equation, which says that for temperatures below 35° F, the predicted electricity-use is 4.33 minus the temperature*
-    0.0153. For any period in the future, if the temperature is below 35° F, we can plug in that temperature into this part of our equation
-    and get a value for predicted electricity-use based on our buildings current behavior. If we use all the parts of the equation, then we can
-    predict the electricity-use for any temperature. That means we can plot predicted electricity-use over time as in the example below.
-</div>
-
-<div class="ui hidden divider"></div>
-<div class="three wide column computer only tablet only" ng-if="media === 'print'"></div>
-<div class="thirteen wide column" ng-if="media === 'print'">
-    <img class="ui centered image" src="/assets/images/chart.png">
-</div>
-
-<div class="two wide column computer only tablet only" ng-if="media !== 'print'"></div>
-<div class="fourteen wide column" ng-if="media !== 'print'">
-    <img class="ui centered image" src="/assets/images/chart.png">
-</div>
-
-<div class="ui hidden divider"></div>
-<div class="sixteen wide column" style="font-size: 15px;">
-    In the plot above, we have taken the equation from the Temperature Sensitivity Tool and applied it to monthly electricity-use as it is reported
-    to determine if the building’s performance is improving over time. In this plot, the purple bars represent actual energy value, the blue line
-    represents the predicted energy based on the model equation, and the red and green bars below represent the difference between the actual
-    and predicted energy values. If the building is using more energy than the model predicts based on previous performance, then the difference
-    is displayed as a red bar. In this case, the building is doing worse over time. We can add all the red and green bars to see the overall change
-    over time.
-</div>
-
-<div class="ui hidden divider"></div>
-<div class="sixteen wide column" style="font-size: 15px;">
-    <i style="color:#06a1f9">How can we use this analysis?</i>
-</div>
-<div class="ui hidden divider"></div>
-<div class="sixteen wide column" style="font-size: 15px;">
-    Whenever a building is changed, like with improved insulation or a new boiler system, it is often desirable to know if the change has had an
-    impact on the building’s energy efficiency. This also applies to measuring progress towards energy-use reduction goals. If your analysis
-    simply measures the change in energy over time, your conclusions might be flawed because the changes might be due to external variables
-    like temperature. For example, if your building is in a very hot climate and your analysis is over an abnormally cool period, you may think that
-    the building’s efficiency has improved when in fact it is only using less energy because the cooling systems have not been needed. The
-    Maalka Temperature Sensitivity Tool generates a model that you can apply to control for temperature in your analysis. That way, you can be
-    confident that changes in energy-use for your building are due to changes in your building’s performance and not from uncontrollable weather
-    patterns.
-</div>
-<div class="ui hidden divider"></div>
-<div class="ui hidden divider"></div>
+            </em>
+        </p>
+        <p>
+            In order to effectively develop energy efficiency strategies, cities begin by collecting data for all buildings of interest. The most common approach for managing the process of data collection is with the publically available 
+            <a href="https://www.energystar.gov/buildings/facility-owners-and-managers/existing-buildings/use-portfolio-manager">
+                EPA Portfolio Manager
+            </a>. 
+            Building owners create an account on EPA Portfolio Manager and populate the data fields required to comply with the city benchmarking program. Once building owners finish gathering the data, they share it with the city, which exports the data using a Portfolio Manager Report Template for analysis.
+        </p>
+        <p>Graphic: Building (Data Collection) → Portfolio Manager (Data Sharing) &nbsp;→ CSV (Data Analysis)
+            </p><p><br></p><p>Since the first public benchmarking program in 2009, cities have established effective guidelines for standardizing the process of data collection using EPA Portfolio Manager. However, after collecting the data, each city has a different way of analyzing it for setting effective energy efficiency strategies.</p><p><br></p><p>Through our engagement with several cities (Chicago, DC, Tacoma, Eugene, Providence, and more…), Maalka has discovered a common need for ensuring benchmarking program data is accurate, complete, and interoperable. To address this need, we developed the Data Quality Tool to allow municipalities to easily and cost effectively:</p><p><br></p><ol><li>Import EPA Portfolio Manager data</li><li>Map the data to a BEDES compatible format</li><li>Automatically identify data anomalies across their benchmarking program</li><li>Flag possible errors in data related to building characteristics, operations, and energy-use.</li></ol><p><br></p><p><em>Blue Question: <span style="color: rgb(51,102,255);">What is the Maalka Data Quality Tool used for?</span></em></p><p><br></p><p>The Maalka Data Quality Tool provides an essential free service for cities to assess the quality and completeness of their data before conducting significant analysis on possibly erroneous data. Cities can simply upload a standard EPA Portfolio Manager template (link) and automatically observe which buildings may have bad data. The template provided in the link is based on the one used by the City of Chicago to manage data for over 3,000 commercial buildings in its energy benchmarking initiative.</p><p><br></p><p><em>Blue Question: <span style="color: rgb(51,102,255);">What kind of data validation does the tool conduct?</span></em></p><p><br></p><p>The Maalka Data Quality Tool performs data validation on building characteristics and energy-use parameters based on the most recent data obtained by the EPA for buildings across the United States (<a href="https://www.energystar.gov/buildings/about-us/research-and-reports/portfolio-manager-datatrends">https://www.energystar.gov/buildings/about-us/research-and-reports/portfolio-manager-datatrends</a>). To provide the most useful insights, the data validation is based on building-type specific data. For example, the following plot and table can be observed in the Energy Star Portfolio Manager Data Trends document for an Office Building:</p><p><br></p><p><img class="confluence-embedded-image image-center" height="250" src="/download/attachments/5603383/image2017-7-14_17-59-19.png?version=1&amp;modificationDate=1500069559568&amp;api=v2" data-image-src="/download/attachments/5603383/image2017-7-14_17-59-19.png?version=1&amp;modificationDate=1500069559568&amp;api=v2" data-unresolved-comment-count="0" data-linked-resource-id="5603610" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image2017-7-14_17-59-19.png" data-base-url="https://confluence.maalka.com" data-linked-resource-content-type="image/png" data-linked-resource-container-id="5603383" data-linked-resource-container-version="17" title="Projects > Use Case > image2017-7-14_17-59-19.png" data-location="Projects > Use Case > image2017-7-14_17-59-19.png" data-image-height="281" data-image-width="766"></p><p style="text-align: center;">Source: <a href="https://www.energystar.gov/buildings/tools-and-resources/datatrends-energy-use-office-buildings">https://www.energystar.gov/buildings/tools-and-resources/datatrends-energy-use-office-buildings</a></p><p style="text-align: center;"><br></p><p>The Data Quality Tool automatically identifies all the buildings in the uploaded Portfolio Manager template and assesses values for associated building and energy-use characteristics. For example, an office building will have data validation for fields related to:</p><p><br></p><p>1)&nbsp;&nbsp; Gross Floor Area</p><p>2)&nbsp;&nbsp; Number of workers</p><p>3)&nbsp;&nbsp; Number of Computers</p><p>4)&nbsp;&nbsp; Weekly Operating hours</p><p>5)&nbsp;&nbsp; Site Energy Use Intensity (EUI)</p><p>6)&nbsp;&nbsp; Source EUI</p><p><br></p><p>Values for each building are compared against ranges that span the 5<sup>th</sup> and 95<sup>th</sup> percentiles of each parameter’s distribution for similar building types in the CBECS dataset, as observed in the above table above for office buildings. Buildings with data that falls outside of these ranges will be automatically flagged so that cities can review the data to ensure that it is accurate. This process prevents data entry errors and faulty information from being included in data analysis so cities can be confident in their energy efficiency improvement strategies.</p><p><br></p><p><br></p><p><em>Blue Question: <span style="color: rgb(51,102,255);">What kind of data validation does the tool conduct?</span></em></p><p><br></p><p>After uploading the Portfolio Manager report to the Maalka Data Quality Tool, you will be presented by the data quality results for each building in your portfolio. A sample output is observed below.</p><p><br></p><p><img class="confluence-embedded-image" height="250" src="/download/attachments/5603383/Screen%20Shot%202017-07-27%20at%201.18.17%20PM.png?version=1&amp;modificationDate=1501175912644&amp;api=v2" data-image-src="/download/attachments/5603383/Screen%20Shot%202017-07-27%20at%201.18.17%20PM.png?version=1&amp;modificationDate=1501175912644&amp;api=v2" data-unresolved-comment-count="0" data-linked-resource-id="5603701" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Screen Shot 2017-07-27 at 1.18.17 PM.png" data-base-url="https://confluence.maalka.com" data-linked-resource-content-type="image/png" data-linked-resource-container-id="5603383" data-linked-resource-container-version="17" title="Projects > Use Case > Screen Shot 2017-07-27 at 1.18.17 PM.png" data-location="Projects > Use Case > Screen Shot 2017-07-27 at 1.18.17 PM.png" data-image-height="274" data-image-width="839"></p><p><br></p><p><br></p><p>With this output, users can see an overall review of the quality and completeness of data for all buildings contained in the EPA Portfolio Manager report, as well as which buildings have data that falls outside the normal range for similar buildings in the United States. Data that pass validation is marked with a green . Data that is incomplete or falls out of the range of acceptable values is market with a red . From the output table above, we can see the status of data across all of the buildings simultaneously. By hovering over each red x, we can find see why a data field fails validation. <strong>For instance, the image below shows a user hovering over the red X for Office 1 - which failed validation. The mouse overlay suggests that one of the reasons that Office 1 failed was because the value for "Office - Weekly Operating Hours", which is 205,&nbsp;falls outside the normal range of 40-105 hours for most office buildings in the United States.</strong></p><p><br></p><p><img class="confluence-embedded-image" height="400" src="/download/attachments/5603383/Screen%20Shot%202017-07-27%20at%201.17.18%20PM.png?version=1&amp;modificationDate=1501175870116&amp;api=v2" data-image-src="/download/attachments/5603383/Screen%20Shot%202017-07-27%20at%201.17.18%20PM.png?version=1&amp;modificationDate=1501175870116&amp;api=v2" data-unresolved-comment-count="0" data-linked-resource-id="5603700" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Screen Shot 2017-07-27 at 1.17.18 PM.png" data-base-url="https://confluence.maalka.com" data-linked-resource-content-type="image/png" data-linked-resource-container-id="5603383" data-linked-resource-container-version="17" title="Projects > Use Case > Screen Shot 2017-07-27 at 1.17.18 PM.png" data-location="Projects > Use Case > Screen Shot 2017-07-27 at 1.17.18 PM.png" data-image-height="418" data-image-width="859"></p><p><br></p><p><em>Blue Question: <span style="color: rgb(51,102,255);">How should I interpret the results of the Data Quality Tool?</span></em></p><p><br></p><p>Validation for each field is thus automated and presented to a user in this intuitive manner, so that users can instantly assess data quality and completeness for large portfolios of buildings. It is important to note, however, that the Maalka Data Quality Tool should be used as part of a broader process around data validation. A few important considerations for users:</p><p><br></p><p>1)&nbsp;&nbsp; If a data field does not pass validation it does not mean that it is wrong. The following are possible reasons for failed validation:</p><p><br></p><ol><li>Data is missing</li><li>Data is in an incorrect format (e.g. Postal Code is not Numeric)</li><li>Data is out of normal range for a specific building type</li></ol><p><br></p><p>2)&nbsp;&nbsp; Data could be accurate and out of normal range, like in the above example for Number of Weekly Operating Hours, meaning that the building owner reported a very high or low number. Rather than discarding the data point, program managers should ask the building owner who supplied the data to confirm the value.</p><p><br></p><p>3)&nbsp;&nbsp; Data could be missing intentionally. The Data Quality tool checks whether a building reported both Electricity and Natural Gas data. If it is missing either, then the tool flags it as a potential missing value. However, a building might not a Natural Gas account because it heats through an electrical system. Program managers should ask the building owner who supplied the data to confirm that the missing value was intentional.</p><p><br></p><p>4)&nbsp;&nbsp; Data that does not pass validation may not be important to the program. For instance, in the above example the data field for Number of Weekly Operating Hours does not pass validation. If a program is only interested in checking Source EUI data, then a user can effectively ignore the fact that other values do not pass.</p><p><br></p><p>5)&nbsp;&nbsp; Missing data may mean that data was not reported correctly. Program managers should ask the building owner who shared the data to resubmit with more complete information.</p><p><br></p><p><br> Tip: Keep a note next to your workspace of any buildings that have special facilities so as you work through the validation process you can identify them quickly and move on.</p><p><br></p><p><em>Blue Question: <span style="color: rgb(51,102,255);">Can I export the results of the Data Quality Tool?</span></em></p><p><br></p><h4>Yes! In order to process the results of the Maalka Data Quality Tool independently, users can download an EXCEL compatible CSV file by clicking the ‘Download CSV’ button.</h4><h4>&nbsp;</h4><h4>&nbsp;&nbsp;{<a href="https://confluence.maalka.com/pages/createpage.action?spaceKey=PROJ&amp;title=inserrt+image+of+download+button&amp;linkCreation=true&amp;fromPageId=5603383">insert image of download button</a>} →&nbsp; &nbsp;{insert image of CSV export}</h4><p><img class="confluence-embedded-image confluence-thumbnail" height="42" src="/download/thumbnails/5603383/Screen%20Shot%202017-07-27%20at%201.15.01%20PM.png?version=1&amp;modificationDate=1501175723286&amp;api=v2" data-image-src="/download/attachments/5603383/Screen%20Shot%202017-07-27%20at%201.15.01%20PM.png?version=1&amp;modificationDate=1501175723286&amp;api=v2" data-unresolved-comment-count="0" data-linked-resource-id="5603695" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Screen Shot 2017-07-27 at 1.15.01 PM.png" data-base-url="https://confluence.maalka.com" data-linked-resource-content-type="image/png" data-linked-resource-container-id="5603383" data-linked-resource-container-version="17" title="Projects > Use Case > Screen Shot 2017-07-27 at 1.15.01 PM.png" data-location="Projects > Use Case > Screen Shot 2017-07-27 at 1.15.01 PM.png" data-image-height="42" data-image-width="164">&nbsp;<img class="confluence-embedded-image confluence-thumbnail" width="200" src="/download/thumbnails/5603383/Screen%20Shot%202017-07-27%20at%201.16.17%20PM.png?version=1&amp;modificationDate=1501175790435&amp;api=v2" data-image-src="/download/attachments/5603383/Screen%20Shot%202017-07-27%20at%201.16.17%20PM.png?version=1&amp;modificationDate=1501175790435&amp;api=v2" data-unresolved-comment-count="0" data-linked-resource-id="5603697" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Screen Shot 2017-07-27 at 1.16.17 PM.png" data-base-url="https://confluence.maalka.com" data-linked-resource-content-type="image/png" data-linked-resource-container-id="5603383" data-linked-resource-container-version="17" title="Projects > Use Case > Screen Shot 2017-07-27 at 1.16.17 PM.png" data-location="Projects > Use Case > Screen Shot 2017-07-27 at 1.16.17 PM.png" data-image-height="550" data-image-width="816"></p><p><br></p><p><br></p><p>The Data Quality Tool CSV export serves two main purposes:</p><p><br></p><p>1)&nbsp;&nbsp; Allows users to analyze the data quality results in Microsoft Excel so that buildings (rows) and fields (columns) can be removed, filters, and visualized. This allows data validation to be easily integrated into periodic workflows so that program managers can have a good feeling for the quality of data across a portfolio as it becomes available.</p><p><br></p><p>2)&nbsp;&nbsp; Translates all the Portfolio Manager field names into a BEDES compatible format for interoperability. The Building Energy Data Exchange Specification (BEDES) format is maintained by the US Department of Energy and provides a standard dictionary of terms for managing building related data. By translating the data from the template into a BEDES compatible format, users can shared data with external systems that align with the BEDES standard for rapid analysis and visualization across programs!&nbsp;</p><p><br></p><p><em>Blue Question: <span style="color: rgb(51,102,255);">How does the Data Quality Tool work on the Maalka Platform?</span></em></p><p><em>&nbsp;</em></p><p>The public Data Quality Tool is fully open-source and can be downloaded <strong><em>here.</em></strong><em> </em>With additional technical knowledge, users can extend the data validators and field types to better fit their program requirements.</p><p><br></p><p>The tool also sits within the Maalka platform as part of an integrated workflow that allows cities to customize validation fields and parameters through a user-friendly interface and to visualize trends of data validation across building portfolios of any size. Maalka also allows users to leverage CRM capabilities to manage email campaigns that enable program managers to contact building owners to confirm and update data fields when they do not pass validation. This provides cities with a way to continuously manage compliance across benchmarking programs.</p><p><br></p><p>To learn more about how Maalka enables your city to manage compliance and data validation as part of broader program management and reporting campaigns, please inquire here!</p><p>EXTRA DOCUMENTS:</p><p>Formatted in WORD:&nbsp;<img class="editor-inline-macro" height="250" src="/rest/documentConversion/latest/conversion/thumbnail/5603611/1?attachmentId=5603611&amp;version=1&amp;mimeType=application%2Fvnd.openxmlformats-officedocument.wordprocessingml.document&amp;height=250&amp;thumbnailStatus=200" data-macro-name="view-file" data-macro-id="ead779c7-b822-4e3e-8c5d-5ed9515a22c2" data-macro-parameters="height=250|name=MPB Data Validation Tool.docx" data-macro-schema-version="1">&nbsp;&nbsp;→ Dropbox Link&nbsp;→&nbsp;<a href="https://www.dropbox.com/s/l1uxpoe4i2tgj47/MPB%20Data%20Validation%20Tool.docx?dl=0">https://www.dropbox.com/s/l1uxpoe4i2tgj47/MPB%20Data%20Validation%20Tool.docx?dl=0</a></p><p>Sample XLS for Import: &nbsp;<img class="editor-inline-macro" height="250" src="/rest/documentConversion/latest/conversion/thumbnail/5603687/2?attachmentId=5603687&amp;version=2&amp;mimeType=application%2Fvnd.openxmlformats-officedocument.spreadsheetml.sheet&amp;height=250&amp;thumbnailStatus=200" data-macro-name="view-file" data-macro-id="98ef7b1c-38da-4faa-8967-479035e7243a" data-macro-parameters="height=250|name=SAMPLE.xlsx" data-macro-schema-version="1">→ Dropbox Link&nbsp;→&nbsp;<a href="https://www.dropbox.com/s/mw5r3jnk3ni4bdv/SAMPLE.xlsx?dl=0">https://www.dropbox.com/s/mw5r3jnk3ni4bdv/SAMPLE.xlsx?dl=0</a></p><p><br></p><p><br></p><p><span style="color: rgb(53,53,53);"><br></span></p><p><span style="color: rgb(53,53,53);"><br></span></p><p><span style="color: rgb(53,53,53);"><br></span></p><p><span style="color: rgb(53,53,53);"><br></span></p><div><p><br></p><table class="wrapped confluenceTable"><colgroup><col><col><col></colgroup><tbody><tr><th class="confluenceTh">Default Validation Rules do not pertain to my program</th><th style="text-align: center;" class="confluenceTh">Default Validation Rules Pertain to only a few of my buildings</th><th style="text-align: center;" class="confluenceTh">Default Validation Data Pertain to All of my buildings</th></tr><tr><td colspan="1" class="confluenceTd"><div class="content-wrapper"><p style="text-align: center;"><br></p><p style="text-align: center;"><img class="confluence-embedded-image confluence-thumbnail image-center" height="50" src="/download/thumbnails/5603383/Screen%20Shot%202017-06-22%20at%203.23.17%20PM.png?version=1&amp;modificationDate=1498166715521&amp;api=v2" data-image-src="/download/attachments/5603383/Screen%20Shot%202017-06-22%20at%203.23.17%20PM.png?version=1&amp;modificationDate=1498166715521&amp;api=v2" data-unresolved-comment-count="0" data-linked-resource-id="5603391" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Screen Shot 2017-06-22 at 3.23.17 PM.png" data-base-url="https://confluence.maalka.com" data-linked-resource-content-type="image/png" data-linked-resource-container-id="5603383" data-linked-resource-container-version="17" title="Projects > Use Case > Screen Shot 2017-06-22 at 3.23.17 PM.png" data-location="Projects > Use Case > Screen Shot 2017-06-22 at 3.23.17 PM.png" data-image-height="50" data-image-width="68"></p><p style="text-align: center;"><span>Data Errors Can be Ignored</span></p></div></td><td colspan="1" class="confluenceTd"><div class="content-wrapper"><p style="text-align: center;"><br></p></div><img class="confluence-embedded-image confluence-thumbnail image-center" height="50" src="/download/thumbnails/5603383/Screen%20Shot%202017-06-22%20at%203.23.17%20PM.png?version=1&amp;modificationDate=1498166715521&amp;api=v2" data-image-src="/download/attachments/5603383/Screen%20Shot%202017-06-22%20at%203.23.17%20PM.png?version=1&amp;modificationDate=1498166715521&amp;api=v2" data-unresolved-comment-count="0" data-linked-resource-id="5603391" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Screen Shot 2017-06-22 at 3.23.17 PM.png" data-base-url="https://confluence.maalka.com" data-linked-resource-content-type="image/png" data-linked-resource-container-id="5603383" data-linked-resource-container-version="17" title="Projects > Use Case > Screen Shot 2017-06-22 at 3.23.17 PM.png" data-location="Projects > Use Case > Screen Shot 2017-06-22 at 3.23.17 PM.png" data-image-height="50" data-image-width="68"><p><span>Keep a list of those buildings that pertain to specific validators to quickly identify which buildings are missing data.</span></p><p><br></p></td><td colspan="1" class="confluenceTd"><div class="content-wrapper"><p style="text-align: center;"><img class="confluence-embedded-image confluence-thumbnail" height="52" src="/download/thumbnails/5603383/Screen%20Shot%202017-06-22%20at%203.23.32%20PM.png?version=1&amp;modificationDate=1498166651403&amp;api=v2" data-image-src="/download/attachments/5603383/Screen%20Shot%202017-06-22%20at%203.23.32%20PM.png?version=1&amp;modificationDate=1498166651403&amp;api=v2" data-unresolved-comment-count="0" data-linked-resource-id="5603390" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Screen Shot 2017-06-22 at 3.23.32 PM.png" data-base-url="https://confluence.maalka.com" data-linked-resource-content-type="image/png" data-linked-resource-container-id="5603383" data-linked-resource-container-version="17" title="Projects > Use Case > Screen Shot 2017-06-22 at 3.23.32 PM.png" data-location="Projects > Use Case > Screen Shot 2017-06-22 at 3.23.32 PM.png" data-image-height="52" data-image-width="56"></p><p>Your building portfolio's data is one step closer to being complete.</p></div></td></tr><tr><td colspan="1" class="confluenceTd"><div class="content-wrapper"><p style="text-align: center;"><br></p><p style="text-align: center;"><br></p></div></td><td colspan="1" class="confluenceTd"><div class="content-wrapper"><p style="text-align: center;"><br></p><p><br></p></div></td><td colspan="1" class="confluenceTd"><div class="content-wrapper"><p><br></p><p style="text-align: center;"><img class="confluence-embedded-image confluence-thumbnail" height="50" src="/download/thumbnails/5603383/Screen%20Shot%202017-06-22%20at%203.23.17%20PM.png?version=1&amp;modificationDate=1498166715521&amp;api=v2" data-image-src="/download/attachments/5603383/Screen%20Shot%202017-06-22%20at%203.23.17%20PM.png?version=1&amp;modificationDate=1498166715521&amp;api=v2" data-unresolved-comment-count="0" data-linked-resource-id="5603391" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Screen Shot 2017-06-22 at 3.23.17 PM.png" data-base-url="https://confluence.maalka.com" data-linked-resource-content-type="image/png" data-linked-resource-container-id="5603383" data-linked-resource-container-version="17" title="Projects > Use Case > Screen Shot 2017-06-22 at 3.23.17 PM.png" data-location="Projects > Use Case > Screen Shot 2017-06-22 at 3.23.17 PM.png" data-image-height="50" data-image-width="68"></p><p style="text-align: center;">It's time to do a quick check in with building stakeholders to have data entered into Portfolio Manager</p><p style="text-align: center;">or</p><p style="text-align: center;">enter data manually yourself</p></div></td></tr></tbody></table><p><br></p></div><div><span style="color: rgb(53,53,53);"><br></span></div><ul class="icon1"><ul class="icon1">&nbsp;</ul></ul><p><span style="color: rgb(128,130,133);"><br></span></p><p><br></p><p><span style="color: rgb(128,130,133);"><br></span></p>
+        <p>&nbsp;</p>
+    
