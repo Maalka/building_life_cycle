@@ -1,6 +1,7 @@
 # README #
 
 # Data Quality Tool #
+Verson 1.0
 The [**Data Quality Tool**](https://dataquality.maalka.com) is a simple, open source, application that allows you to validate the data you have stored within the [Energy Star Portfolio Manager (PM)](https://portfoliomanager.energystar.gov/). The tool provides an easy way to identify problems with both your building's meta data and resource consumption data. 
 
 The Data Quality Tools allows you to:
@@ -161,8 +162,7 @@ The following data fields are contained in the **Municipal Benchmark Report**:
 
 ### What is this repository for? ###
 
-* Version 1.0
-* [Learn Data Quality Tool](https://bitbucket.org/maalka/tutorials/dataqualitytool)
+* [Learn Data Quality Tool](https://dataquality.maalka.com/#/usecase)
 
 ## Run
 * from sbt command line run: sbt run
