@@ -14,73 +14,124 @@
   ~    See the License for the specific language governing permissions and
   ~    limitations under the License.
   -->
+  
   <div>
-        <h1>Annual Benchmarking Data Quality Use Case</h1>
+        <h1 class="ui horizontal divider header">Annual Benchmarking Data Quality Use Case</h1>
+        <div class="ui hidden divider"></div>
         <p>
             Cities across the United States are instituting energy benchmarking initiatives to understand how much energy their commercial buildings are using. By targeting the highest energy users with strategies to improve energy efficiency, they can progress towards their emissions reduction goals and reduce costs for building owners.
         </p>
         <p>
             There are already over <a href="http://www.imt.org/resources/detail/map-u.s.-building-benchmarking-policies">20 cities</a>, <a href="http://www.2030districts.org/districts">20 districts</a>, and <a href="https://betterbuildingssolutioncenter.energy.gov/challenge/partner-list">200 corporations</a> managing benchmarking initiatives and the list is growing each month. In fact, every city in the <a href="http://www.energy.ca.gov/benchmarking/documents/AB_802_benchmarking_provisions.pdf">State of California</a> is required to begin benchmarking commercial buildings in 2018 and over 7,000 cities around the world are adopting similar commitments through the <a href="http://www.globalcovenantofmayors.org/">Global Covenant of Mayors</a>.
         </p align="center">
+    <div class="ui hidden divider"></div>
         <center>
             <img class="confluence-embedded-image image-center" src="./assets/images/image2017-7-14_17-58-22.png">
         </center>
 
         <p align="center">
-            US Cities with Benchmarking Initiatives: 
-                <a href="http://www.imt.org/resources/detail/map-u.s.-building-benchmarking-policies">
-                    http://www.imt.org/resources/detail/map-u.s.-building-benchmarking-policies</a>
+             <a href="http://www.imt.org/resources/detail/map-u.s.-building-benchmarking-policies">
+                    US Cities with Benchmarking Initiatives:</a>
+
+    <div class="ui hidden divider"></div>
         </p>
-        <p>
+
+    <div class="ui hidden divider"></div>
+
+        <h2>
             <em>
-                <span style="color: rgb(51,102,255);">
+                <span style="color:#363636">
                     How are cities currently managing energy benchmarking program data?
                 </span>
 
             </em>
-        </p>
+        </h2>
         <p>
             In order to effectively develop energy efficiency strategies, cities begin by collecting data for all buildings of interest. The most common approach for managing the process of data collection is with the publically available 
             <a href="https://www.energystar.gov/buildings/facility-owners-and-managers/existing-buildings/use-portfolio-manager">
-                EPA Portfolio Manager
-            </a>. 
+                EPA Portfolio Manager.
+            </a>
             Building owners create an account on EPA Portfolio Manager and populate the data fields required to comply with the city benchmarking program. Once building owners finish gathering the data, they share it with the city, which exports the data using a Portfolio Manager Report Template for analysis.
         </p>
-        <p>Graphic: Building (Data Collection) → Portfolio Manager (Data Sharing) &nbsp;→ CSV (Data Analysis)
+    <div class="ui hidden divider"></div>
+        <center>
+            <img class="data_quality image" src="./assets/images/Data-Quality-graphic.png">
+        </center>
         </p>
+
+    <div class="ui hidden divider"></div>
             
         <p></p>
-        <p>Since the first public benchmarking program in 2009, cities have established effective guidelines for standardizing the process of data collection using EPA Portfolio Manager. However, after collecting the data, each city has a different way of analyzing it for setting effective energy efficiency strategies.
+        <p>
+            Since the first public benchmarking program in 2009, cities have established effective guidelines for standardizing the process of data collection using EPA Portfolio Manager. However, after collecting the data, each city has a different way of analyzing it for setting effective energy efficiency strategies.
         </p>
         
-        <p>Through our engagement with several cities (Chicago, DC, Tacoma, Eugene, Providence, and more…), Maalka has discovered a common need for ensuring benchmarking program data is accurate, complete, and interoperable. To address this need, we developed the Data Quality Tool to allow municipalities to easily and cost effectively:
+        <p>
+            Through our engagement with several cities (Chicago, DC, Tacoma, Eugene, Providence, and more…), Maalka has discovered a common need for ensuring benchmarking program data is accurate, complete, and interoperable. To address this need, we developed the Data Quality Tool to allow municipalities to easily and cost effectively:
         </p>
+
+         <ul class="icon1" style="padding-left:15%">
+        <div class="ui middle aligned list">
+            <div class="item">
+                <img class="ui image" src="/assets/images/1.png">
+                <div class="content">
+                    <div class="description" style="color:#808285">Import EPA Portfolio Manager data</div>
+                </div>
+            </div>
+            <div class="item">
+                <img class="ui image" src="/assets/images/2.png">
+                <div class="content">
+                    <div class="description" style="color:#808285">Map the data to a BEDES compatible format</div>
+                </div>
+            </div>
+            <div class="item">
+                <img class="ui image" src="/assets/images/3.png">
+                <div class="content">
+                    <div class="description" style="color:#808285">Automatically identify data anomalies across their benchmarking program</div>
+                </div>
+            </div>
+            <div class="item">
+                <img class="ui image" src="/assets/images/4.png">
+                <div class="content">
+                    <div class="description" style="color:#808285">Flag possible errors in data related to building characteristics, operations, and energy-use</div>
+                </div>
+            
+        </div>
+        </ul>
+
+    <div class="ui hidden divider"></div>
         
-        <ol><li>Import EPA Portfolio Manager data
-        </li>
-        <li>Map the data to a BEDES compatible format
-        </li>
-        <li>Automatically identify data anomalies across their benchmarking program
-        </li>
-        <li>Flag possible errors in data related to building characteristics, operations, and energy-use.
-        </li></ol>
+        <h2>
+        <em><span style="color:#363636">What is the Maalka Data Quality Tool used for?</span>
+        </em>
+        </h2>
         
-        <p><em>Blue Question: <span style="color: rgb(51,102,255);">What is the Maalka Data Quality Tool used for?</span>
-        </em></p>
-        
-        <p>The Maalka Data Quality Tool provides an essential free service for cities to assess the quality and completeness of their data before conducting significant analysis on possibly erroneous data. Cities can simply upload a standard EPA Portfolio Manager template (link) and automatically observe which buildings may have bad data. The template provided in the link is based on the one used by the City of Chicago to manage data for over 3,000 commercial buildings in its energy benchmarking initiative.
+        <p>
+            The Maalka Data Quality Tool provides an essential free service for cities to assess the quality and completeness of their data before conducting significant analysis on possibly erroneous data. Cities can simply upload a standard <a href="https://www.energystar.gov/buildings/tools-and-resources/portfolio-manager-custom-reporting-guide">EPA Portfolio Manager template</a> and automatically observe which buildings may have bad data. The template provided in the link is based on the one used by the City of Chicago to manage data for over 3,000 commercial buildings in its energy benchmarking initiative.
         </p>
+
+        <div class="ui hidden divider"></div>
        
-        <p><em>Blue Question: <span style="color: rgb(51,102,255);">What kind of data validation does the tool conduct?</span>
-        </em></p>
+        <h2>
+        <em><span style="color:#363636">What kind of data validation does the tool conduct?</span>
+        </em>
+        </h2>
         
-        <p>The Maalka Data Quality Tool performs data validation on building characteristics and energy-use parameters based on the most recent data obtained by the EPA for buildings across the United States (<a href="https://www.energystar.gov/buildings/about-us/research-and-reports/portfolio-manager-datatrends">https://www.energystar.gov/buildings/about-us/research-and-reports/portfolio-manager-datatrends</a>). To provide the most useful insights, the data validation is based on building-type specific data. For example, the following plot and table can be observed in the Energy Star Portfolio Manager Data Trends document for an Office Building:
-        </p>
+    <p>
+        The Data Quality tool analyzes data that is contained in Energy Star Portfolio Manager Custom XLS Report. For the purpose of demonstration, you can download a sample report with data errors that will be analyzed by the tool <a href="/assets/files/data_quality_sample_template.xlsx"> here</a>. When you create your own <a href="/assets/files/EnergyStar_CustomReporting.pdf">Portfolio Manager Report Template</a> you can use the sample file as a reference for choosing the fields to export.
+    </p>
+    <p>
+        After uploading the Portfolio Manager report to the Maalka Data Quality Tool, you will be presented by the data quality results for each building in your portfolio. A sample output is observed below.
+    </p>
+
+    </p>
+
+    <div class="ui hidden divider"></div>
 
         <center>
             <img src="./assets/images/image2017-7-14_17-59-19.png"></p>
         </center>
-        <p style="text-align: center;">Source: <a href="https://www.energystar.gov/buildings/tools-and-resources/datatrends-energy-use-office-buildings">https://www.energystar.gov/buildings/tools-and-resources/datatrends-energy-use-office-buildings</a>
+        <p style="text-align: center;">Source: <a href="https://www.energystar.gov/buildings/tools-and-resources/datatrends-energy-use-office-buildings">DataTrends: Energy Use in Office Buildings</a>
         </p>
 
         <p style="text-align: center;"><br></p><p>The Data Quality Tool automatically identifies all the buildings in the uploaded Portfolio Manager template and assesses values for associated building and energy-use characteristics. For example, an office building will have data validation for fields related to:
@@ -99,32 +150,117 @@
         <p>6)&nbsp;&nbsp; Source EUI
         </p>
         
-        <p>Values for each building are compared against ranges that span the 5<sup>th</sup> and 95<sup>th</sup> percentiles of each parameter’s distribution for similar building types in the CBECS dataset, as observed in the above table above for office buildings. Buildings with data that falls outside of these ranges will be automatically flagged so that cities can review the data to ensure that it is accurate. This process prevents data entry errors and faulty information from being included in data analysis so cities can be confident in their energy efficiency improvement strategies.
+        <p>
+            Values for each building are compared against ranges that span the 5<sup>th</sup> and 95<sup>th</sup> percentiles of each parameter’s distribution for similar building types in the CBECS dataset, as observed in the above table above for office buildings. Buildings with data that falls outside of these ranges will be automatically flagged so that cities can review the data to ensure that it is accurate. This process prevents data entry errors and faulty information from being included in data analysis so cities can be confident in their energy efficiency improvement strategies.
+        </p>
+
+        <div class="ui hidden divider"></div>
+        
+        <h2>
+        <em><span style="color:#363636">What kind of data validation does the tool conduct?</span>
+        </em>
+        </h2>
+        
+        <p>
+            After uploading the Portfolio Manager report to the Maalka Data Quality Tool, you will be presented by the data quality results for each building in your portfolio. A sample output is observed below.
         </p>
         
-        <p><em>Blue Question: <span style="color: rgb(51,102,255);">What kind of data validation does the tool conduct?</span>
-        </em></p>
-        
-        <p>After uploading the Portfolio Manager report to the Maalka Data Quality Tool, you will be presented by the data quality results for each building in your portfolio. A sample output is observed below.
-        </p>
-        
+    <div class="ui hidden divider"></div>
         <center>
             <img height="250" src="./assets/images/Screen Shot 2017-07-27 at 1.45.30 PM.png">
         </center>
         
         <p><br></p>
-        <p>With this output, users can see an overall review of the quality and completeness of data for all buildings contained in the EPA Portfolio Manager report, as well as which buildings have data that falls outside the normal range for similar buildings in the United States. Data that pass validation is marked with a green . Data that is incomplete or falls out of the range of acceptable values is market with a red . From the output table above, we can see the status of data across all of the buildings simultaneously. By hovering over each red x, we can find see why a data field fails validation. <strong>For instance, the image below shows a user hovering over the red X for Office 1 - which failed validation. The mouse overlay suggests that one of the reasons that Office 1 failed was because the value for "Office - Weekly Operating Hours", which is 205,&nbsp;falls outside the normal range of 40-105 hours for most office buildings in the United States.</strong>
+        <p>
+            With this output, users can see an overall review of the quality and completeness of data for all buildings contained in the EPA Portfolio Manager report, as well as which buildings have data that falls outside the normal range for similar buildings in the United States. Data that pass validation is marked with a <span style="color:#86D800"><i class="checkmark icon"></i></span>. Data that is incomplete or falls out of the range of acceptable values is market with an <strong><span style="color:#7f141f">x</span></strong>. From the output table above, we can see the status of data across all of the buildings simultaneously. By hovering over each <strong><span style="color:#7f141f">x</span></strong>, we can find see why a data field fails validation. 
+        </p>
+        <p>
+            <strong>For instance, the image below shows a user hovering over the red X for Office 1 - which failed validation. The mouse overlay suggests that one of the reasons that Office 1 failed was because the value for "Office - Weekly Operating Hours", which is 205,&nbsp;falls outside the normal range of 40-105 hours for most office buildings in the United States.</strong>
         </p>
         <p><br></p>
         <center>
             <img height="400" src="./assets/images/Screen Shot 2017-07-27 at 1.17.18 PM.png">
         </center>
-        <p><br></p><p><em>Blue Question: <span style="color: rgb(51,102,255);">How should I interpret the results of the Data Quality Tool?</span></em></p><p><br></p><p>Validation for each field is thus automated and presented to a user in this intuitive manner, so that users can instantly assess data quality and completeness for large portfolios of buildings. It is important to note, however, that the Maalka Data Quality Tool should be used as part of a broader process around data validation. A few important considerations for users:</p><p><br></p><p>1)&nbsp;&nbsp; If a data field does not pass validation it does not mean that it is wrong. The following are possible reasons for failed validation:</p><p><br></p><ol><li>Data is missing</li><li>Data is in an incorrect format (e.g. Postal Code is not Numeric)</li><li>Data is out of normal range for a specific building type</li></ol><p><br></p><p>2)&nbsp;&nbsp; Data could be accurate and out of normal range, like in the above example for Number of Weekly Operating Hours, meaning that the building owner reported a very high or low number. Rather than discarding the data point, program managers should ask the building owner who supplied the data to confirm the value.</p><p><br></p><p>3)&nbsp;&nbsp; Data could be missing intentionally. The Data Quality tool checks whether a building reported both Electricity and Natural Gas data. If it is missing either, then the tool flags it as a potential missing value. However, a building might not a Natural Gas account because it heats through an electrical system. Program managers should ask the building owner who supplied the data to confirm that the missing value was intentional.</p><p><br></p><p>4)&nbsp;&nbsp; Data that does not pass validation may not be important to the program. For instance, in the above example the data field for Number of Weekly Operating Hours does not pass validation. If a program is only interested in checking Source EUI data, then a user can effectively ignore the fact that other values do not pass.</p><p><br></p><p>5)&nbsp;&nbsp; Missing data may mean that data was not reported correctly. Program managers should ask the building owner who shared the data to resubmit with more complete information.</p><p><br></p><p><br> Tip: Keep a note next to your workspace of any buildings that have special facilities so as you work through the validation process you can identify them quickly and move on.</p><p><br></p><p><em>Blue Question: <span style="color: rgb(51,102,255);">Can I export the results of the Data Quality Tool?</span></em></p><p><br></p><h4>Yes! In order to process the results of the Maalka Data Quality Tool independently, users can download an EXCEL compatible CSV file by clicking the ‘Download CSV’ button.</h4><h4>&nbsp;</h4>
+        <p><br></p>
+    <h2>
+        <em><span style="color:#363636">How should I interpret the results of the Data Quality Tool?</span>
+        </em>
+    </h2>
+    <p>
+        Validation for each field is thus automated and presented to a user in this intuitive manner, so that users can instantly assess data quality and completeness for large portfolios of buildings. It is important to note, however, that the Maalka Data Quality Tool should be used as part of a broader process around data validation. A few important considerations for users:</p>
+        
+    <p>
+            1)&nbsp;&nbsp; If a data field does not pass validation it does not mean that it is wrong. The following are possible reasons for failed validation:</p>
+    
+        <ul><li>Data is missing</li>
+        <li>Data is in an incorrect format (e.g. Postal Code is not Numeric)
+        </li>
+        <li>Data is out of normal range for a specific building type</li>
+        </ul>
+    
+        <p>
+            2)&nbsp;&nbsp; Data could be accurate and out of normal range, like in the above example for Number of Weekly Operating Hours, meaning that the building owner reported a very high or low number. Rather than discarding the data point, program managers should ask the building owner who supplied the data to confirm the value.</p>
+        
+        <p>
+            3)&nbsp;&nbsp; Data could be missing intentionally. The Data Quality tool checks whether a building reported both Electricity and Natural Gas data. If it is missing either, then the tool flags it as a potential missing value. However, a building might not have a Natural Gas account because it heats through an electrical system. Program managers should ask the building owner who supplied the data to confirm that the missing value was intentional.</p>
+        
+        <p>
+            4)&nbsp;&nbsp; Data that does not pass validation may not be important to the program. For instance, in the above example the data field for Number of Weekly Operating Hours does not pass validation. If a program is only interested in checking Source EUI data, then a user can effectively ignore the fact that other values do not pass.</p>
+        
+        <p>
+            5)&nbsp;&nbsp; Missing data may mean that data was not reported correctly. Program managers should ask the building owner who shared the data to resubmit with more complete information.</p>
+        
+        <p><br> <img src="./assets/images/light-bulb-2-32.png"><strong>Maalka Tip: Keep a note next to your workspace of any buildings that have special facilities so as you work through the validation process you can identify them quickly and move on.</strong>
+        </p>
+       
+    <div class="ui hidden divider"></div>
+    <h2>
+        <em><span style="color:#363636">Can I export the results of the Data Quality Tool?</span></em>
+    </h2>
+        
+        <p>
+            Yes! In order to process the results of the Maalka Data Quality Tool independently, users can download an EXCEL compatible CSV file by clicking the button.
+        </p>
+        
+        <p>&nbsp;</p>
         <center>
-            <img class="confluence-embedded-image confluence-thumbnail" height="42" src="./assets/images/Screen Shot 2017-07-27 at 1.15.01 PM.png">
-            <img class="confluence-embedded-image confluence-thumbnail" width="200" src="./assets/images/Screen Shot 2017-07-27 at 1.16.17 PM.png">
+        <img src="./assets/images/download_csv.png">
         </center>
 
-        <p>The Data Quality Tool CSV export serves two main purposes:</p><p><br></p><p>1)&nbsp;&nbsp; Allows users to analyze the data quality results in Microsoft Excel so that buildings (rows) and fields (columns) can be removed, filters, and visualized. This allows data validation to be easily integrated into periodic workflows so that program managers can have a good feeling for the quality of data across a portfolio as it becomes available.</p><p><br></p><p>2)&nbsp;&nbsp; Translates all the Portfolio Manager field names into a BEDES compatible format for interoperability. The Building Energy Data Exchange Specification (BEDES) format is maintained by the US Department of Energy and provides a standard dictionary of terms for managing building related data. By translating the data from the template into a BEDES compatible format, users can shared data with external systems that align with the BEDES standard for rapid analysis and visualization across programs!&nbsp;</p><p><br></p><p><em>Blue Question: <span style="color: rgb(51,102,255);">How does the Data Quality Tool work on the Maalka Platform?</span></em></p><p><em>&nbsp;</em></p><p>The public Data Quality Tool is fully open-source and can be downloaded <strong><em>here.</em></strong><em> </em>With additional technical knowledge, users can extend the data validators and field types to better fit their program requirements.</p><p><br></p><p>The tool also sits within the Maalka platform as part of an integrated workflow that allows cities to customize validation fields and parameters through a user-friendly interface and to visualize trends of data validation across building portfolios of any size. Maalka also allows users to leverage CRM capabilities to manage email campaigns that enable program managers to contact building owners to confirm and update data fields when they do not pass validation. This provides cities with a way to continuously manage compliance across benchmarking programs.</p><p><br></p><p>To learn more about how Maalka enables your city to manage compliance and data validation as part of broader program management and reporting campaigns, please inquire here!</p>
+        <div class="ui hidden divider"></div>
+        <p>
+        <strong>
+            The Data Quality Tool CSV export serves two main purposes:
+        </strong>
+        </p>
+        
+        <p>
+            1)&nbsp;&nbsp; Allows users to analyze the data quality results in Microsoft Excel so that buildings (rows) and fields (columns) can be removed, filtered, and visualized. This allows data validation to be easily integrated into periodic workflows so that program managers can have a good feeling for the quality of data across a portfolio as it becomes available.</p>
+      
+        <p>
+            2)&nbsp;&nbsp; Translates all the Portfolio Manager field names into a BEDES compatible format for interoperability. The Building Energy Data Exchange Specification (BEDES) format is maintained by the US Department of Energy and provides a standard dictionary of terms for managing building related data. By translating the data from the template into a BEDES compatible format, users can shared data with external systems that align with the BEDES standard for rapid analysis and visualization across programs!&nbsp;</p>
+        
+        <div class="ui hidden divider"></div>
+
+    <h2>
+        <em><span style="color:#363636">How does the Data Quality Tool work on the Maalka Platform?</span></em>
+    </h2>
+
+        <p>
+            The public Data Quality Tool is fully open-source and can be downloaded <em><a href="https://github.com/Maalka/data_quality">here.</a>
+        </em>
+        <em> </em>With additional technical knowledge, users can extend the data validators and field types to better fit their program requirements.
+        </p>
+        
+        <p>
+            The tool also sits within the Maalka platform as part of an integrated workflow that allows cities to customize validation fields and parameters through a user-friendly interface and to visualize trends of data validation across building portfolios of any size. Maalka also allows users to leverage CRM capabilities to manage email campaigns that enable program managers to contact building owners to confirm and update data fields when they do not pass validation. This provides cities with a way to continuously manage compliance across benchmarking programs.</p>
+    
+        <p>
+            To learn more about how Maalka enables your city to manage compliance and data validation as part of broader program management and reporting campaigns,<a href="mailto:info@maalka.com">please inquire here!
+            </a>
+        </p>
+
+      <div class="ui hidden divider"></div>         
+    </div>
     </div>
     
