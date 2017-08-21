@@ -1,3 +1,19 @@
+/*
+ * Copyright 2017 Maalka
+ *
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an "AS IS" BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
+ */
+
 package actors.validators.bedes
 
 import java.util.UUID
@@ -44,10 +60,14 @@ case class SiteEnergyResourceIntensity(guid: String,
   val validator = "bedeas_site_energy_resource_intensity"
   val bedesCompositeName = "Site Energy Resource Intensity"
 
+  val min:Option[Double] = Some(0)
+  val max:Option[Double] = Some(375)
+
+
   val componentValidators = Seq(propsWrapper(Numeric.props),
-    propsWrapper(WithinRange.props, Option(Json.obj("min" -> 0))),
+    propsWrapper(WithinRange.props, Option(Json.obj("min" -> min))),
     propsWrapper(WithinRange.props, Option(Json.obj("min" -> 40, "max" -> 375))),
-    propsWrapper(WithinRange.props, Option(Json.obj("min" -> 375))))
+    propsWrapper(WithinRange.props, Option(Json.obj("min" -> max))))
 
   def isValid(refId: UUID, value: Option[Seq[BEDESTransformResult]]): Future[Validator.MapValid] = {
     sourceValidateFromComponents(value).map { results =>

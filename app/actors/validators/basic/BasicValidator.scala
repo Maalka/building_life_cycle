@@ -1,5 +1,17 @@
 /*
- * Copyright (c) 2017. Maalka Inc. All Rights Reserved
+ * Copyright 2017 Maalka
+ *
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an "AS IS" BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
  */
 
 package actors.validators.basic
@@ -17,10 +29,6 @@ import play.api.libs.json.JsObject
 import scala.concurrent.Future
 import scala.util.control.NonFatal
 import scala.concurrent.duration._
-
-/**
-  * Created by clayteeter on 3/28/17.
-  */
 
 trait BasicValidator[A] extends Actor with ActorLogging with Validator[A] {
 
@@ -43,12 +51,12 @@ trait BasicValidator[A] extends Actor with ActorLogging with Validator[A] {
     val future = for {
       valids <- isValid(refId, value)
     } yield {
-      self forward UpdateObjectValidatedDocument(refId, guid, validator,
+      self forward UpdateObjectValidatedDocument(refId, guid, validator, None,
         validatorCategory, valid = valids.valid, value, None, valids.message, valids.details)
     }
     future.recover {
       case NonFatal(th) =>
-        self forward UpdateObjectValidatedDocument(refId, guid, validator, validatorCategory,
+        self forward UpdateObjectValidatedDocument(refId, guid, validator, validatorCategory, None,
           valid = false, value, None, Option(th.getMessage))
     }
   }

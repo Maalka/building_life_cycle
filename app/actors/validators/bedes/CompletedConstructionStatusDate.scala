@@ -1,3 +1,19 @@
+/*
+ * Copyright 2017 Maalka
+ *
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an "AS IS" BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
+ */
+
 package actors.validators.bedes
 
 import java.util.UUID
@@ -45,12 +61,15 @@ case class CompletedConstructionStatusDate(guid: String,
   val bedesCompositeName = "Completed Construction Status Date"
 
   val componentValidators = Seq(propsWrapper(Exists.props),
-    propsWrapper(WithinRange.props, Option(Json.obj("min" -> new DateTime(1800, 1, 1, 1, 1).getMillis))))
+    propsWrapper(WithinRange.props, Option(
+      Json.obj("min" -> new DateTime(1800, 1, 1, 1, 1).getMillis,
+        "max" -> new DateTime(2020, 1, 1, 1, 1).getMillis)
+    )))
 
   def isValid(refId: UUID, value: Option[Seq[BEDESTransformResult]]): Future[Validator.MapValid] = {
     sourceValidateFromComponents(value).map { results =>
       if (results.exists(_.valid == false)) {
-        Validator.MapValid(valid = false, Option("Built before 1800"))
+        Validator.MapValid(valid = false, Option("Out of range (1800 - 2020)"))
       } else {
         Validator.MapValid(valid = true, None)
       }

@@ -1,3 +1,19 @@
+/*
+ * Copyright 2017 Maalka
+ *
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an "AS IS" BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
+ */
+
 package actors.validators.basic
 
 import java.util.UUID
@@ -13,7 +29,6 @@ import scala.util.{Failure, Success, Try}
 /**
   * Validates that MaterData includes 'usage' that is within range passed in as argument
   *
-  * Created by clayteeter on 11/2/16.
   */
 
 object WithinRange {
@@ -49,11 +64,11 @@ case class WithinRange(guid: String,
     Future {
       value.flatMap{ v => v.usage }.flatMap { v =>
         arguments.map { arg =>
-          val min = (arg \ "min").asOpt[Int] orElse (arg \ "min").asOpt[String].map(_.toInt)
-          val max = (arg \ "max").asOpt[Int] orElse (arg \ "max").asOpt[String].map(_.toInt)
+          val min = (arg \ "min").asOpt[Double] orElse (arg \ "min").asOpt[String].map(_.toDouble)
+          val max = (arg \ "max").asOpt[Double] orElse (arg \ "max").asOpt[String].map(_.toDouble)
 
           val g = MapValid(true, Option(v.toString))
-
+          log.debug("Arguments: min {} max {} value {}", min, max, value)
           (min, max) match {
             case (Some(l), Some(r)) if v > l && v < r => true
             case (Some(l), None) if v > l => true

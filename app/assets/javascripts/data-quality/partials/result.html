@@ -1,33 +1,86 @@
 <!--
-  ~ Copyright (c) 2017. Maalka Inc. All Rights Reserved
+  ~ Copyright 2017 Maalka
+  ~
+  ~    Licensed under the Apache License, Version 2.0 (the "License");
+  ~    you may not use this file except in compliance with the License.
+  ~    You may obtain a copy of the License at
+  ~
+  ~        http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~    Unless required by applicable law or agreed to in writing, software
+  ~    distributed under the License is distributed on an "AS IS" BASIS,
+  ~    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~    See the License for the specific language governing permissions and
+  ~    limitations under the License.
   -->
 
-<div ng-if="loadingFileFiller.loading === false">
-    <h3 class="ui header">
-        Results
-    </h3>
-    <div class="ui fluid card" >
-        <div class="content">
-            <table class="ui very basic table" ng-if="verificationHeaders.length > 0">
-                <!--<thead>
-                    <tr >
-                        <th></th>
-                        <th ng-repeat="h in verificationHeaders">{{ h }}</th>
-                    </tr>
-                </thead> -->
-                <tbody infinite-scroll='loadMore()' infinite-scroll-distance='2'>
-                    <tr ng-repeat="p in verificationRows"> {{ p }}
-                        <td class="collapsing">{{ verificationPropertyName($index) | limitTo: 20 }} 
-                            <span ng-if="verificationPropertyName($index).length > 20">...</span>
-                        </td>
-                        <td class="center aligned" ng-repeat="r in p" 
-                            data-tooltip="{{ tooltip(r, $index) }}">
-                            <i class="green checkmark icon" ng-if="r.valid"></i>
-                            <i class="red close icon" ng-if="!r.valid"></i>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+<div>
+    <div>
+        <h3 class="ui header">
+            Results -
+            <a ng-click="download()">Download CSV</a>
+        </h3>        
+        <div class="ui fluid card" >
+            <div class="content" style="min-height: 100px">
+                <div class="ui active loader"
+                     ng-if="loadingFileFiller.loading === true">
+                </div>
+                <table class="ui very basic table" ng-if="validation.length > 0">
+                    <!--<thead>
+                        <tr >
+                            <th></th>
+                            <th ng-repeat="h in verificationHeaders">{{ h }}</th>
+                        </tr>
+                    </thead> -->
+                    <tbody infinite-scroll='loadMore()' infinite-scroll-distance='2'>
+                        <tr ng-repeat="p in validation"> {{ p }}
+                            <td class="collapsing">{{ p.propertyName | limitTo: 20 }}
+                                <span ng-if="p.propertyName.length > 20">...</span>
+                            </td>
+                            <td class="center aligned" ng-repeat="r in p.fields">
+                                <div ng-if = "r.tooltip.field !== undefined && r.tooltip.field !== ''">
+                                    <i class="green checkmark icon" popup data.popup = "'#tooltip-' + p.i + '-' + r.i" ng-if="r.valid"></i>
+                                    <i class="red close icon" popup data.popup = "'#tooltip-' + p.i + '-' + r.i" ng-if="!r.valid"></i>
+                                    <div class="ui popup left aligned" 
+                                        id = "tooltip-{{p.i}}-{{r.i}}">
+                                        <div class="ui content">
+                                            <div class="ui description left aligned">
+                                                <div class="ui grid">
+                                                    <div class="ui row">
+                                                        <div class="sixteen wide column" 
+                                                            ng-if = "r.tooltip.validators.length === 0">
+                                                            <b>{{ r.tooltip.field }}</b>: {{ r.tooltip.value }}
+                                                        </div>
+                                                        <div class="sixteen wide column" 
+                                                            ng-if = "r.tooltip.validators.length > 0">
+                                                            <b>{{ r.tooltip.field }}</b>
+                                                        </div>
+                                                    </div>
+                                                    <div class="ui row" ng-repeat = "validator in r.tooltip.validators">
+                                                        <div class="two wide column">
+                                                            <i class="green checkmark icon" ng-if="validator.valid"></i>
+                                                            <i class="red close icon" ng-if="!validator.valid"></i>
+                                                        </div>
+                                                        <div class="fourteen wide column" ng-if = "validator.value === undefined">
+                                                            {{ validator.message }}
+
+                                                        </div>
+                                                        <div class="fourteen wide column" ng-if = "validator.value !== undefined">
+                                                            <b>{{ validator.field }}</b>: {{ validator.message }} {{ validator.value }}
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>

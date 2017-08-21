@@ -1,3 +1,19 @@
+/*
+ * Copyright 2017 Maalka
+ *
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an "AS IS" BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
+ */
+
 package actors.validators.basic
 
 import java.util.UUID
@@ -13,8 +29,7 @@ import scala.util.control.Exception.allCatch
 /**
   * Validates that MaterData includes 'stringValue' that is equal to a String passed in arguments
   *
-  * Created by tadassugintas on 2016-12-13.
-  */
+  * */
 
 object Numeric {
 
@@ -55,7 +70,9 @@ case class Numeric(guid: String,
             // can be cast to a double.
             case (_, Some(usage)) if (allCatch opt usage.toDouble).isDefined => MapValid(valid = true, Option(usage))
 
-            case (_, Some(usage)) => MapValid(valid=false, Option(usage))
+            case (_, Some(usage)) =>
+              log.debug("Not a number: {}", usage)
+                MapValid(valid=false, Option(usage))
             case _ => MapValid(valid = false, Option("Not Defined"))
           }
         case None => MapValid(valid = false, Option("Not Defined"))

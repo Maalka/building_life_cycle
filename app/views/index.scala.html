@@ -1,23 +1,31 @@
 @import play.api.Play.current
 @(includeHeader: Boolean)<!DOCTYPE html>
 <!--
-  ~ Copyright (c) 2017. Maalka Inc. All Rights Reserved
+  ~ Copyright 2017 Maalka
+  ~
+  ~    Licensed under the Apache License, Version 2.0 (the "License");
+  ~    you may not use this file except in compliance with the License.
+  ~    You may obtain a copy of the License at
+  ~
+  ~        http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~    Unless required by applicable law or agreed to in writing, software
+  ~    distributed under the License is distributed on an "AS IS" BASIS,
+  ~    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~    See the License for the specific language governing permissions and
+  ~    limitations under the License.
   -->
 
 <html>
   <head>
     <title data-ng-bind="pageTitle"></title>
-    <link rel="shortcut icon" type="image/x-icon" href="@routes.Assets.versioned("images/favicon.png")">
-    <link rel="stylesheet" href="@routes.Assets.versioned("javascripts/semantic-ui/semantic.css")" />
-    <link rel="stylesheet" href="@routes.Assets.versioned("javascripts/semantic/transition.css")" />
-    <link rel="stylesheet" href="@routes.Assets.versioned("javascripts/semantic-ui-daterangepicker/daterangepicker.min.css")" />
-    <link rel="stylesheet" href="@routes.Assets.versioned("lib/json-formatter/dist/json-formatter.css")" />
+    <link rel="shortcut icon" type="image/x-icon" href="@routes.Assets.versioned("images/favicon.png")" />
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=PT+Sans:400,400i,700,700i" />
     <link href='https://fonts.googleapis.com/css?family=PT+Sans' rel='stylesheet' type='text/css'>
 
     <link rel="stylesheet" href="@routes.Assets.versioned("fonts/font-awesome-4.6.3/css/font-awesome.css")" />
 
-    <!-- <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("lib/semantic-ui/semantic.min.css")" /> -->
+    <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("lib/semantic-ui/dist/semantic.min.css")" />
     @*-- Add More CSS here -- *@
     <link rel="stylesheet" href="@routes.Assets.versioned("stylesheets/main.css")">
     <link rel="stylesheet" media="print" href="@routes.Assets.versioned("stylesheets/print.css")">

@@ -1,10 +1,27 @@
+/*
+ * Copyright 2017 Maalka
+ *
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an "AS IS" BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
+ */
+
 package actors.validators.bedes
 
 import java.util.UUID
 
 import actors.ValidatorActors.BedesValidators.{BedesValidator, BedesValidatorCompanion}
 import actors.validators.Validator
-import actors.validators.basic.{WithinRange, Exists}
+import actors.validators.Validator.MapValid
+import actors.validators.basic.{Exists, WithinRange}
 import akka.actor.{ActorSystem, Props}
 import akka.stream.ActorMaterializer
 import akka.stream.scaladsl.Sink
@@ -40,18 +57,22 @@ case class DeliveredAndGeneratedOnsiteRenewableElectricityResourceValue(guid: St
 
   implicit val materializer = ActorMaterializer()
   val validator = "bedes_delivered_and_generated_onsite_renewable_electricity_resource_value"
-  val bedesCompositeName = "Delivered And Generated Onsite Renewable Electricity Resource Value"
+  val bedesCompositeName =
+    "Delivered and Generated Onsite Renewable Electricity Resource Value"
 
-  val componentValidators = Seq(propsWrapper(Exists.props),
-    propsWrapper(WithinRange.props, Option(Json.obj("min" -> 0))))
+  val componentValidators = Seq(
+    propsWrapper(Exists.props),
+    propsWrapper(WithinRange.props, Option(Json.obj("min" -> 0)))
+  )
 
   def isValid(refId: UUID, value: Option[Seq[BEDESTransformResult]]): Future[Validator.MapValid] = {
-    sourceValidateFromComponents(value).map { results =>
-      if (results.exists(_.valid == false)) {
-        Validator.MapValid(valid = false, Option("Electricity Use-Grid Purchase & Generate"))
-      } else {
+    sourceValidateFromComponents(value).map {
+      case results if results.headOption.exists(!_.valid) =>
+        Validator.MapValid(valid = false, Option("No Electricity Use"))
+      case results if results.lift(1).exists(!_.valid) =>
+        Validator.MapValid(valid = false, Option("Electricity Use less then 0"))
+      case results =>
         Validator.MapValid(valid = true, None)
-      }
     }.runWith(Sink.head)
   }
 }
