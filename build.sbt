@@ -4,7 +4,7 @@ name := "data_quality_tool"
 
 organization in ThisBuild := "com.maalka"
 
-version := "1.1.1.1""
+version := "1.1.1.1"
 
 lazy val root = (project in file(".")).enablePlugins(PlayScala)
 
