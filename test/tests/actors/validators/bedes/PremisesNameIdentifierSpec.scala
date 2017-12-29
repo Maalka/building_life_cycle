@@ -38,10 +38,8 @@ class PremisesNameIdentifierSpec() extends TestKit(ActorSystem("MySpec")) with I
 
   "An empty BEDESTransformResult " should {
     "return invalid" in {
-      val bedesDefinition = BedesDefinition()
-
       val transformResult = BEDESTransformTable.defaultTable.findBedesComposite(
-        "Property Name", None, None, bedesDefinition, false)
+        "Property Name", None, None)
 
       system.actorOf(PremisesNameIdentifier.props("", "", "", None, None)) ! Validator.Value(UUID.randomUUID(), Option(Seq(transformResult)))
       val validationResult = expectMsgClass(classOf[UpdateObjectValidatedDocument])
@@ -50,10 +48,8 @@ class PremisesNameIdentifierSpec() extends TestKit(ActorSystem("MySpec")) with I
   }
   "An string BEDESTransformResult " should {
     "return valid" in {
-      val bedesDefinition = BedesDefinition()
-
       val transformResult = BEDESTransformTable.defaultTable.findBedesComposite(
-        "Property Name", Some("Building Name"), None, bedesDefinition, false)
+        "Property Name", Some("Building Name"), None)
 
       system.actorOf(PremisesNameIdentifier.props("", "", "", None, None)) ! Validator.Value(UUID.randomUUID(), Option(Seq(transformResult)))
       val validationResult = expectMsgClass(classOf[UpdateObjectValidatedDocument])

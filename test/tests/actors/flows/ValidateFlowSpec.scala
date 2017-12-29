@@ -36,7 +36,7 @@ import play.api.inject.guice.GuiceApplicationBuilder
 import scala.concurrent.duration._
 import scala.concurrent.Await
 
-@RunWith(classOf[JUnitRunner])
+
 class ValidateFlowSpec () extends TestKit(ActorSystem("MySpec")) with ImplicitSender
   with SpecificationLike {
   sequential
@@ -50,20 +50,16 @@ class ValidateFlowSpec () extends TestKit(ActorSystem("MySpec")) with ImplicitSe
   val injector = appBuilder.injector()
   val validateFlow = injector.instanceOf[ValidateFlow]
 
-  val bedesDefinition = BedesDefinition()
-
   def generateBedesResults(): Seq[BEDESTransformResult] = {
-    val bedesDefinition = BedesDefinition()
-
     Seq(
       BEDESTransformTable.defaultTable.findBedesComposite(
-        "Site EUI (kBtu/ft²)", Some(3232), None, bedesDefinition, false),
+        "Site EUI (kBtu/ft²)", Some(3232), None),
 
       BEDESTransformTable.defaultTable.findBedesComposite(
-        "Primary Property Type - Self Selected", Some("Office"), None, bedesDefinition),
+        "Primary Property Type - Self Selected", Some("Office"), None),
 
       BEDESTransformTable.defaultTable.findBedesComposite(
-        "Property Floor Area (Buildings) (ft²)", Some(12000.0), Some("ft²"), bedesDefinition)
+        "Property Floor Area (Buildings) (ft²)", Some(12000.0), Some("ft²"))
     )
   }
 
@@ -74,13 +70,13 @@ class ValidateFlowSpec () extends TestKit(ActorSystem("MySpec")) with ImplicitSe
 
       val transformResults = Seq(
         BEDESTransformTable.defaultTable.findBedesComposite(
-          "Site EUI (kBtu/ft²)", Some(3232), None, bedesDefinition, false),
+          "Site EUI (kBtu/ft²)", Some(3232), None),
 
         BEDESTransformTable.defaultTable.findBedesComposite(
-          "Primary Property Type - Self Selected", Some("Office"), None, bedesDefinition),
+          "Primary Property Type - Self Selected", Some("Office"), None),
 
         BEDESTransformTable.defaultTable.findBedesComposite(
-          "Property Floor Area (Buildings) (ft²)", Some(12000.0), Some("ft²"), bedesDefinition)
+          "Property Floor Area (Buildings) (ft²)", Some(12000.0), Some("ft²"))
       )
 
 
@@ -109,13 +105,13 @@ class ValidateFlowSpec () extends TestKit(ActorSystem("MySpec")) with ImplicitSe
 
       val transformResults = Seq(
         BEDESTransformTable.defaultTable.findBedesComposite(
-          "Office - Number of Computers", Some(0), None, bedesDefinition, false),
+          "Office - Number of Computers", Some(0), None),
 
         BEDESTransformTable.defaultTable.findBedesComposite(
-          "Primary Property Type - Self Selected", Some("Office"), None, bedesDefinition),
+          "Primary Property Type - Self Selected", Some("Office"), None),
 
         BEDESTransformTable.defaultTable.findBedesComposite(
-          "Property Floor Area (Buildings) (ft²)", Some(12000.0), Some("ft²"), bedesDefinition)
+          "Property Floor Area (Buildings) (ft²)", Some(12000.0), Some("ft²"))
       )
 
 
@@ -145,13 +141,13 @@ class ValidateFlowSpec () extends TestKit(ActorSystem("MySpec")) with ImplicitSe
 
       val transformResults = Seq(
         BEDESTransformTable.defaultTable.findBedesComposite(
-          "Office - Number of Computers", Some(100), None, bedesDefinition, false),
+          "Office - Number of Computers", Some(100), None),
 
         BEDESTransformTable.defaultTable.findBedesComposite(
-          "Primary Property Type - Self Selected", Some("Office"), None, bedesDefinition),
+          "Primary Property Type - Self Selected", Some("Office"), None),
 
         BEDESTransformTable.defaultTable.findBedesComposite(
-          "Property Floor Area (Buildings) (ft²)", Some(100.0), Some("ft²"), bedesDefinition)
+          "Property Floor Area (Buildings) (ft²)", Some(100.0), Some("ft²"))
       )
 
 

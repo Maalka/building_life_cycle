@@ -45,10 +45,8 @@ class BedesDensityValidatorSpec() extends TestKit(ActorSystem("MySpec")) with Im
 
   "An empty BEDESTransformResult " should {
     "return invalid" in {
-      val bedesDefinition = BedesDefinition()
-
       val transformResult = BEDESTransformTable.defaultTable.findBedesComposite(
-        "Property Floor Area (Buildings) (ft²)", None, Some("ft²"), bedesDefinition, false)
+        "Property Floor Area (Buildings) (ft²)", None, Some("ft²"))
 
       system.actorOf(BedesDensityValidatorProps(Some(arguments)).props("", "", "", None)) ! Validator.Value(UUID.randomUUID(), Option(Seq(transformResult)))
       val validationResult = expectMsgClass(classOf[UpdateObjectValidatedDocument])
@@ -57,13 +55,11 @@ class BedesDensityValidatorSpec() extends TestKit(ActorSystem("MySpec")) with Im
   }
   "An string BEDESTransformResult " should {
     "return invalid" in {
-      val bedesDefinition = BedesDefinition()
-
       val transformResult = Seq(
         BEDESTransformTable.defaultTable.findBedesComposite(
-          "Site EUI (kBtu/ft²)", Some("asdfasdf"), None, bedesDefinition, false),
+          "Site EUI (kBtu/ft²)", Some("asdfasdf"), None),
         BEDESTransformTable.defaultTable.findBedesComposite(
-          "Property Floor Area (Buildings) (ft²)", Some(12000.0), Some("ft²"), bedesDefinition)
+          "Property Floor Area (Buildings) (ft²)", Some(12000.0), Some("ft²"))
       )
       system.actorOf(BedesDensityValidatorProps(Some(arguments)).props("", "", "", None)) ! Validator.Value(UUID.randomUUID(), Option(transformResult))
       val validationResult = expectMsgClass(classOf[UpdateObjectValidatedDocument])
@@ -72,13 +68,11 @@ class BedesDensityValidatorSpec() extends TestKit(ActorSystem("MySpec")) with Im
   }
   "An valid BEDESTransformResult " should {
     "return invalid if the density if negitive" in {
-      val bedesDefinition = BedesDefinition()
-
       val transformResult = Seq(
         BEDESTransformTable.defaultTable.findBedesComposite(
-          "Site EUI (kBtu/ft²)", Some(-1), None, bedesDefinition, false),
+          "Site EUI (kBtu/ft²)", Some(-1), None),
         BEDESTransformTable.defaultTable.findBedesComposite(
-          "Property Floor Area (Buildings) (ft²)", Some(12000.0), Some("ft²"), bedesDefinition)
+          "Property Floor Area (Buildings) (ft²)", Some(12000.0), Some("ft²"))
       )
 
       system.actorOf(BedesDensityValidatorProps(Some(arguments)).props("", "", "", None)) ! Validator.Value(UUID.randomUUID(), Option(transformResult))
@@ -86,13 +80,11 @@ class BedesDensityValidatorSpec() extends TestKit(ActorSystem("MySpec")) with Im
       validationResult.valid mustEqual false
     }
     "return invalid if the density is 10000" in {
-      val bedesDefinition = BedesDefinition()
-
       val transformResult = Seq(
         BEDESTransformTable.defaultTable.findBedesComposite(
-          "Site EUI (kBtu/ft²)", Some(1), None, bedesDefinition, false),
+          "Site EUI (kBtu/ft²)", Some(1), None),
         BEDESTransformTable.defaultTable.findBedesComposite(
-          "Property Floor Area (Buildings) (ft²)", Some(10000.0), Some("ft²"), bedesDefinition)
+          "Property Floor Area (Buildings) (ft²)", Some(10000.0), Some("ft²"))
       )
 
       system.actorOf(BedesDensityValidatorProps(Some(arguments)).props("", "", "", None)) ! Validator.Value(UUID.randomUUID(), Option(transformResult))
@@ -103,13 +95,11 @@ class BedesDensityValidatorSpec() extends TestKit(ActorSystem("MySpec")) with Im
   }
   "An positive BEDESTransformResult " should {
     "return valid if the density is 1" in {
-      val bedesDefinition = BedesDefinition()
-
       val transformResult = Seq(
         BEDESTransformTable.defaultTable.findBedesComposite(
-          "Site EUI (kBtu/ft²)", Some(100), None, bedesDefinition, false),
+          "Site EUI (kBtu/ft²)", Some(100), None),
         BEDESTransformTable.defaultTable.findBedesComposite(
-          "Property Floor Area (Buildings) (ft²)", Some(100.0), Some("ft²"), bedesDefinition)
+          "Property Floor Area (Buildings) (ft²)", Some(100.0), Some("ft²"))
       )
 
       system.actorOf(BedesDensityValidatorProps(Some(arguments)).props("", "", "", None)) ! Validator.Value(UUID.randomUUID(), Option(transformResult))

@@ -38,10 +38,8 @@ class WeatherNormalizedSourceEnergyResourceIntensitySpec() extends TestKit(Actor
 
   "An empty BEDESTransformResult " should {
     "return invalid" in {
-      val bedesDefinition = BedesDefinition()
-
       val transformResult = BEDESTransformTable.defaultTable.findBedesComposite(
-        "Weather Normalized Source EUI (kBtu/ft²)", None, None, bedesDefinition, false)
+        "Weather Normalized Source EUI (kBtu/ft²)", None, None)
 
       system.actorOf(WeatherNormalizedSourceEnergyResourceIntensity.props("", "", "", None, None)) ! Validator.Value(UUID.randomUUID(), Option(Seq(transformResult)))
       val validationResult = expectMsgClass(classOf[UpdateObjectValidatedDocument])
@@ -50,10 +48,8 @@ class WeatherNormalizedSourceEnergyResourceIntensitySpec() extends TestKit(Actor
   }
   "A BEDESTransformResult " should {
     "return valid if weather normalized eui is in range" in {
-      val bedesDefinition = BedesDefinition()
-
       val transformResult = BEDESTransformTable.defaultTable.findBedesComposite(
-        "Weather Normalized Source EUI (kBtu/ft²)", Some(80), None, bedesDefinition, false)
+        "Weather Normalized Source EUI (kBtu/ft²)", Some(80), None)
 
       system.actorOf(WeatherNormalizedSourceEnergyResourceIntensity.props("", "", "", None, None)) ! Validator.Value(UUID.randomUUID(), Option(Seq(transformResult)))
       val validationResult = expectMsgClass(classOf[UpdateObjectValidatedDocument])
@@ -61,10 +57,8 @@ class WeatherNormalizedSourceEnergyResourceIntensitySpec() extends TestKit(Actor
       validationResult.valid mustEqual true
     }
     "return invalid if weather normalized eui is -1" in {
-      val bedesDefinition = BedesDefinition()
-
       val transformResult = BEDESTransformTable.defaultTable.findBedesComposite(
-        "Weather Normalized Source EUI (kBtu/ft²)", Some(-1), None, bedesDefinition, false)
+        "Weather Normalized Source EUI (kBtu/ft²)", Some(-1), None)
 
       system.actorOf(WeatherNormalizedSourceEnergyResourceIntensity.props("", "", "", None, None)) ! Validator.Value(UUID.randomUUID(), Option(Seq(transformResult)))
       val validationResult = expectMsgClass(classOf[UpdateObjectValidatedDocument])

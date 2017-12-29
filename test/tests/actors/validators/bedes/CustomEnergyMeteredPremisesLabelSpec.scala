@@ -38,10 +38,8 @@ class CustomEnergyMeteredPremisesLabelSpec() extends TestKit(ActorSystem("MySpec
 
   "An empty BEDESTransformResult " should {
     "return invalid" in {
-      val bedesDefinition = BedesDefinition()
-
       val transformResult = BEDESTransformTable.defaultTable.findBedesComposite(
-        "Metered Areas (Energy)", None, None, bedesDefinition, false)
+        "Metered Areas (Energy)", None, None)
 
       system.actorOf(CustomEnergyMeteredPremisesLabel.props("", "", "", None, None)) ! Validator.Value(UUID.randomUUID(), Option(Seq(transformResult)))
       val validationResult = expectMsgClass(classOf[UpdateObjectValidatedDocument])
@@ -50,10 +48,8 @@ class CustomEnergyMeteredPremisesLabelSpec() extends TestKit(ActorSystem("MySpec
   }
   "An string BEDESTransformResult " should {
     "return invalid if not whole building" in {
-      val bedesDefinition = BedesDefinition()
-
       val transformResult = BEDESTransformTable.defaultTable.findBedesComposite(
-        "Metered Areas (Energy)", Some("now whole building"), None, bedesDefinition, false)
+        "Metered Areas (Energy)", Some("now whole building"), None)
 
       system.actorOf(CustomEnergyMeteredPremisesLabel.props("", "", "", None, None)) ! Validator.Value(UUID.randomUUID(), Option(Seq(transformResult)))
       val validationResult = expectMsgClass(classOf[UpdateObjectValidatedDocument])
@@ -61,10 +57,8 @@ class CustomEnergyMeteredPremisesLabelSpec() extends TestKit(ActorSystem("MySpec
       validationResult.valid mustEqual false
     }
     "return valid if whole building" in {
-      val bedesDefinition = BedesDefinition()
-
       val transformResult = BEDESTransformTable.defaultTable.findBedesComposite(
-        "Metered Areas (Energy)", Some("Whole Building"), None, bedesDefinition, false)
+        "Metered Areas (Energy)", Some("Whole Building"), None)
 
       system.actorOf(CustomEnergyMeteredPremisesLabel.props("", "", "", None, None)) ! Validator.Value(UUID.randomUUID(), Option(Seq(transformResult)))
       val validationResult = expectMsgClass(classOf[UpdateObjectValidatedDocument])

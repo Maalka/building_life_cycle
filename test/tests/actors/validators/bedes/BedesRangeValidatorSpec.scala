@@ -45,10 +45,8 @@ class BedesRangeValidatorSpec() extends TestKit(ActorSystem("MySpec")) with Impl
 
   "An empty BEDESTransformResult " should {
     "return invalid" in {
-      val bedesDefinition = BedesDefinition()
-
       val transformResult = BEDESTransformTable.defaultTable.findBedesComposite(
-        "Site EUI (kBtu/ft²)", None, Some("kWh"), bedesDefinition)
+        "Site EUI (kBtu/ft²)", None, Some("kWh"))
 
       system.actorOf(BedesRangeValidatorProps(Some(arguments)).props("", "", "", None)) ! Validator.Value(UUID.randomUUID(), Option(Seq(transformResult)))
       val validationResult = expectMsgClass(classOf[UpdateObjectValidatedDocument])
@@ -58,10 +56,8 @@ class BedesRangeValidatorSpec() extends TestKit(ActorSystem("MySpec")) with Impl
 
   "An string BEDESTransformResult " should {
     "return invalid" in {
-      val bedesDefinition = BedesDefinition()
-
       val transformResult = Seq(BEDESTransformTable.defaultTable.findBedesComposite(
-          "Site EUI (kBtu/ft²)", Some("asdfasdf"), None, bedesDefinition))
+          "Site EUI (kBtu/ft²)", Some("asdfasdf"), None))
 
       system.actorOf(BedesRangeValidatorProps(Some(arguments)).props("", "", "", None)) ! Validator.Value(UUID.randomUUID(), Option(transformResult))
       val validationResult = expectMsgClass(classOf[UpdateObjectValidatedDocument])
@@ -71,10 +67,8 @@ class BedesRangeValidatorSpec() extends TestKit(ActorSystem("MySpec")) with Impl
 
   "An valid BEDESTransformResult " should {
     "return invalid if the value if negitive" in {
-      val bedesDefinition = BedesDefinition()
-
       val transformResult = Seq(BEDESTransformTable.defaultTable.findBedesComposite(
-          "Site EUI (kBtu/ft²)", Some(-1), None, bedesDefinition))
+          "Site EUI (kBtu/ft²)", Some(-1), None))
 
       system.actorOf(BedesRangeValidatorProps(Some(arguments)).props("", "", "", None)) ! Validator.Value(UUID.randomUUID(), Option(transformResult))
 
@@ -83,10 +77,8 @@ class BedesRangeValidatorSpec() extends TestKit(ActorSystem("MySpec")) with Impl
     }
 
     "return invalid if the value is 10000" in {
-      val bedesDefinition = BedesDefinition()
-
       val transformResult = Seq(BEDESTransformTable.defaultTable.findBedesComposite(
-          "Site EUI (kBtu/ft²)", Some(10000), None, bedesDefinition, false))
+          "Site EUI (kBtu/ft²)", Some(10000), None))
 
       system.actorOf(BedesRangeValidatorProps(Some(arguments)).props("", "", "", None)) ! Validator.Value(UUID.randomUUID(), Option(transformResult))
       val validationResult = expectMsgClass(classOf[UpdateObjectValidatedDocument])
@@ -96,10 +88,8 @@ class BedesRangeValidatorSpec() extends TestKit(ActorSystem("MySpec")) with Impl
   }
   "An positive BEDESTransformResult " should {
     "return valid if the value is 100" in {
-      val bedesDefinition = BedesDefinition()
-
       val transformResult = Seq(BEDESTransformTable.defaultTable.findBedesComposite(
-          "Site EUI (kBtu/ft²)", Some(100), None, bedesDefinition))
+          "Site EUI (kBtu/ft²)", Some(100), None))
 
       system.actorOf(BedesRangeValidatorProps(Some(arguments)).props("", "", "", None)) ! Validator.Value(UUID.randomUUID(), Option(transformResult))
       val validationResult = expectMsgClass(classOf[UpdateObjectValidatedDocument])

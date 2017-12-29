@@ -38,10 +38,8 @@ class NaturalGasResourceValueSpec() extends TestKit(ActorSystem("MySpec")) with 
 
   "An empty BEDESTransformResult " should {
     "return invalid" in {
-      val bedesDefinition = BedesDefinition()
-
       val transformResult = BEDESTransformTable.defaultTable.findBedesComposite(
-        "Natural Gas Use (kBtu)", None, None, bedesDefinition, false)
+        "Natural Gas Use (kBtu)", None, None)
 
       system.actorOf(NaturalGasResourceValue.props("", "", "", None, None)) ! Validator.Value(UUID.randomUUID(), Option(Seq(transformResult)))
       val validationResult = expectMsgClass(classOf[UpdateObjectValidatedDocument])
@@ -50,10 +48,8 @@ class NaturalGasResourceValueSpec() extends TestKit(ActorSystem("MySpec")) with 
   }
   "A BEDESTransformResult " should {
     "return valid if natrual gas use is in range" in {
-      val bedesDefinition = BedesDefinition()
-
       val transformResult = BEDESTransformTable.defaultTable.findBedesComposite(
-        "Natural Gas Use (kBtu)", Some(80), None, bedesDefinition, false)
+        "Natural Gas Use (kBtu)", Some(80), None)
 
       system.actorOf(NaturalGasResourceValue.props("", "", "", None, None)) ! Validator.Value(UUID.randomUUID(), Option(Seq(transformResult)))
       val validationResult = expectMsgClass(classOf[UpdateObjectValidatedDocument])
@@ -61,10 +57,8 @@ class NaturalGasResourceValueSpec() extends TestKit(ActorSystem("MySpec")) with 
       validationResult.valid mustEqual true
     }
     "return invalid if natrual gas use is -1" in {
-      val bedesDefinition = BedesDefinition()
-
       val transformResult = BEDESTransformTable.defaultTable.findBedesComposite(
-        "Natural Gas Use (kBtu)", Some(-1), None, bedesDefinition, false)
+        "Natural Gas Use (kBtu)", Some(-1), None)
 
       system.actorOf(NaturalGasResourceValue.props("", "", "", None, None)) ! Validator.Value(UUID.randomUUID(), Option(Seq(transformResult)))
       val validationResult = expectMsgClass(classOf[UpdateObjectValidatedDocument])

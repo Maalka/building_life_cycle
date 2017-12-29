@@ -38,10 +38,8 @@ class PremisesCitySpec() extends TestKit(ActorSystem("MySpec")) with ImplicitSen
 
   "An empty BEDESTransformResult " should {
     "return invalid" in {
-      val bedesDefinition = BedesDefinition()
-
       val transformResult = BEDESTransformTable.defaultTable.findBedesComposite(
-        "City", None, None, bedesDefinition, false)
+        "City", None, None)
 
       system.actorOf(PremisesCity.props("", "", "", None, None)) ! Validator.Value(UUID.randomUUID(), Option(Seq(transformResult)))
       val validationResult = expectMsgClass(classOf[UpdateObjectValidatedDocument])
@@ -50,10 +48,8 @@ class PremisesCitySpec() extends TestKit(ActorSystem("MySpec")) with ImplicitSen
   }
   "An string BEDESTransformResult " should {
     "return valid" in {
-      val bedesDefinition = BedesDefinition()
-
       val transformResult = BEDESTransformTable.defaultTable.findBedesComposite(
-        "City", Some("City"), None, bedesDefinition, false)
+        "City", Some("City"), None)
 
       system.actorOf(PremisesCity.props("", "", "", None, None)) ! Validator.Value(UUID.randomUUID(), Option(Seq(transformResult)))
       val validationResult = expectMsgClass(classOf[UpdateObjectValidatedDocument])

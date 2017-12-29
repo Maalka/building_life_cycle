@@ -38,10 +38,8 @@ class GrossFloorAreaSpec() extends TestKit(ActorSystem("MySpec")) with ImplicitS
 
   "An empty BEDESTransformResult " should {
     "return invalid" in {
-      val bedesDefinition = BedesDefinition()
-
       val transformResult = BEDESTransformTable.defaultTable.findBedesComposite(
-        "Property Floor Area (Buildings) (ft²)", None, Some("ft²"), bedesDefinition, false)
+        "Property Floor Area (Buildings) (ft²)", None, Some("ft²"))
 
       system.actorOf(GrossFloorArea.props("", "", "", None, None)) ! Validator.Value(UUID.randomUUID(), Option(Seq(transformResult)))
       val validationResult = expectMsgClass(classOf[UpdateObjectValidatedDocument])
@@ -50,10 +48,8 @@ class GrossFloorAreaSpec() extends TestKit(ActorSystem("MySpec")) with ImplicitS
   }
   "An string BEDESTransformResult " should {
     "return invalid" in {
-      val bedesDefinition = BedesDefinition()
-
       val transformResult = BEDESTransformTable.defaultTable.findBedesComposite(
-        "Property Floor Area (Buildings) (ft²)", Some("failure"), Some("ft²"), bedesDefinition, false)
+        "Property Floor Area (Buildings) (ft²)", Some("failure"), Some("ft²"))
 
       system.actorOf(GrossFloorArea.props("", "", "", None, None)) ! Validator.Value(UUID.randomUUID(), Option(Seq(transformResult)))
       val validationResult = expectMsgClass(classOf[UpdateObjectValidatedDocument])
@@ -62,10 +58,8 @@ class GrossFloorAreaSpec() extends TestKit(ActorSystem("MySpec")) with ImplicitS
   }
   "An negitive BEDESTransformResult " should {
     "return invalid" in {
-      val bedesDefinition = BedesDefinition()
-
       val transformResult = BEDESTransformTable.defaultTable.findBedesComposite(
-        "Property Floor Area (Buildings) (ft²)", Some(-100.0), Some("ft²"), bedesDefinition, false)
+        "Property Floor Area (Buildings) (ft²)", Some(-100.0), Some("ft²"))
 
       system.actorOf(GrossFloorArea.props("", "", "", None, None)) ! Validator.Value(UUID.randomUUID(), Option(Seq(transformResult)))
       val validationResult = expectMsgClass(classOf[UpdateObjectValidatedDocument])
@@ -74,10 +68,8 @@ class GrossFloorAreaSpec() extends TestKit(ActorSystem("MySpec")) with ImplicitS
   }
   "An positive BEDESTransformResult " should {
     "return valid" in {
-      val bedesDefinition = BedesDefinition()
-
       val transformResult = BEDESTransformTable.defaultTable.findBedesComposite(
-        "Property Floor Area (Buildings) (ft²)", Some(100.0), Some("ft²"), bedesDefinition, false)
+        "Property Floor Area (Buildings) (ft²)", Some(100.0), Some("ft²"))
 
       system.actorOf(GrossFloorArea.props("", "", "", None, None)) ! Validator.Value(UUID.randomUUID(), Option(Seq(transformResult)))
       val validationResult = expectMsgClass(classOf[UpdateObjectValidatedDocument])
