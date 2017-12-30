@@ -1,10 +1,9 @@
 import WebKeys._
 
 name := "data_quality_tool"
-
 organization in ThisBuild := "com.maalka"
 
-version := "1.1.1.1"
+version := "1.2.0.0"
 
 lazy val root = (project in file(".")).enablePlugins(PlayScala)
 
@@ -24,7 +23,7 @@ lazy val maalkaApp = (project in file(".")).enablePlugins(SbtWeb, PlayScala, Sbt
 
 
 libraryDependencies ++= Seq(
-  jdbc,
+  jdbc, filters,
   cache,
   ws,
   specs2 % Test,
