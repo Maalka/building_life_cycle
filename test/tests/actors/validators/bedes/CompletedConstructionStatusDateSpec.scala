@@ -38,10 +38,8 @@ class CompletedConstructionStatusDateSpec() extends TestKit(ActorSystem("MySpec"
 
   "An empty BEDESTransformResult " should {
     "return invalid" in {
-      val bedesDefinition = BedesDefinition()
-
       val transformResult = BEDESTransformTable.defaultTable.findBedesComposite(
-        "Year Built", None, None, bedesDefinition, false)
+        "Year Built", None, None)
 
       system.actorOf(CompletedConstructionStatusDate.props("", "", "", None, None)) ! Validator.Value(UUID.randomUUID(), Option(Seq(transformResult)))
       val validationResult = expectMsgClass(classOf[UpdateObjectValidatedDocument])
@@ -50,10 +48,8 @@ class CompletedConstructionStatusDateSpec() extends TestKit(ActorSystem("MySpec"
   }
   "An string BEDESTransformResult " should {
     "return invalid" in {
-      val bedesDefinition = BedesDefinition()
-
       val transformResult = BEDESTransformTable.defaultTable.findBedesComposite(
-        "Year Built", Some("failure"), None, bedesDefinition, false)
+        "Year Built", Some("failure"), None)
 
       system.actorOf(CompletedConstructionStatusDate.props("", "", "", None, None)) ! Validator.Value(UUID.randomUUID(), Option(Seq(transformResult)))
       val validationResult = expectMsgClass(classOf[UpdateObjectValidatedDocument])
@@ -62,10 +58,8 @@ class CompletedConstructionStatusDateSpec() extends TestKit(ActorSystem("MySpec"
   }
   "An negitive BEDESTransformResult " should {
     "return invalid" in {
-      val bedesDefinition = BedesDefinition()
-
       val transformResult = BEDESTransformTable.defaultTable.findBedesComposite(
-        "Year Built", Some(-100.0), None, bedesDefinition, false)
+        "Year Built", Some(-100.0), None)
 
       system.actorOf(CompletedConstructionStatusDate.props("", "", "", None, None)) ! Validator.Value(UUID.randomUUID(), Option(Seq(transformResult)))
       val validationResult = expectMsgClass(classOf[UpdateObjectValidatedDocument])
@@ -74,10 +68,8 @@ class CompletedConstructionStatusDateSpec() extends TestKit(ActorSystem("MySpec"
   }
   "A BEDESTransformResult equal to 1801" should {
     "return valid" in {
-      val bedesDefinition = BedesDefinition()
-
       val transformResult = BEDESTransformTable.defaultTable.findBedesComposite(
-        "Year Built", Some(1801), None, bedesDefinition, false)
+        "Year Built", Some(1801), None)
 
       system.actorOf(CompletedConstructionStatusDate.props("", "", "", None, None)) ! Validator.Value(UUID.randomUUID(), Option(Seq(transformResult)))
       val validationResult = expectMsgClass(classOf[UpdateObjectValidatedDocument])

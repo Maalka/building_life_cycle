@@ -1,10 +1,9 @@
 import WebKeys._
 
 name := "data_quality_tool"
-
 organization in ThisBuild := "com.maalka"
 
-version := "1.1.1.1"
+version := "1.2.0.0"
 
 lazy val root = (project in file(".")).enablePlugins(PlayScala)
 
@@ -19,22 +18,24 @@ dockerRepository := Some("maalka")
 dockerUpdateLatest := true
 
 scalaVersion := "2.11.8"
-lazy val maalkaBedes = RootProject( uri("ssh://git@bitbucket.org/maalka/bedes.git#feature/Play25migration"))
 lazy val maalkaApp = (project in file(".")).enablePlugins(SbtWeb, PlayScala, SbtNativePackager,
-  BuildInfoPlugin).dependsOn(maalkaBedes)
+  BuildInfoPlugin)
 
 
 libraryDependencies ++= Seq(
-  jdbc,
+  jdbc, filters,
   cache,
   ws,
   specs2 % Test,
-  "org.scalatestplus.play" %% "scalatestplus-play" % "1.5.1" % "test",
 
+  "com.maalka" %% "bedes" % "1.1.0.0",
+
+  "org.scalatestplus.play" %% "scalatestplus-play" % "1.5.1" % "test",
   "com.typesafe.akka" %% "akka-slf4j" % "2.4.14",
   "com.typesafe.akka" %% "akka-stream" % "2.4.14",
   "com.typesafe.akka" %% "akka-contrib" % "2.4.14",
   "com.typesafe.akka" %% "akka-testkit" % "2.4.14",
+
 
   "org.webjars" % "requirejs" % "2.1.22",
   "org.webjars" % "jquery" % "2.1.3",
@@ -53,6 +54,8 @@ libraryDependencies ++= Seq(
 )
 
 resolvers += "scalaz-bintray" at "http://dl.bintray.com/scalaz/releases"
+resolvers += "Artifactory Realm" at "https://jfrog.maalka.com/artifactory/libs-release-local/"
+
 
 // Scala Compiler Options
 scalacOptions in ThisBuild ++= Seq(

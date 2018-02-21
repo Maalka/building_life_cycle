@@ -38,10 +38,8 @@ class PremisesAddressLine1Spec() extends TestKit(ActorSystem("MySpec")) with Imp
 
   "An empty BEDESTransformResult " should {
     "return invalid" in {
-      val bedesDefinition = BedesDefinition()
-
       val transformResult = BEDESTransformTable.defaultTable.findBedesComposite(
-        "Address 1", None, None, bedesDefinition, false)
+        "Address 1", None, None)
 
       system.actorOf(PremisesAddressLine1.props("", "", "", None, None)) ! Validator.Value(UUID.randomUUID(), Option(Seq(transformResult)))
       val validationResult = expectMsgClass(classOf[UpdateObjectValidatedDocument])
@@ -50,10 +48,8 @@ class PremisesAddressLine1Spec() extends TestKit(ActorSystem("MySpec")) with Imp
   }
   "An string BEDESTransformResult " should {
     "return valid" in {
-      val bedesDefinition = BedesDefinition()
-
       val transformResult = BEDESTransformTable.defaultTable.findBedesComposite(
-        "Address 1", Some("Address 1"), None, bedesDefinition, false)
+        "Address 1", Some("Address 1"), None)
 
       system.actorOf(PremisesAddressLine1.props("", "", "", None, None)) ! Validator.Value(UUID.randomUUID(), Option(Seq(transformResult)))
       val validationResult = expectMsgClass(classOf[UpdateObjectValidatedDocument])

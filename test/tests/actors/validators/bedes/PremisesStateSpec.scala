@@ -38,10 +38,8 @@ class PremisesStateSpec() extends TestKit(ActorSystem("MySpec")) with ImplicitSe
 
   "An empty BEDESTransformResult " should {
     "return invalid" in {
-      val bedesDefinition = BedesDefinition()
-
       val transformResult = BEDESTransformTable.defaultTable.findBedesComposite(
-        "State/Province", None, None, bedesDefinition, false)
+        "State/Province", None, None)
 
       system.actorOf(PremisesState.props("", "", "", None, None)) ! Validator.Value(UUID.randomUUID(), Option(Seq(transformResult)))
       val validationResult = expectMsgClass(classOf[UpdateObjectValidatedDocument])
@@ -50,23 +48,19 @@ class PremisesStateSpec() extends TestKit(ActorSystem("MySpec")) with ImplicitSe
   }
   "An Non State String BEDESTransformResult " should {
     "return invalid" in {
-      val bedesDefinition = BedesDefinition()
-
       val transformResult = BEDESTransformTable.defaultTable.findBedesComposite(
-        "State/Province", Some("Not A Valid State"), None, bedesDefinition, false)
+        "State/Province", Some("Not A Valid State"), None)
 
       system.actorOf(PremisesState.props("", "", "", None, None)) ! Validator.Value(UUID.randomUUID(), Option(Seq(transformResult)))
       val validationResult = expectMsgClass(classOf[UpdateObjectValidatedDocument])
-      Console.println(validationResult)
+      Console.println(transformResult)
       validationResult.valid mustEqual false
     }
   }
   "An Valid State String BEDESTransformResult " should {
     "return valid" in {
-      val bedesDefinition = BedesDefinition()
-
       val transformResult = BEDESTransformTable.defaultTable.findBedesComposite(
-        "State/Province", Some("Idaho"), None, bedesDefinition, false)
+        "State/Province", Some("Idaho"), None)
 
       system.actorOf(PremisesState.props("", "", "", None, None)) ! Validator.Value(UUID.randomUUID(), Option(Seq(transformResult)))
       val validationResult = expectMsgClass(classOf[UpdateObjectValidatedDocument])

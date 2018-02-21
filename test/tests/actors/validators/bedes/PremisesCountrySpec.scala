@@ -39,10 +39,8 @@ class PremisesCountrySpec() extends TestKit(ActorSystem("MySpec")) with Implicit
 
   "An empty BEDESTransformResult " should {
     "return invalid" in {
-      val bedesDefinition = BedesDefinition()
-
       val transformResult = BEDESTransformTable.defaultTable.findBedesComposite(
-        "Country", None, None, bedesDefinition)
+        "Country", None, None)
 
       system.actorOf(PremisesCountry.props("", "", "", None, None)) ! Validator.Value(UUID.randomUUID(), Option(Seq(transformResult)))
       val validationResult = expectMsgClass(classOf[UpdateObjectValidatedDocument])
@@ -52,10 +50,8 @@ class PremisesCountrySpec() extends TestKit(ActorSystem("MySpec")) with Implicit
   }
   "An string BEDESTransformResult " should {
     "return valid" in {
-      val bedesDefinition = BedesDefinition()
-
       val transformResult = BEDESTransformTable.defaultTable.findBedesComposite(
-        "Country", Some("Country"), None, bedesDefinition)
+        "Country", Some("Country"), None)
 
       system.actorOf(PremisesCountry.props("", "", "", None, None)) ! Validator.Value(UUID.randomUUID(), Option(Seq(transformResult)))
       val validationResult = expectMsgClass(classOf[UpdateObjectValidatedDocument])

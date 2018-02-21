@@ -38,10 +38,8 @@ class SiteEnergyResourceIntensitySpec() extends TestKit(ActorSystem("MySpec")) w
 
   "An empty BEDESTransformResult " should {
     "return invalid" in {
-      val bedesDefinition = BedesDefinition()
-
       val transformResult = BEDESTransformTable.defaultTable.findBedesComposite(
-        "Site EUI (kBtu/ft²)", None, None, bedesDefinition, false)
+        "Site EUI (kBtu/ft²)", None, None)
 
       system.actorOf(SiteEnergyResourceIntensity.props("", "", "", None, None)) ! Validator.Value(UUID.randomUUID(), Option(Seq(transformResult)))
       val validationResult = expectMsgClass(classOf[UpdateObjectValidatedDocument])
@@ -50,10 +48,8 @@ class SiteEnergyResourceIntensitySpec() extends TestKit(ActorSystem("MySpec")) w
   }
   "A BEDESTransformResult " should {
     "return valid if eui is in range" in {
-      val bedesDefinition = BedesDefinition()
-
       val transformResult = BEDESTransformTable.defaultTable.findBedesComposite(
-        "Site EUI (kBtu/ft²)", Some(80), None, bedesDefinition, false)
+        "Site EUI (kBtu/ft²)", Some(80), None)
 
       system.actorOf(SiteEnergyResourceIntensity.props("", "", "", None, None)) ! Validator.Value(UUID.randomUUID(), Option(Seq(transformResult)))
       val validationResult = expectMsgClass(classOf[UpdateObjectValidatedDocument])
@@ -61,10 +57,8 @@ class SiteEnergyResourceIntensitySpec() extends TestKit(ActorSystem("MySpec")) w
       validationResult.valid mustEqual true
     }
     "return invalid if eui is -1" in {
-      val bedesDefinition = BedesDefinition()
-
       val transformResult = BEDESTransformTable.defaultTable.findBedesComposite(
-        "Site EUI (kBtu/ft²)", Some(-1), None, bedesDefinition, false)
+        "Site EUI (kBtu/ft²)", Some(-1), None)
 
       system.actorOf(SiteEnergyResourceIntensity.props("", "", "", None, None)) ! Validator.Value(UUID.randomUUID(), Option(Seq(transformResult)))
       val validationResult = expectMsgClass(classOf[UpdateObjectValidatedDocument])
@@ -72,10 +66,8 @@ class SiteEnergyResourceIntensitySpec() extends TestKit(ActorSystem("MySpec")) w
       validationResult.valid mustEqual false
     }
     "return invalid if eui is 376" in {
-      val bedesDefinition = BedesDefinition()
-
       val transformResult = BEDESTransformTable.defaultTable.findBedesComposite(
-        "Site EUI (kBtu/ft²)", Some(376), None, bedesDefinition, false)
+        "Site EUI (kBtu/ft²)", Some(376), None)
 
       system.actorOf(SiteEnergyResourceIntensity.props("", "", "", None, None)) ! Validator.Value(UUID.randomUUID(), Option(Seq(transformResult)))
       val validationResult = expectMsgClass(classOf[UpdateObjectValidatedDocument])

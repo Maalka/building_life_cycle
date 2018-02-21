@@ -38,10 +38,8 @@ class PremisesZIPCodeSpec() extends TestKit(ActorSystem("MySpec")) with Implicit
 
   "An empty BEDESTransformResult " should {
     "return invalid" in {
-      val bedesDefinition = BedesDefinition()
-
       val transformResult = BEDESTransformTable.defaultTable.findBedesComposite(
-        "Postal Code", None, None, bedesDefinition, false)
+        "Postal Code", None, None)
 
       system.actorOf(PremisesZIPCode.props("", "", "", None, None)) ! Validator.Value(UUID.randomUUID(), Option(Seq(transformResult)))
       val validationResult = expectMsgClass(classOf[UpdateObjectValidatedDocument])
@@ -50,40 +48,32 @@ class PremisesZIPCodeSpec() extends TestKit(ActorSystem("MySpec")) with Implicit
   }
   "An valid BEDESTransformResult " should {
     "return valid if the legnth is 5 and it's a string" in {
-      val bedesDefinition = BedesDefinition()
-
       val transformResult = BEDESTransformTable.defaultTable.findBedesComposite(
-        "Postal Code", Some("98888"), None, bedesDefinition, false)
+        "Postal Code", Some("98888"), None)
 
       system.actorOf(PremisesZIPCode.props("", "", "", None, None)) ! Validator.Value(UUID.randomUUID(), Option(Seq(transformResult)))
       val validationResult = expectMsgClass(classOf[UpdateObjectValidatedDocument])
       validationResult.valid mustEqual true
     }
     "return invalid if the length is 4" in {
-      val bedesDefinition = BedesDefinition()
-
       val transformResult = BEDESTransformTable.defaultTable.findBedesComposite(
-        "Postal Code", Some(9888), None, bedesDefinition, false)
+        "Postal Code", Some(9888), None)
 
       system.actorOf(PremisesZIPCode.props("", "", "", None, None)) ! Validator.Value(UUID.randomUUID(), Option(Seq(transformResult)))
       val validationResult = expectMsgClass(classOf[UpdateObjectValidatedDocument])
       validationResult.valid mustEqual false
     }
     "return invalid if the length is 6" in {
-      val bedesDefinition = BedesDefinition()
-
       val transformResult = BEDESTransformTable.defaultTable.findBedesComposite(
-        "Postal Code", Some(988888), None, bedesDefinition, false)
+        "Postal Code", Some(988888), None)
 
       system.actorOf(PremisesZIPCode.props("", "", "", None, None)) ! Validator.Value(UUID.randomUUID(), Option(Seq(transformResult)))
       val validationResult = expectMsgClass(classOf[UpdateObjectValidatedDocument])
       validationResult.valid mustEqual false
     }
     "return valid if the length is 5" in {
-      val bedesDefinition = BedesDefinition()
-
       val transformResult = BEDESTransformTable.defaultTable.findBedesComposite(
-        "Postal Code", Some(98888), None, bedesDefinition, false)
+        "Postal Code", Some(98888), None)
 
       system.actorOf(PremisesZIPCode.props("", "", "", None, None)) ! Validator.Value(UUID.randomUUID(), Option(Seq(transformResult)))
       val validationResult = expectMsgClass(classOf[UpdateObjectValidatedDocument])

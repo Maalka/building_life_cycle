@@ -38,10 +38,8 @@ class DeliveredAndGeneratedOnsiteRenewableElectricityResourceValueSpec() extends
 
   "An empty BEDESTransformResult " should {
     "return invalid" in {
-      val bedesDefinition = BedesDefinition()
-
       val transformResult = BEDESTransformTable.defaultTable.findBedesComposite(
-        "Electricity Use - Grid Purchase and Generated from Onsite Renewable Systems (kWh)", None, None, bedesDefinition, false)
+        "Electricity Use - Grid Purchase and Generated from Onsite Renewable Systems (kWh)", None, None)
 
       system.actorOf(DeliveredAndGeneratedOnsiteRenewableElectricityResourceValue.props("", "", "", None, None)) ! Validator.Value(UUID.randomUUID(), Option(Seq(transformResult)))
       val validationResult = expectMsgClass(classOf[UpdateObjectValidatedDocument])
@@ -51,10 +49,8 @@ class DeliveredAndGeneratedOnsiteRenewableElectricityResourceValueSpec() extends
 
   "A BEDESTransformResult " should {
     "return valid if electricity use is in range" in {
-      val bedesDefinition = BedesDefinition()
-
       val transformResult = BEDESTransformTable.defaultTable.findBedesComposite(
-        "Electricity Use - Grid Purchase and Generated from Onsite Renewable Systems (kWh)", Some(80), None, bedesDefinition, false)
+        "Electricity Use - Grid Purchase and Generated from Onsite Renewable Systems (kWh)", Some(80), None)
 
       Console.println(transformResult)
 
@@ -65,10 +61,8 @@ class DeliveredAndGeneratedOnsiteRenewableElectricityResourceValueSpec() extends
     }
     
     "return invalid if electricity use is -1" in {
-      val bedesDefinition = BedesDefinition()
-
       val transformResult = BEDESTransformTable.defaultTable.findBedesComposite(
-        "Electricity Use - Grid Purchase and Generated from Onsite Renewable Systems (kWh)", Some(-1), None, bedesDefinition, false)
+        "Electricity Use - Grid Purchase and Generated from Onsite Renewable Systems (kWh)", Some(-1), None)
 
       system.actorOf(DeliveredAndGeneratedOnsiteRenewableElectricityResourceValue.props("", "", "", None, None)) ! Validator.Value(UUID.randomUUID(), Option(Seq(transformResult)))
       val validationResult = expectMsgClass(classOf[UpdateObjectValidatedDocument])

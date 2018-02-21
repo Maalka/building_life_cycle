@@ -45,7 +45,7 @@ case class Exists(guid: String,
   val validator = "validation_exists"
 
   def isValid(refId: UUID, value: Option[MaalkaMeterData]): Future[MapValid] = {
-    log.debug("Running exists is valid", value)
+    log.info("Running exists is valid: {}", value)
     Future {
       value match {
         case Some(a) if a.usage.isDefined || (a.stringValue.isDefined && !a.stringValue.contains("")) => MapValid(valid = true, Option("Valid"))

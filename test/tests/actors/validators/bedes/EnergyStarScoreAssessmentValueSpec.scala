@@ -38,13 +38,11 @@ class EnergyStarScoreAssessmentValueSpec() extends TestKit(ActorSystem("MySpec")
 
   "An empty BEDESTransformResult " should {
     "return valid" in {
-      val bedesDefinition = BedesDefinition()
-
       val transformResultESScore = BEDESTransformTable.defaultTable.findBedesComposite(
-        "ENERGY STAR Score", None, None, bedesDefinition, false)
+        "ENERGY STAR Score", None, None)
 
       val transformResultPT = BEDESTransformTable.defaultTable.findBedesComposite(
-        "Primary Property Type - EPA Calculated", None, None, bedesDefinition, false)
+        "Primary Property Type - EPA Calculated", None, None)
 
       system.actorOf(EnergyStarScoreAssessmentValue.props("", "", "", None, None)) ! Validator.Value(UUID.randomUUID(),
         Option(Seq(transformResultESScore, transformResultPT)))
@@ -56,13 +54,11 @@ class EnergyStarScoreAssessmentValueSpec() extends TestKit(ActorSystem("MySpec")
 
   "An valid BEDESTransformResult " should {
     "return valid if energy star score is in range and the use type is in use set" in {
-      val bedesDefinition = BedesDefinition()
-
       val transformResultESScore = BEDESTransformTable.defaultTable.findBedesComposite(
-        "ENERGY STAR Score", Option(88), None, bedesDefinition, false)
+        "ENERGY STAR Score", Option(88), None)
 
       val transformResultPT = BEDESTransformTable.defaultTable.findBedesComposite(
-        "Primary Property Type - EPA Calculated", Option("Office"), None, bedesDefinition, false)
+        "Primary Property Type - EPA Calculated", Option("Office"), None)
 
       system.actorOf(EnergyStarScoreAssessmentValue.props("", "", "", None, None)) ! Validator.Value(UUID.randomUUID(),
         Option(Seq(transformResultESScore, transformResultPT)))
@@ -76,13 +72,11 @@ class EnergyStarScoreAssessmentValueSpec() extends TestKit(ActorSystem("MySpec")
 
     "return valid if energy star score is in not in range and the use type is not use set" in {
 
-      val bedesDefinition = BedesDefinition()
-
       val transformResultESScore = BEDESTransformTable.defaultTable.findBedesComposite(
-        "ENERGY STAR Score", Option(200), None, bedesDefinition, false)
+        "ENERGY STAR Score", Option(200), None)
 
       val transformResultPT = BEDESTransformTable.defaultTable.findBedesComposite(
-        "Primary Property Type - EPA Calculated", Option("Museum"), None, bedesDefinition, false)
+        "Primary Property Type - EPA Calculated", Option("Museum"), None)
 
       system.actorOf(EnergyStarScoreAssessmentValue.props("", "", "", None, None)) ! Validator.Value(UUID.randomUUID(),
         Option(Seq(transformResultESScore, transformResultPT)))
@@ -97,13 +91,11 @@ class EnergyStarScoreAssessmentValueSpec() extends TestKit(ActorSystem("MySpec")
 
     "return invalid if energy star score is in not in range and the use type is use set" in {
 
-      val bedesDefinition = BedesDefinition()
-
       val transformResultESScore = BEDESTransformTable.defaultTable.findBedesComposite(
-        "ENERGY STAR Score", Option(200), None, bedesDefinition, false)
+        "ENERGY STAR Score", Option(200), None)
 
       val transformResultPT = BEDESTransformTable.defaultTable.findBedesComposite(
-        "Primary Property Type - EPA Calculated", Option("Office"), None, bedesDefinition, false)
+        "Primary Property Type - EPA Calculated", Option("Office"), None)
 
       system.actorOf(EnergyStarScoreAssessmentValue.props("", "", "", None, None)) ! Validator.Value(UUID.randomUUID(),
         Option(Seq(transformResultESScore, transformResultPT)))

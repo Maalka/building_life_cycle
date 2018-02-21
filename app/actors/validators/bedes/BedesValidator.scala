@@ -90,27 +90,27 @@ trait BedesValidator extends Actor with ActorLogging with Validator[Seq[BEDESTra
       case (key, Some(value: DateTime)) =>
         log.debug("Transforming datetime: {}", value)
         MaalkaMeterData(None, None, "",
-          Option(transformResult.startTime), Option(transformResult.endTime), usage = Option(value.getMillis),
+          Option(transformResult.startTime), transformResult.endTime, usage = Option(value.getMillis),
           cost = None, estimatedValue = None)
       case (key, Some(value: Long)) =>
         log.debug("Transforming long: {}", value)
         MaalkaMeterData(None, None, "",
-          Option(transformResult.startTime), Option(transformResult.endTime), usage = Option(value),
+          Option(transformResult.startTime), transformResult.endTime, usage = Option(value),
           cost = None, estimatedValue = None)
 
       case (key, Some(value: Int)) =>
         log.debug("Transforming int: {}", value)
         MaalkaMeterData(None, None, "",
-          Option(transformResult.startTime), Option(transformResult.endTime), usage = Option(value),
+          Option(transformResult.startTime), transformResult.endTime, usage = Option(value),
           cost = None, estimatedValue = None)
       case (key, Some(value: Double)) =>
         log.debug("Transforming double: {}", value)
         MaalkaMeterData(None, None, "",
-          Option(transformResult.startTime), Option(transformResult.endTime), usage = Option(value),
+          Option(transformResult.startTime), transformResult.endTime, usage = Option(value),
           cost = None, estimatedValue = None)
       case (key, Some(value: String)) =>
         MaalkaMeterData(None, None, "",
-          Option(transformResult.startTime), Option(transformResult.endTime), usage = None, stringValue = Option(value),
+          Option(transformResult.startTime), transformResult.endTime, usage = None, stringValue = Option(value),
           cost = None, estimatedValue = None)
     }
     meterData.headOption
