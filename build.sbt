@@ -53,6 +53,7 @@ libraryDependencies ++= Seq(
 
 )
 
+resolvers += "Artifactory Realm" at "https://jfrog.maalka.com/artifactory/libs-release-local/"
 resolvers += "scalaz-bintray" at "http://dl.bintray.com/scalaz/releases"
 resolvers += "Artifactory Realm" at "https://jfrog.maalka.com/artifactory/libs-release-local/"
 
