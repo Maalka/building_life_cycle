@@ -7,7 +7,7 @@ GET     /                           controllers.Application.index(includeHeader:
 
 GET     /jsroutes.js                controllers.Application.jsRoutes()
 
-POST    /validate                   controllers.DataQuality.validate()
+POST    /validate                   controllers.BuildingLifeCycle.validate()
 
 
 # Map static resources from the /public folder to the /assets URL path

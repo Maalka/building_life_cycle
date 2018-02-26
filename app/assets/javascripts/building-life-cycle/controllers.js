@@ -1,12 +1,15 @@
 /*
  * Copyright (c) 2017. Maalka Inc. All Rights Reserved
  */
-define(['angular', 'moment', 'matchmedia-ng', 'angular-file-upload', 'moment'], function(angular, moment) {
+define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng', 'angular-file-upload', 'moment'], function(angular, moment, buildingSyncSchema) {
   'use strict';
-  var DataQualityCtrl = function($rootScope, $scope, $window, $sce, $timeout, $q, $filter,
+
+
+
+  var BuildingLifeCycleCtrl = function($rootScope, $scope, $window, $sce, $timeout, $q, $filter,
                             $log, playRoutes, Upload, matchmedia, fileUtilities) {
 
-    $rootScope.pageTitle = "Data Quality Tool";
+    $rootScope.pageTitle = "Building Life Cycle Tool";
     $scope.forms = {'hasValidated': false};
     $scope.matchmedia = matchmedia;
     $scope.mainColumnWidth = "";
@@ -17,6 +20,44 @@ define(['angular', 'moment', 'matchmedia-ng', 'angular-file-upload', 'moment'], 
     $scope.form = {};
     $scope.filter = [];
     $scope.hideDays = true;
+
+// measures
+      $scope.advancedMeteringSystems = buildingSyncSchema.definitions["auc:MeasureType"].properties["auc:TechnologyCategories"].properties["auc:TechnologyCategory"].anyOf["0"].properties["auc:AdvancedMeteringSystems"].properties["auc:MeasureName"].anyOf["0"].properties.$.enum;
+      var boilerPlantImprovements = buildingSyncSchema.definitions["auc:MeasureType"].properties["auc:TechnologyCategories"].properties["auc:TechnologyCategory"].anyOf["0"].properties["auc:BoilerPlantImprovements"].properties["auc:MeasureName"].anyOf["0"].properties.$.enum;
+      var buildingAutomationSystems = buildingSyncSchema.definitions["auc:MeasureType"].properties["auc:TechnologyCategories"].properties["auc:TechnologyCategory"].anyOf["0"].properties["auc:BuildingAutomationSystems"].properties["auc:MeasureName"].anyOf["0"].properties.$.enum;
+      var buildingEnvelopeModifications = buildingSyncSchema.definitions["auc:MeasureType"].properties["auc:TechnologyCategories"].properties["auc:TechnologyCategory"].anyOf["0"].properties["auc:BuildingEnvelopeModifications"].properties["auc:MeasureName"].anyOf["0"].properties.$.enum;
+      var chilledWaterHotWaterAndSteamDistributionSystems = buildingSyncSchema.definitions["auc:MeasureType"].properties["auc:TechnologyCategories"].properties["auc:TechnologyCategory"].anyOf["0"].properties["auc:ChilledWaterHotWaterAndSteamDistributionSystems"].properties["auc:MeasureName"].anyOf["0"].properties.$.enum;
+      var chillerPlantImprovements = buildingSyncSchema.definitions["auc:MeasureType"].properties["auc:TechnologyCategories"].properties["auc:TechnologyCategory"].anyOf["0"].properties["auc:ChillerPlantImprovements"].properties["auc:MeasureName"].anyOf["0"].properties.$.enum;
+      var distributedGeneration = buildingSyncSchema.definitions["auc:MeasureType"].properties["auc:TechnologyCategories"].properties["auc:TechnologyCategory"].anyOf["0"].properties["auc:DistributedGeneration"].properties["auc:MeasureName"].anyOf["0"].properties.$.enum;
+      var electricalPeakShavingLoadShifting = buildingSyncSchema.definitions["auc:MeasureType"].properties["auc:TechnologyCategories"].properties["auc:TechnologyCategory"].anyOf["0"].properties["auc:ElectricalPeakShavingLoadShifting"].properties["auc:MeasureName"].anyOf["0"].properties.$.enum;
+      var electricMotorsAndDrives = buildingSyncSchema.definitions["auc:MeasureType"].properties["auc:TechnologyCategories"].properties["auc:TechnologyCategory"].anyOf["0"].properties["auc:ElectricMotorsAndDrives"].properties["auc:MeasureName"].anyOf["0"].properties.$.enum;
+      var energyCostReductionThroughRateAdjustments = buildingSyncSchema.definitions["auc:MeasureType"].properties["auc:TechnologyCategories"].properties["auc:TechnologyCategory"].anyOf["0"].properties["auc:EnergyCostReductionThroughRateAdjustments"].properties["auc:MeasureName"].anyOf["0"].properties.$.enum;
+      var energyDistributionSystems = buildingSyncSchema.definitions["auc:MeasureType"].properties["auc:TechnologyCategories"].properties["auc:TechnologyCategory"].anyOf["0"].properties["auc:EnergyDistributionSystems"].properties["auc:MeasureName"].anyOf["0"].properties.$.enum;
+      var energyRelatedProcessImprovements = buildingSyncSchema.definitions["auc:MeasureType"].properties["auc:TechnologyCategories"].properties["auc:TechnologyCategory"].anyOf["0"].properties["auc:EnergyRelatedProcessImprovements"].properties["auc:MeasureName"].anyOf["0"].properties.$.enum;
+      var futureOtherECMs = buildingSyncSchema.definitions["auc:MeasureType"].properties["auc:TechnologyCategories"].properties["auc:TechnologyCategory"].anyOf["0"].properties["auc:FutureOtherECMs"].properties["auc:MeasureName"].anyOf["0"].properties.$.enum;
+      var lightingImprovements = buildingSyncSchema.definitions["auc:MeasureType"].properties["auc:TechnologyCategories"].properties["auc:TechnologyCategory"].anyOf["0"].properties["auc:LightingImprovements"].properties["auc:MeasureName"].anyOf["0"].properties.$.enum;
+      var otherHVAC = buildingSyncSchema.definitions["auc:MeasureType"].properties["auc:TechnologyCategories"].properties["auc:TechnologyCategory"].anyOf["0"].properties["auc:OtherHVAC"].properties["auc:MeasureName"].anyOf["0"].properties.$.enum;
+      var plugLoadReductions = buildingSyncSchema.definitions["auc:MeasureType"].properties["auc:TechnologyCategories"].properties["auc:TechnologyCategory"].anyOf["0"].properties["auc:PlugLoadReductions"].properties["auc:MeasureName"].anyOf["0"].properties.$.enum;
+      var refrigeration = buildingSyncSchema.definitions["auc:MeasureType"].properties["auc:TechnologyCategories"].properties["auc:TechnologyCategory"].anyOf["0"].properties["auc:Refrigeration"].properties["auc:MeasureName"].anyOf["0"].properties.$.enum;
+      var renewableEnergySystems = buildingSyncSchema.definitions["auc:MeasureType"].properties["auc:TechnologyCategories"].properties["auc:TechnologyCategory"].anyOf["0"].properties["auc:RenewableEnergySystems"].properties["auc:MeasureName"].anyOf["0"].properties.$.enum;
+      var uncategorized = buildingSyncSchema.definitions["auc:MeasureType"].properties["auc:TechnologyCategories"].properties["auc:TechnologyCategory"].anyOf["0"].properties["auc:Uncategorized"].properties["auc:MeasureName"].anyOf["0"].properties.$.enum;
+      var waterAndSewerConservationSystems = buildingSyncSchema.definitions["auc:MeasureType"].properties["auc:TechnologyCategories"].properties["auc:TechnologyCategory"].anyOf["0"].properties["auc:WaterAndSewerConservationSystems"].properties["auc:MeasureName"].anyOf["0"].properties.$.enum;
+// end measures
+
+// assets
+
+// end assets
+    $scope.availableMeasures = ['other', 'building', 'meter', 'all'];
+    $scope.selectedMeasureCategory = {};
+    $scope.selectedMeasureCategory.selected = "other";
+    $scope.selectedMeasureCategoryChanged = function() {
+                   console.log('aaa');
+    };
+    $scope.xxx = {};
+    $scope.xxx.selected = "bbb";
+    $scope.selectedDetailChanged = function() {
+        console.log('bbb');
+    };
 
     // check the media to handel the ng-if media statements
     // it turns out that form elements do not respect "display: none"
@@ -55,13 +96,13 @@ define(['angular', 'moment', 'matchmedia-ng', 'angular-file-upload', 'moment'], 
 
 
     $scope.submitErrors = function () {
-        for (var i = 0; i < $scope.forms.dataQualityForm.$error.required.length; i++){
-            $log.info($scope.forms.dataQualityForm.$error.required[i].$name);
+        for (var i = 0; i < $scope.forms.buildingLifeCycleForm.$error.required.length; i++){
+            $log.info($scope.forms.buildingLifeCycleForm.$error.required[i].$name);
         }
     };
 
     $scope.submitFile = function() {
-        if($scope.forms.dataQualityForm.$valid){
+        if($scope.forms.buildingLifeCycleForm.$valid){
             if ($scope.model.file.name) {
                 $scope.upload($scope.model.file, $scope.meter);
             }
@@ -240,7 +281,7 @@ define(['angular', 'moment', 'matchmedia-ng', 'angular-file-upload', 'moment'], 
         $scope.validation = [];
 
         Upload.upload({
-            url: playRoutes.controllers.DataQuality.validate().url,
+            url: playRoutes.controllers.BuildingLifeCycle.validate().url,
             data: {
                 inputData: file
             }
@@ -276,9 +317,9 @@ define(['angular', 'moment', 'matchmedia-ng', 'angular-file-upload', 'moment'], 
 
   };
 
-  DataQualityCtrl.$inject = ['$rootScope', '$scope', '$window','$sce','$timeout', 
+  BuildingLifeCycleCtrl.$inject = ['$rootScope', '$scope', '$window','$sce','$timeout',
         '$q', '$filter', '$log', 'playRoutes', 'Upload', 'matchmedia', 'fileUtilities'];
   return {
-    DataQualityCtrl: DataQualityCtrl
+    BuildingLifeCycleCtrl: BuildingLifeCycleCtrl
   };
 });

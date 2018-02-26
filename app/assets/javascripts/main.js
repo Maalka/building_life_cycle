@@ -9,7 +9,7 @@
   requirejs.config({
     // Packages = top-level folders; loads a contained file named 'main.js"
     wrapShim: true,
-    packages: ['common', 'data-quality'],
+    packages: ['common', 'building-life-cycle'],
     shim: {
       'jsRoutes': {
         deps: [],

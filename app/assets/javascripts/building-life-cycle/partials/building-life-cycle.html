@@ -27,6 +27,7 @@
                       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
                     </div>
+                    <div data-ng-bind="tadasTest">></div>
                 </div>
                 <div class="ui hidden divider"></div>
                     <h2 class="ui header">UPLOAD DATA:
@@ -223,11 +224,14 @@
                                 <div class="ui large form">
                                     <div class="required field">
                                         <label>Events</label>
-                                        <select class="ui fluid dropdown">
-                                            <option>Event 1</option>
-                                            <option>Event 2</option>
-                                            <option>Event 3</option>
-                                            <option>Event 4</option>
+                                        <select
+                                                dropdown
+                                                class="ui dropdown" dropdown
+                                                ma-change="selectedMeasureCategoryChanged()"
+                                                ng-model="selectedMeasureCategory.selected">
+                                            <option value="">Select</option>
+                                            <option ng-repeat="category in availableMeasures"
+                                                    value="{{category}}">{{category}}</option>
                                         </select>
                                     </div>
 
@@ -238,14 +242,16 @@
                                     <!-- The Detail dropdown menu option values will also change depending on the Term selected -->
 
                                     <div class="required field">
-                                        <label>Detail</label>
-                                        <select class="ui fluid dropdown">
-                                            <option>Steam</option>
-                                            <option>Combustion</option>
-                                            <option>Waste heat</option>
-                                            <option>Other</option>
-                                            <option>Unknown</option>
-                                        </select>
+                                        <label >Detail</label>
+                                        <select
+                                            dropdown
+                                            class="ui fluid dropdown"
+                                            ma-change="selectedDetailChanged()"
+                                            ng-model="xxx.selected"
+                                            >
+                                        <option ng-repeat="y in advancedMeteringSystems"
+                                                value="{{y}}">{{y}}</option>
+                                    </select>
                                     </div>
                                     <div class="seven wide field">
                                         <label>Date</label>

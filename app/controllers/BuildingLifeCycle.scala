@@ -39,7 +39,7 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.duration._
 import play.api.libs.json.{JsString, Json}
 
-class DataQuality @Inject()(
+class BuildingLifeCycle @Inject()(
                              implicit actorSystem: ActorSystem,
                              validateFlow: ValidateFlow
                             ) extends Controller {

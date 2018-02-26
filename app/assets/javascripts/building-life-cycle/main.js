@@ -9,6 +9,6 @@
 define(['angular', './routes', './services', 'common', 'ng-infinite-scroll'], function(angular) {
   'use strict';
 
-  return angular.module('dataQuality.dashboard', ['ngRoute', 'dataQuality.routes', 
-                    'dataQuality.services', 'maalka.common.directives', 'infinite-scroll']);
+  return angular.module('buildingLifeCycle.dashboard', ['ngRoute', 'buildingLifeCycle.routes',
+                    'buildingLifeCycle.services', 'maalka.common.directives', 'infinite-scroll']);
 });
