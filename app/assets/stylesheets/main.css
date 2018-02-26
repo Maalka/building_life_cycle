@@ -6,8 +6,15 @@
 
 .site-content {
   flex: 1;
+} 
+.ui.form .ui.row {
+    padding-top: .5em !important;
+    padding-bottom: .5em !important;
 }
-
+.ui.form .column {
+    padding-left: .5em !important;
+    padding-right: .5em !important;
+}
 .design-label {
 	line-height:1.7em !important;
 }

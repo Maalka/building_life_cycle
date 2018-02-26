@@ -1,0 +1,325 @@
+/*
+ * Copyright (c) 2017. Maalka Inc. All Rights Reserved
+ */
+define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng', 'angular-file-upload', 'moment'], function(angular, moment, buildingSyncSchema) {
+  'use strict';
+
+
+
+  var BuildingLifeCycleCtrl = function($rootScope, $scope, $window, $sce, $timeout, $q, $filter,
+                            $log, playRoutes, Upload, matchmedia, fileUtilities) {
+
+    $rootScope.pageTitle = "Building Life Cycle Tool";
+    $scope.forms = {'hasValidated': false};
+    $scope.matchmedia = matchmedia;
+    $scope.mainColumnWidth = "";
+    $scope.model = {
+        'value': {},
+        'file': undefined
+    };
+    $scope.form = {};
+    $scope.filter = [];
+    $scope.hideDays = true;
+
+// measures
+      $scope.advancedMeteringSystems = buildingSyncSchema.definitions["auc:MeasureType"].properties["auc:TechnologyCategories"].properties["auc:TechnologyCategory"].anyOf["0"].properties["auc:AdvancedMeteringSystems"].properties["auc:MeasureName"].anyOf["0"].properties.$.enum;
+      var boilerPlantImprovements = buildingSyncSchema.definitions["auc:MeasureType"].properties["auc:TechnologyCategories"].properties["auc:TechnologyCategory"].anyOf["0"].properties["auc:BoilerPlantImprovements"].properties["auc:MeasureName"].anyOf["0"].properties.$.enum;
+      var buildingAutomationSystems = buildingSyncSchema.definitions["auc:MeasureType"].properties["auc:TechnologyCategories"].properties["auc:TechnologyCategory"].anyOf["0"].properties["auc:BuildingAutomationSystems"].properties["auc:MeasureName"].anyOf["0"].properties.$.enum;
+      var buildingEnvelopeModifications = buildingSyncSchema.definitions["auc:MeasureType"].properties["auc:TechnologyCategories"].properties["auc:TechnologyCategory"].anyOf["0"].properties["auc:BuildingEnvelopeModifications"].properties["auc:MeasureName"].anyOf["0"].properties.$.enum;
+      var chilledWaterHotWaterAndSteamDistributionSystems = buildingSyncSchema.definitions["auc:MeasureType"].properties["auc:TechnologyCategories"].properties["auc:TechnologyCategory"].anyOf["0"].properties["auc:ChilledWaterHotWaterAndSteamDistributionSystems"].properties["auc:MeasureName"].anyOf["0"].properties.$.enum;
+      var chillerPlantImprovements = buildingSyncSchema.definitions["auc:MeasureType"].properties["auc:TechnologyCategories"].properties["auc:TechnologyCategory"].anyOf["0"].properties["auc:ChillerPlantImprovements"].properties["auc:MeasureName"].anyOf["0"].properties.$.enum;
+      var distributedGeneration = buildingSyncSchema.definitions["auc:MeasureType"].properties["auc:TechnologyCategories"].properties["auc:TechnologyCategory"].anyOf["0"].properties["auc:DistributedGeneration"].properties["auc:MeasureName"].anyOf["0"].properties.$.enum;
+      var electricalPeakShavingLoadShifting = buildingSyncSchema.definitions["auc:MeasureType"].properties["auc:TechnologyCategories"].properties["auc:TechnologyCategory"].anyOf["0"].properties["auc:ElectricalPeakShavingLoadShifting"].properties["auc:MeasureName"].anyOf["0"].properties.$.enum;
+      var electricMotorsAndDrives = buildingSyncSchema.definitions["auc:MeasureType"].properties["auc:TechnologyCategories"].properties["auc:TechnologyCategory"].anyOf["0"].properties["auc:ElectricMotorsAndDrives"].properties["auc:MeasureName"].anyOf["0"].properties.$.enum;
+      var energyCostReductionThroughRateAdjustments = buildingSyncSchema.definitions["auc:MeasureType"].properties["auc:TechnologyCategories"].properties["auc:TechnologyCategory"].anyOf["0"].properties["auc:EnergyCostReductionThroughRateAdjustments"].properties["auc:MeasureName"].anyOf["0"].properties.$.enum;
+      var energyDistributionSystems = buildingSyncSchema.definitions["auc:MeasureType"].properties["auc:TechnologyCategories"].properties["auc:TechnologyCategory"].anyOf["0"].properties["auc:EnergyDistributionSystems"].properties["auc:MeasureName"].anyOf["0"].properties.$.enum;
+      var energyRelatedProcessImprovements = buildingSyncSchema.definitions["auc:MeasureType"].properties["auc:TechnologyCategories"].properties["auc:TechnologyCategory"].anyOf["0"].properties["auc:EnergyRelatedProcessImprovements"].properties["auc:MeasureName"].anyOf["0"].properties.$.enum;
+      var futureOtherECMs = buildingSyncSchema.definitions["auc:MeasureType"].properties["auc:TechnologyCategories"].properties["auc:TechnologyCategory"].anyOf["0"].properties["auc:FutureOtherECMs"].properties["auc:MeasureName"].anyOf["0"].properties.$.enum;
+      var lightingImprovements = buildingSyncSchema.definitions["auc:MeasureType"].properties["auc:TechnologyCategories"].properties["auc:TechnologyCategory"].anyOf["0"].properties["auc:LightingImprovements"].properties["auc:MeasureName"].anyOf["0"].properties.$.enum;
+      var otherHVAC = buildingSyncSchema.definitions["auc:MeasureType"].properties["auc:TechnologyCategories"].properties["auc:TechnologyCategory"].anyOf["0"].properties["auc:OtherHVAC"].properties["auc:MeasureName"].anyOf["0"].properties.$.enum;
+      var plugLoadReductions = buildingSyncSchema.definitions["auc:MeasureType"].properties["auc:TechnologyCategories"].properties["auc:TechnologyCategory"].anyOf["0"].properties["auc:PlugLoadReductions"].properties["auc:MeasureName"].anyOf["0"].properties.$.enum;
+      var refrigeration = buildingSyncSchema.definitions["auc:MeasureType"].properties["auc:TechnologyCategories"].properties["auc:TechnologyCategory"].anyOf["0"].properties["auc:Refrigeration"].properties["auc:MeasureName"].anyOf["0"].properties.$.enum;
+      var renewableEnergySystems = buildingSyncSchema.definitions["auc:MeasureType"].properties["auc:TechnologyCategories"].properties["auc:TechnologyCategory"].anyOf["0"].properties["auc:RenewableEnergySystems"].properties["auc:MeasureName"].anyOf["0"].properties.$.enum;
+      var uncategorized = buildingSyncSchema.definitions["auc:MeasureType"].properties["auc:TechnologyCategories"].properties["auc:TechnologyCategory"].anyOf["0"].properties["auc:Uncategorized"].properties["auc:MeasureName"].anyOf["0"].properties.$.enum;
+      var waterAndSewerConservationSystems = buildingSyncSchema.definitions["auc:MeasureType"].properties["auc:TechnologyCategories"].properties["auc:TechnologyCategory"].anyOf["0"].properties["auc:WaterAndSewerConservationSystems"].properties["auc:MeasureName"].anyOf["0"].properties.$.enum;
+// end measures
+
+// assets
+
+// end assets
+    $scope.availableMeasures = ['other', 'building', 'meter', 'all'];
+    $scope.selectedMeasureCategory = {};
+    $scope.selectedMeasureCategory.selected = "other";
+    $scope.selectedMeasureCategoryChanged = function() {
+                   console.log('aaa');
+    };
+    $scope.xxx = {};
+    $scope.xxx.selected = "bbb";
+    $scope.selectedDetailChanged = function() {
+        console.log('bbb');
+    };
+
+    // check the media to handel the ng-if media statements
+    // it turns out that form elements do not respect "display: none"
+    // and need to be removed from the dom
+    var setMedia = function (){
+        if (matchmedia.isPrint()) {
+            $scope.media = "print";
+            $scope.mainColumnWidth = "eight wide column";
+        } else if (matchmedia.isPhone()) {
+            $scope.media = "phone";
+            $scope.mainColumnWidth = "eight wide column";
+        } else if (matchmedia.isTablet()) {
+            $scope.media = "tablet";
+            $scope.mainColumnWidth = "eight wide column";
+        } else if (matchmedia.isDesktop()) {
+            $scope.media = "desktop";
+            $scope.mainColumnWidth = "eight wide column";
+        } else {
+            $scope.mainColumnWidth = "eight wide column";
+        }
+    };
+    matchmedia.on('only screen and (min-width: 1200px) and (max-width: 1919px)', function(match){
+        $scope.largeScreen = match.matches;
+    });
+    matchmedia.on('only screen and (max-width: 1199px)', function(match){
+        $scope.largeScreen = !match.matches;
+    });
+
+    matchmedia.onPrint(setMedia, $scope);
+
+    setMedia();
+    angular.element($window).bind("resize", function () {
+        setMedia();
+        $scope.$apply();
+    });
+
+
+    $scope.submitErrors = function () {
+        for (var i = 0; i < $scope.forms.buildingLifeCycleForm.$error.required.length; i++){
+            $log.info($scope.forms.buildingLifeCycleForm.$error.required[i].$name);
+        }
+    };
+
+    $scope.submitFile = function() {
+        if($scope.forms.buildingLifeCycleForm.$valid){
+            if ($scope.model.file.name) {
+                $scope.upload($scope.model.file, $scope.meter);
+            }
+        }
+    };
+
+    $scope.validation = [];
+
+    var verificationRows = [];
+
+    var parse = function(row) {
+        var j, k;
+        var parsed = [];
+        var tmp;
+
+        for (j = 0; j < row.length; j += 1) {
+            tmp = {
+                validators: [],
+                field: undefined,
+                valid: true
+            };
+            for (k = 0; k < row[j].length; k += 1) {
+                tmp.field = row[j][k].validator;
+                if (row[j][k].valid === false) {
+                    tmp.valid = false;
+                }
+                tmp.validators[k] = row[j][k];
+            }
+            parsed.push(tmp);
+        }
+        return parsed;
+    };
+
+    /**
+      * Generate the tooltip for the status table
+      */
+    var generateTooltip = function (propertyIndex, fieldIndex) {
+        var str, value, parentValidator;
+        var validators = verificationRows[propertyIndex].validated[fieldIndex].validators.reduce(function (a, b) {
+            parentValidator = b.parentValidator;
+            if (b.valueType === "Date") {
+                value = moment.utc(b.value).format("ll");
+            } else if (b.valueType === "String") {
+                value = b.value;
+            } else {
+                var int = parseInt(b.value);
+                if (!isNaN(int)) {
+                    value = $filter("number")(int, 0);
+                } else {
+                    value = b.value;
+                }
+            }
+            a.push({
+                message: b.message,
+                field: b.validator,
+                value: parentValidator === null ? undefined : value,
+                valid: b.valid
+            });
+            return a;
+        }, []).filter(function (validator) {
+            if (parentValidator !== null) {
+                return true;
+            } else {
+                return validator.message !== "" && validator.message !== undefined && validator.message !== null;
+            }
+        });
+
+        return {
+            'field': str = parentValidator || verificationRows[propertyIndex].validated[fieldIndex].field,
+            'value': parentValidator === undefined ? undefined : (value || "Not Defined"),
+            'validators': validators
+        };
+    };
+
+    var verificationRow = function (i) {
+        return {
+            i: i,
+            propertyName: verificationRows[i].propertyName,
+            fields: verificationRows[i].validated.map(function (m, j) {
+                return {
+                    i: i,
+                    tooltip: generateTooltip(i, j),
+                    valid: m.valid
+                };
+            })
+        };
+    };
+
+    $scope.loadMore = function () {
+        var i;
+        var last = verificationRows.length - 1;
+        for(i = 0; i < 20; i += 1) {
+            if ($scope.validation.length < verificationRows.length) {
+                $scope.validation.push(verificationRow($scope.validation.length));
+            }
+        }
+    };
+
+    $scope.download = function () { 
+        var headers = [];
+        var rows = [];
+        var row, sourceRow, toolTip, validator, validatorMessages, validatorMessage, tooltip;
+        var i, j, k; 
+        headers.push("Property Name");
+        for (i = 0; i < $scope.validation.length; i += 1) {
+            sourceRow = $scope.validation[i];
+            row = [];
+            row.push("\"" + sourceRow.propertyName.replace("\"", "\"\"") + "\"");
+            for (j = 0; j < sourceRow.fields.length; j += 1) {
+                tooltip = sourceRow.fields[j].tooltip;
+                validatorMessages = [];
+
+                if (tooltip.field !== "" && tooltip.field !== undefined) {
+                    headers[j + 1] = tooltip.field;
+                    if (tooltip.validators.length === 0) { 
+                        if (sourceRow.fields[j].valid) { 
+                            validatorMessages.push("OK - " + tooltip.value);
+                        }
+                    } else {
+                        for (k = 0; k < tooltip.validators.length; k += 1) { 
+                            validator = tooltip.validators[k];
+                            if (!validator.valid) {
+                                validatorMessage = validator.message + " (" + (validator.value || tooltip.value) + ")";
+                                validatorMessages.push(validatorMessage.replace("\"", "\"\""));
+                            } else {
+                                validatorMessage = "OK - " + validator.value;
+                            }
+                        }
+                    }
+                    row[j + 1] = "\"" + validatorMessages.join(", \n") + "\"";
+                }
+            }
+            rows.push(row);
+            row = [];
+        }
+        return fileUtilities.generateCSV([headers, rows]);
+    };
+
+    var sortVerificationRows = function (a, b) {
+       if (a.propertyName < b.propertyName) {
+           return -1;
+       }
+       if (a.propertyName > b.propertyName) {
+           return 1;
+       }
+       return 0;
+    };
+
+    var parseServerResponse = function(model) { 
+        var i, j, propertyName, first = true;
+        verificationRows = [];
+        if(model.result !== undefined) {
+            for(i = 0; i < model.result.length; i += 1) {
+                if (model.result[i][0][0] !== undefined) {
+                    propertyName = model.result[i][0][0].value;
+                } else {
+                    propertyName = "Unknonwn";
+                }
+                verificationRows.push({
+                    propertyName: propertyName,
+                    validated: parse(model.result[i])
+                });
+            }
+            verificationRows = verificationRows.sort(sortVerificationRows);
+            $scope.loadMore();
+        }
+    };
+
+    $scope.loadingFileFiller = {
+        loading: false
+    };
+
+    $scope.upload = function (file,form) {
+        $scope.loadingFileFiller.loading = true;
+        verificationRows = [];
+        $scope.validation = [];
+
+        Upload.upload({
+            url: playRoutes.controllers.BuildingLifeCycle.validate().url,
+            data: {
+                inputData: file
+            }
+
+        }).then(function (resp) {
+            console.log('Success ' + resp.config.data.inputData.name + 'uploaded. Response: ' + resp.data);
+            verificationRows = [];
+            $scope.validation = [];
+
+            parseServerResponse(resp.data);
+
+            $scope.loadingFileFiller = {
+                loading: false
+
+            };
+
+        }, function (resp) {
+            $scope.loadingFileFiller = {
+            'loading': true
+            };
+            $scope.model.value = resp.data;
+
+        }, function (evt) {
+            var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
+            $scope.loadingFileFiller = {
+                loading: true,
+                progressPercentage: progressPercentage,
+                attachmentName: evt.config.data.inputData.name
+            };
+            console.log('progress: ' + progressPercentage + '% ' + evt.config.data.inputData.name);
+        });
+     };
+
+  };
+
+  BuildingLifeCycleCtrl.$inject = ['$rootScope', '$scope', '$window','$sce','$timeout',
+        '$q', '$filter', '$log', 'playRoutes', 'Upload', 'matchmedia', 'fileUtilities'];
+  return {
+    BuildingLifeCycleCtrl: BuildingLifeCycleCtrl
+  };
+});

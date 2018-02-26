@@ -9,7 +9,7 @@
   requirejs.config({
     // Packages = top-level folders; loads a contained file named 'main.js"
     wrapShim: true,
-    packages: ['common', 'data-quality'],
+    packages: ['common', 'building-life-cycle'],
     shim: {
       'jsRoutes': {
         deps: [],
@@ -67,6 +67,8 @@
     },
     paths: {
       'requirejs': '../lib/requirejs/require',
+      'text': './requirejs-plugins/text',
+      'json': './requirejs-plugins/json',
       'jquery': ['../lib/jquery/jquery'],
       'angular': '../lib/angularjs/angular',
       'angular-route': '../lib/angularjs/angular-route',
