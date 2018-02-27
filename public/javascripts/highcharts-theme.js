@@ -4,7 +4,7 @@ define(['highcharts', 'highcharts-more'], function(angular, nvd3) {
         Highcharts.theme = {
             chart: {
                 style: {
-                    fontFamily: '"Open Sans", "Helvetica Neue", Arial, Helvetica, sans-serif'
+                    fontFamily: '"Gesta", "Helvetica Neue", Arial, Helvetica, sans-serif'
                 }
             },
             credits: {
@@ -26,9 +26,6 @@ define(['highcharts', 'highcharts-more'], function(angular, nvd3) {
                     showInLegend: false
                 }
             },
-            colors: [
-                '#06A1F9'
-            ],
         };
 
         // Apply the theme

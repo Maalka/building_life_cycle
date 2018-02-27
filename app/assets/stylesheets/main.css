@@ -1,5 +1,4 @@
 
-
 body {
     font-family:"gesta";
 }
@@ -9,6 +8,28 @@ body {
   flex-direction: column;
 }
 
+.ui.mini.avatar.image {
+    margin-right: 10px; 
+    width:20px !important;
+}
+
+.fluid.accordion .content {
+    margin-left: 50px;
+}
+
+.fluid.accordion .block {
+    margin-left: 20px;
+    font-style: italic;
+}
+
+.fluid.accordion .title {
+    font-weight: 600;
+    color: rgba(0,0,0,.95);
+}
+
+.fluid.accordian .subtitle {
+    color: rgba(0,0,0,.95);
+}
 .site-content {
   flex: 1;
 } 
