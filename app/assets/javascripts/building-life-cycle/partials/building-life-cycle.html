@@ -141,7 +141,13 @@
                                 <div class="eight wide column">
                                     <div class="required field">
                                         <label>Use Type</label>
-                                        <input type="text">
+                                        <select
+                                                dropdown
+                                                class="ui dropdown" dropdown>
+                                            <option value="">Select</option>
+                                            <option ng-repeat="useType in useTypes"
+                                                    value="{{useType}}">{{useType}}</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="two wide column">
@@ -227,10 +233,10 @@
                                         <select
                                                 dropdown
                                                 class="ui dropdown" dropdown
-                                                ma-change="selectedMeasureCategoryChanged()"
+                                                ma-change="selectedMeasureCategoryChanged(value)"
                                                 ng-model="selectedMeasureCategory.selected">
                                             <option value="">Select</option>
-                                            <option ng-repeat="category in availableMeasures"
+                                            <option ng-repeat="category in measureCategories"
                                                     value="{{category}}">{{category}}</option>
                                         </select>
                                     </div>
@@ -246,11 +252,11 @@
                                         <select
                                             dropdown
                                             class="ui fluid dropdown"
-                                            ma-change="selectedDetailChanged()"
-                                            ng-model="xxx.selected"
+                                            ma-change="selectedMeasureChanged()"
+                                            ng-model="measure.selected"
                                             >
-                                        <option ng-repeat="y in advancedMeteringSystems"
-                                                value="{{y}}">{{y}}</option>
+                                        <option ng-repeat="measure in availableMeasures"
+                                                value="{{measure}}">{{measure}}</option>
                                     </select>
                                     </div>
                                     <div class="seven wide field">

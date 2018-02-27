@@ -49,11 +49,12 @@ libraryDependencies ++= Seq(
   "org.webjars.bower" % "ng-csv" % "0.3.6",
   "org.webjars.bower" % "ngInfiniteScroll" % "1.3.0",
   "org.webjars.bower" % "moment" % "2.18.1",
+  "org.webjars" % "angular-xeditable" % "0.1.9",
+  "org.webjars.npm" % "flatpickr" % "3.0.7",
   "net.sourceforge.htmlunit" % "htmlunit" % "2.27"
 
 )
 
-resolvers += "Artifactory Realm" at "https://jfrog.maalka.com/artifactory/libs-release-local/"
 resolvers += "scalaz-bintray" at "http://dl.bintray.com/scalaz/releases"
 resolvers += "Artifactory Realm" at "https://jfrog.maalka.com/artifactory/libs-release-local/"
 
