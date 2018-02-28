@@ -217,67 +217,82 @@
                                 </div>
                                 <div class="ui hidden divider"></div>
                                 <div class="row">
-                                    </h2>
-                                    <h2 class="ui right floated small blue header">ADD TO LIST
-                                        <img class="ui mini image" src="/assets/images/down-arrow-blue.svg"/>
+                                    <h2 class="ui right floated small blue header">
+                                        ADD TO LIST
+                                        <a data-tooltip = "Add asset information to Assets list"
+                                                ng-click="addToList()">
+                                            <img class="ui right floated mini image" src="/assets/images/down-arrow-blue.svg"/ >
+                                        </a>
                                     </h2>
                                 </div>
                             </div>
                             <div class="ui bottom attached inactive tab very padded segment" data-tab="Measures" style="height:500px">
                                 <div class="ui large form">
-                                    <div class="required field">
-                                        <label>Events</label>
-                                        <select
-                                                dropdown
-                                                class="ui dropdown" dropdown
-                                                ma-change="selectedMeasureCategoryChanged(value)"
-                                                ng-model="selectedMeasureCategory.selected">
-                                            <option value="">Select</option>
-                                            <option ng-repeat="category in measureCategories"
-                                                    value="{{category}}">{{category}}</option>
-                                        </select>
-                                    </div>
+                                    <div class="ui stackable grid">
+                                        <div class="ui sixteen wide column">
+                                            <div class="required field">
+                                                <label>Events</label>
+                                                <select
+                                                        dropdown
+                                                        class="ui dropdown" dropdown
+                                                        ma-change="selectedMeasureCategoryChanged(value)"
+                                                        ng-model="selectedMeasureCategory.selected">
+                                                    <option value="">Select</option>
+                                                    <option ng-repeat="category in measureCategories"
+                                                            value="{{category}}">{{category}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
 
-                                    <!-- The paragraph below is a description of the term and will change depending on the term selected -->
+                                        <!-- The paragraph below is a description of the term and will change depending on the term selected -->
 
-                                    <p style="color:#C0C0C0; text-align:center"><i>Source of heating energy for regeneration.</i><p>
+                                        <p style="color:#C0C0C0; text-align:center"><i>Source of heating energy for regeneration.</i><p>
 
-                                    <!-- The Detail dropdown menu option values will also change depending on the Term selected -->
-
-                                    <div class="required field">
-                                        <label >Detail</label>
-                                        <select
-                                            dropdown
-                                            class="ui fluid dropdown"
-                                            ma-change="selectedMeasureChanged()"
-                                            ng-model="measure.selected"
-                                            >
-                                        <option ng-repeat="measure in availableMeasures"
-                                                value="{{measure}}">{{measure}}</option>
-                                    </select>
-                                    </div>
-                                    <div class="seven wide field">
-                                        <label>Start Date</label>
-                                        <input type="date" ng-model="measure.startDate">
-                                    </div>
-                                    <div class="seven wide field">
-                                        <label>End Date</label>
-                                        <input type="date" ng-model="measure.endDate">
-                                    </div>
-                                    <div class="field">
-                                        <label>Comments</label>
-                                        <textarea rows="3" ng-model="measure.comment"></textarea>
+                                        <!-- The Detail dropdown menu option values will also change depending on the Term selected -->
+                                        <div class="ui sixteen wide column">
+                                            <div class="required field">
+                                                <label >Detail</label>
+                                                <select
+                                                    dropdown
+                                                    class="ui fluid dropdown"
+                                                    ma-change="selectedMeasureChanged()"
+                                                    ng-model="measure.selected"
+                                                    >
+                                                <option ng-repeat="measure in availableMeasures"
+                                                        value="{{measure}}">{{measure}}</option>
+                                            </select>
+                                            </div>
+                                        </div>
+                                        <div class="ui row">
+                                            <div class="seven wide column">
+                                                <div class="field">
+                                                    <label>Start Date</label>
+                                                    <input type="date" ng-model="measure.startDate">
+                                                </div>
+                                            </div>
+                                            <div class="seven wide column">
+                                                <div class="field">
+                                                    <label>End Date</label>
+                                                    <input type="date" ng-model="measure.endDate">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="ui sixteen wide column">
+                                            <div class="field">
+                                                <label>Comments</label>
+                                                <textarea rows="3" ng-model="measure.comment"></textarea>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="ui hidden divider"></div>
                                 <div class="row">
                                     <h2 class="ui right floated small blue header">
-                                        <button class="ui button" ng-click="remove()">REMOVE</button>
-                                        <img class="ui mini image" src="/assets/images/x-blue.svg"/>
-                                    </h2>
-                                    <h2 class="ui right floated small blue header">
-                                        <button class="ui button" ng-click="addToList()">ADD TO LIST</button>
-                                        <img class="ui mini image" src="/assets/images/down-arrow-blue.svg"/>
+                                        ADD TO LIST
+                                        <a data-tooltip = "Add measure event to Measures list"
+                                                ng-click="addToList()">
+                                            <img class="ui right floated mini image" src="/assets/images/down-arrow-blue.svg"/ >
+                                        </a>
                                     </h2>
                                 </div>
                             </div>
@@ -428,33 +443,63 @@
                 </div>
                 <div class="ui hidden divider"></div>
                 <div class="ui hidden divider"></div>
-                <div class="ui stackable grid">
-                    <div class="two column row">
-                        <div class="column">                
-                            <h2>DETAILS</h2>
+                <div class="ui two column grid">
+                    <div class="column">                
+                        <h2>ASSETS</h2>
+                        <div class="ui segment">
+                            <div class="details">
+                                <div ng-repeat="measure in measuresList">
+                                    <div>
+                                        <div>{{measure.category}}</div>
+                                        <div>{{measure.measure}}</div>
+                                        <div>{{measure.startDate | date:'MM/dd/yyyy' }}</div>
+                                        <div>{{measure.endDate | date:'MM/dd/yyyy' }}</div>
+                                        <div>{{measure.comment}}</div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="column">
-                            <h2>TIMELINE</h2>
-                        </div>
-                    </div>
-                    <div class="two column row">
-                        <div class="column">
-                            <div class="ui segment">
-                                <div class="details">
-                                    <div ng-repeat="measure in measuresList">
-                                        <div>
-                                            <div>{{measure.category}}</div>
-                                            <div>{{measure.measure}}</div>
-                                            <div>{{measure.startDate | date:'MM/dd/yyyy' }}</div>
-                                            <div>{{measure.endDate | date:'MM/dd/yyyy' }}</div>
-                                            <div>{{measure.comment}}</div>
+                        <!--- styling for details. Not sure how best to incorporate with what you have.
+                        <div class="ui basic segment">
+                                    <div class="fluid accordion">
+                                        <div class="active title">
+                                            <img class="ui mini avatar image" src="/assets/images/x-gray-dark.svg">
+                                            Asset 2
+                                            <i class="blue dropdown icon"></i>
+                                        </div>
+                                        <div class="active content">
+                                            <div class="subtitle">
+                                                      Steam
+                                                <div class="block">
+                                                Lorem ipsum dolor sit amet, consectetur adipiscing
+                                                elit, sed do eiusmod tempor incididunt ut labore et
+                                                dolore magna aliqua.
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <button class="ui blue button" ng-click="downloadData()">Download</button>
+                        -->
+                        <button class="ui blue button" ng-click="downloadData()">Download</button>
+                        <h2>MEASURES</h2>
+                        <div class="ui segment">
+                            <div class="details">
+                                <div ng-repeat="measure in measuresList">
+                                    <div>
+                                        <div>{{measure.category}}</div>
+                                        <div>{{measure.measure}}</div>
+                                        <div>{{measure.startDate | date:'MM/dd/yyyy' }}</div>
+                                        <div>{{measure.endDate | date:'MM/dd/yyyy' }}</div>
+                                        <div>{{measure.comment}}</div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="column">
+                        <button class="ui blue button" ng-click="downloadData()">Download</button>
+                    </div>
+                    <div class="column">
+                         <h2>TIMELINE</h2>
                             <div class="ui secondary segment" style="height:525px">
                                      <div timeline-graph></div>
                             </div>
