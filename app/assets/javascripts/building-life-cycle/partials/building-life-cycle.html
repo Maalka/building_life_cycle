@@ -27,7 +27,6 @@
                       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
                     </div>
-                    <div data-ng-bind="tadasTest">></div>
                 </div>
                 <div class="ui hidden divider"></div>
                     <h2 class="ui header">UPLOAD DATA:
@@ -42,13 +41,13 @@
                                 <div class="eight wide column">
                                     <div class="required field">
                                         <label>Building name</label>
-                                        <input type="text">
+                                        <input type="text" ng-model="building.buildingName">
                                     </div>
                                 </div>
                                 <div class="eight wide column">
                                     <div class="required field">
                                         <label>Street</label>
-                                        <input type="text">
+                                        <input type="text" ng-model="building.addressStreet">
                                     </div>
                                 </div>
                             </div>
@@ -56,13 +55,13 @@
                                 <div class="seven wide column">
                                     <div class="required field">
                                         <label>City</label>
-                                        <input type="text">
+                                        <input type="text" ng-model="building.addressCity">
                                     </div>
                                 </div>
                                 <div class="three wide column">
                                     <div class="required field">
                                         <label>State</label>
-                                        <select class="ui fluid dropdown">
+                                        <select class="ui fluid dropdown" ng-model="building.addressState">
                                             <option value="">State</option>
                                             <option value="AL">Alabama</option>
                                             <option value="AK">Alaska</option>
@@ -121,13 +120,13 @@
                                 <div class="three wide column">
                                     <div class="required field">
                                         <label>Zip Code</label>
-                                        <input type="text">
+                                        <input type="text" ng-model="building.addressZip">
                                     </div>
                                 </div>
                                 <div class="three wide column">
                                     <div class="required field">
                                         <label>Year Completed</label>
-                                        <input type="text">
+                                        <input type="text" ng-model="building.yearCompleted">
                                     </div>
                                 </div>
                             </div>
@@ -135,7 +134,7 @@
                                 <div class="two wide column">
                                     <div class="required field">
                                         <label># of Floors</label>
-                                        <input type="text">
+                                        <input type="text" ng-model="building.numberOfFloors">
                                     </div>
                                 </div>
                                 <div class="eight wide column">
@@ -143,7 +142,7 @@
                                         <label>Use Type</label>
                                         <select
                                                 dropdown
-                                                class="ui dropdown" dropdown>
+                                                class="ui dropdown" dropdown ng-model="building.useType">
                                             <option value="">Select</option>
                                             <option ng-repeat="useType in useTypes"
                                                     value="{{useType}}">{{useType}}</option>
@@ -153,13 +152,13 @@
                                 <div class="two wide column">
                                     <div class="required field">
                                         <label>Floor Area</label>
-                                        <input type="text">
+                                        <input type="text" ng-model="building.floorArea">
                                     </div>
                                 </div>
                                 <div class="four wide column">
                                     <div class="required field">
                                         <label>North / South Orientation</label>
-                                        <input type="text">
+                                        <input type="text" ng-model="building.orientation">
                                     </div>
                                 </div>
                             </div>
@@ -260,20 +259,26 @@
                                     </select>
                                     </div>
                                     <div class="seven wide field">
-                                        <label>Date</label>
-                                        <input type="date">
+                                        <label>Start Date</label>
+                                        <input type="date" ng-model="measure.startDate">
+                                    </div>
+                                    <div class="seven wide field">
+                                        <label>End Date</label>
+                                        <input type="date" ng-model="measure.endDate">
                                     </div>
                                     <div class="field">
                                         <label>Comments</label>
-                                        <textarea rows="3"></textarea>
+                                        <textarea rows="3" ng-model="measure.comment"></textarea>
                                     </div>
                                 </div>
                                 <div class="ui hidden divider"></div>
                                 <div class="row">
-                                    <h2 class="ui right floated small blue header">REMOVE
+                                    <h2 class="ui right floated small blue header">
+                                        <button class="ui button" ng-click="remove()">REMOVE</button>
                                         <img class="ui mini image" src="/assets/images/x-blue.svg"/>
                                     </h2>
-                                    <h2 class="ui right floated small blue header">ADD TO LIST
+                                    <h2 class="ui right floated small blue header">
+                                        <button class="ui button" ng-click="addToList()">ADD TO LIST</button>
                                         <img class="ui mini image" src="/assets/images/down-arrow-blue.svg"/>
                                     </h2>
                                 </div>
@@ -437,10 +442,19 @@
                     <div class="two column row">
                         <div class="column">
                             <div class="ui segment">
-                              <p></p>
-                              <p></p>
+                                <div class="details">
+                                    <div ng-repeat="measure in measuresList">
+                                        <div>
+                                            <div>{{measure.category}}</div>
+                                            <div>{{measure.measure}}</div>
+                                            <div>{{measure.startDate | date:'MM/dd/yyyy' }}</div>
+                                            <div>{{measure.endDate | date:'MM/dd/yyyy' }}</div>
+                                            <div>{{measure.comment}}</div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <button class="ui blue button">Download</button>
+                            <button class="ui blue button" ng-click="downloadData()">Download</button>
                         </div>
                         <div class="column">
                             <div class="ui secondary segment" style="height:350px">

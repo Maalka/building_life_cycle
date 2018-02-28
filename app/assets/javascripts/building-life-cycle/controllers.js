@@ -48,6 +48,18 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
 
     // end assets
 
+    $scope.building = {};
+    $scope.building.buildingName = 'example buildingName';
+    $scope.building.addressStreet = 'example street';
+    $scope.building.addressCity = 'example city';
+    $scope.building.addressState = 'KS';
+    $scope.building.addressZip = '12345';
+    $scope.building.yearCompleted = '1999';
+    $scope.building.numberOfFloors = '5';
+    $scope.building.useType = 'Library';
+    $scope.building.floorArea = '2250';
+    $scope.building.orientation = 'North';
+
     $scope.useTypes = buildingSyncSchema.definitions[".auc:AssetScore"].properties["auc:UseType"].anyOf["0"].properties["auc:AssetScoreUseType"].properties.$.enum;
 
     $scope.selectedMeasureCategory = {};
@@ -62,6 +74,37 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
     $scope.selectedMeasureChanged = function() {
 
     };
+
+    $scope.measuresList = [];
+
+    $scope.addToList = function() {
+
+        var newMeasure = {
+            "category": $scope.selectedMeasureCategory.selected,
+            "measure": $scope.measure.selected,
+            "startDate": $scope.measure.startDate,
+            "endDate": $scope.measure.endDate,
+            "comment": $scope.measure.comment
+        };
+
+        $scope.measuresList.push(newMeasure);
+    };
+
+    $scope.remove = function() {
+        console.log('remove');
+    };
+
+
+    $scope.downloadData = function(){
+        var output = $scope.building;
+        output.measures = $scope.measuresList;
+        var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(output));
+        var downloadAnchorNode = document.createElement('a');
+        downloadAnchorNode.setAttribute("href",     dataStr);
+        downloadAnchorNode.setAttribute("download", "output.json");
+        downloadAnchorNode.click();
+        downloadAnchorNode.remove();
+  };
 
     // check the media to handel the ng-if media statements
     // it turns out that form elements do not respect "display: none"
