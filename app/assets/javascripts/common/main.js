@@ -5,7 +5,8 @@
     'angular-file-upload',
 	'./directives/required',
 	'./directives/files',
-	'./directives/sensitivity_graph'
+	'./directives/sensitivity_graph',
+	'./directives/timeline'
 	],
     function(angular) {
   'use strict';
