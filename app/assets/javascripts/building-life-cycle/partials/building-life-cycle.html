@@ -446,7 +446,7 @@
                 <div class="ui two column grid">
                     <div class="column">                
                         <h2>ASSETS</h2>
-                        <div class="ui segment">
+                        <div class="ui segment" style="height:300px">
                             <div class="details">
                                 <div ng-repeat="measure in measuresList">
                                     <div>
@@ -482,8 +482,10 @@
                             </div>
                         -->
                         <button class="ui blue button" ng-click="downloadData()">Download</button>
+                    </div>
+                    <div class="column">
                         <h2>MEASURES</h2>
-                        <div class="ui segment">
+                        <div class="ui segment" style="height:300px">
                             <div class="details">
                                 <div ng-repeat="measure in measuresList">
                                     <div>
@@ -498,11 +500,13 @@
                         </div>
                         <button class="ui blue button" ng-click="downloadData()">Download</button>
                     </div>
-                    <div class="column">
-                         <h2>TIMELINE</h2>
-                            <div class="ui secondary segment" style="height:525px">
-                                     <div timeline-graph></div>
-                            </div>
+                </div>
+                <div class="ui hidden divider"></div>
+                <div class="ui hidden divider"></div>
+                <div class="row">
+                    <h2>TIMELINE</h2>
+                        <div class="ui secondary segment" style="height:300px">
+                            <div timeline-graph></div>
                         </div>
                     </div>
                 </div>
