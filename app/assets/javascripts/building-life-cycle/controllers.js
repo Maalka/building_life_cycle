@@ -127,9 +127,54 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
 
     $scope.downloadData = function(){
         var output = $scope.building;
-        output.measures = $scope.measuresList;
+
+        output.measures = $scope.measures.list;
         output.assets = $scope.assetList;
-        var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(output));
+        var address = {
+            'auc:StreetAddressDetail' : {
+                'auc:Simplified': {
+                    'auc:StreetAddress': {
+                        '$': $scope.building.addressStreet
+                    }
+                }
+            },
+            'auc:City': {
+                '$': $scope.building.addressCity
+            },
+            'auc:State': {
+                '$': $scope.building.addressState
+            },
+            'auc:PostalCode': {
+                '$': $scope.building.addressZip
+            }
+        };
+        var audits = {
+            'auc:Audit': {
+                        'auc:Sites': {
+                            'auc:Site': {
+                                "auc:Facilities": {
+                                    "auc:Facility": {
+                                        "auc:FacilityClassification": {
+                                            "$": "Commercial"
+                                            }
+                                        }
+                                },
+                                "auc:FloorAreas": {
+                                    "auc:FloorArea": {
+                                        "auc:FloorAreaValue": {
+                                            "$": parseFloat($scope.building.floorArea)
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+        };
+        var out = {
+            'auc:Address' : address,
+              'auc:Audits': audits
+        };
+        var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(out));
         var downloadAnchorNode = document.createElement('a');
         downloadAnchorNode.setAttribute("href",     dataStr);
         downloadAnchorNode.setAttribute("download", "output.json");

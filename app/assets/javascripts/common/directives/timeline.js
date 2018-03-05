@@ -23,8 +23,18 @@ define(['angular', 'moment', 'highcharts', 'highcharts-drilldown', 'highcharts-b
                     }
                 });
                 var refresh = function() {
+
+                function sortDescByEndDate(a,b) {
+                  if (a.endDate > b.endDate)
+                    return -1;
+                  if (a.endDate < b.endDate)
+                    return 1;
+                  return 0;
+                }
+
                    $timeout(function () {
-                         $scope.last5measures = $scope.measures.slice(-5);
+                         $scope.measures.sort(sortDescByEndDate);
+                         $scope.last5measures = $scope.measures.slice(0,5);
                          var newMeasures = [];
                          for (var i = 0; i < $scope.last5measures.length; i++) {
                             newMeasures.push({x: Date.UTC(
