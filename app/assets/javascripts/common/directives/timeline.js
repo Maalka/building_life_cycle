@@ -26,7 +26,8 @@ define(['angular', 'moment', 'highcharts', 'highcharts-drilldown', 'highcharts-b
                         style: {
                             fontFamily: 'Gesta',
                         },
-                        margin: 80
+                        marginLeft: 80,
+                        marginRight: 110
                     },
                     xAxis: {
 						title: {
@@ -88,7 +89,7 @@ define(['angular', 'moment', 'highcharts', 'highcharts-drilldown', 'highcharts-b
 							{ x: Date.UTC(2005, 4, 20), text: 'Comment and date', title: '<span style="margin: 15px">Hot Water Heating</span>', color: '#0D95BB', fillColor: '#0D95BB'},
 							{ x: Date.UTC(2006, 3, 14), text: 'Comment and date', title: '<span style="margin: 15px">Glass Exterior Door</span>', color: '#0A708C', fillColor: '#0A708C'},
 							{ x: Date.UTC(2011, 5, 17), text: 'Comment and date', title: '<span style="margin: 15px">Wood Ceiling Finish</span>', color: '#2F4598', fillColor: '#2F4598'},
-							{ x: Date.UTC(2012, 11, 23), text: 'Comment and date', title: '<span style="margin: 15px">Stepped Dimming Lighting Control</span>', color: '#5D70D4', fillColor: '#5D70D4'},
+							{ x: Date.UTC(2012, 11, 23), text: 'Comment and date', title: '<span style="margin: 15px">Stepped Dimming Lighting Control </span>', color: '#5D70D4', fillColor: '#5D70D4'},
 							],
                         },
                     ]

@@ -40,7 +40,7 @@
                             <div class="ui row">
                                 <div class="eight wide column">
                                     <div class="required field">
-                                        <label>Building name</label>
+                                        <label>Building Name</label>
                                         <input type="text" ng-model="building.buildingName">
                                     </div>
                                 </div>
@@ -61,7 +61,7 @@
                                 <div class="three wide column">
                                     <div class="required field">
                                         <label>State</label>
-                                        <select class="ui fluid dropdown" ng-model="building.addressState">
+                                        <select dropdown class="ui fluid dropdown" ng-model="building.addressState">
                                             <option value="">State</option>
                                             <option value="AL">Alabama</option>
                                             <option value="AK">Alaska</option>
@@ -131,9 +131,15 @@
                                 </div>
                             </div>
                             <div class="ui row">
-                                <div class="two wide column">
+                                <div class="three wide column">
                                     <div class="required field">
-                                        <label># of Floors</label>
+                                        <label># of Floors Above Grade</label>
+                                        <input type="text" ng-model="building.numberOfFloors">
+                                    </div>
+                                </div>
+                                <div class="three wide column">
+                                    <div class="required field">
+                                        <label># of Floors Below Grade</label>
                                         <input type="text" ng-model="building.numberOfFloors">
                                     </div>
                                 </div>
@@ -151,14 +157,8 @@
                                 </div>
                                 <div class="two wide column">
                                     <div class="required field">
-                                        <label>Floor Area</label>
+                                        <label>Floor Area (ft&#178)</label>
                                         <input type="text" ng-model="building.floorArea">
-                                    </div>
-                                </div>
-                                <div class="four wide column">
-                                    <div class="required field">
-                                        <label>North / South Orientation</label>
-                                        <input type="text" ng-model="building.orientation">
                                     </div>
                                 </div>
                             </div>
@@ -170,7 +170,7 @@
                 <div class="ui stackable grid">
                     <div class="two column row">
                         <div class="column">                
-                            <h2>ASSETS / MEASURES</h2>
+                            <h2>SYSTEMS / MEASURES</h2>
                         </div>
                         <div class="column">
                             <h2>REQUIRED FIELDS</h2>
@@ -179,14 +179,14 @@
                     <div class="two column row">
                         <div class="column">
                             <div class="ui top attached tabular menu">
-                                <div class="active item" data-tab="Assets">Assets</div>
+                                <div class="active item" data-tab="Assets">Systems</div>
                                 <div class="inactive item" data-tab="Measures">Measures</div>
                             </div>
-                            <div class="ui bottom attached active tab very padded segment" data-tab="Assets" style="height:500px">
+                            <div class="ui bottom attached active tab very padded segment" data-tab="Assets">
                                 <div class="ui large form">
                                     <div class="required field">
                                         <label>Term</label>
-                                        <select class="ui fluid dropdown">
+                                        <select dropdown class="ui fluid dropdown">
                                             <option>Absorption Heat Source</option>
                                             <option>AC Adjusted</option>
                                             <option>Air Delivery Type</option>
@@ -202,7 +202,7 @@
 
                                     <div class="required field">
                                         <label>Detail</label>
-                                        <select class="ui fluid dropdown">
+                                        <select dropdown class="ui fluid dropdown">
                                             <option>Steam</option>
                                             <option>Combustion</option>
                                             <option>Waste heat</option>
@@ -226,12 +226,12 @@
                                     </h2>
                                 </div>
                             </div>
-                            <div class="ui bottom attached inactive tab very padded segment" data-tab="Measures" style="height:500px">
+                            <div class="ui bottom attached inactive tab very padded segment" data-tab="Measures">
                                 <div class="ui large form">
                                     <div class="ui stackable grid">
                                         <div class="ui sixteen wide column">
                                             <div class="required field">
-                                                <label>Events</label>
+                                                <label>System Type</label>
                                                 <select
                                                         dropdown
                                                         class="ui dropdown" dropdown
@@ -243,12 +243,6 @@
                                                 </select>
                                             </div>
                                         </div>
-
-                                        <!-- The paragraph below is a description of the term and will change depending on the term selected -->
-
-                                        <p style="color:#C0C0C0; text-align:center"><i>Source of heating energy for regeneration.</i><p>
-
-                                        <!-- The Detail dropdown menu option values will also change depending on the Term selected -->
                                         <div class="ui sixteen wide column">
                                             <div class="required field">
                                                 <label >Detail</label>
@@ -263,6 +257,16 @@
                                             </select>
                                             </div>
                                         </div>
+                                        <div class="ui sixteen wide column">
+                                            <div class="required field">
+                                                <label >Implementation Status</label>
+                                                <select dropdown class="ui fluid dropdown">
+                                                    <option>Status 1</option>
+                                                    <option>Status 2</option>
+                                                    <option>Status 2</option>
+                                                </select>
+                                            </div>
+                                        </div>
                                         <div class="ui row">
                                             <div class="seven wide column">
                                                 <div class="field">
@@ -275,6 +279,16 @@
                                                     <label>End Date</label>
                                                     <input type="date" ng-model="measure.endDate">
                                                 </div>
+                                            </div>
+                                        </div>
+                                        <div class="ui sixteen wide column">
+                                            <div class="required field">
+                                                <label >System Category</label>
+                                                <select dropdown class="ui fluid dropdown">
+                                                    <option>System Category 1</option>
+                                                    <option>System Category 2</option>
+                                                    <option>System Category 3</option>
+                                                </select>
                                             </div>
                                         </div>
                                         <div class="ui sixteen wide column">
@@ -298,146 +312,58 @@
                             </div>
                         </div>
                         <div class="column">
-                            <div class="ui padded secondary segment" style="height:540px">
-                                <div class="ui two column grid">
-                                    <div class="column">
-                                        <table class="ui very basic table">
-                                            <tr>
-                                                <td class="top aligned collapsing">
-                                                    <img class="ui avatar image" src="/assets/images/check-blue-light.svg"/>
-                                                </td>
-                                                <td>
-                                                    Asset
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="top aligned collapsing">
-                                                    <img class="ui avatar image" src="/assets/images/x-red-light.svg"/>
-                                                </td>
-                                                <td>
-                                                    Asset
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="top aligned collapsing">
-                                                    <img class="ui avatar image" src="/assets/images/x-red-light.svg"/>
-                                                </td>
-                                                <td>
-                                                    Asset
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="top aligned collapsing">
-                                                    <img class="ui avatar image" src="/assets/images/x-red-light.svg"/>
-                                                </td>
-                                                <td>
-                                                    Asset
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="top aligned collapsing">
-                                                    <img class="ui avatar image" src="/assets/images/x-red-light.svg"/>
-                                                </td>
-                                                <td>
-                                                    Asset
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="top aligned collapsing">
-                                                    <img class="ui avatar image" src="/assets/images/x-red-light.svg"/>
-                                                </td>
-                                                <td>
-                                                    Asset
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="top aligned collapsing">
-                                                    <img class="ui avatar image" src="/assets/images/x-red-light.svg"/>
-                                                </td>
-                                                <td>
-                                                    Asset
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="top aligned collapsing">
-                                                    <img class="ui avatar image" src="/assets/images/x-red-light.svg"/>
-                                                </td>
-                                                <td>
-                                                    Asset
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </div>
-                                    <div class="column">
-                                        <table class="ui very basic table">
-                                            <tr>
-                                                <td class="top aligned collapsing">
-                                                    <img class="ui avatar image" src="/assets/images/x-red-light.svg"/>
-                                                </td>
-                                                <td>
-                                                    Asset
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="top aligned collapsing">
-                                                    <img class="ui avatar image" src="/assets/images/x-red-light.svg"/>
-                                                </td>
-                                                <td>
-                                                    Asset
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="top aligned collapsing">
-                                                    <img class="ui avatar image" src="/assets/images/x-red-light.svg"/>
-                                                </td>
-                                                <td>
-                                                    Asset
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="top aligned collapsing">
-                                                    <img class="ui avatar image" src="/assets/images/x-red-light.svg"/>
-                                                </td>
-                                                <td>
-                                                    Asset
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="top aligned collapsing">
-                                                    <img class="ui avatar image" src="/assets/images/x-red-light.svg"/>
-                                                </td>
-                                                <td>
-                                                    Asset
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="top aligned collapsing">
-                                                    <img class="ui avatar image" src="/assets/images/x-red-light.svg"/>
-                                                </td>
-                                                <td>
-                                                    Asset
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="top aligned collapsing">
-                                                    <img class="ui avatar image" src="/assets/images/x-red-light.svg"/>
-                                                </td>
-                                                <td>
-                                                    Asset
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="top aligned collapsing">
-                                                    <img class="ui avatar image" src="/assets/images/x-red-light.svg"/>
-                                                </td>
-                                                <td>
-                                                    Asset
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </div>                               
-                                </div>                            
-                            </div>
+                            <div class="ui very padded secondary segment" style="height:480px">
+                                <table class="ui very basic table">
+                                    <tr>
+                                        <td class="top aligned collapsing">
+                                            <img class="ui avatar image" src="/assets/images/check-blue-light.svg"/>
+                                        </td>
+                                        <td>
+                                            HVAC Systems
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="top aligned collapsing">
+                                            <img class="ui avatar image" src="/assets/images/x-red-light.svg"/>
+                                        </td>
+                                        <td>
+                                            Domestic Home Water Systems
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="top aligned collapsing">
+                                            <img class="ui avatar image" src="/assets/images/x-red-light.svg"/>
+                                        </td>
+                                        <td>
+                                            Fan Systems
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="top aligned collapsing">
+                                            <img class="ui avatar image" src="/assets/images/x-red-light.svg"/>
+                                        </td>
+                                        <td>
+                                            Fenestration Systems
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="top aligned collapsing">
+                                            <img class="ui avatar image" src="/assets/images/x-red-light.svg"/>
+                                        </td>
+                                        <td>
+                                            Heat Recovery Systems
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="top aligned collapsing">
+                                            <img class="ui avatar image" src="/assets/images/x-red-light.svg"/>
+                                        </td>
+                                        <td>
+                                            Lighting Systems
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>                                 
                         </div>
                     </div>
                 </div>
@@ -445,60 +371,70 @@
                 <div class="ui hidden divider"></div>
                 <div class="ui two column grid">
                     <div class="column">                
-                        <h2>ASSETS</h2>
-                        <div class="ui segment" style="height:300px">
+                        <h2>SYSTEMS</h2>
+                        <div class="ui segment" style="height:300px; overflow:scroll">
                             <div class="details">
                                 <div ng-repeat="measure in measuresList">
-                                    <div>
-                                        <div>{{measure.category}}</div>
-                                        <div>{{measure.measure}}</div>
-                                        <div>{{measure.startDate | date:'MM/dd/yyyy' }}</div>
-                                        <div>{{measure.endDate | date:'MM/dd/yyyy' }}</div>
-                                        <div>{{measure.comment}}</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!--- styling for details. Not sure how best to incorporate with what you have.
-                        <div class="ui basic segment">
                                     <div class="fluid accordion">
                                         <div class="active title">
                                             <img class="ui mini avatar image" src="/assets/images/x-gray-dark.svg">
-                                            Asset 2
+                                            {{measure.category}}
                                             <i class="blue dropdown icon"></i>
                                         </div>
                                         <div class="active content">
+                                            <div style="color:#06a1f9">
+                                                {{measure.startDate | date:'MM/dd/yyyy' }} - 
+                                                {{measure.endDate | date:'MM/dd/yyyy' }}
+                                            </div>
                                             <div class="subtitle">
-                                                      Steam
-                                                <div class="block">
-                                                Lorem ipsum dolor sit amet, consectetur adipiscing
-                                                elit, sed do eiusmod tempor incididunt ut labore et
-                                                dolore magna aliqua.
-                                                </div>
+                                            {{measure.measure}}
+                                            </div>  
+                                            <div class="indent">
+                                                <div><span style="color:black">Status: </span>{{measure.implementationStatus}}</div>
+                                                <div><span style="color:black">System Category: </span>{{measure.systemCatgory}}</div>
+                                                <div><i><span style="color:black">Comment: </span>{{measure.comment}}</i></div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                        -->
-                        <button class="ui blue button" ng-click="downloadData()">Download</button>
-                    </div>
-                    <div class="column">
-                        <h2>MEASURES</h2>
-                        <div class="ui segment" style="height:300px">
-                            <div class="details">
-                                <div ng-repeat="measure in measuresList">
-                                    <div>
-                                        <div>{{measure.category}}</div>
-                                        <div>{{measure.measure}}</div>
-                                        <div>{{measure.startDate | date:'MM/dd/yyyy' }}</div>
-                                        <div>{{measure.endDate | date:'MM/dd/yyyy' }}</div>
-                                        <div>{{measure.comment}}</div>
-                                    </div>
+                                    <div class="ui hidden divider"></div>
                                 </div>
                             </div>
                         </div>
                         <button class="ui blue button" ng-click="downloadData()">Download</button>
+                        <button class="ui gray button"> View JSON</button>
+                    </div>
+                    <div class="column">
+                        <h2>MEASURES</h2>
+                        <div class="ui segment" style="height:300px; overflow:scroll">
+                            <div class="details">
+                                <div ng-repeat="measure in measuresList">
+                                    <div class="fluid accordion">
+                                        <div class="active title">
+                                            <img class="ui mini avatar image" src="/assets/images/x-gray-dark.svg">
+                                            {{measure.category}}
+                                            <i class="blue dropdown icon"></i>
+                                        </div>
+                                        <div class="active content">
+                                            <div style="color:#06a1f9">
+                                                {{measure.startDate | date:'MM/dd/yyyy' }} - 
+                                                {{measure.endDate | date:'MM/dd/yyyy' }}
+                                            </div>
+                                            <div class="subtitle">
+                                            {{measure.measure}}
+                                            </div>  
+                                            <div class="indent">
+                                                <div><span style="color:black">Status: </span>{{measure.implementationStatus}}</div>
+                                                <div><span style="color:black">System Category: </span>{{measure.systemCatgory}}</div>
+                                                <div><i><span style="color:black">Comment: </span>{{measure.comment}}</i></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="ui hidden divider"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="ui blue button" ng-click="downloadData()">Download</button>
+                        <button class="ui gray button"> View JSON</button>
                     </div>
                 </div>
                 <div class="ui hidden divider"></div>

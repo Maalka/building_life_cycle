@@ -1,6 +1,9 @@
 
 body {
-    font-family:"gesta";
+    font-family:"Gesta", arial, sans-serif;
+}
+.indent {
+    margin-left: 20px;
 }
 .site {
   display: flex;
