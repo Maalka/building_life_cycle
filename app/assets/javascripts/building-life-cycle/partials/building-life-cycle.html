@@ -186,11 +186,12 @@
                                 <div class="ui large form">
                                     <div class="required field">
                                         <label>Term</label>
-                                        <select dropdown class="ui fluid dropdown">
-                                            <option>Absorption Heat Source</option>
-                                            <option>AC Adjusted</option>
-                                            <option>Air Delivery Type</option>
-                                            <option>Air Inflitration Test</option>
+                                        <select dropdown class="ui fluid dropdown" dropdown
+                                                ma-change="selectedAssetCategoryChanged(value)"
+                                                ng-model="selectedAssetCategory.selected">
+                                            <option value="">Select</option>
+                                            <option ng-repeat="assetCategory in assetCategories"
+                                                    value="{{assetCategory}}">{{assetCategory}}</option>
                                         </select>
                                     </div>
 
@@ -202,17 +203,17 @@
 
                                     <div class="required field">
                                         <label>Detail</label>
-                                        <select dropdown class="ui fluid dropdown">
-                                            <option>Steam</option>
-                                            <option>Combustion</option>
-                                            <option>Waste heat</option>
-                                            <option>Other</option>
-                                            <option>Unknown</option>
+                                        <select class="ui fluid dropdown" dropdown
+                                                ma-change="selectedAssetChanged()"
+                                                ng-model="asset.selected">
+                                            <option value="">Select</option>
+                                            <option ng-repeat="asset in assets"
+                                                value="{{asset}}">{{asset}}</option>
                                         </select>
                                     </div>
                                     <div class="field">
                                         <label>Comments</label>
-                                        <textarea rows="5"></textarea>
+                                        <textarea rows="5" ng-model="asset.comment"></textarea>
                                     </div>
                                 </div>
                                 <div class="ui hidden divider"></div>
@@ -220,7 +221,7 @@
                                     <h2 class="ui right floated small blue header">
                                         ADD TO LIST
                                         <a data-tooltip = "Add asset information to Assets list"
-                                                ng-click="addToList()">
+                                            ng-click="addAssetToList()">
                                             <img class="ui right floated mini image" src="/assets/images/down-arrow-blue.svg"/ >
                                         </a>
                                     </h2>
@@ -252,6 +253,7 @@
                                                     ma-change="selectedMeasureChanged()"
                                                     ng-model="measure.selected"
                                                     >
+                                                <option value="">Select</option>
                                                 <option ng-repeat="measure in availableMeasures"
                                                         value="{{measure}}">{{measure}}</option>
                                             </select>
@@ -304,8 +306,8 @@
                                     <h2 class="ui right floated small blue header">
                                         ADD TO LIST
                                         <a data-tooltip = "Add measure event to Measures list"
-                                                ng-click="addToList()">
-                                            <img class="ui right floated mini image" src="/assets/images/down-arrow-blue.svg"/ >
+                                           ng-click="addMeasureToList()">
+                                        <img class="ui right floated mini image" src="/assets/images/down-arrow-blue.svg"/ >
                                         </a>
                                     </h2>
                                 </div>
@@ -374,25 +376,19 @@
                         <h2>SYSTEMS</h2>
                         <div class="ui segment" style="height:300px; overflow:scroll">
                             <div class="details">
-                                <div ng-repeat="measure in measuresList">
+                                <div ng-repeat="asset in assetList">
                                     <div class="fluid accordion">
                                         <div class="active title">
                                             <img class="ui mini avatar image" src="/assets/images/x-gray-dark.svg">
-                                            {{measure.category}}
+                                            {{asset.category}}
                                             <i class="blue dropdown icon"></i>
                                         </div>
                                         <div class="active content">
-                                            <div style="color:#06a1f9">
-                                                {{measure.startDate | date:'MM/dd/yyyy' }} - 
-                                                {{measure.endDate | date:'MM/dd/yyyy' }}
-                                            </div>
                                             <div class="subtitle">
-                                            {{measure.measure}}
+                                            {{asset.asset}}
                                             </div>  
                                             <div class="indent">
-                                                <div><span style="color:black">Status: </span>{{measure.implementationStatus}}</div>
-                                                <div><span style="color:black">System Category: </span>{{measure.systemCatgory}}</div>
-                                                <div><i><span style="color:black">Comment: </span>{{measure.comment}}</i></div>
+                                                <div><i><span style="color:black">Comment: </span>{{asset.comment}}</i></div>
                                             </div>
                                         </div>
                                     </div>
@@ -407,7 +403,7 @@
                         <h2>MEASURES</h2>
                         <div class="ui segment" style="height:300px; overflow:scroll">
                             <div class="details">
-                                <div ng-repeat="measure in measuresList">
+                                <div ng-repeat="measure in measures.list">
                                     <div class="fluid accordion">
                                         <div class="active title">
                                             <img class="ui mini avatar image" src="/assets/images/x-gray-dark.svg">
@@ -442,7 +438,7 @@
                 <div class="row">
                     <h2>TIMELINE</h2>
                         <div class="ui secondary segment" style="height:300px">
-                            <div timeline-graph></div>
+                            <div timeline-graph data-measures="measures.list"></div>
                         </div>
                     </div>
                 </div>

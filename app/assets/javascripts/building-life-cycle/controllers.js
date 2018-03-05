@@ -6,10 +6,10 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
 
 
 
-  var BuildingLifeCycleCtrl = function($rootScope, $scope, $window, $sce, $timeout, $q, $filter,
+  var BuildingLifeCycleCtrl = function($scope, $window, $sce, $timeout, $q, $filter,
                             $log, playRoutes, Upload, matchmedia, fileUtilities) {
 
-    $rootScope.pageTitle = "Building Life Cycle Tool";
+    $scope.pageTitle = "Building Life Cycle Tool";
     $scope.forms = {'hasValidated': false};
     $scope.matchmedia = matchmedia;
     $scope.mainColumnWidth = "";
@@ -63,10 +63,10 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
     $scope.useTypes = buildingSyncSchema.definitions[".auc:AssetScore"].properties["auc:UseType"].anyOf["0"].properties["auc:AssetScoreUseType"].properties.$.enum;
 
     $scope.selectedMeasureCategory = {};
-    $scope.measureCategories = Object.keys(measureCategories);
-    $scope.selectedMeasureCategory.selected = "other";
-
     $scope.selectedMeasure = {};
+
+    $scope.measureCategories = Object.keys(measureCategories);
+
     $scope.selectedMeasureCategoryChanged = function(value) {
             $scope.availableMeasures = measureCategories[value];
     };
@@ -75,9 +75,18 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
 
     };
 
-    $scope.measuresList = [];
+    $scope.assetCategories = ['Absorption Heat Source', 'AC Adjusted', 'Air Delivery Type', 'Air Inflitration Test'];
+    $scope.assets = ['Steam', 'Combustion', 'Waste heat', 'Other', 'Unknown'];
 
-    $scope.addToList = function() {
+    $scope.selectedAssetCategory = {};
+    $scope.selectedAsset = {};
+
+
+
+    $scope.measures = {'list': [] };
+    $scope.assetList = [];
+
+    $scope.addMeasureToList = function() {
 
         var newMeasure = {
             "category": $scope.selectedMeasureCategory.selected,
@@ -87,7 +96,28 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
             "comment": $scope.measure.comment
         };
 
-        $scope.measuresList.push(newMeasure);
+                 $scope.measures.list.push(newMeasure);
+           };
+
+           $scope.selectedAssetCategoryChanged = function() {
+               console.log('selectedAssetCategoryChanged');
+           };
+
+           $scope.selectedAssetChanged = function() {
+               console.log('selectedAssetChanged');
+           };
+
+
+           $scope.addAssetToList = function() {
+
+               var newAsset = {
+                   "category": $scope.selectedAssetCategory.selected,
+                   "asset": $scope.asset.selected,
+                   "comment": $scope.asset.comment
+               };
+
+               $scope.assetList.push(newAsset);
+
     };
 
     $scope.remove = function() {
@@ -97,8 +127,54 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
 
     $scope.downloadData = function(){
         var output = $scope.building;
-        output.measures = $scope.measuresList;
-        var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(output));
+
+        output.measures = $scope.measures.list;
+        output.assets = $scope.assetList;
+        var address = {
+            'auc:StreetAddressDetail' : {
+                'auc:Simplified': {
+                    'auc:StreetAddress': {
+                        '$': $scope.building.addressStreet
+                    }
+                }
+            },
+            'auc:City': {
+                '$': $scope.building.addressCity
+            },
+            'auc:State': {
+                '$': $scope.building.addressState
+            },
+            'auc:PostalCode': {
+                '$': $scope.building.addressZip
+            }
+        };
+        var audits = {
+            'auc:Audit': {
+                        'auc:Sites': {
+                            'auc:Site': {
+                                "auc:Facilities": {
+                                    "auc:Facility": {
+                                        "auc:FacilityClassification": {
+                                            "$": "Commercial"
+                                            }
+                                        }
+                                },
+                                "auc:FloorAreas": {
+                                    "auc:FloorArea": {
+                                        "auc:FloorAreaValue": {
+                                            "$": parseFloat($scope.building.floorArea)
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+        };
+        var out = {
+            'auc:Address' : address,
+              'auc:Audits': audits
+        };
+        var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(out));
         var downloadAnchorNode = document.createElement('a');
         downloadAnchorNode.setAttribute("href",     dataStr);
         downloadAnchorNode.setAttribute("download", "output.json");
@@ -364,7 +440,7 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
 
   };
 
-  BuildingLifeCycleCtrl.$inject = ['$rootScope', '$scope', '$window','$sce','$timeout',
+  BuildingLifeCycleCtrl.$inject = ['$scope', '$window','$sce','$timeout',
         '$q', '$filter', '$log', 'playRoutes', 'Upload', 'matchmedia', 'fileUtilities'];
   return {
     BuildingLifeCycleCtrl: BuildingLifeCycleCtrl
