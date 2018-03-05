@@ -13,13 +13,45 @@ define(['angular', 'moment', 'highcharts', 'highcharts-drilldown', 'highcharts-b
             replace: true,
             scope: {
                 timelineGraph: "=",
+                measures: "="
             },
 
             controller: ["$scope", "$element", function ($scope, $element) {
+                $scope.$watchCollection("measures", function(measures) {
+                    if (measures !== undefined && measures.length > 0) {
+                        refresh();
+                    }
+                });
+                var refresh = function() {
+                   $timeout(function () {
+                         $scope.last5measures = $scope.measures.slice(-5);
+                         var newMeasures = [];
+                         for (var i = 0; i < $scope.last5measures.length; i++) {
+                            newMeasures.push({x: Date.UTC(
+                                $scope.last5measures[i].endDate.getFullYear(),
+                                $scope.last5measures[i].endDate.getUTCMonth(),
+                                $scope.last5measures[i].endDate.getDate()
+                                ),
+                                y: Math.floor(Math.random()*100),
+                                text: $scope.last5measures[i].endDate.getFullYear() + ' ' + $scope.last5measures[i].endDate.getUTCMonth() + ' ' + $scope.last5measures[i].endDate.getDate(),
+                                title: '<span style="margin: 15px">'+$scope.last5measures[i].measure+'</span>',
+                                color: colors[Math.floor(Math.random()*colors.length)],
+                                fillColor: fillColors[Math.floor(Math.random()*fillColors.length)]});
+                         }
+                         $scope.options.series[0].data = newMeasures;
+                         $scope.options.series[1].data = newMeasures;
+                         console.log($scope.options);
+                         angular.element($element).height(300).highcharts($scope.options);
+                   }, 0);
+                };
 
-                var options = {
+                    var colors = ['#06A1F9', '#0D95BB', '#0A708C', '#2F4598', '#5D70D4'];
+                    var fillColors = ['#06A1F9', '#0D95BB', '#0A708C', '#2F4598', '#5D70D4'];
+                    $scope.last5measures = [];
+                    $scope.options = {
+
                     title: {
-                        text: "",
+                        text: '',
                     },
                     chart: {
                         backgroundColor: "transparent",
@@ -68,12 +100,7 @@ define(['angular', 'moment', 'highcharts', 'highcharts-drilldown', 'highcharts-b
                         name: 'Observations',
                         id: 'dataseries',
                         pointWidth: 2,
-                        data: [ { x: Date.UTC(2000, 5, 26), y: (0), color: '#06A1F9'},
-                                { x: Date.UTC(2005, 4, 20), y: (40), color: '#0D95BB'},
-                                { x: Date.UTC(2006, 3, 14), y: (80), color: '#0A708C'},
-                                { x: Date.UTC(2011, 5, 17), y: (40), color: '#2F4598'},
-                                { x: Date.UTC(2012, 11, 23), y: (0), color: '#5D70D4'}
-                                ],
+                        data: [],
                         marker: {
                             radius: 4
                         }
@@ -83,18 +110,12 @@ define(['angular', 'moment', 'highcharts', 'highcharts-drilldown', 'highcharts-b
                         shape: 'squarepin',
                         useHTML: true,
                         onSeries: 'dataseries',
-						data: [
-							{ x: Date.UTC(2000, 5, 26), text: 'Comment and date', title: '<span style="margin: 15px;">Duct Installation </span>', color: '#06A1F9', fillColor: '#06A1F9'},
-							{ x: Date.UTC(2005, 4, 20), text: 'Comment and date', title: '<span style="margin: 15px">Hot Water Heating</span>', color: '#0D95BB', fillColor: '#0D95BB'},
-							{ x: Date.UTC(2006, 3, 14), text: 'Comment and date', title: '<span style="margin: 15px">Glass Exterior Door</span>', color: '#0A708C', fillColor: '#0A708C'},
-							{ x: Date.UTC(2011, 5, 17), text: 'Comment and date', title: '<span style="margin: 15px">Wood Ceiling Finish</span>', color: '#2F4598', fillColor: '#2F4598'},
-							{ x: Date.UTC(2012, 11, 23), text: 'Comment and date', title: '<span style="margin: 15px">Stepped Dimming Lighting Control</span>', color: '#5D70D4', fillColor: '#5D70D4'},
-							],
+						data: [],
                         },
                     ]
                 };
                  $timeout(function () { 
-                    angular.element($element).height(300).highcharts(options);
+                    angular.element($element).height(300).highcharts($scope.options);
                 }, 0);                
             }]
         };
