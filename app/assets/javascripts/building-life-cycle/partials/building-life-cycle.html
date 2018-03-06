@@ -379,7 +379,7 @@
                                 <div ng-repeat="asset in assetList">
                                     <div class="fluid accordion">
                                         <div class="active title">
-                                            <img class="ui mini avatar image" src="/assets/images/x-gray-dark.svg">
+                                            <img class="ui mini avatar image" ng-click="removeAsset($index)" src="/assets/images/x-gray-dark.svg">
                                             {{asset.category}}
                                             <i class="blue dropdown icon"></i>
                                         </div>
@@ -403,10 +403,10 @@
                         <h2>MEASURES</h2>
                         <div class="ui segment" style="height:300px; overflow:scroll">
                             <div class="details">
-                                <div ng-repeat="measure in measures.list">
+                                <div ng-repeat="measure in measures.list track by $index">
                                     <div class="fluid accordion">
                                         <div class="active title">
-                                            <img class="ui mini avatar image" src="/assets/images/x-gray-dark.svg">
+                                            <img class="ui mini avatar image" ng-click="removeMeasure($index)" src="/assets/images/x-gray-dark.svg">
                                             {{measure.category}}
                                             <i class="blue dropdown icon"></i>
                                         </div>

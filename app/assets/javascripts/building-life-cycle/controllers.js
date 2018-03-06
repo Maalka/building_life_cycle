@@ -81,8 +81,6 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
     $scope.selectedAssetCategory = {};
     $scope.selectedAsset = {};
 
-
-
     $scope.measures = {'list': [] };
     $scope.assetList = [];
 
@@ -95,8 +93,12 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
             "endDate": $scope.measure.endDate,
             "comment": $scope.measure.comment
         };
+            if ($scope.measure.endDate !== undefined) {
+                $scope.measures.list.push(newMeasure);
+            } else {
+                console.log('measure end date not defined');
+            }
 
-                 $scope.measures.list.push(newMeasure);
            };
 
            $scope.selectedAssetCategoryChanged = function() {
@@ -120,10 +122,13 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
 
     };
 
-    $scope.remove = function() {
-        console.log('remove');
+    $scope.removeMeasure = function(index) {
+        $scope.measures.list.splice(index, 1);
     };
 
+    $scope.removeAsset = function(index) {
+       $scope.assetList.splice(index, 1);
+    };
 
     $scope.downloadData = function(){
         var output = $scope.building;

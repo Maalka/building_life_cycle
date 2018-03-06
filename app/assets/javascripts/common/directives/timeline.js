@@ -50,7 +50,6 @@ define(['angular', 'moment', 'highcharts', 'highcharts-drilldown', 'highcharts-b
                          }
                          $scope.options.series[0].data = newMeasures;
                          $scope.options.series[1].data = newMeasures;
-                         console.log($scope.options);
                          angular.element($element).height(300).highcharts($scope.options);
                    }, 0);
                 };
