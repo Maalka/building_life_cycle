@@ -140,6 +140,14 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
 
         output.measures = $scope.measures.list;
         output.assets = $scope.assetList;
+
+        var userDefinedFields = {
+                'auc:UserDefinedField': {
+                    'auc:FieldName': { '$': 'buildingName' },
+                    'auc:FieldValue': {"$": $scope.building.buildingName }
+                }
+        };
+
         var address = {
             'auc:StreetAddressDetail' : {
                 'auc:Simplified': {
@@ -244,7 +252,8 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
         var out = {
             'auc:Address' : address,
             'auc:AssetScore': assetScore,
-            'auc:Audits': audits
+            'auc:Audits': audits,
+            'auc:UserDefinedFields': userDefinedFields
         };
         var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(out));
         var downloadAnchorNode = document.createElement('a');
