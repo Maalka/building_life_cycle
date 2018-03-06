@@ -134,13 +134,13 @@
                                 <div class="three wide column">
                                     <div class="required field">
                                         <label># of Floors Above Grade</label>
-                                        <input type="text" ng-model="building.numberOfFloors">
+                                        <input type="text" ng-model="building.numberOfFloorsAboveGrade">
                                     </div>
                                 </div>
                                 <div class="three wide column">
                                     <div class="required field">
                                         <label># of Floors Below Grade</label>
-                                        <input type="text" ng-model="building.numberOfFloors">
+                                        <input type="text" ng-model="building.numberOfFloorsBelowGrade">
                                     </div>
                                 </div>
                                 <div class="eight wide column">
@@ -262,10 +262,10 @@
                                         <div class="ui sixteen wide column">
                                             <div class="required field">
                                                 <label >Implementation Status</label>
-                                                <select dropdown class="ui fluid dropdown">
-                                                    <option>Status 1</option>
-                                                    <option>Status 2</option>
-                                                    <option>Status 2</option>
+                                                <select dropdown class="ui fluid dropdown" ng-model="implementationStatus.selected">
+                                                    <option value="">Select</option>
+                                                    <option ng-repeat="implementationStatus in implementationStatuses"
+                                                            value="{{implementationStatus}}">{{implementationStatus}}</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -286,10 +286,10 @@
                                         <div class="ui sixteen wide column">
                                             <div class="required field">
                                                 <label >System Category</label>
-                                                <select dropdown class="ui fluid dropdown">
-                                                    <option>System Category 1</option>
-                                                    <option>System Category 2</option>
-                                                    <option>System Category 3</option>
+                                                <select dropdown class="ui fluid dropdown" ng-model="systemCategory.selected">
+                                                    <option value="">Select</option>
+                                                    <option ng-repeat="systemCategory in systemCategories"
+                                                            value="{{systemCategory}}">{{systemCategory}}</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -407,7 +407,7 @@
                                     <div class="fluid accordion">
                                         <div class="active title">
                                             <img class="ui mini avatar image" ng-click="removeMeasure($index)" src="/assets/images/x-gray-dark.svg">
-                                            {{measure.category}}
+                                            {{measure.systemType}}
                                             <i class="blue dropdown icon"></i>
                                         </div>
                                         <div class="active content">
@@ -416,11 +416,11 @@
                                                 {{measure.endDate | date:'MM/dd/yyyy' }}
                                             </div>
                                             <div class="subtitle">
-                                            {{measure.measure}}
+                                            {{measure.detail}}
                                             </div>  
                                             <div class="indent">
                                                 <div><span style="color:black">Status: </span>{{measure.implementationStatus}}</div>
-                                                <div><span style="color:black">System Category: </span>{{measure.systemCatgory}}</div>
+                                                <div><span style="color:black">System Category: </span>{{measure.systemCategory}}</div>
                                                 <div><i><span style="color:black">Comment: </span>{{measure.comment}}</i></div>
                                             </div>
                                         </div>

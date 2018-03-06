@@ -44,7 +44,7 @@ define(['angular', 'moment', 'highcharts', 'highcharts-drilldown', 'highcharts-b
                                 ),
                                 y: Math.floor(Math.random()*100),
                                 text: $scope.last5measures[i].endDate.getFullYear() + ' ' + $scope.last5measures[i].endDate.getUTCMonth() + ' ' + $scope.last5measures[i].endDate.getDate(),
-                                title: '<span style="margin: 15px">'+$scope.last5measures[i].measure+'</span>',
+                                title: '<span style="margin: 15px">'+$scope.last5measures[i].detail+'</span>',
                                 color: randomColor,
                                 fillColor: randomColor});
                          }

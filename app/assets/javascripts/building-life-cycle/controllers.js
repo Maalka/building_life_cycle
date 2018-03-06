@@ -55,12 +55,15 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
     $scope.building.addressState = 'KS';
     $scope.building.addressZip = '12345';
     $scope.building.yearCompleted = '1999';
-    $scope.building.numberOfFloors = '5';
+    $scope.building.numberOfFloorsAboveGrade = '5';
+    $scope.building.numberOfFloorsBelowGrade = '3';
     $scope.building.useType = 'Library';
     $scope.building.floorArea = '2250';
     $scope.building.orientation = 'North';
 
     $scope.useTypes = buildingSyncSchema.definitions[".auc:AssetScore"].properties["auc:UseType"].anyOf["0"].properties["auc:AssetScoreUseType"].properties.$.enum;
+    $scope.implementationStatuses = buildingSyncSchema.definitions["auc:MeasureType"].properties["auc:ImplementationStatus"].properties.$.enum;
+    $scope.systemCategories = buildingSyncSchema.definitions["auc:MeasureType"].properties["auc:SystemCategoryAffected"].properties.$.enum;
 
     $scope.selectedMeasureCategory = {};
     $scope.selectedMeasure = {};
@@ -87,8 +90,10 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
     $scope.addMeasureToList = function() {
 
         var newMeasure = {
-            "category": $scope.selectedMeasureCategory.selected,
-            "measure": $scope.measure.selected,
+            "systemType": $scope.selectedMeasureCategory.selected,
+            "detail": $scope.measure.selected,
+            "implementationStatus": $scope.implementationStatus.selected,
+            "systemCategory": $scope.systemCategory.selected,
             "startDate": $scope.measure.startDate,
             "endDate": $scope.measure.endDate,
             "comment": $scope.measure.comment
@@ -153,12 +158,73 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
                 '$': $scope.building.addressZip
             }
         };
+
+        var assetScore = {
+            'auc:UseType':  [
+               {
+               'auc:AssetScoreData': {
+                    'auc:Score': {}
+                },
+               'auc:AssetScoreUseType': {
+                    '$': 'Library'
+                    }
+               }
+              ]
+        };
+
+        var generateMeasures = [];
+        for (var i = 0; i < $scope.measures.list.length; i++) {
+
+            var systemTypeRemoveSpaces = $scope.measures.list[i].systemType.replace(/\s/g, '');
+            var systemTypeRemoveSpacesUpperCase = 'auc:' + systemTypeRemoveSpaces.charAt(0).toUpperCase()+systemTypeRemoveSpaces.slice(1);
+            var inner = {'auc:MeasureName':  {'$': $scope.measures.list[i].detail } };
+            var category = {};
+            category[systemTypeRemoveSpacesUpperCase] = inner;
+
+            var systemType = $scope.measures.list[i].systemType;
+            var mes = {
+                'auc:EndDate':  {
+                    '$': $scope.measures.list[i].endDate
+                },
+                'auc:ImplementationStatus': {
+                    '$': $scope.measures.list[i].implementationStatus
+                },
+                'auc:LongDescription': {
+                    '$': $scope.measures.list[i].comment
+                },
+                'auc:StartDate': {
+                    '$': $scope.measures.list[i].startDate
+                },
+                'auc:SystemCategoryAffected': {
+                    '$': $scope.measures.list[i].systemCategory
+                },
+                'auc:TechnologyCategories': {
+                    'auc:TechnologyCategory': category
+                }
+            };
+            generateMeasures.push(mes);
+        }
+
+        var measures = {
+            'auc:Measure': generateMeasures
+        };
+
         var audits = {
             'auc:Audit': {
-                        'auc:Sites': {
-                            'auc:Site': {
-                                "auc:Facilities": {
-                                    "auc:Facility": {
+                'auc:Measures': measures,
+                'auc:Sites': {
+                    'auc:Site': {
+                        'auc:Facilities': {
+                            'auc:Facility': {
+                                "auc:FloorsAboveGrade": {
+                                            "$": parseInt($scope.building.numberOfFloorsAboveGrade)
+                                        },
+                                        "auc:FloorsBelowGrade": {
+                                            "$": parseInt($scope.building.numberOfFloorsBelowGrade)
+                                        },
+                                        "auc:YearOfConstruction": {
+                                            "$": $scope.building.yearCompleted
+                                        },
                                         "auc:FacilityClassification": {
                                             "$": "Commercial"
                                             }
@@ -177,7 +243,8 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
         };
         var out = {
             'auc:Address' : address,
-              'auc:Audits': audits
+            'auc:AssetScore': assetScore,
+            'auc:Audits': audits
         };
         var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(out));
         var downloadAnchorNode = document.createElement('a');
