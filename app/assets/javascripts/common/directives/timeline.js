@@ -31,12 +31,12 @@ define(['angular', 'moment', 'highcharts', 'highcharts-drilldown', 'highcharts-b
                     return 1;
                   return 0;
                 }
-
                    $timeout(function () {
                          $scope.measures.sort(sortDescByEndDate);
                          $scope.last5measures = $scope.measures.slice(0,5);
                          var newMeasures = [];
                          for (var i = 0; i < $scope.last5measures.length; i++) {
+                            var randomColor = colors[Math.floor(Math.random()*colors.length)];
                             newMeasures.push({x: Date.UTC(
                                 $scope.last5measures[i].endDate.getFullYear(),
                                 $scope.last5measures[i].endDate.getUTCMonth(),
@@ -45,8 +45,8 @@ define(['angular', 'moment', 'highcharts', 'highcharts-drilldown', 'highcharts-b
                                 y: Math.floor(Math.random()*100),
                                 text: $scope.last5measures[i].endDate.getFullYear() + ' ' + $scope.last5measures[i].endDate.getUTCMonth() + ' ' + $scope.last5measures[i].endDate.getDate(),
                                 title: '<span style="margin: 15px">'+$scope.last5measures[i].measure+'</span>',
-                                color: colors[Math.floor(Math.random()*colors.length)],
-                                fillColor: fillColors[Math.floor(Math.random()*fillColors.length)]});
+                                color: randomColor,
+                                fillColor: randomColor});
                          }
                          $scope.options.series[0].data = newMeasures;
                          $scope.options.series[1].data = newMeasures;
@@ -56,7 +56,6 @@ define(['angular', 'moment', 'highcharts', 'highcharts-drilldown', 'highcharts-b
                 };
 
                     var colors = ['#06A1F9', '#0D95BB', '#0A708C', '#2F4598', '#5D70D4'];
-                    var fillColors = ['#06A1F9', '#0D95BB', '#0A708C', '#2F4598', '#5D70D4'];
                     $scope.last5measures = [];
                     $scope.options = {
 
