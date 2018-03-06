@@ -1,17 +1,17 @@
 # README #
 
-# Data Quality Tool #
+# Building Lifecycle Tool #
 Verson 1.0
-The [**Data Quality Tool**](https://dataquality.maalka.com) is a simple, open source, application that allows you to validate the data you have stored within the [Energy Star Portfolio Manager (PM)](https://portfoliomanager.energystar.gov/). The tool provides an easy way to identify problems with both your building's meta data and resource consumption data. 
+The [**Building Lifecycle Tool**](https://dataquality.maalka.com) is a simple, open source, application that allows you to validate the data you have stored within the [Energy Star Portfolio Manager (PM)](https://portfoliomanager.energystar.gov/). The tool provides an easy way to identify problems with both your building's meta data and resource consumption data. 
 
-The Data Quality Tools allows you to:
+The Building Lifecycle Tools allows you to:
 
 * Validate PM  building meta data
 * Validate Resource Consumption data
 * Access the time frame of the validation in the **Current Energy Year** 
 * Easily find data that needs your attention
 
-The **Data Quality Tool** is one of many open source tools created by the [Maalka Team](http://www.maalka.com) with support from the U.S. Department of Energy Better Buildings [Municipal Portfolio Benchmarking](https://www.maalka.com/mpb) project.
+The **Building Lifecycle Tool** is one of many open source tools created by the [Maalka Team](http://www.maalka.com) with support from the U.S. Department of Energy Better Buildings [Municipal Portfolio Benchmarking](https://www.maalka.com/mpb) project.
 
 # Portfolio Manager fields
 Data is imported from an Excel spreadsheet that is populated from within Portfolio Manager. Please references:
@@ -19,15 +19,15 @@ Data is imported from an Excel spreadsheet that is populated from within Portfol
   * [PM GLossary](https://portfoliomanager.energystar.gov/pm/glossary)
   * [Property Type Definitions(PDF)](https://www.energystar.gov/sites/default/files/tools/Property%20Use%20Details%20and%20Definition%20Jan%202017.pdf)
 
-# Using the Data Quality Tool
-The Data Quality Tool provides a way to validate information you have stored in PM.  This includes your building meta data; it's address, the date it was built, etc. It also provides validation of current year resource consumption and analytics. It can easily lead you directly to solutions to data problems and helps in curating your Portfolio Manager data.  
+# Using the Building Lifecycle Tool
+The Building Lifecycle Tool provides a way to validate information you have stored in PM.  This includes your building meta data; it's address, the date it was built, etc. It also provides validation of current year resource consumption and analytics. It can easily lead you directly to solutions to data problems and helps in curating your Portfolio Manager data.  
 
-The steps below provide guidance in extracting your portfolio data and using the Data Quality Tool. In addition, we have prepared [a video tutorial](http://xxxxx) to help.
+The steps below provide guidance in extracting your portfolio data and using the Building Lifecycle Tool. In addition, we have prepared [a video tutorial](http://xxxxx) to help.
 
-##Data Quality Tool Steps:
+##Building Lifecycle Tool Steps:
 
 1. Sign in to your Energy Star Portfolio Manager Account
-2. Upload the Data Quality Tool PM Report to your PM Account by pressing this link.  [Copy Validation Template to your Portfolio Manager Account](https://portfoliomanager.energystar.gov/pm/reports/template/1732437/share/cddf455b-df6a-491f-a63f-ec9f4110b28b)
+2. Upload the Building Lifecycle Tool PM Report to your PM Account by pressing this link.  [Copy Validation Template to your Portfolio Manager Account](https://portfoliomanager.energystar.gov/pm/reports/template/1732437/share/cddf455b-df6a-491f-a63f-ec9f4110b28b)
     * You will be taken to the Portfolio Manager Custom Reports dashboard.
     * There you will find a new custom report named **Municipal Portfolio Benchmark** report
 3. Select the **Municipal Portfolio Benchmark** report and select **I want to" ... "Edit this Template"**
@@ -38,29 +38,29 @@ The steps below provide guidance in extracting your portfolio data and using the
     * You will need to wait for the new report to be completed.
 5. Select the **I want to" ... "Download Current Report in Excel"**
     * This will download the report to your local machine
-    * You are now ready to upload the report to the Data Quality Tool.
-6. Switch back to the **Data Quality Tool** in your browser
+    * You are now ready to upload the report to the Building Lifecycle Tool.
+6. Switch back to the **Building Lifecycle Tool** in your browser
 7. Press the **Select Energy Star Portfolio Manager Report" button
     * You will be presented with a select local file dialog
     * Select the **Municipal Portfolio Benchmark** Excel (xlsx) file that was downloaded from Portfolio Manager
-8. Press the **Validate** link within the Data Quality Tool.
+8. Press the **Validate** link within the Building Lifecycle Tool.
 
 ## Sample Template
-You can also test out the **Data Quality Tool** using a [Sample PM Report](http://cms.maalka.net/resources/Municipal%20Portfolio%20Benchmariking_test%20report.xlsx). This will provide you with a full run-through of the tool. 
+You can also test out the **Building Lifecycle Tool** using a [Sample PM Report](http://cms.maalka.net/resources/Municipal%20Portfolio%20Benchmariking_test%20report.xlsx). This will provide you with a full run-through of the tool. 
 
 1. [Download the Sample Report](http://cms.maalka.net/resources/Municipal%20Portfolio%20Benchmariking_test%20report.xlsx) (note - this picks up at step #5 above)
-2. go to the [**Data Quality Tool**](https://dataquality.maalka.com)
+2. go to the [**Building Lifecycle Tool**](https://dataquality.maalka.com)
 3. Press the **Select Energy Star Portfolio Manager Report" button
     * You will be presented with a select local file dialog
     * Select the **Municipal Portfolio Benchmariking_test report.xlsx** Excel (xlsx) file that was downloaded in #2 above
-4. Press the **Validate** link within the Data Quality Tool.
+4. Press the **Validate** link within the Building Lifecycle Tool.
 
 You will see the following screen: 
 
 ![Alt text](http://cms.maalka.net/resources/DataQualityScreen.png)
 
 # Data Validation
-The **Data Validation Tool** applies a collection of rules to the data in the PM report. These rules are represented in the open source tool as a collection of programmatic conditions. They allow access to various information concerning your buildings.
+The **Building Lifecycle Tool** applies a collection of rules to the data in the PM report. These rules are represented in the open source tool as a collection of programmatic conditions. They allow access to various information concerning your buildings.
 
 ### Building parameters ###
 
@@ -113,7 +113,7 @@ The **Data Validation Tool** applies a collection of rules to the data in the PM
     * Should exist, should be >0, should not be "Not Available"
 
 # Municipal Benchmark Report Field Definitions
-The **Municipal Benchmark Report** is a Portfolio Manager custom report that is used to collect information from your Portfolio Manager buildings. It is uploaded into your Portfolio Manager account, populated with your portfolio data, and downloaded for validation using the Data Quality tool. This downloaded report is a standard Microsoft Excel spreadsheet that has rows for each of your buildings and columns representing the data for those buildings.
+The **Municipal Benchmark Report** is a Portfolio Manager custom report that is used to collect information from your Portfolio Manager buildings. It is uploaded into your Portfolio Manager account, populated with your portfolio data, and downloaded for validation using the Building Lifecycle Tool. This downloaded report is a standard Microsoft Excel spreadsheet that has rows for each of your buildings and columns representing the data for those buildings.
 
 The following data fields are contained in the **Municipal Benchmark Report**:
 
@@ -162,7 +162,7 @@ The following data fields are contained in the **Municipal Benchmark Report**:
 
 ### What is this repository for? ###
 
-* [Learn Data Quality Tool](https://dataquality.maalka.com/#/usecase)
+* [Learn Building Lifecycle Tool](https://dataquality.maalka.com/#/usecase)
 
 ## Run
 * from sbt command line run: sbt run
