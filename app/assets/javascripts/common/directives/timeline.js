@@ -66,8 +66,9 @@ define(['angular', 'moment', 'highcharts', 'highcharts-drilldown', 'highcharts-b
                         style: {
                             fontFamily: 'Gesta',
                         },
-                        marginLeft: 80,
-                        marginRight: 110
+                        marginLeft:150,
+                        marginRight:150,
+                        MarginTop:50
                     },
                     xAxis: {
 						title: {
