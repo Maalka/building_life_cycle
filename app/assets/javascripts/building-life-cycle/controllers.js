@@ -44,9 +44,17 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
         "Water And Sewer Conservation Systems": buildingSyncSchema.definitions["auc:MeasureType"].properties["auc:TechnologyCategories"].properties["auc:TechnologyCategory"].anyOf["0"].properties["auc:WaterAndSewerConservationSystems"].properties["auc:MeasureName"].anyOf["0"].properties.$.enum
     };
 
-    // assets
+    var systemCategories = {
+        "HVAC Systems": buildingSyncSchema.definitions[".auc:Audits"].properties["auc:Audit"].anyOf["0"].properties["auc:Systems"].properties["auc:HVACSystems"],
+        "Domestic Hot Water Systems": buildingSyncSchema.definitions[".auc:Audits"].properties["auc:Audit"].anyOf["0"].properties["auc:Systems"].properties["auc:DomesticHotWaterSystems"],
+        "Fan Systems": buildingSyncSchema.definitions[".auc:Audits"].properties["auc:Audit"].anyOf["0"].properties["auc:Systems"].properties["auc:FanSystems"],
+        "Fenestration Systems": buildingSyncSchema.definitions[".auc:Audits"].properties["auc:Audit"].anyOf["0"].properties["auc:Systems"].properties["auc:FenestrationSystems"],
+        "Heat Recovery Systems": buildingSyncSchema.definitions[".auc:Audits"].properties["auc:Audit"].anyOf["0"].properties["auc:Systems"].properties["auc:HeatRecoverySystems"],
+        "Lighting Systems": buildingSyncSchema.definitions[".auc:Audits"].properties["auc:Audit"].anyOf["0"].properties["auc:Systems"].properties["auc:LightingSystems"]
+    };
 
-    // end assets
+    var mydefinition = buildingSyncSchema.definitions["auc:HVACSystemType"];
+    console.log('mydefinition', mydefinition);
 
     $scope.building = {};
     $scope.building.buildingName = 'example buildingName';
@@ -78,14 +86,14 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
 
     };
 
-    $scope.assetCategories = ['Absorption Heat Source', 'AC Adjusted', 'Air Delivery Type', 'Air Inflitration Test'];
-    $scope.assets = ['Steam', 'Combustion', 'Waste heat', 'Other', 'Unknown'];
+    $scope.systemCategories = Object.keys(systemCategories);
+    $scope.systems = ['Steam', 'Combustion', 'Waste heat', 'Other', 'Unknown'];
 
-    $scope.selectedAssetCategory = {};
-    $scope.selectedAsset = {};
+    $scope.selectedSystemCategory = {};
+    $scope.selectedSystem = {};
 
     $scope.measures = {'list': [] };
-    $scope.assetList = [];
+    $scope.systemList = [];
 
     $scope.addMeasureToList = function() {
 
@@ -104,42 +112,39 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
                 console.log('measure end date not defined');
             }
 
-           };
+    };
 
-           $scope.selectedAssetCategoryChanged = function() {
-               console.log('selectedAssetCategoryChanged');
-           };
+    $scope.selectedSystemCategoryChanged = function() {
+        console.log('selectedSystemCategoryChanged');
+    };
 
-           $scope.selectedAssetChanged = function() {
-               console.log('selectedAssetChanged');
-           };
+    $scope.selectedSystemChanged = function() {
+        console.log('selectedsystemChanged');
+    };
 
+    $scope.addSystemToList = function() {
 
-           $scope.addAssetToList = function() {
-
-               var newAsset = {
-                   "category": $scope.selectedAssetCategory.selected,
-                   "asset": $scope.asset.selected,
-                   "comment": $scope.asset.comment
-               };
-
-               $scope.assetList.push(newAsset);
-
+        var newSystem = {
+            "category": $scope.selectedSystemCategory.selected,
+            "system": $scope.asset.selected,
+            "comment": $scope.asset.comment
+        };
+        $scope.systemList.push(newSystem);
     };
 
     $scope.removeMeasure = function(index) {
         $scope.measures.list.splice(index, 1);
     };
 
-    $scope.removeAsset = function(index) {
-       $scope.assetList.splice(index, 1);
+    $scope.removeSystem = function(index) {
+       $scope.systemList.splice(index, 1);
     };
 
     $scope.downloadData = function(){
         var output = $scope.building;
 
         output.measures = $scope.measures.list;
-        output.assets = $scope.assetList;
+        output.assets = $scope.systemList;
 
         var userDefinedFields = {
                 'auc:UserDefinedField': {

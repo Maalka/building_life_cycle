@@ -187,11 +187,11 @@
                                     <div class="required field">
                                         <label>Term</label>
                                         <select dropdown class="ui fluid dropdown" dropdown
-                                                ma-change="selectedAssetCategoryChanged(value)"
-                                                ng-model="selectedAssetCategory.selected">
+                                                ma-change="selectedSystemCategoryChanged(value)"
+                                                ng-model="selectedSystemCategory.selected">
                                             <option value="">Select</option>
-                                            <option ng-repeat="assetCategory in assetCategories"
-                                                    value="{{assetCategory}}">{{assetCategory}}</option>
+                                            <option ng-repeat="systemCategory in systemCategories"
+                                                    value="{{systemCategory}}">{{systemCategory}}</option>
                                         </select>
                                     </div>
 
@@ -204,16 +204,16 @@
                                     <div class="required field">
                                         <label>Detail</label>
                                         <select class="ui fluid dropdown" dropdown
-                                                ma-change="selectedAssetChanged()"
-                                                ng-model="asset.selected">
+                                                ma-change="selectedSystemChanged()"
+                                                ng-model="system.selected">
                                             <option value="">Select</option>
-                                            <option ng-repeat="asset in assets"
-                                                value="{{asset}}">{{asset}}</option>
+                                            <option ng-repeat="system in systems"
+                                                value="{{system}}">{{system}}</option>
                                         </select>
                                     </div>
                                     <div class="field">
                                         <label>Comments</label>
-                                        <textarea rows="5" ng-model="asset.comment"></textarea>
+                                        <textarea rows="5" ng-model="system.comment"></textarea>
                                     </div>
                                 </div>
                                 <div class="ui hidden divider"></div>
