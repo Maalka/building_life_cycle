@@ -2,6 +2,13 @@
 body {
     font-family:"Gesta", arial, sans-serif;
 }
+p {
+    font-size: 18px;
+    line-height: 24px;
+}
+h2 {
+    font-color: black;
+}
 .indent {
     margin-left: 20px;
 }
@@ -57,6 +64,11 @@ input.small {
 .sup {
     vertical-align: super;
     font-size: smaller;
+}
+
+.ui.padded.centered.image {
+    margin-top: 100px;
+    margin-bottom:100px;
 }
 
 ul.icon1 {
