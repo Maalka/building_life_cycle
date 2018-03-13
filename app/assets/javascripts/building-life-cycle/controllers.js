@@ -92,6 +92,8 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
     $scope.selectedSystemCategory = {};
     $scope.selectedSystem = {};
 
+    $scope.system = {};
+
     $scope.measures = {'list': [] };
     $scope.systemList = [];
 

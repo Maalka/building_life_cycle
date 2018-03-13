@@ -184,37 +184,10 @@
                             </div>
                             <div class="ui bottom attached active tab very padded segment" data-tab="Assets">
                                 <div class="ui large form">
-                                    <div class="required field">
-                                        <label>Term</label>
-                                        <select dropdown class="ui fluid dropdown" dropdown
-                                                ma-change="selectedSystemCategoryChanged(value)"
-                                                ng-model="selectedSystemCategory.selected">
-                                            <option value="">Select</option>
-                                            <option ng-repeat="systemCategory in systemCategories"
-                                                    value="{{systemCategory}}">{{systemCategory}}</option>
-                                        </select>
-                                    </div>
 
-                                    <!-- The paragraph below is a description of the term and will change depending on the term selected -->
 
-                                    <p style="color:#C0C0C0; text-align:center"><i>Source of heating energy for regeneration.</i><p>
+                                    <div ng-include src="'javascripts/building-life-cycle/partials/type1.html'"></div>
 
-                                    <!-- The Detail dropdown menu option values will also change depending on the Term selected -->
-
-                                    <div class="required field">
-                                        <label>Detail</label>
-                                        <select class="ui fluid dropdown" dropdown
-                                                ma-change="selectedSystemChanged()"
-                                                ng-model="system.selected">
-                                            <option value="">Select</option>
-                                            <option ng-repeat="system in systems"
-                                                value="{{system}}">{{system}}</option>
-                                        </select>
-                                    </div>
-                                    <div class="field">
-                                        <label>Comments</label>
-                                        <textarea rows="5" ng-model="system.comment"></textarea>
-                                    </div>
                                 </div>
                                 <div class="ui hidden divider"></div>
                                 <div class="row">
