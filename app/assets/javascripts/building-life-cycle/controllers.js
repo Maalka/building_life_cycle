@@ -45,16 +45,14 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
     };
 
     var systemCategories = {
-        "HVAC Systems": buildingSyncSchema.definitions[".auc:Audits"].properties["auc:Audit"].anyOf["0"].properties["auc:Systems"].properties["auc:HVACSystems"],
-        "Domestic Hot Water Systems": buildingSyncSchema.definitions[".auc:Audits"].properties["auc:Audit"].anyOf["0"].properties["auc:Systems"].properties["auc:DomesticHotWaterSystems"],
-        "Fan Systems": buildingSyncSchema.definitions[".auc:Audits"].properties["auc:Audit"].anyOf["0"].properties["auc:Systems"].properties["auc:FanSystems"],
-        "Fenestration Systems": buildingSyncSchema.definitions[".auc:Audits"].properties["auc:Audit"].anyOf["0"].properties["auc:Systems"].properties["auc:FenestrationSystems"],
-        "Heat Recovery Systems": buildingSyncSchema.definitions[".auc:Audits"].properties["auc:Audit"].anyOf["0"].properties["auc:Systems"].properties["auc:HeatRecoverySystems"],
-        "Lighting Systems": buildingSyncSchema.definitions[".auc:Audits"].properties["auc:Audit"].anyOf["0"].properties["auc:Systems"].properties["auc:LightingSystems"]
+        "HVAC System": buildingSyncSchema.definitions[".auc:Audits"].properties["auc:Audit"].anyOf["0"].properties["auc:Systems"].properties["auc:HVACSystems"],
+        "Domestic Hot Water System": buildingSyncSchema.definitions[".auc:Audits"].properties["auc:Audit"].anyOf["0"].properties["auc:Systems"].properties["auc:DomesticHotWaterSystems"],
+        "Fan System": buildingSyncSchema.definitions[".auc:Audits"].properties["auc:Audit"].anyOf["0"].properties["auc:Systems"].properties["auc:FanSystems"],
+        "Fenestration System": buildingSyncSchema.definitions[".auc:Audits"].properties["auc:Audit"].anyOf["0"].properties["auc:Systems"].properties["auc:FenestrationSystems"],
+        "Heat Recovery System": buildingSyncSchema.definitions[".auc:Audits"].properties["auc:Audit"].anyOf["0"].properties["auc:Systems"].properties["auc:HeatRecoverySystems"],
+        "Lighting System": buildingSyncSchema.definitions[".auc:Audits"].properties["auc:Audit"].anyOf["0"].properties["auc:Systems"].properties["auc:LightingSystems"]
     };
 
-    var mydefinition = buildingSyncSchema.definitions["auc:HVACSystemType"];
-    console.log('mydefinition', mydefinition);
 
     $scope.building = {};
     $scope.building.buildingName = 'example buildingName';
@@ -117,7 +115,54 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
     };
 
     $scope.selectedSystemCategoryChanged = function() {
-        console.log('selectedSystemCategoryChanged');
+        if ($scope.selectedSystemCategory.selected == "Domestic Hot Water System") {
+            $scope.showType1 = true;
+            $scope.showType2 = false;
+            $scope.showType3 = false;
+            $scope.showType4 = false;
+            $scope.showType5 = false;
+            $scope.showType6 = false;
+        }
+        if ($scope.selectedSystemCategory.selected == "Fan System") {
+            $scope.showType1 = false;
+            $scope.showType2 = true;
+            $scope.showType3 = false;
+            $scope.showType4 = false;
+            $scope.showType5 = false;
+            $scope.showType6 = false;
+        }
+        if ($scope.selectedSystemCategory.selected == "HVAC System") {
+            $scope.showType1 = false;
+            $scope.showType2 = false;
+            $scope.showType3 = true;
+            $scope.showType4 = false;
+            $scope.showType5 = false;
+            $scope.showType6 = false;
+        }
+        if ($scope.selectedSystemCategory.selected == "Fenestration System") {
+            $scope.showType1 = false;
+            $scope.showType2 = false;
+            $scope.showType3 = false;
+            $scope.showType4 = true;
+            $scope.showType5 = false;
+            $scope.showType6 = false;
+        }
+        if ($scope.selectedSystemCategory.selected == "Heat Recovery System") {
+            $scope.showType1 = false;
+            $scope.showType2 = false;
+            $scope.showType3 = false;
+            $scope.showType4 = false;
+            $scope.showType5 = true;
+            $scope.showType6 = false;
+        }
+        if ($scope.selectedSystemCategory.selected == "Lighting System") {
+            $scope.showType1 = false;
+            $scope.showType2 = false;
+            $scope.showType3 = false;
+            $scope.showType4 = false;
+            $scope.showType5 = false;
+            $scope.showType6 = true;
+        }
     };
 
     $scope.selectedSystemChanged = function() {
@@ -125,13 +170,9 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
     };
 
     $scope.addSystemToList = function() {
-
-        var newSystem = {
-            "category": $scope.selectedSystemCategory.selected,
-            "system": $scope.asset.selected,
-            "comment": $scope.asset.comment
-        };
-        $scope.systemList.push(newSystem);
+        console.log('system added: ', $scope.system);
+        console.log('system type: ',  $scope.selectedSystemCategory.selected);
+        $scope.systemList.push($scope.system);
     };
 
     $scope.removeMeasure = function(index) {
@@ -144,9 +185,6 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
 
     $scope.downloadData = function(){
         var output = $scope.building;
-
-        output.measures = $scope.measures.list;
-        output.assets = $scope.systemList;
 
         var userDefinedFields = {
                 'auc:UserDefinedField': {
@@ -187,6 +225,49 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
               ]
         };
 
+        var audits = {
+            'auc:Audit': {
+                'auc:Sites': {
+                    'auc:Site': {
+                        'auc:Facilities': {
+                            'auc:Facility': {
+                                "auc:FloorsAboveGrade": {
+                                            "$": parseInt($scope.building.numberOfFloorsAboveGrade)
+                                        },
+                                        "auc:FloorsBelowGrade": {
+                                            "$": parseInt($scope.building.numberOfFloorsBelowGrade)
+                                        },
+                                        "auc:YearOfConstruction": {
+                                            "$": $scope.building.yearCompleted
+                                        },
+                                        "auc:FacilityClassification": {
+                                            "$": "Commercial"
+                                            }
+                                        }
+                                },
+                                "auc:FloorAreas": {
+                                    "auc:FloorArea": {
+                                        "auc:FloorAreaValue": {
+                                            "$": parseFloat($scope.building.floorArea)
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+        };
+
+        var systems = { };
+        if ($scope.systemList.length > 0) {
+            audits['auc:Audit']['auc:Systems'] = {};
+            audits['auc:Audit']['auc:Systems'] = $scope.systemList;
+        }
+
+        if ($scope.measures.list.length > 0) {
+            audits['auc:Measures'] = {};
+            audits['auc:Measures'] = { 'auc:Measure': generateMeasures };
+        }
+
         var generateMeasures = [];
         for (var i = 0; i < $scope.measures.list.length; i++) {
 
@@ -220,42 +301,6 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
             generateMeasures.push(mes);
         }
 
-        var measures = {
-            'auc:Measure': generateMeasures
-        };
-
-        var audits = {
-            'auc:Audit': {
-                'auc:Measures': measures,
-                'auc:Sites': {
-                    'auc:Site': {
-                        'auc:Facilities': {
-                            'auc:Facility': {
-                                "auc:FloorsAboveGrade": {
-                                            "$": parseInt($scope.building.numberOfFloorsAboveGrade)
-                                        },
-                                        "auc:FloorsBelowGrade": {
-                                            "$": parseInt($scope.building.numberOfFloorsBelowGrade)
-                                        },
-                                        "auc:YearOfConstruction": {
-                                            "$": $scope.building.yearCompleted
-                                        },
-                                        "auc:FacilityClassification": {
-                                            "$": "Commercial"
-                                            }
-                                        }
-                                },
-                                "auc:FloorAreas": {
-                                    "auc:FloorArea": {
-                                        "auc:FloorAreaValue": {
-                                            "$": parseFloat($scope.building.floorArea)
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-        };
         var out = {
             'auc:Address' : address,
             'auc:AssetScore': assetScore,

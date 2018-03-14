@@ -1184,6 +1184,8 @@ this["HandlebarsPrecompiled"]["web-edit"]["control-select"] = Handlebars.templat
     + alias4(((helper = (helper = helpers.shortName || (depth0 != null ? depth0.shortName : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"shortName","hash":{},"data":data}) : helper)))
     + "</label>\n    <select id=\""
     + alias4(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"id","hash":{},"data":data}) : helper)))
+    + "\" ng-model=\""
+    + alias4(((helper = (helper = helpers.ngModel || (depth0 != null ? depth0.ngModel : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"ngModel","hash":{},"data":data}) : helper)))
     + "\" "
     + ((stack1 = helpers["if"].call(alias1,((stack1 = (depth0 != null ? depth0.options : depth0)) != null ? stack1.readonly : stack1),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + " "
@@ -9933,7 +9935,15 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
         },
 
         getFullPath: function() {
-            return 'system.' + this.name.replace(/_auc:/g, ".");
+            var parts = this.name.split("_");
+            var partsBracketsNotation = [];
+            for (var i = 0; i < parts.length; i++) {
+                var withNamespace = (parts[i].startsWith("auc:") || parts[i].startsWith("@") || parts[i].startsWith("$"))  ? parts[i] : 'auc:'+parts[i];
+                partsBracketsNotation[i] = '[\'' + withNamespace + '\']';
+            }
+            return 'system' + '[\''+ 'auc:' +parts[0]+"s" +'\']' + partsBracketsNotation.join('');
+            
+
         },
 
         /**
