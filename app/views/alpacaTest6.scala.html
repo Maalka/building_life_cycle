@@ -28,7 +28,7 @@ var schema = (function() {
         $.ajax({
             'async': false,
             'global': false,
-            'url': "assets/BuildingSyncReduced.json",
+            'url': "assets/BuildingSyncTypesPoundsRemoved.json",
             'dataType': "json",
             'success': function (data) {
                 json = data;
@@ -57,13 +57,7 @@ var schema = (function() {
   "options": {
     "renderForm": true,
     "form": {
-            "attributes": {
-                "action": "http://www.alpacajs.org/endpoints/echo.php",
-                "method": "post"
-            },
-            "buttons": {
-                "submit": {}
-            }
+
         }
   },
     "view": "web-edit"

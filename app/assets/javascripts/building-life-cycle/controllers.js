@@ -90,6 +90,8 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
     $scope.selectedSystemCategory = {};
     $scope.selectedSystem = {};
 
+
+
     $scope.system = {};
 
     $scope.measures = {'list': [] };
@@ -122,6 +124,13 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
             $scope.showType4 = false;
             $scope.showType5 = false;
             $scope.showType6 = false;
+
+            $scope.system['auc:DomesticHotWaterSystems'] = {};
+            $scope.system['auc:DomesticHotWaterSystems']['auc:DomesticHotWaterSystem'] = {};
+            $scope.system['auc:DomesticHotWaterSystems']['auc:DomesticHotWaterSystem']['auc:DomesticHotWaterSystemType'] = {};
+            $scope.system['auc:DomesticHotWaterSystems']['auc:DomesticHotWaterSystem']['auc:DomesticHotWaterSystemType']['auc:DomesticHotWaterType'] = {};
+            $scope.system['auc:DomesticHotWaterSystems']['auc:DomesticHotWaterSystem']['auc:DomesticHotWaterSystemType']['auc:DomesticHotWaterType'].$ = "Instantaneous";
+
         }
         if ($scope.selectedSystemCategory.selected == "Fan System") {
             $scope.showType1 = false;

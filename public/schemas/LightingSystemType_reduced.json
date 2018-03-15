@@ -58,6 +58,18 @@
           "#": {
             "type": "string"
           },
+          "$": {
+            "enum": [
+              "CompactFluorescent",
+              "Halogen",
+              "Incandescent",
+              "Neon",
+              "OtherCombination",
+              "SolidStateLighting",
+              "Unknown"
+            ],
+            "type": "string"
+          },
           "auc:CompactFluorescent": {
             "additionalProperties": false,
             "patternProperties": {
