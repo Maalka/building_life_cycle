@@ -33,7 +33,14 @@
         "properties": {
           "#": {
             "type": "string"
-          },                              
+          },
+          "$": {
+            "enum": [
+              "Window",
+              "Other"
+            ],
+            "type": "string"
+          },
           "auc:Window": {
             "additionalProperties": false,
             "patternProperties": {

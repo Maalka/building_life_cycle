@@ -91,6 +91,16 @@
                       "#": {
                         "type": "string"
                       },
+                      "$": {
+                        "enum": [
+                          "DX",
+                          "EvaporativeCooler",
+                          "NoCooling",
+                          "OtherCombination",
+                          "Unknown"
+                        ],
+                        "type": "string"
+                      },
                       "auc:DX": {
                         "additionalProperties": false,
                         "patternProperties": {
@@ -536,6 +546,16 @@
                     },
                     "properties": {
                       "#": {
+                        "type": "string"
+                      },
+                      "$": {
+                        "enum": [
+                          "Furnace",
+                          "HeatPump",
+                          "NoHeating",
+                          "OtherCombination",
+                          "Unknown"
+                        ],
                         "type": "string"
                       },
                       "auc:Furnace": {
@@ -1097,6 +1117,13 @@
           "#": {
             "type": "string"
           },
+          "$": {
+            "enum": [
+              "CoolingPlantType",
+              "HeatingPlantType"
+            ],
+            "type": "string"
+          },
           "auc:CoolingPlantType": {
             "anyOf": [
               {
@@ -1149,33 +1176,6 @@
                       "#": {
                         "type": "string"
                       },
-                      "auc:AnnualHeatingEfficiencyUnit": {
-                        "$ref": "#/definitions/.auc:AnnualHeatingEfficiencyUnit"
-                      },
-                      "auc:AnnualHeatingEfficiencyValue": {
-                        "additionalProperties": false,
-                        "description": "Overall annual efficiency of a heating system",
-                        "patternProperties": {
-                          "^@xmlns(:\\w+)?$": {
-                            "type": "string"
-                          },
-                          "^@xsi:\\w+$": {
-                            "type": "string"
-                          },
-                          "^\\?\\w+$": {
-                            "type": "string"
-                          }
-                        },
-                        "properties": {
-                          "#": {
-                            "type": "string"
-                          },
-                          "$": {
-                            "$ref": "#/definitions/xs:decimal"
-                          }
-                        },
-                        "type": "object"
-                      },
                       "auc:BoilerType": {
                         "additionalProperties": false,
                         "description": "General type of boiler used for space or water heating",
@@ -1202,6 +1202,33 @@
                               "Unknown"
                             ],
                             "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "auc:AnnualHeatingEfficiencyUnit": {
+                        "$ref": "#/definitions/.auc:AnnualHeatingEfficiencyUnit"
+                      },
+                      "auc:AnnualHeatingEfficiencyValue": {
+                        "additionalProperties": false,
+                        "description": "Overall annual efficiency of a heating system",
+                        "patternProperties": {
+                          "^@xmlns(:\\w+)?$": {
+                            "type": "string"
+                          },
+                          "^@xsi:\\w+$": {
+                            "type": "string"
+                          },
+                          "^\\?\\w+$": {
+                            "type": "string"
+                          }
+                        },
+                        "properties": {
+                          "#": {
+                            "type": "string"
+                          },
+                          "$": {
+                            "$ref": "#/definitions/xs:decimal"
                           }
                         },
                         "type": "object"
@@ -1283,36 +1310,6 @@
                       "#": {
                         "type": "string"
                       },
-                      "auc:AnnualHeatingEfficiencyUnit": {
-                        "$ref": "#/definitions/.auc:AnnualHeatingEfficiencyUnit"
-                      },
-                      "auc:AnnualHeatingEfficiencyValue": {
-                        "additionalProperties": false,
-                        "description": "Overall annual efficiency of a heating system",
-                        "patternProperties": {
-                          "^@xmlns(:\\w+)?$": {
-                            "type": "string"
-                          },
-                          "^@xsi:\\w+$": {
-                            "type": "string"
-                          },
-                          "^\\?\\w+$": {
-                            "type": "string"
-                          }
-                        },
-                        "properties": {
-                          "#": {
-                            "type": "string"
-                          },
-                          "$": {
-                            "$ref": "#/definitions/xs:decimal"
-                          }
-                        },
-                        "type": "object"
-                      },
-                      "auc:CapacityUnits": {
-                        "$ref": "#/definitions/.auc:CapacityUnits"
-                      },
                       "auc:DistrictHeatingType": {
                         "additionalProperties": false,
                         "description": "General type of district heating used for space or water heating",
@@ -1340,6 +1337,33 @@
                               "Unknown"
                             ],
                             "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "auc:AnnualHeatingEfficiencyUnit": {
+                        "$ref": "#/definitions/.auc:AnnualHeatingEfficiencyUnit"
+                      },
+                      "auc:AnnualHeatingEfficiencyValue": {
+                        "additionalProperties": false,
+                        "description": "Overall annual efficiency of a heating system",
+                        "patternProperties": {
+                          "^@xmlns(:\\w+)?$": {
+                            "type": "string"
+                          },
+                          "^@xsi:\\w+$": {
+                            "type": "string"
+                          },
+                          "^\\?\\w+$": {
+                            "type": "string"
+                          }
+                        },
+                        "properties": {
+                          "#": {
+                            "type": "string"
+                          },
+                          "$": {
+                            "$ref": "#/definitions/xs:decimal"
                           }
                         },
                         "type": "object"
@@ -1771,9 +1795,6 @@
           }
         },
         "type": "object"
-      },
-      "auc:Quantity": {
-        "$ref": "#/definitions/.auc:Quantity"
       }
     },
     "type": "object"

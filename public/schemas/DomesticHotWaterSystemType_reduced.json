@@ -15,7 +15,16 @@
     "properties": {
       "#": {
         "type": "string"
-      },           
+      },
+      "$": {
+        "enum": [
+          "Heat Exchanger",
+          "Instantaneous",
+          "Storage Tank",
+          "Unknown"
+        ],
+        "type": "string"
+      },
       "auc:DomesticHotWaterType": {
         "additionalProperties": false,
         "description": "Type of water heating equipment for hot running water.",
