@@ -1,0 +1,1781 @@
+{
+  "auc:HVACSystemType": {
+    "properties": {
+      "#": {
+        "type": "string"
+      },
+      "auc:HeatingAndCoolingSystems": {
+        "additionalProperties": false,
+        "patternProperties": {
+          "^@xmlns(:\\w+)?$": {
+            "type": "string"
+          },
+          "^@xsi:\\w+$": {
+            "type": "string"
+          },
+          "^\\?\\w+$": {
+            "type": "string"
+          }
+        },
+        "properties": {
+          "#": {
+            "type": "string"
+          },
+          "auc:CoolingSource": {
+            "anyOf": [
+              {
+                "additionalProperties": false,
+                "patternProperties": {
+                  "^@xmlns(:\\w+)?$": {
+                    "type": "string"
+                  },
+                  "^@xsi:\\w+$": {
+                    "type": "string"
+                  },
+                  "^\\?\\w+$": {
+                    "type": "string"
+                  }
+                },
+                "properties": {
+                  "#": {
+                    "type": "string"
+                  },
+                  "auc:AnnualCoolingEfficiencyUnits": {
+                    "$ref": "#/definitions/.auc:AnnualCoolingEfficiencyUnits"
+                  },
+                  "auc:AnnualCoolingEfficiencyValue": {
+                    "additionalProperties": false,
+                    "description": "Overall annual efficiency of a cooling system.",
+                    "patternProperties": {
+                      "^@xmlns(:\\w+)?$": {
+                        "type": "string"
+                      },
+                      "^@xsi:\\w+$": {
+                        "type": "string"
+                      },
+                      "^\\?\\w+$": {
+                        "type": "string"
+                      }
+                    },
+                    "properties": {
+                      "#": {
+                        "type": "string"
+                      },
+                      "$": {
+                        "$ref": "#/definitions/xs:decimal"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "auc:Capacity": {
+                    "$ref": "#/definitions/.auc:Capacity"
+                  },
+                  "auc:CapacityUnits": {
+                    "$ref": "#/definitions/.auc:CapacityUnits"
+                  },
+                  "auc:CoolingSourceType": {
+                    "additionalProperties": false,
+                    "description": "Source of energy used for cooling the zone.",
+                    "patternProperties": {
+                      "^@xmlns(:\\w+)?$": {
+                        "type": "string"
+                      },
+                      "^@xsi:\\w+$": {
+                        "type": "string"
+                      },
+                      "^\\?\\w+$": {
+                        "type": "string"
+                      }
+                    },
+                    "properties": {
+                      "#": {
+                        "type": "string"
+                      },
+                      "auc:DX": {
+                        "additionalProperties": false,
+                        "patternProperties": {
+                          "^@xmlns(:\\w+)?$": {
+                            "type": "string"
+                          },
+                          "^@xsi:\\w+$": {
+                            "type": "string"
+                          },
+                          "^\\?\\w+$": {
+                            "type": "string"
+                          }
+                        },
+                        "properties": {
+                          "#": {
+                            "type": "string"
+                          },
+                          "auc:DXSystemType": {
+                            "additionalProperties": false,
+                            "description": "General type of heat pump used for space heating.",
+                            "patternProperties": {
+                              "^@xmlns(:\\w+)?$": {
+                                "type": "string"
+                              },
+                              "^@xsi:\\w+$": {
+                                "type": "string"
+                              },
+                              "^\\?\\w+$": {
+                                "type": "string"
+                              }
+                            },
+                            "properties": {
+                              "#": {
+                                "type": "string"
+                              },
+                              "$": {
+                                "enum": [
+                                  "Split DX air conditioner",
+                                  "Packaged terminal air conditioner (PTAC)",
+                                  "Split heat pump",
+                                  "Packaged terminal heat pump (PTHP)",
+                                  "Variable refrigerant flow",
+                                  "Packaged/unitary direct expansion/RTU",
+                                  "Packaged/unitary heat pump",
+                                  "Single package vertical air conditioner",
+                                  "Single package vertical heat pump",
+                                  "Other",
+                                  "Unknown"
+                                ],
+                                "type": "string"
+                              }
+                            },
+                            "type": "object"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "auc:EvaporativeCooler": {
+                        "additionalProperties": false,
+                        "patternProperties": {
+                          "^@xmlns(:\\w+)?$": {
+                            "type": "string"
+                          },
+                          "^@xsi:\\w+$": {
+                            "type": "string"
+                          },
+                          "^\\?\\w+$": {
+                            "type": "string"
+                          }
+                        },
+                        "properties": {
+                          "#": {
+                            "type": "string"
+                          },
+                          "auc:EvaporativeCoolingType": {
+                            "additionalProperties": false,
+                            "description": "Defines the type of evaporative cooler operation",
+                            "patternProperties": {
+                              "^@xmlns(:\\w+)?$": {
+                                "type": "string"
+                              },
+                              "^@xsi:\\w+$": {
+                                "type": "string"
+                              },
+                              "^\\?\\w+$": {
+                                "type": "string"
+                              }
+                            },
+                            "properties": {
+                              "#": {
+                                "type": "string"
+                              },
+                              "$": {
+                                "enum": [
+                                  "Direct",
+                                  "Direct indirect",
+                                  "Indirect",
+                                  "Other"
+                                ],
+                                "type": "string"
+                              }
+                            },
+                            "type": "object"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "auc:NoCooling": {
+                        "$ref": "#/definitions/xs:anyType"
+                      },
+                      "auc:OtherCombination": {
+                        "$ref": "#/definitions/xs:anyType"
+                      },
+                      "auc:Unknown": {
+                        "$ref": "#/definitions/xs:anyType"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "auc:Manufacturer": {
+                    "$ref": "#/definitions/.auc:Manufacturer"
+                  },
+                  "auc:ModelNumber": {
+                    "$ref": "#/definitions/.auc:ModelNumber"
+                  },
+                  "auc:Quantity": {
+                    "$ref": "#/definitions/.auc:Quantity"
+                  },
+                  "auc:YearInstalled": {
+                    "$ref": "#/definitions/.auc:YearInstalled"
+                  },
+                  "auc:YearofManufacture": {
+                    "$ref": "#/definitions/.auc:YearofManufacture"
+                  }
+                },
+                "type": "object"
+              },
+              {
+                "items": {
+                  "additionalProperties": false,
+                  "patternProperties": {
+                    "^@xmlns(:\\w+)?$": {
+                      "type": "string"
+                    },
+                    "^@xsi:\\w+$": {
+                      "type": "string"
+                    },
+                    "^\\?\\w+$": {
+                      "type": "string"
+                    }
+                  },
+                  "properties": {
+                    "#": {
+                      "type": "string"
+                    },
+                    "auc:AnnualCoolingEfficiencyUnits": {
+                      "$ref": "#/definitions/.auc:AnnualCoolingEfficiencyUnits"
+                    },
+                    "auc:AnnualCoolingEfficiencyValue": {
+                      "additionalProperties": false,
+                      "description": "Overall annual efficiency of a cooling system.",
+                      "patternProperties": {
+                        "^@xmlns(:\\w+)?$": {
+                          "type": "string"
+                        },
+                        "^@xsi:\\w+$": {
+                          "type": "string"
+                        },
+                        "^\\?\\w+$": {
+                          "type": "string"
+                        }
+                      },
+                      "properties": {
+                        "#": {
+                          "type": "string"
+                        },
+                        "$": {
+                          "$ref": "#/definitions/xs:decimal"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "auc:Capacity": {
+                      "$ref": "#/definitions/.auc:Capacity"
+                    },
+                    "auc:CapacityUnits": {
+                      "$ref": "#/definitions/.auc:CapacityUnits"
+                    },
+                    "auc:CoolingSourceType": {
+                      "additionalProperties": false,
+                      "description": "Source of energy used for cooling the zone.",
+                      "patternProperties": {
+                        "^@xmlns(:\\w+)?$": {
+                          "type": "string"
+                        },
+                        "^@xsi:\\w+$": {
+                          "type": "string"
+                        },
+                        "^\\?\\w+$": {
+                          "type": "string"
+                        }
+                      },
+                      "properties": {
+                        "#": {
+                          "type": "string"
+                        },
+                        "auc:DX": {
+                          "additionalProperties": false,
+                          "patternProperties": {
+                            "^@xmlns(:\\w+)?$": {
+                              "type": "string"
+                            },
+                            "^@xsi:\\w+$": {
+                              "type": "string"
+                            },
+                            "^\\?\\w+$": {
+                              "type": "string"
+                            }
+                          },
+                          "properties": {
+                            "#": {
+                              "type": "string"
+                            },
+                            "auc:DXSystemType": {
+                              "additionalProperties": false,
+                              "description": "General type of heat pump used for space heating.",
+                              "patternProperties": {
+                                "^@xmlns(:\\w+)?$": {
+                                  "type": "string"
+                                },
+                                "^@xsi:\\w+$": {
+                                  "type": "string"
+                                },
+                                "^\\?\\w+$": {
+                                  "type": "string"
+                                }
+                              },
+                              "properties": {
+                                "#": {
+                                  "type": "string"
+                                },
+                                "$": {
+                                  "enum": [
+                                    "Split DX air conditioner",
+                                    "Packaged terminal air conditioner (PTAC)",
+                                    "Split heat pump",
+                                    "Packaged terminal heat pump (PTHP)",
+                                    "Variable refrigerant flow",
+                                    "Packaged/unitary direct expansion/RTU",
+                                    "Packaged/unitary heat pump",
+                                    "Single package vertical air conditioner",
+                                    "Single package vertical heat pump",
+                                    "Other",
+                                    "Unknown"
+                                  ],
+                                  "type": "string"
+                                }
+                              },
+                              "type": "object"
+                            }
+                          },
+                          "type": "object"
+                        },
+                        "auc:EvaporativeCooler": {
+                          "additionalProperties": false,
+                          "patternProperties": {
+                            "^@xmlns(:\\w+)?$": {
+                              "type": "string"
+                            },
+                            "^@xsi:\\w+$": {
+                              "type": "string"
+                            },
+                            "^\\?\\w+$": {
+                              "type": "string"
+                            }
+                          },
+                          "properties": {
+                            "#": {
+                              "type": "string"
+                            },
+                            "auc:EvaporativeCoolingType": {
+                              "additionalProperties": false,
+                              "description": "Defines the type of evaporative cooler operation",
+                              "patternProperties": {
+                                "^@xmlns(:\\w+)?$": {
+                                  "type": "string"
+                                },
+                                "^@xsi:\\w+$": {
+                                  "type": "string"
+                                },
+                                "^\\?\\w+$": {
+                                  "type": "string"
+                                }
+                              },
+                              "properties": {
+                                "#": {
+                                  "type": "string"
+                                },
+                                "$": {
+                                  "enum": [
+                                    "Direct",
+                                    "Direct indirect",
+                                    "Indirect",
+                                    "Other"
+                                  ],
+                                  "type": "string"
+                                }
+                              },
+                              "type": "object"
+                            }
+                          },
+                          "type": "object"
+                        },
+                        "auc:NoCooling": {
+                          "$ref": "#/definitions/xs:anyType"
+                        },
+                        "auc:OtherCombination": {
+                          "$ref": "#/definitions/xs:anyType"
+                        },
+                        "auc:Unknown": {
+                          "$ref": "#/definitions/xs:anyType"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "auc:Manufacturer": {
+                      "$ref": "#/definitions/.auc:Manufacturer"
+                    },
+                    "auc:ModelNumber": {
+                      "$ref": "#/definitions/.auc:ModelNumber"
+                    },
+                    "auc:Quantity": {
+                      "$ref": "#/definitions/.auc:Quantity"
+                    },
+                    "auc:YearInstalled": {
+                      "$ref": "#/definitions/.auc:YearInstalled"
+                    },
+                    "auc:YearofManufacture": {
+                      "$ref": "#/definitions/.auc:YearofManufacture"
+                    }
+                  },
+                  "type": "object"
+                },
+                "type": "array"
+              }
+            ]
+          },
+          "auc:HeatingSource": {
+            "anyOf": [
+              {
+                "additionalProperties": false,
+                "patternProperties": {
+                  "^@xmlns(:\\w+)?$": {
+                    "type": "string"
+                  },
+                  "^@xsi:\\w+$": {
+                    "type": "string"
+                  },
+                  "^\\?\\w+$": {
+                    "type": "string"
+                  }
+                },
+                "properties": {
+                  "#": {
+                    "type": "string"
+                  },
+                  "auc:AnnualHeatingEfficiencyUnit": {
+                    "$ref": "#/definitions/.auc:AnnualHeatingEfficiencyUnit"
+                  },
+                  "auc:AnnualHeatingEfficiencyValue": {
+                    "additionalProperties": false,
+                    "description": "Overall annual efficiency of a heating system",
+                    "patternProperties": {
+                      "^@xmlns(:\\w+)?$": {
+                        "type": "string"
+                      },
+                      "^@xsi:\\w+$": {
+                        "type": "string"
+                      },
+                      "^\\?\\w+$": {
+                        "type": "string"
+                      }
+                    },
+                    "properties": {
+                      "#": {
+                        "type": "string"
+                      },
+                      "$": {
+                        "$ref": "#/definitions/xs:decimal"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "auc:CapacityUnits": {
+                    "$ref": "#/definitions/.auc:CapacityUnits"
+                  },
+                  "auc:HeatingMedium": {
+                    "additionalProperties": false,
+                    "description": "Medium used to transport heat from a central heating system to individual zones.",
+                    "patternProperties": {
+                      "^@xmlns(:\\w+)?$": {
+                        "type": "string"
+                      },
+                      "^@xsi:\\w+$": {
+                        "type": "string"
+                      },
+                      "^\\?\\w+$": {
+                        "type": "string"
+                      }
+                    },
+                    "properties": {
+                      "#": {
+                        "type": "string"
+                      },
+                      "$": {
+                        "enum": [
+                          "Hot water",
+                          "Steam",
+                          "Refrigerant",
+                          "Air",
+                          "Glycol",
+                          "Other",
+                          "Unknown"
+                        ],
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "auc:HeatingSourceType": {
+                    "additionalProperties": false,
+                    "description": "Source of energy used for heating the zone.",
+                    "patternProperties": {
+                      "^@xmlns(:\\w+)?$": {
+                        "type": "string"
+                      },
+                      "^@xsi:\\w+$": {
+                        "type": "string"
+                      },
+                      "^\\?\\w+$": {
+                        "type": "string"
+                      }
+                    },
+                    "properties": {
+                      "#": {
+                        "type": "string"
+                      },
+                      "auc:Furnace": {
+                        "additionalProperties": false,
+                        "patternProperties": {
+                          "^@xmlns(:\\w+)?$": {
+                            "type": "string"
+                          },
+                          "^@xsi:\\w+$": {
+                            "type": "string"
+                          },
+                          "^\\?\\w+$": {
+                            "type": "string"
+                          }
+                        },
+                        "properties": {
+                          "#": {
+                            "type": "string"
+                          },
+                          "auc:BurnerType": {
+                            "$ref": "#/definitions/.auc:BurnerType"
+                          },
+                          "auc:CombustionEfficiency": {
+                            "additionalProperties": false,
+                            "description": "The measure of how much energy is extracted from the fuel and is the ratio of heat transferred to the combustion air divided by the heat input of the fuel. (0-1) (%)",
+                            "patternProperties": {
+                              "^@xmlns(:\\w+)?$": {
+                                "type": "string"
+                              },
+                              "^@xsi:\\w+$": {
+                                "type": "string"
+                              },
+                              "^\\?\\w+$": {
+                                "type": "string"
+                              }
+                            },
+                            "properties": {
+                              "#": {
+                                "type": "string"
+                              },
+                              "$": {
+                                "$ref": "#/definitions/xs:decimal"
+                              }
+                            },
+                            "type": "object"
+                          },
+                          "auc:FurnaceType": {
+                            "additionalProperties": false,
+                            "description": "General type of furnace used for space heating.",
+                            "patternProperties": {
+                              "^@xmlns(:\\w+)?$": {
+                                "type": "string"
+                              },
+                              "^@xsi:\\w+$": {
+                                "type": "string"
+                              },
+                              "^\\?\\w+$": {
+                                "type": "string"
+                              }
+                            },
+                            "properties": {
+                              "#": {
+                                "type": "string"
+                              },
+                              "$": {
+                                "enum": [
+                                  "Warm air",
+                                  "Fireplace",
+                                  "Heating stove",
+                                  "Built-in heater",
+                                  "Individual space heater",
+                                  "Other",
+                                  "Unknown"
+                                ],
+                                "type": "string"
+                              }
+                            },
+                            "type": "object"
+                          },
+                          "auc:ThermalEfficiency": {
+                            "additionalProperties": false,
+                            "description": "The efficiency of heat transfer between the combustion process and the heated steam, water, or air. (0-1) (%)",
+                            "patternProperties": {
+                              "^@xmlns(:\\w+)?$": {
+                                "type": "string"
+                              },
+                              "^@xsi:\\w+$": {
+                                "type": "string"
+                              },
+                              "^\\?\\w+$": {
+                                "type": "string"
+                              }
+                            },
+                            "properties": {
+                              "#": {
+                                "type": "string"
+                              },
+                              "$": {
+                                "$ref": "#/definitions/xs:decimal"
+                              }
+                            },
+                            "type": "object"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "auc:HeatPump": {
+                        "additionalProperties": false,
+                        "patternProperties": {
+                          "^@xmlns(:\\w+)?$": {
+                            "type": "string"
+                          },
+                          "^@xsi:\\w+$": {
+                            "type": "string"
+                          },
+                          "^\\?\\w+$": {
+                            "type": "string"
+                          }
+                        },
+                        "properties": {
+                          "#": {
+                            "type": "string"
+                          },
+                          "auc:HeatPumpType": {
+                            "additionalProperties": false,
+                            "description": "General type of heat pump used for space heating.",
+                            "patternProperties": {
+                              "^@xmlns(:\\w+)?$": {
+                                "type": "string"
+                              },
+                              "^@xsi:\\w+$": {
+                                "type": "string"
+                              },
+                              "^\\?\\w+$": {
+                                "type": "string"
+                              }
+                            },
+                            "properties": {
+                              "#": {
+                                "type": "string"
+                              },
+                              "$": {
+                                "enum": [
+                                  "Split",
+                                  "Packaged Terminal",
+                                  "Packaged Unitary",
+                                  "Other",
+                                  "Unknown"
+                                ],
+                                "type": "string"
+                              }
+                            },
+                            "type": "object"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "auc:NoHeating": {
+                        "$ref": "#/definitions/xs:anyType"
+                      },
+                      "auc:OtherCombination": {
+                        "$ref": "#/definitions/xs:anyType"
+                      },
+                      "auc:Unknown": {
+                        "$ref": "#/definitions/xs:anyType"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "auc:Manufacturer": {
+                    "$ref": "#/definitions/.auc:Manufacturer"
+                  },
+                  "auc:ModelNumber": {
+                    "$ref": "#/definitions/.auc:ModelNumber"
+                  },
+                  "auc:Quantity": {
+                    "$ref": "#/definitions/.auc:Quantity"
+                  },
+                  "auc:YearInstalled": {
+                    "$ref": "#/definitions/.auc:YearInstalled"
+                  },
+                  "auc:YearofManufacture": {
+                    "$ref": "#/definitions/.auc:YearofManufacture"
+                  }
+                },
+                "type": "object"
+              },
+              {
+                "items": {
+                  "additionalProperties": false,
+                  "patternProperties": {
+                    "^@xmlns(:\\w+)?$": {
+                      "type": "string"
+                    },
+                    "^@xsi:\\w+$": {
+                      "type": "string"
+                    },
+                    "^\\?\\w+$": {
+                      "type": "string"
+                    }
+                  },
+                  "properties": {
+                    "#": {
+                      "type": "string"
+                    },
+                    "auc:AnnualHeatingEfficiencyUnit": {
+                      "$ref": "#/definitions/.auc:AnnualHeatingEfficiencyUnit"
+                    },
+                    "auc:AnnualHeatingEfficiencyValue": {
+                      "additionalProperties": false,
+                      "description": "Overall annual efficiency of a heating system",
+                      "patternProperties": {
+                        "^@xmlns(:\\w+)?$": {
+                          "type": "string"
+                        },
+                        "^@xsi:\\w+$": {
+                          "type": "string"
+                        },
+                        "^\\?\\w+$": {
+                          "type": "string"
+                        }
+                      },
+                      "properties": {
+                        "#": {
+                          "type": "string"
+                        },
+                        "$": {
+                          "$ref": "#/definitions/xs:decimal"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "auc:CapacityUnits": {
+                      "$ref": "#/definitions/.auc:CapacityUnits"
+                    },
+                    "auc:HeatingMedium": {
+                      "additionalProperties": false,
+                      "description": "Medium used to transport heat from a central heating system to individual zones.",
+                      "patternProperties": {
+                        "^@xmlns(:\\w+)?$": {
+                          "type": "string"
+                        },
+                        "^@xsi:\\w+$": {
+                          "type": "string"
+                        },
+                        "^\\?\\w+$": {
+                          "type": "string"
+                        }
+                      },
+                      "properties": {
+                        "#": {
+                          "type": "string"
+                        },
+                        "$": {
+                          "enum": [
+                            "Hot water",
+                            "Steam",
+                            "Refrigerant",
+                            "Air",
+                            "Glycol",
+                            "Other",
+                            "Unknown"
+                          ],
+                          "type": "string"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "auc:HeatingSourceType": {
+                      "additionalProperties": false,
+                      "description": "Source of energy used for heating the zone.",
+                      "patternProperties": {
+                        "^@xmlns(:\\w+)?$": {
+                          "type": "string"
+                        },
+                        "^@xsi:\\w+$": {
+                          "type": "string"
+                        },
+                        "^\\?\\w+$": {
+                          "type": "string"
+                        }
+                      },
+                      "properties": {
+                        "#": {
+                          "type": "string"
+                        },
+                        "auc:Furnace": {
+                          "additionalProperties": false,
+                          "patternProperties": {
+                            "^@xmlns(:\\w+)?$": {
+                              "type": "string"
+                            },
+                            "^@xsi:\\w+$": {
+                              "type": "string"
+                            },
+                            "^\\?\\w+$": {
+                              "type": "string"
+                            }
+                          },
+                          "properties": {
+                            "#": {
+                              "type": "string"
+                            },
+                            "auc:BurnerType": {
+                              "$ref": "#/definitions/.auc:BurnerType"
+                            },
+                            "auc:CombustionEfficiency": {
+                              "additionalProperties": false,
+                              "description": "The measure of how much energy is extracted from the fuel and is the ratio of heat transferred to the combustion air divided by the heat input of the fuel. (0-1) (%)",
+                              "patternProperties": {
+                                "^@xmlns(:\\w+)?$": {
+                                  "type": "string"
+                                },
+                                "^@xsi:\\w+$": {
+                                  "type": "string"
+                                },
+                                "^\\?\\w+$": {
+                                  "type": "string"
+                                }
+                              },
+                              "properties": {
+                                "#": {
+                                  "type": "string"
+                                },
+                                "$": {
+                                  "$ref": "#/definitions/xs:decimal"
+                                }
+                              },
+                              "type": "object"
+                            },
+                            "auc:FurnaceType": {
+                              "additionalProperties": false,
+                              "description": "General type of furnace used for space heating.",
+                              "patternProperties": {
+                                "^@xmlns(:\\w+)?$": {
+                                  "type": "string"
+                                },
+                                "^@xsi:\\w+$": {
+                                  "type": "string"
+                                },
+                                "^\\?\\w+$": {
+                                  "type": "string"
+                                }
+                              },
+                              "properties": {
+                                "#": {
+                                  "type": "string"
+                                },
+                                "$": {
+                                  "enum": [
+                                    "Warm air",
+                                    "Fireplace",
+                                    "Heating stove",
+                                    "Built-in heater",
+                                    "Individual space heater",
+                                    "Other",
+                                    "Unknown"
+                                  ],
+                                  "type": "string"
+                                }
+                              },
+                              "type": "object"
+                            },
+                            "auc:ThermalEfficiency": {
+                              "additionalProperties": false,
+                              "description": "The efficiency of heat transfer between the combustion process and the heated steam, water, or air. (0-1) (%)",
+                              "patternProperties": {
+                                "^@xmlns(:\\w+)?$": {
+                                  "type": "string"
+                                },
+                                "^@xsi:\\w+$": {
+                                  "type": "string"
+                                },
+                                "^\\?\\w+$": {
+                                  "type": "string"
+                                }
+                              },
+                              "properties": {
+                                "#": {
+                                  "type": "string"
+                                },
+                                "$": {
+                                  "$ref": "#/definitions/xs:decimal"
+                                }
+                              },
+                              "type": "object"
+                            }
+                          },
+                          "type": "object"
+                        },
+                        "auc:HeatPump": {
+                          "additionalProperties": false,
+                          "patternProperties": {
+                            "^@xmlns(:\\w+)?$": {
+                              "type": "string"
+                            },
+                            "^@xsi:\\w+$": {
+                              "type": "string"
+                            },
+                            "^\\?\\w+$": {
+                              "type": "string"
+                            }
+                          },
+                          "properties": {
+                            "#": {
+                              "type": "string"
+                            },
+                            "auc:HeatPumpType": {
+                              "additionalProperties": false,
+                              "description": "General type of heat pump used for space heating.",
+                              "patternProperties": {
+                                "^@xmlns(:\\w+)?$": {
+                                  "type": "string"
+                                },
+                                "^@xsi:\\w+$": {
+                                  "type": "string"
+                                },
+                                "^\\?\\w+$": {
+                                  "type": "string"
+                                }
+                              },
+                              "properties": {
+                                "#": {
+                                  "type": "string"
+                                },
+                                "$": {
+                                  "enum": [
+                                    "Split",
+                                    "Packaged Terminal",
+                                    "Packaged Unitary",
+                                    "Other",
+                                    "Unknown"
+                                  ],
+                                  "type": "string"
+                                }
+                              },
+                              "type": "object"
+                            }
+                          },
+                          "type": "object"
+                        },
+                        "auc:NoHeating": {
+                          "$ref": "#/definitions/xs:anyType"
+                        },
+                        "auc:OtherCombination": {
+                          "$ref": "#/definitions/xs:anyType"
+                        },
+                        "auc:Unknown": {
+                          "$ref": "#/definitions/xs:anyType"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "auc:Manufacturer": {
+                      "$ref": "#/definitions/.auc:Manufacturer"
+                    },
+                    "auc:ModelNumber": {
+                      "$ref": "#/definitions/.auc:ModelNumber"
+                    },
+                    "auc:Quantity": {
+                      "$ref": "#/definitions/.auc:Quantity"
+                    },
+                    "auc:YearInstalled": {
+                      "$ref": "#/definitions/.auc:YearInstalled"
+                    },
+                    "auc:YearofManufacture": {
+                      "$ref": "#/definitions/.auc:YearofManufacture"
+                    }
+                  },
+                  "type": "object"
+                },
+                "type": "array"
+              }
+            ]
+          },
+          "auc:ZoningSystemType": {
+            "additionalProperties": false,
+            "description": "Identifies whether a system is single or multi-zone.",
+            "patternProperties": {
+              "^@xmlns(:\\w+)?$": {
+                "type": "string"
+              },
+              "^@xsi:\\w+$": {
+                "type": "string"
+              },
+              "^\\?\\w+$": {
+                "type": "string"
+              }
+            },
+            "properties": {
+              "#": {
+                "type": "string"
+              },
+              "$": {
+                "enum": [
+                  "Single zone",
+                  "Multi zone",
+                  "Unknown"
+                ],
+                "type": "string"
+              }
+            },
+            "type": "object"
+          }
+        },
+        "type": "object"
+      },
+      "auc:OtherHVACSystems": {
+        "additionalProperties": false,
+        "patternProperties": {
+          "^@xmlns(:\\w+)?$": {
+            "type": "string"
+          },
+          "^@xsi:\\w+$": {
+            "type": "string"
+          },
+          "^\\?\\w+$": {
+            "type": "string"
+          }
+        },
+        "properties": {
+          "#": {
+            "type": "string"
+          },
+          "auc:OtherHVACSystem": {
+            "anyOf": [
+              {
+                "$ref": "#/definitions/auc:OtherHVACSystemType"
+              },
+              {
+                "items": {
+                  "$ref": "#/definitions/auc:OtherHVACSystemType"
+                },
+                "minItems": 1,
+                "type": "array"
+              }
+            ]
+          }
+        },
+        "required": [
+          "auc:OtherHVACSystem"
+        ],
+        "type": "object"
+      },
+      "auc:Plants": {
+        "additionalProperties": false,
+        "patternProperties": {
+          "^@xmlns(:\\w+)?$": {
+            "type": "string"
+          },
+          "^@xsi:\\w+$": {
+            "type": "string"
+          },
+          "^\\?\\w+$": {
+            "type": "string"
+          }
+        },
+        "properties": {
+          "#": {
+            "type": "string"
+          },
+          "auc:CoolingPlantType": {
+            "anyOf": [
+              {
+                "$ref": "#/definitions/auc:CoolingPlantTypeType",
+                "description": "Type of cooling plant. Zonal cooling is recorded in a separate data field. Use of fans or blowers by themselves without chilled air or water is not included in this definition of cooling. Stand-alone dehumidifiers are also not included."
+              },
+              {
+                "items": {
+                  "$ref": "#/definitions/auc:CoolingPlantTypeType",
+                  "description": "Type of cooling plant. Zonal cooling is recorded in a separate data field. Use of fans or blowers by themselves without chilled air or water is not included in this definition of cooling. Stand-alone dehumidifiers are also not included."
+                },
+                "type": "array"
+              }
+            ]
+          },
+          "auc:HeatingPlantType": {
+            "anyOf": [
+              {
+                "additionalProperties": false,
+                "description": "Type of central heating system, defined as any source of heating energy separate from the zone being heated. Local heating systems (such as packaged systems and fan-coils) are recorded in a separate data field.",
+                "patternProperties": {
+                  "^@xmlns(:\\w+)?$": {
+                    "type": "string"
+                  },
+                  "^@xsi:\\w+$": {
+                    "type": "string"
+                  },
+                  "^\\?\\w+$": {
+                    "type": "string"
+                  }
+                },
+                "properties": {
+                  "#": {
+                    "type": "string"
+                  },
+                  "auc:Boiler": {
+                    "additionalProperties": false,
+                    "patternProperties": {
+                      "^@xmlns(:\\w+)?$": {
+                        "type": "string"
+                      },
+                      "^@xsi:\\w+$": {
+                        "type": "string"
+                      },
+                      "^\\?\\w+$": {
+                        "type": "string"
+                      }
+                    },
+                    "properties": {
+                      "#": {
+                        "type": "string"
+                      },
+                      "auc:AnnualHeatingEfficiencyUnit": {
+                        "$ref": "#/definitions/.auc:AnnualHeatingEfficiencyUnit"
+                      },
+                      "auc:AnnualHeatingEfficiencyValue": {
+                        "additionalProperties": false,
+                        "description": "Overall annual efficiency of a heating system",
+                        "patternProperties": {
+                          "^@xmlns(:\\w+)?$": {
+                            "type": "string"
+                          },
+                          "^@xsi:\\w+$": {
+                            "type": "string"
+                          },
+                          "^\\?\\w+$": {
+                            "type": "string"
+                          }
+                        },
+                        "properties": {
+                          "#": {
+                            "type": "string"
+                          },
+                          "$": {
+                            "$ref": "#/definitions/xs:decimal"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "auc:BoilerType": {
+                        "additionalProperties": false,
+                        "description": "General type of boiler used for space or water heating",
+                        "patternProperties": {
+                          "^@xmlns(:\\w+)?$": {
+                            "type": "string"
+                          },
+                          "^@xsi:\\w+$": {
+                            "type": "string"
+                          },
+                          "^\\?\\w+$": {
+                            "type": "string"
+                          }
+                        },
+                        "properties": {
+                          "#": {
+                            "type": "string"
+                          },
+                          "$": {
+                            "enum": [
+                              "Steam",
+                              "Hot water",
+                              "Other",
+                              "Unknown"
+                            ],
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "auc:BurnerType": {
+                        "$ref": "#/definitions/.auc:BurnerType"
+                      },
+                      "auc:CapacityUnits": {
+                        "$ref": "#/definitions/.auc:CapacityUnits"
+                      },
+                      "auc:CombustionEfficiency": {
+                        "additionalProperties": false,
+                        "description": "The measure of how much energy is extracted from the fuel and is the ratio of heat transferred to the combustion air divided by the heat input of the fuel. (0-1) (%)",
+                        "patternProperties": {
+                          "^@xmlns(:\\w+)?$": {
+                            "type": "string"
+                          },
+                          "^@xsi:\\w+$": {
+                            "type": "string"
+                          },
+                          "^\\?\\w+$": {
+                            "type": "string"
+                          }
+                        },
+                        "properties": {
+                          "#": {
+                            "type": "string"
+                          },
+                          "$": {
+                            "$ref": "#/definitions/xs:decimal"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "auc:Quantity": {
+                        "$ref": "#/definitions/.auc:Quantity"
+                      },
+                      "auc:ThermalEfficiency": {
+                        "additionalProperties": false,
+                        "description": "The efficiency of heat transfer between the combustion process and the heated steam, water, or air. (0-1) (%)",
+                        "patternProperties": {
+                          "^@xmlns(:\\w+)?$": {
+                            "type": "string"
+                          },
+                          "^@xsi:\\w+$": {
+                            "type": "string"
+                          },
+                          "^\\?\\w+$": {
+                            "type": "string"
+                          }
+                        },
+                        "properties": {
+                          "#": {
+                            "type": "string"
+                          },
+                          "$": {
+                            "$ref": "#/definitions/xs:decimal"
+                          }
+                        },
+                        "type": "object"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "auc:DistrictHeating": {
+                    "additionalProperties": false,
+                    "patternProperties": {
+                      "^@xmlns(:\\w+)?$": {
+                        "type": "string"
+                      },
+                      "^@xsi:\\w+$": {
+                        "type": "string"
+                      },
+                      "^\\?\\w+$": {
+                        "type": "string"
+                      }
+                    },
+                    "properties": {
+                      "#": {
+                        "type": "string"
+                      },
+                      "auc:AnnualHeatingEfficiencyUnit": {
+                        "$ref": "#/definitions/.auc:AnnualHeatingEfficiencyUnit"
+                      },
+                      "auc:AnnualHeatingEfficiencyValue": {
+                        "additionalProperties": false,
+                        "description": "Overall annual efficiency of a heating system",
+                        "patternProperties": {
+                          "^@xmlns(:\\w+)?$": {
+                            "type": "string"
+                          },
+                          "^@xsi:\\w+$": {
+                            "type": "string"
+                          },
+                          "^\\?\\w+$": {
+                            "type": "string"
+                          }
+                        },
+                        "properties": {
+                          "#": {
+                            "type": "string"
+                          },
+                          "$": {
+                            "$ref": "#/definitions/xs:decimal"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "auc:CapacityUnits": {
+                        "$ref": "#/definitions/.auc:CapacityUnits"
+                      },
+                      "auc:DistrictHeatingType": {
+                        "additionalProperties": false,
+                        "description": "General type of district heating used for space or water heating",
+                        "patternProperties": {
+                          "^@xmlns(:\\w+)?$": {
+                            "type": "string"
+                          },
+                          "^@xsi:\\w+$": {
+                            "type": "string"
+                          },
+                          "^\\?\\w+$": {
+                            "type": "string"
+                          }
+                        },
+                        "properties": {
+                          "#": {
+                            "type": "string"
+                          },
+                          "$": {
+                            "enum": [
+                              "Hot water",
+                              "Direct steam",
+                              "Steam to hot water heat exchanger",
+                              "Other",
+                              "Unknown"
+                            ],
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "auc:Quantity": {
+                        "$ref": "#/definitions/.auc:Quantity"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "auc:NoHeating": {
+                    "$ref": "#/definitions/xs:anyType"
+                  },
+                  "auc:OtherCombination": {
+                    "$ref": "#/definitions/xs:anyType"
+                  },
+                  "auc:SolarThermal": {
+                    "additionalProperties": false,
+                    "patternProperties": {
+                      "^@xmlns(:\\w+)?$": {
+                        "type": "string"
+                      },
+                      "^@xsi:\\w+$": {
+                        "type": "string"
+                      },
+                      "^\\?\\w+$": {
+                        "type": "string"
+                      }
+                    },
+                    "properties": {
+                      "#": {
+                        "type": "string"
+                      },
+                      "auc:AnnualHeatingEfficiencyUnit": {
+                        "$ref": "#/definitions/.auc:AnnualHeatingEfficiencyUnit"
+                      },
+                      "auc:AnnualHeatingEfficiencyValue": {
+                        "additionalProperties": false,
+                        "description": "Overall annual efficiency of a heating system",
+                        "patternProperties": {
+                          "^@xmlns(:\\w+)?$": {
+                            "type": "string"
+                          },
+                          "^@xsi:\\w+$": {
+                            "type": "string"
+                          },
+                          "^\\?\\w+$": {
+                            "type": "string"
+                          }
+                        },
+                        "properties": {
+                          "#": {
+                            "type": "string"
+                          },
+                          "$": {
+                            "$ref": "#/definitions/xs:decimal"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "auc:CapacityUnits": {
+                        "$ref": "#/definitions/.auc:CapacityUnits"
+                      },
+                      "auc:OutputCapacity": {
+                        "additionalProperties": false,
+                        "description": "Output capacity of equipment.",
+                        "patternProperties": {
+                          "^@xmlns(:\\w+)?$": {
+                            "type": "string"
+                          },
+                          "^@xsi:\\w+$": {
+                            "type": "string"
+                          },
+                          "^\\?\\w+$": {
+                            "type": "string"
+                          }
+                        },
+                        "properties": {
+                          "#": {
+                            "type": "string"
+                          },
+                          "$": {
+                            "$ref": "#/definitions/xs:decimal"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "auc:Quantity": {
+                        "$ref": "#/definitions/.auc:Quantity"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "auc:Unknown": {
+                    "$ref": "#/definitions/xs:anyType"
+                  }
+                },
+                "type": "object"
+              },
+              {
+                "items": {
+                  "additionalProperties": false,
+                  "description": "Type of central heating system, defined as any source of heating energy separate from the zone being heated. Local heating systems (such as packaged systems and fan-coils) are recorded in a separate data field.",
+                  "patternProperties": {
+                    "^@xmlns(:\\w+)?$": {
+                      "type": "string"
+                    },
+                    "^@xsi:\\w+$": {
+                      "type": "string"
+                    },
+                    "^\\?\\w+$": {
+                      "type": "string"
+                    }
+                  },
+                  "properties": {
+                    "#": {
+                      "type": "string"
+                    },
+                    "auc:Boiler": {
+                      "additionalProperties": false,
+                      "patternProperties": {
+                        "^@xmlns(:\\w+)?$": {
+                          "type": "string"
+                        },
+                        "^@xsi:\\w+$": {
+                          "type": "string"
+                        },
+                        "^\\?\\w+$": {
+                          "type": "string"
+                        }
+                      },
+                      "properties": {
+                        "#": {
+                          "type": "string"
+                        },
+                        "auc:AnnualHeatingEfficiencyUnit": {
+                          "$ref": "#/definitions/.auc:AnnualHeatingEfficiencyUnit"
+                        },
+                        "auc:AnnualHeatingEfficiencyValue": {
+                          "additionalProperties": false,
+                          "description": "Overall annual efficiency of a heating system",
+                          "patternProperties": {
+                            "^@xmlns(:\\w+)?$": {
+                              "type": "string"
+                            },
+                            "^@xsi:\\w+$": {
+                              "type": "string"
+                            },
+                            "^\\?\\w+$": {
+                              "type": "string"
+                            }
+                          },
+                          "properties": {
+                            "#": {
+                              "type": "string"
+                            },
+                            "$": {
+                              "$ref": "#/definitions/xs:decimal"
+                            }
+                          },
+                          "type": "object"
+                        },
+                        "auc:BoilerType": {
+                          "additionalProperties": false,
+                          "description": "General type of boiler used for space or water heating",
+                          "patternProperties": {
+                            "^@xmlns(:\\w+)?$": {
+                              "type": "string"
+                            },
+                            "^@xsi:\\w+$": {
+                              "type": "string"
+                            },
+                            "^\\?\\w+$": {
+                              "type": "string"
+                            }
+                          },
+                          "properties": {
+                            "#": {
+                              "type": "string"
+                            },
+                            "$": {
+                              "enum": [
+                                "Steam",
+                                "Hot water",
+                                "Other",
+                                "Unknown"
+                              ],
+                              "type": "string"
+                            }
+                          },
+                          "type": "object"
+                        },
+                        "auc:BurnerType": {
+                          "$ref": "#/definitions/.auc:BurnerType"
+                        },
+                        "auc:CapacityUnits": {
+                          "$ref": "#/definitions/.auc:CapacityUnits"
+                        },
+                        "auc:CombustionEfficiency": {
+                          "additionalProperties": false,
+                          "description": "The measure of how much energy is extracted from the fuel and is the ratio of heat transferred to the combustion air divided by the heat input of the fuel. (0-1) (%)",
+                          "patternProperties": {
+                            "^@xmlns(:\\w+)?$": {
+                              "type": "string"
+                            },
+                            "^@xsi:\\w+$": {
+                              "type": "string"
+                            },
+                            "^\\?\\w+$": {
+                              "type": "string"
+                            }
+                          },
+                          "properties": {
+                            "#": {
+                              "type": "string"
+                            },
+                            "$": {
+                              "$ref": "#/definitions/xs:decimal"
+                            }
+                          },
+                          "type": "object"
+                        },
+                        "auc:Quantity": {
+                          "$ref": "#/definitions/.auc:Quantity"
+                        },
+                        "auc:ThermalEfficiency": {
+                          "additionalProperties": false,
+                          "description": "The efficiency of heat transfer between the combustion process and the heated steam, water, or air. (0-1) (%)",
+                          "patternProperties": {
+                            "^@xmlns(:\\w+)?$": {
+                              "type": "string"
+                            },
+                            "^@xsi:\\w+$": {
+                              "type": "string"
+                            },
+                            "^\\?\\w+$": {
+                              "type": "string"
+                            }
+                          },
+                          "properties": {
+                            "#": {
+                              "type": "string"
+                            },
+                            "$": {
+                              "$ref": "#/definitions/xs:decimal"
+                            }
+                          },
+                          "type": "object"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "auc:DistrictHeating": {
+                      "additionalProperties": false,
+                      "patternProperties": {
+                        "^@xmlns(:\\w+)?$": {
+                          "type": "string"
+                        },
+                        "^@xsi:\\w+$": {
+                          "type": "string"
+                        },
+                        "^\\?\\w+$": {
+                          "type": "string"
+                        }
+                      },
+                      "properties": {
+                        "#": {
+                          "type": "string"
+                        },
+                        "auc:AnnualHeatingEfficiencyUnit": {
+                          "$ref": "#/definitions/.auc:AnnualHeatingEfficiencyUnit"
+                        },
+                        "auc:AnnualHeatingEfficiencyValue": {
+                          "additionalProperties": false,
+                          "description": "Overall annual efficiency of a heating system",
+                          "patternProperties": {
+                            "^@xmlns(:\\w+)?$": {
+                              "type": "string"
+                            },
+                            "^@xsi:\\w+$": {
+                              "type": "string"
+                            },
+                            "^\\?\\w+$": {
+                              "type": "string"
+                            }
+                          },
+                          "properties": {
+                            "#": {
+                              "type": "string"
+                            },
+                            "$": {
+                              "$ref": "#/definitions/xs:decimal"
+                            }
+                          },
+                          "type": "object"
+                        },
+                        "auc:CapacityUnits": {
+                          "$ref": "#/definitions/.auc:CapacityUnits"
+                        },
+                        "auc:DistrictHeatingType": {
+                          "additionalProperties": false,
+                          "description": "General type of district heating used for space or water heating",
+                          "patternProperties": {
+                            "^@xmlns(:\\w+)?$": {
+                              "type": "string"
+                            },
+                            "^@xsi:\\w+$": {
+                              "type": "string"
+                            },
+                            "^\\?\\w+$": {
+                              "type": "string"
+                            }
+                          },
+                          "properties": {
+                            "#": {
+                              "type": "string"
+                            },
+                            "$": {
+                              "enum": [
+                                "Hot water",
+                                "Direct steam",
+                                "Steam to hot water heat exchanger",
+                                "Other",
+                                "Unknown"
+                              ],
+                              "type": "string"
+                            }
+                          },
+                          "type": "object"
+                        },
+                        "auc:Quantity": {
+                          "$ref": "#/definitions/.auc:Quantity"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "auc:NoHeating": {
+                      "$ref": "#/definitions/xs:anyType"
+                    },
+                    "auc:OtherCombination": {
+                      "$ref": "#/definitions/xs:anyType"
+                    },
+                    "auc:SolarThermal": {
+                      "additionalProperties": false,
+                      "patternProperties": {
+                        "^@xmlns(:\\w+)?$": {
+                          "type": "string"
+                        },
+                        "^@xsi:\\w+$": {
+                          "type": "string"
+                        },
+                        "^\\?\\w+$": {
+                          "type": "string"
+                        }
+                      },
+                      "properties": {
+                        "#": {
+                          "type": "string"
+                        },
+                        "auc:AnnualHeatingEfficiencyUnit": {
+                          "$ref": "#/definitions/.auc:AnnualHeatingEfficiencyUnit"
+                        },
+                        "auc:AnnualHeatingEfficiencyValue": {
+                          "additionalProperties": false,
+                          "description": "Overall annual efficiency of a heating system",
+                          "patternProperties": {
+                            "^@xmlns(:\\w+)?$": {
+                              "type": "string"
+                            },
+                            "^@xsi:\\w+$": {
+                              "type": "string"
+                            },
+                            "^\\?\\w+$": {
+                              "type": "string"
+                            }
+                          },
+                          "properties": {
+                            "#": {
+                              "type": "string"
+                            },
+                            "$": {
+                              "$ref": "#/definitions/xs:decimal"
+                            }
+                          },
+                          "type": "object"
+                        },
+                        "auc:CapacityUnits": {
+                          "$ref": "#/definitions/.auc:CapacityUnits"
+                        },
+                        "auc:OutputCapacity": {
+                          "additionalProperties": false,
+                          "description": "Output capacity of equipment.",
+                          "patternProperties": {
+                            "^@xmlns(:\\w+)?$": {
+                              "type": "string"
+                            },
+                            "^@xsi:\\w+$": {
+                              "type": "string"
+                            },
+                            "^\\?\\w+$": {
+                              "type": "string"
+                            }
+                          },
+                          "properties": {
+                            "#": {
+                              "type": "string"
+                            },
+                            "$": {
+                              "$ref": "#/definitions/xs:decimal"
+                            }
+                          },
+                          "type": "object"
+                        },
+                        "auc:Quantity": {
+                          "$ref": "#/definitions/.auc:Quantity"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "auc:Unknown": {
+                      "$ref": "#/definitions/xs:anyType"
+                    }
+                  },
+                  "type": "object"
+                },
+                "type": "array"
+              }
+            ]
+          }
+        },
+        "type": "object"
+      },
+      "auc:Quantity": {
+        "$ref": "#/definitions/.auc:Quantity"
+      }
+    },
+    "type": "object"
+  }
+}

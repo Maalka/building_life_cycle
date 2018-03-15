@@ -1,0 +1,411 @@
+  {
+  "auc:LightingSystemType": {
+    "additionalProperties": false,
+    "patternProperties": {
+      "^@xmlns(:\\w+)?$": {
+        "type": "string"
+      },
+      "^@xsi:\\w+$": {
+        "type": "string"
+      },
+      "^\\?\\w+$": {
+        "type": "string"
+      }
+    },
+    "properties": {
+      "#": {
+        "type": "string"
+      },                 
+      "auc:OutsideLighting": {
+        "additionalProperties": false,
+        "description": "True if lighting system is primarily for outside lighting, false otherwise.",
+        "patternProperties": {
+          "^@xmlns(:\\w+)?$": {
+            "type": "string"
+          },
+          "^@xsi:\\w+$": {
+            "type": "string"
+          },
+          "^\\?\\w+$": {
+            "type": "string"
+          }
+        },
+        "properties": {
+          "#": {
+            "type": "string"
+          },
+          "$": {
+            "$ref": "#/definitions/xs:boolean"
+          }
+        },
+        "type": "object"
+      },          
+      "auc:LampType": {
+        "additionalProperties": false,
+        "description": "A lamp is a replaceable component, or bulb, which is designed to produce light from electricity, though, non-electric lamps also exist.",
+        "patternProperties": {
+          "^@xmlns(:\\w+)?$": {
+            "type": "string"
+          },
+          "^@xsi:\\w+$": {
+            "type": "string"
+          },
+          "^\\?\\w+$": {
+            "type": "string"
+          }
+        },
+        "properties": {
+          "#": {
+            "type": "string"
+          },
+          "auc:CompactFluorescent": {
+            "additionalProperties": false,
+            "patternProperties": {
+              "^@xmlns(:\\w+)?$": {
+                "type": "string"
+              },
+              "^@xsi:\\w+$": {
+                "type": "string"
+              },
+              "^\\?\\w+$": {
+                "type": "string"
+              }
+            },
+            "properties": {
+              "#": {
+                "type": "string"
+              },
+              "auc:LampLabel": {
+                "additionalProperties": false,
+                "description": "Specific lamp subtype used in the luminaire",
+                "patternProperties": {
+                  "^@xmlns(:\\w+)?$": {
+                    "type": "string"
+                  },
+                  "^@xsi:\\w+$": {
+                    "type": "string"
+                  },
+                  "^\\?\\w+$": {
+                    "type": "string"
+                  }
+                },
+                "properties": {
+                  "#": {
+                    "type": "string"
+                  },
+                  "$": {
+                    "enum": [
+                      "2D",
+                      "A-series",
+                      "Circline",
+                      "Spiral",
+                      "Other",
+                      "Unknown"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              }
+            },
+            "type": "object"
+          },
+          "auc:Halogen": {
+            "additionalProperties": false,
+            "patternProperties": {
+              "^@xmlns(:\\w+)?$": {
+                "type": "string"
+              },
+              "^@xsi:\\w+$": {
+                "type": "string"
+              },
+              "^\\?\\w+$": {
+                "type": "string"
+              }
+            },
+            "properties": {
+              "#": {
+                "type": "string"
+              },
+              "auc:LampLabel": {
+                "additionalProperties": false,
+                "description": "Specific lamp subtype used in the luminaire",
+                "patternProperties": {
+                  "^@xmlns(:\\w+)?$": {
+                    "type": "string"
+                  },
+                  "^@xsi:\\w+$": {
+                    "type": "string"
+                  },
+                  "^\\?\\w+$": {
+                    "type": "string"
+                  }
+                },
+                "properties": {
+                  "#": {
+                    "type": "string"
+                  },
+                  "$": {
+                    "enum": [
+                      "A-shape",
+                      "BR30",
+                      "BR40",
+                      "MR11",
+                      "MR16",
+                      "MR8",
+                      "PAR20",
+                      "PAR30",
+                      "PAR38",
+                      "Pin Base",
+                      "R20",
+                      "Other",
+                      "Unknown"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              }
+            },
+            "type": "object"
+          },          
+          "auc:Incandescent": {
+            "additionalProperties": false,
+            "patternProperties": {
+              "^@xmlns(:\\w+)?$": {
+                "type": "string"
+              },
+              "^@xsi:\\w+$": {
+                "type": "string"
+              },
+              "^\\?\\w+$": {
+                "type": "string"
+              }
+            },
+            "properties": {
+              "#": {
+                "type": "string"
+              },
+              "auc:LampLabel": {
+                "additionalProperties": false,
+                "description": "Specific lamp subtype used in the luminaire",
+                "patternProperties": {
+                  "^@xmlns(:\\w+)?$": {
+                    "type": "string"
+                  },
+                  "^@xsi:\\w+$": {
+                    "type": "string"
+                  },
+                  "^\\?\\w+$": {
+                    "type": "string"
+                  }
+                },
+                "properties": {
+                  "#": {
+                    "type": "string"
+                  },
+                  "$": {
+                    "enum": [
+                      "A19",
+                      "A21",
+                      "G16C",
+                      "G25M",
+                      "G40M",
+                      "MR16",
+                      "PAR16",
+                      "PAR20",
+                      "PAR30",
+                      "PAR38",
+                      "PS-Series",
+                      "R20",
+                      "R30",
+                      "R40",
+                      "TC",
+                      "TM",
+                      "Other",
+                      "Unknown"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              }
+            },
+            "type": "object"
+          },                    
+          "auc:Neon": {
+            "$ref": "#/definitions/xs:anyType"
+          },
+          "auc:OtherCombination": {
+            "$ref": "#/definitions/xs:anyType"
+          },
+          "auc:SolidStateLighting": {
+            "additionalProperties": false,
+            "patternProperties": {
+              "^@xmlns(:\\w+)?$": {
+                "type": "string"
+              },
+              "^@xsi:\\w+$": {
+                "type": "string"
+              },
+              "^\\?\\w+$": {
+                "type": "string"
+              }
+            },
+            "properties": {
+              "#": {
+                "type": "string"
+              },
+              "auc:LampLabel": {
+                "additionalProperties": false,
+                "description": "Specific lamp subtype used in the luminaire",
+                "patternProperties": {
+                  "^@xmlns(:\\w+)?$": {
+                    "type": "string"
+                  },
+                  "^@xsi:\\w+$": {
+                    "type": "string"
+                  },
+                  "^\\?\\w+$": {
+                    "type": "string"
+                  }
+                },
+                "properties": {
+                  "#": {
+                    "type": "string"
+                  },
+                  "$": {
+                    "enum": [
+                      "LED",
+                      "Other"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              }              
+            },
+            "type": "object"
+          },
+          "auc:Unknown": {
+            "$ref": "#/definitions/xs:anyType"
+          }
+        },
+        "type": "object"
+      },
+      "auc:InstallationType": {
+        "additionalProperties": false,
+        "description": "Installation of lamp relative to mounting surface",
+        "patternProperties": {
+          "^@xmlns(:\\w+)?$": {
+            "type": "string"
+          },
+          "^@xsi:\\w+$": {
+            "type": "string"
+          },
+          "^\\?\\w+$": {
+            "type": "string"
+          }
+        },
+        "properties": {
+          "#": {
+            "type": "string"
+          },
+          "$": {
+            "enum": [
+              "Plug-in",
+              "Recessed",
+              "Surface",
+              "Suspended",
+              "Other",
+              "Unknown"
+            ],
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "auc:LightingControlTypeOccupancy": {
+        "additionalProperties": false,
+        "description": "Type of occupancy controls used to manage lighting.",
+        "patternProperties": {
+          "^@xmlns(:\\w+)?$": {
+            "type": "string"
+          },
+          "^@xsi:\\w+$": {
+            "type": "string"
+          },
+          "^\\?\\w+$": {
+            "type": "string"
+          }
+        },
+        "properties": {
+          "#": {
+            "type": "string"
+          },
+          "$": {
+            "enum": [
+              "Occupancy Sensors",
+              "Vacancy Sensors",
+              "Other",
+              "None",
+              "Unknown"
+            ],
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "auc:LightingDirection": {
+        "additionalProperties": false,
+        "description": "Directional characteristics of lighting fixtures.",
+        "patternProperties": {
+          "^@xmlns(:\\w+)?$": {
+            "type": "string"
+          },
+          "^@xsi:\\w+$": {
+            "type": "string"
+          },
+          "^\\?\\w+$": {
+            "type": "string"
+          }
+        },
+        "properties": {
+          "#": {
+            "type": "string"
+          },
+          "$": {
+            "enum": [
+              "Direct",
+              "Indirect",
+              "Direct-Indirect",
+              "Spotlight",
+              "Floodlighting",
+              "Omnidirectional",
+              "Other",
+              "Unknown"
+            ],
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },                           
+      "auc:Manufacturer": {
+        "$ref": "#/definitions/.auc:Manufacturer"
+      },
+      "auc:ModelNumber": {
+        "$ref": "#/definitions/.auc:ModelNumber"
+      },   
+      "auc:Quantity": {
+        "$ref": "#/definitions/.auc:Quantity"
+      },                  
+      "auc:YearInstalled": {
+        "$ref": "#/definitions/.auc:YearInstalled"
+      },
+      "auc:YearofManufacture": {
+        "$ref": "#/definitions/.auc:YearofManufacture"
+      }
+    },
+    "type": "object"
+  }
+}

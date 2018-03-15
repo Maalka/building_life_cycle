@@ -1,0 +1,119 @@
+{
+"auc:HeatRecoverySystemType": {
+    "additionalProperties": false,
+    "patternProperties": {
+      "^@xmlns(:\\w+)?$": {
+        "type": "string"
+      },
+      "^@xsi:\\w+$": {
+        "type": "string"
+      },
+      "^\\?\\w+$": {
+        "type": "string"
+      }
+    },
+    "properties": {
+      "#": {
+        "type": "string"
+      },
+      "auc:HeatRecoveryType": {
+        "additionalProperties": false,
+        "description": "Type of heat recovery between two systems.",
+        "patternProperties": {
+          "^@xmlns(:\\w+)?$": {
+            "type": "string"
+          },
+          "^@xsi:\\w+$": {
+            "type": "string"
+          },
+          "^\\?\\w+$": {
+            "type": "string"
+          }
+        },
+        "properties": {
+          "#": {
+            "type": "string"
+          },
+          "$": {
+            "enum": [
+              "Run-around coil",
+              "Thermal wheel",
+              "Heat pipe",
+              "Air to air heat exchanger",
+              "Earth to air heat exchanger",
+              "Earth to water heat exchanger",
+              "Other",
+              "Unknown"
+            ],
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "auc:EnergyRecoveryEfficiency": {
+        "additionalProperties": false,
+        "description": "The net total energy (sensible plus latent, also called enthalpy) recovered by the supply airstream adjusted by electric consumption, case heat loss or heat gain, air leakage and airflow mass imbalance between the two airstreams, as a percent of the potential total energy that could be recovered plus associated fan energy. (0-1) (%)",
+        "patternProperties": {
+          "^@xmlns(:\\w+)?$": {
+            "type": "string"
+          },
+          "^@xsi:\\w+$": {
+            "type": "string"
+          },
+          "^\\?\\w+$": {
+            "type": "string"
+          }
+        },
+        "properties": {
+          "#": {
+            "type": "string"
+          },
+          "$": {
+            "$ref": "#/definitions/xs:decimal"
+          }    
+        },
+        "type": "object"
+      },
+      "auc:HeatRecoveryEfficiency": {
+        "additionalProperties": false,
+        "description": "Efficiency of sensible heat recovery. (0-1) (%)",
+        "patternProperties": {
+          "^@xmlns(:\\w+)?$": {
+            "type": "string"
+          },
+          "^@xsi:\\w+$": {
+            "type": "string"
+          },
+          "^\\?\\w+$": {
+            "type": "string"
+          }
+        },
+        "properties": {
+          "#": {
+            "type": "string"
+          },
+          "$": {
+            "$ref": "#/definitions/xs:decimal"
+          }        
+        },
+        "type": "object"
+      },          
+      "auc:Manufacturer": {
+        "$ref": "#/definitions/.auc:Manufacturer"
+      },
+      "auc:ModelNumber": {
+        "$ref": "#/definitions/.auc:ModelNumber"
+      },
+      "auc:Quantity": {
+        "$ref": "#/definitions/.auc:Quantity"
+      },      
+      "auc:YearInstalled": {
+        "$ref": "#/definitions/.auc:YearInstalled"
+      },
+      "auc:YearofManufacture": {
+        "$ref": "#/definitions/.auc:YearofManufacture"
+      }
+    },
+    "type": "object"
+  }
+}
