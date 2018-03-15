@@ -133,13 +133,13 @@
                             <div class="ui row">
                                 <div class="three wide column">
                                     <div class="required field">
-                                        <label># of Floors Above Grade</label>
+                                        <label>Floors Above Grade</label>
                                         <input type="text" ng-model="building.numberOfFloorsAboveGrade">
                                     </div>
                                 </div>
                                 <div class="three wide column">
                                     <div class="required field">
-                                        <label># of Floors Below Grade</label>
+                                        <label>Floors Below Grade</label>
                                         <input type="text" ng-model="building.numberOfFloorsBelowGrade">
                                     </div>
                                 </div>
@@ -168,57 +168,60 @@
                 <div class="ui hidden divider"></div>
                 <div class="ui hidden divider"></div>
                 <div class="ui stackable grid">
-                    <div class="two column row">
-                        <div class="column">                
+                    <div class="row">
+                        <div class="eleven wide column">                
                             <h2>SYSTEMS / MEASURES</h2>
                         </div>
-                        <div class="column">
+                        <div class="five wide column">
                             <h2>REQUIRED FIELDS</h2>
                         </div>
                     </div>
-                    <div class="two column row">
-                        <div class="column">
+                    <div class="row">
+                        <div class="eleven wide column">
                             <div class="ui top attached tabular menu">
                                 <div class="active item" data-tab="Assets">Systems</div>
                                 <div class="inactive item" data-tab="Measures">Measures</div>
                             </div>
                             <div class="ui bottom attached active tab very padded segment" data-tab="Assets">
-                                <div class="ui large form">
-                                    <div class="field">
-                                        <label>System Type</label>
-                                        <select
-                                                dropdown
-                                                class="ui dropdown" dropdown
-                                                ma-change="selectedSystemCategoryChanged(value)"
-                                                ng-model="selectedSystemCategory.selected">
-                                            <option value="">Select</option>
-                                            <option ng-repeat="system in systemCategories"
-                                                    value="{{system}}">{{system}}</option>
-                                        </select>
-                                    </div>
+                                <div class="ui grid">
+                                    <div class="sixteen wide column">
+                                        <div class="ui large form">
+                                            <div class="field">
+                                                <label>System Type</label>
+                                                <select
+                                                        dropdown
+                                                        class="ui dropdown" dropdown
+                                                        ma-change="selectedSystemCategoryChanged(value)"
+                                                        ng-model="selectedSystemCategory.selected">
+                                                    <option value="">Select</option>
+                                                    <option ng-repeat="system in systemCategories"
+                                                            value="{{system}}">{{system}}</option>
+                                                </select>
+                                            </div>
 
-                                    <div id="type1" ng-show="showType1">
-                                        <div ng-include src="'javascripts/building-life-cycle/partials/type1.html'"></div>
+                                            <div id="type1" ng-show="showType1">
+                                                <div ng-include src="'javascripts/building-life-cycle/partials/type1.html'"></div>
+                                            </div>
+                                            <div id="type2" ng-show="showType2">
+                                                <div ng-include src="'javascripts/building-life-cycle/partials/type2.html'"></div>
+                                            </div>
+                                            <div id="type3" ng-show="showType3">
+                                                <div ng-include src="'javascripts/building-life-cycle/partials/type3.html'"></div>
+                                            </div>
+                                            <div id="type4" ng-show="showType4">
+                                                <div ng-include src="'javascripts/building-life-cycle/partials/type4.html'"></div>
+                                            </div>
+                                            <div id="type5" ng-show="showType5">
+                                                <div ng-include src="'javascripts/building-life-cycle/partials/type5.html'"></div>
+                                            </div>
+                                            <div id="type6" ng-show="showType6">
+                                                <div ng-include src="'javascripts/building-life-cycle/partials/type6.html'"></div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div id="type2" ng-show="showType2">
-                                        <div ng-include src="'javascripts/building-life-cycle/partials/type2.html'"></div>
-                                    </div>
-                                    <div id="type3" ng-show="showType3">
-                                        <div ng-include src="'javascripts/building-life-cycle/partials/type3.html'"></div>
-                                    </div>
-                                    <div id="type4" ng-show="showType4">
-                                        <div ng-include src="'javascripts/building-life-cycle/partials/type4.html'"></div>
-                                    </div>
-                                    <div id="type5" ng-show="showType5">
-                                        <div ng-include src="'javascripts/building-life-cycle/partials/type5.html'"></div>
-                                    </div>
-                                    <div id="type6" ng-show="showType6">
-                                        <div ng-include src="'javascripts/building-life-cycle/partials/type6.html'"></div>
-                                    </div>
-
                                 </div>
                                 <div class="ui hidden divider"></div>
-                                <div class="row">
+                                <div class="padded row">
                                     <h2 class="ui right floated small blue header">
                                         ADD TO LIST
                                         <a data-tooltip = "Add system information to System list"
@@ -314,8 +317,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="column">
-                            <div class="ui very padded secondary segment" style="height:480px">
+                        <div class="five wide column">
+                            <div class="ui padded secondary segment" style="height:350px">
                                 <table class="ui very basic table">
                                     <tr>
                                         <td class="top aligned collapsing">
