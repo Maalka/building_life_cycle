@@ -391,15 +391,17 @@
                                     <div class="fluid accordion">
                                         <div class="active title">
                                             <img class="ui mini avatar image" ng-click="removeSystem($index)" src="/assets/images/x-gray-dark.svg">
-                                            {{system}}
+                                            {{getSystemName(system)}}
+
                                             <i class="blue dropdown icon"></i>
                                         </div>
                                         <div class="active content">
                                             <div class="subtitle">
                                             {{asset.asset}}
                                             </div>  
-                                            <div class="indent">
-
+                                            <div class="indent" ng-while="component in system">
+                                                {{getFirstKey(system)}}
+                                                {{getSecondKey(system)}}
                                             </div>
                                         </div>
                                     </div>

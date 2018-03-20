@@ -167,6 +167,22 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
         }
     };
 
+    $scope.getSystemName = function(system) {
+        return Object.keys(system)[0];
+    };
+
+    $scope.getFirstKey = function(system) {
+        var key = $scope.getSystemName(system);
+        return Object.keys(system[key])[0];
+    };
+
+    $scope.getSecondKey = function(system) {
+        var key1 = $scope.getSystemName(system);
+        var key2 = $scope.getSystemName(system[key1]);
+        var level1 = system[key1];
+        return Object.keys(level1[key2])[0];
+    };
+
     $scope.addSystemToList = function() {
         console.log('system added: ', $scope.system);
         console.log('system type: ',  $scope.selectedSystemCategory.selected);
