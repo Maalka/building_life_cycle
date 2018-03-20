@@ -186,37 +186,44 @@
                                 <div class="ui grid">
                                     <div class="sixteen wide column">
                                         <div class="ui large form">
-                                            <div class="field">
-                                                <label>System Type</label>
-                                                <select
-                                                        dropdown
-                                                        class="ui dropdown" dropdown
-                                                        ma-change="selectedSystemCategoryChanged(value)"
-                                                        ng-model="selectedSystemCategory.selected">
-                                                    <option value="">Select</option>
-                                                    <option ng-repeat="system in systemCategories"
-                                                            value="{{system}}">{{system}}</option>
-                                                </select>
-                                            </div>
 
-                                            <div id="type1" ng-show="showType1">
-                                                <div ng-include src="'javascripts/building-life-cycle/partials/type1.html'"></div>
-                                            </div>
-                                            <div id="type2" ng-show="showType2">
-                                                <div ng-include src="'javascripts/building-life-cycle/partials/type2.html'"></div>
-                                            </div>
-                                            <div id="type3" ng-show="showType3">
-                                                <div ng-include src="'javascripts/building-life-cycle/partials/type3.html'"></div>
-                                            </div>
-                                            <div id="type4" ng-show="showType4">
-                                                <div ng-include src="'javascripts/building-life-cycle/partials/type4.html'"></div>
-                                            </div>
-                                            <div id="type5" ng-show="showType5">
-                                                <div ng-include src="'javascripts/building-life-cycle/partials/type5.html'"></div>
-                                            </div>
-                                            <div id="type6" ng-show="showType6">
-                                                <div ng-include src="'javascripts/building-life-cycle/partials/type6.html'"></div>
-                                            </div>
+
+
+                                                <div class="field">
+                                                    <label>System Type</label>
+                                                    <select
+                                                            dropdown
+                                                            class="ui dropdown" dropdown
+                                                            ma-change="selectedSystemCategoryChanged(value)"
+                                                            ng-model="selectedSystemCategory.selected">
+                                                        <option value="">Select</option>
+                                                        <option ng-repeat="system in systemCategories"
+                                                                value="{{system}}">{{system}}</option>
+                                                    </select>
+                                                </div>
+
+                                                <div>
+
+                                                    <div id="type1" ng-show="showType1">
+                                                        <div ng-include src="'javascripts/building-life-cycle/partials/type1.html'"></div>
+                                                    </div>
+                                                    <div id="type2" ng-show="showType2">
+                                                        <div ng-include src="'javascripts/building-life-cycle/partials/type2.html'"></div>
+                                                    </div>
+                                                    <div id="type3" ng-show="showType3">
+                                                        <div ng-include src="'javascripts/building-life-cycle/partials/type3.html'"></div>
+                                                    </div>
+                                                    <div id="type4" ng-show="showType4">
+                                                        <div ng-include src="'javascripts/building-life-cycle/partials/type4.html'"></div>
+                                                    </div>
+                                                    <div id="type5" ng-show="showType5">
+                                                        <div ng-include src="'javascripts/building-life-cycle/partials/type5.html'"></div>
+                                                    </div>
+                                                    <div id="type6" ng-show="showType6">
+                                                        <div ng-include src="'javascripts/building-life-cycle/partials/type6.html'"></div>
+                                                    </div>
+
+                                                </div>
                                         </div>
                                     </div>
                                 </div>
@@ -380,11 +387,11 @@
                         <h2>SYSTEMS</h2>
                         <div class="ui segment" style="height:300px; overflow:scroll">
                             <div class="details">
-                                <div ng-repeat="asset in assetList">
+                                <div ng-repeat="system in systemList">
                                     <div class="fluid accordion">
                                         <div class="active title">
-                                            <img class="ui mini avatar image" ng-click="removeAsset($index)" src="/assets/images/x-gray-dark.svg">
-                                            {{asset.category}}
+                                            <img class="ui mini avatar image" ng-click="removeSystem($index)" src="/assets/images/x-gray-dark.svg">
+                                            {{system}}
                                             <i class="blue dropdown icon"></i>
                                         </div>
                                         <div class="active content">
@@ -392,7 +399,7 @@
                                             {{asset.asset}}
                                             </div>  
                                             <div class="indent">
-                                                <div><i><span style="color:black">Comment: </span>{{asset.comment}}</i></div>
+
                                             </div>
                                         </div>
                                     </div>

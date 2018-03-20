@@ -7662,30 +7662,6 @@
         },
         "$": {
           "$ref": "#/definitions/xs:decimal"
-        },
-        "@auc:Source": {
-          "enum": [
-            "Default",
-            "Estimate",
-            "Agent",
-            "Assessor",
-            "Auditor",
-            "Product specification",
-            "Building Component Library",
-            "Utility transfer",
-            "Energy Management System",
-            "Direct measurement",
-            "Design files",
-            "Simulation",
-            "ENERGY STAR Portfolio Manager",
-            "US EPA",
-            "US EIA",
-            "Target Finder",
-            "Arch2030",
-            "ASHRAE",
-            "Other"
-          ],
-          "type": "string"
         }
       },
       "type": "object"
@@ -8026,30 +8002,6 @@
         },
         "$": {
           "$ref": "#/definitions/xs:decimal"
-        },
-        "@auc:Source": {
-          "enum": [
-            "Default",
-            "Estimate",
-            "Agent",
-            "Assessor",
-            "Auditor",
-            "Product specification",
-            "Building Component Library",
-            "Utility transfer",
-            "Energy Management System",
-            "Direct measurement",
-            "Design files",
-            "Simulation",
-            "ENERGY STAR Portfolio Manager",
-            "US EPA",
-            "US EIA",
-            "Target Finder",
-            "Arch2030",
-            "ASHRAE",
-            "Other"
-          ],
-          "type": "string"
         }
       },
       "type": "object"
@@ -10797,30 +10749,6 @@
         },
         "$": {
           "$ref": "#/definitions/xs:integer"
-        },
-        "@auc:Source": {
-          "enum": [
-            "Default",
-            "Estimate",
-            "Agent",
-            "Assessor",
-            "Auditor",
-            "Product specification",
-            "Building Component Library",
-            "Utility transfer",
-            "Energy Management System",
-            "Direct measurement",
-            "Design files",
-            "Simulation",
-            "ENERGY STAR Portfolio Manager",
-            "US EPA",
-            "US EIA",
-            "Target Finder",
-            "Arch2030",
-            "ASHRAE",
-            "Other"
-          ],
-          "type": "string"
         }
       },
       "type": "object"
@@ -11094,30 +11022,6 @@
         },
         "$": {
           "$ref": "#/definitions/xs:decimal"
-        },
-        "@auc:Source": {
-          "enum": [
-            "Default",
-            "Estimate",
-            "Agent",
-            "Assessor",
-            "Auditor",
-            "Product specification",
-            "Building Component Library",
-            "Utility transfer",
-            "Energy Management System",
-            "Direct measurement",
-            "Design files",
-            "Simulation",
-            "ENERGY STAR Portfolio Manager",
-            "US EPA",
-            "US EIA",
-            "Target Finder",
-            "Arch2030",
-            "ASHRAE",
-            "Other"
-          ],
-          "type": "string"
         }
       },
       "type": "object"
@@ -21839,19 +21743,6 @@
         "#": {
           "type": "string"
         },
-        "@ID": {
-          "$ref": "#/definitions/xs:ID"
-        },
-        "@auc:Status": {
-          "enum": [
-            "Existing",
-            "Proposed",
-            "Past",
-            "Reference",
-            "Other"
-          ],
-          "type": "string"
-        },
         "$": {
           "enum": [
             "Chiller",
@@ -21934,30 +21825,6 @@
                 },
                 "$": {
                   "$ref": "#/definitions/xs:decimal"
-                },
-                "@auc:Source": {
-                  "enum": [
-                    "Default",
-                    "Estimate",
-                    "Agent",
-                    "Assessor",
-                    "Auditor",
-                    "Product specification",
-                    "Building Component Library",
-                    "Utility transfer",
-                    "Energy Management System",
-                    "Direct measurement",
-                    "Design files",
-                    "Simulation",
-                    "ENERGY STAR Portfolio Manager",
-                    "US EPA",
-                    "US EIA",
-                    "Target Finder",
-                    "Arch2030",
-                    "ASHRAE",
-                    "Other"
-                  ],
-                  "type": "string"
                 }
               },
               "type": "object"
@@ -22047,30 +21914,6 @@
                 },
                 "$": {
                   "$ref": "#/definitions/xs:decimal"
-                },
-                "@auc:Source": {
-                  "enum": [
-                    "Default",
-                    "Estimate",
-                    "Agent",
-                    "Assessor",
-                    "Auditor",
-                    "Product specification",
-                    "Building Component Library",
-                    "Utility transfer",
-                    "Energy Management System",
-                    "Direct measurement",
-                    "Design files",
-                    "Simulation",
-                    "ENERGY STAR Portfolio Manager",
-                    "US EPA",
-                    "US EIA",
-                    "Target Finder",
-                    "Arch2030",
-                    "ASHRAE",
-                    "Other"
-                  ],
-                  "type": "string"
                 }
               },
               "type": "object"
@@ -27328,6 +27171,9 @@
                 }
               },
               "type": "object"
+
+
+
             },
             "auc:ZoningSystemType": {
               "additionalProperties": false,
@@ -27415,7 +27261,8 @@
               "$ref": "#/definitions/auc:CoolingPlantTypeType",
               "description": "Type of cooling plant. Zonal cooling is recorded in a separate data field. Use of fans or blowers by themselves without chilled air or water is not included in this definition of cooling. Stand-alone dehumidifiers are also not included."
             },
-            "auc:HeatingPlantType": {
+            "auc:HeatingPlantType":
+            {
               "additionalProperties": false,
               "description": "Type of central heating system, defined as any source of heating energy separate from the zone being heated. Local heating systems (such as packaged systems and fan-coils) are recorded in a separate data field.",
               "patternProperties": {
@@ -27431,6 +27278,17 @@
               },
               "properties": {
                 "#": {
+                  "type": "string"
+                },
+                "$": {
+                  "enum": [
+                    "Boiler",
+                    "DistrictHeating",
+                    "NoHeating",
+                    "OtherCombination",
+                    "SolarThermal",
+                    "Unknown"
+                  ],
                   "type": "string"
                 },
                 "auc:Boiler": {
@@ -37576,22 +37434,6 @@
         "#": {
           "type": "string"
         },
-        "@ID": {
-          "$ref": "#/definitions/xs:ID"
-        },
-        "@auc:Status": {
-          "enum": [
-            "Existing",
-            "Proposed",
-            "Past",
-            "Reference",
-            "Other"
-          ],
-          "type": "string"
-        },
-        "auc:ControlTechnology": {
-          "$ref": "#/definitions/.auc:ControlTechnology"
-        },
         "auc:Integration": {
           "additionalProperties": false,
           "description": "Level of integration with primary heating and cooling sources and delivery systems.",
@@ -37622,36 +37464,6 @@
             }
           },
           "type": "object"
-        },
-        "auc:LinkedDeliveryID": {
-          "additionalProperties": false,
-          "description": "Connect to an air distribution system",
-          "patternProperties": {
-            "^@xmlns(:\\w+)?$": {
-              "type": "string"
-            },
-            "^@xsi:\\w+$": {
-              "type": "string"
-            },
-            "^\\?\\w+$": {
-              "type": "string"
-            }
-          },
-          "properties": {
-            "#": {
-              "type": "string"
-            },
-            "$": {
-              "$ref": "#/definitions/xs:IDREF"
-            }
-          },
-          "type": "object"
-        },
-        "auc:LinkedPremises": {
-          "$ref": "#/definitions/.auc:LinkedPremises"
-        },
-        "auc:Location": {
-          "$ref": "#/definitions/.auc:Location"
         },
         "auc:Manufacturer": {
           "$ref": "#/definitions/.auc:Manufacturer"
@@ -37685,7 +37497,6 @@
                 "MechanicalVentilation",
                 "NaturalVentilation",
                 "OtherCombination",
-                "SpotExhaust",
                 "Unknown"
               ],
               "type": "string"
@@ -37798,30 +37609,6 @@
                     },
                     "$": {
                       "$ref": "#/definitions/xs:decimal"
-                    },
-                    "@auc:Source": {
-                      "enum": [
-                        "Default",
-                        "Estimate",
-                        "Agent",
-                        "Assessor",
-                        "Auditor",
-                        "Product specification",
-                        "Building Component Library",
-                        "Utility transfer",
-                        "Energy Management System",
-                        "Direct measurement",
-                        "Design files",
-                        "Simulation",
-                        "ENERGY STAR Portfolio Manager",
-                        "US EPA",
-                        "US EIA",
-                        "Target Finder",
-                        "Arch2030",
-                        "ASHRAE",
-                        "Other"
-                      ],
-                      "type": "string"
                     }
                   },
                   "type": "object"
@@ -37911,30 +37698,6 @@
                     },
                     "$": {
                       "$ref": "#/definitions/xs:decimal"
-                    },
-                    "@auc:Source": {
-                      "enum": [
-                        "Default",
-                        "Estimate",
-                        "Agent",
-                        "Assessor",
-                        "Auditor",
-                        "Product specification",
-                        "Building Component Library",
-                        "Utility transfer",
-                        "Energy Management System",
-                        "Direct measurement",
-                        "Design files",
-                        "Simulation",
-                        "ENERGY STAR Portfolio Manager",
-                        "US EPA",
-                        "US EIA",
-                        "Target Finder",
-                        "Arch2030",
-                        "ASHRAE",
-                        "Other"
-                      ],
-                      "type": "string"
                     }
                   },
                   "type": "object"
@@ -37995,137 +37758,11 @@
                 "auc:DutyCycle": {
                   "$ref": "#/definitions/.auc:DutyCycle"
                 },
-                "auc:MakeupAirSourceID": {
-                  "additionalProperties": false,
-                  "description": "ID number of the Space that provides makeup air for exhaust ventilation.",
-                  "patternProperties": {
-                    "^@xmlns(:\\w+)?$": {
-                      "type": "string"
-                    },
-                    "^@xsi:\\w+$": {
-                      "type": "string"
-                    },
-                    "^\\?\\w+$": {
-                      "type": "string"
-                    }
-                  },
-                  "properties": {
-                    "#": {
-                      "type": "string"
-                    },
-                    "$": {
-                      "$ref": "#/definitions/xs:IDREF"
-                    },
-                    "@IDref": {
-                      "$ref": "#/definitions/xs:IDREF"
-                    }
-                  },
-                  "type": "object"
-                },
-                "auc:RequiredVentilationRate": {
-                  "additionalProperties": false,
-                  "description": "Minimum ventilation rate required by local code. (cfm)",
-                  "patternProperties": {
-                    "^@xmlns(:\\w+)?$": {
-                      "type": "string"
-                    },
-                    "^@xsi:\\w+$": {
-                      "type": "string"
-                    },
-                    "^\\?\\w+$": {
-                      "type": "string"
-                    }
-                  },
-                  "properties": {
-                    "#": {
-                      "type": "string"
-                    },
-                    "$": {
-                      "$ref": "#/definitions/xs:decimal"
-                    },
-                    "@auc:Source": {
-                      "enum": [
-                        "Default",
-                        "Estimate",
-                        "Agent",
-                        "Assessor",
-                        "Auditor",
-                        "Product specification",
-                        "Building Component Library",
-                        "Utility transfer",
-                        "Energy Management System",
-                        "Direct measurement",
-                        "Design files",
-                        "Simulation",
-                        "ENERGY STAR Portfolio Manager",
-                        "US EPA",
-                        "US EIA",
-                        "Target Finder",
-                        "Arch2030",
-                        "ASHRAE",
-                        "Other"
-                      ],
-                      "type": "string"
-                    }
-                  },
-                  "type": "object"
-                },
-                "auc:SystemPerformanceRatio": {
-                  "$ref": "#/definitions/.auc:SystemPerformanceRatio"
-                },
                 "auc:ThirdPartyCertification": {
                   "$ref": "#/definitions/.auc:ThirdPartyCertification"
                 },
                 "auc:VentilationControlMethod": {
                   "$ref": "#/definitions/.auc:VentilationControlMethod"
-                },
-                "auc:VentilationRate": {
-                  "additionalProperties": false,
-                  "description": "Installed flow rate for mechanical ventilation system. (cfm)",
-                  "patternProperties": {
-                    "^@xmlns(:\\w+)?$": {
-                      "type": "string"
-                    },
-                    "^@xsi:\\w+$": {
-                      "type": "string"
-                    },
-                    "^\\?\\w+$": {
-                      "type": "string"
-                    }
-                  },
-                  "properties": {
-                    "#": {
-                      "type": "string"
-                    },
-                    "$": {
-                      "$ref": "#/definitions/xs:decimal"
-                    },
-                    "@auc:Source": {
-                      "enum": [
-                        "Default",
-                        "Estimate",
-                        "Agent",
-                        "Assessor",
-                        "Auditor",
-                        "Product specification",
-                        "Building Component Library",
-                        "Utility transfer",
-                        "Energy Management System",
-                        "Direct measurement",
-                        "Design files",
-                        "Simulation",
-                        "ENERGY STAR Portfolio Manager",
-                        "US EPA",
-                        "US EIA",
-                        "Target Finder",
-                        "Arch2030",
-                        "ASHRAE",
-                        "Other"
-                      ],
-                      "type": "string"
-                    }
-                  },
-                  "type": "object"
                 },
                 "auc:VentilationType": {
                   "additionalProperties": false,
@@ -38152,36 +37789,6 @@
                         "Dedicated outdoor air system",
                         "Heat recovery ventilator",
                         "Energy recovery ventilator",
-                        "Other",
-                        "Unknown"
-                      ],
-                      "type": "string"
-                    }
-                  },
-                  "type": "object"
-                },
-                "auc:VentilationZoneControl": {
-                  "additionalProperties": false,
-                  "description": "Method used to determine overall ventilation rate for multiple zones.",
-                  "patternProperties": {
-                    "^@xmlns(:\\w+)?$": {
-                      "type": "string"
-                    },
-                    "^@xsi:\\w+$": {
-                      "type": "string"
-                    },
-                    "^\\?\\w+$": {
-                      "type": "string"
-                    }
-                  },
-                  "properties": {
-                    "#": {
-                      "type": "string"
-                    },
-                    "$": {
-                      "enum": [
-                        "Average Flow",
-                        "Critical Zone",
                         "Other",
                         "Unknown"
                       ],
@@ -38272,36 +37879,9 @@
                     },
                     "$": {
                       "$ref": "#/definitions/xs:decimal"
-                    },
-                    "@auc:Source": {
-                      "enum": [
-                        "Default",
-                        "Estimate",
-                        "Agent",
-                        "Assessor",
-                        "Auditor",
-                        "Product specification",
-                        "Building Component Library",
-                        "Utility transfer",
-                        "Energy Management System",
-                        "Direct measurement",
-                        "Design files",
-                        "Simulation",
-                        "ENERGY STAR Portfolio Manager",
-                        "US EPA",
-                        "US EIA",
-                        "Target Finder",
-                        "Arch2030",
-                        "ASHRAE",
-                        "Other"
-                      ],
-                      "type": "string"
                     }
                   },
                   "type": "object"
-                },
-                "auc:VentilationControlMethod": {
-                  "$ref": "#/definitions/.auc:VentilationControlMethod"
                 }
               },
               "type": "object"
@@ -38309,212 +37889,15 @@
             "auc:OtherCombination": {
               "$ref": "#/definitions/xs:anyType"
             },
-            "auc:SpotExhaust": {
-              "additionalProperties": false,
-              "patternProperties": {
-                "^@xmlns(:\\w+)?$": {
-                  "type": "string"
-                },
-                "^@xsi:\\w+$": {
-                  "type": "string"
-                },
-                "^\\?\\w+$": {
-                  "type": "string"
-                }
-              },
-              "properties": {
-                "#": {
-                  "type": "string"
-                },
-                "auc:Capacity": {
-                  "$ref": "#/definitions/.auc:Capacity"
-                },
-                "auc:CapacityUnits": {
-                  "$ref": "#/definitions/.auc:CapacityUnits"
-                },
-                "auc:DutyCycle": {
-                  "$ref": "#/definitions/.auc:DutyCycle"
-                },
-                "auc:ExhaustLocation": {
-                  "additionalProperties": false,
-                  "description": "Location of spot exhaust ventilation system.",
-                  "patternProperties": {
-                    "^@xmlns(:\\w+)?$": {
-                      "type": "string"
-                    },
-                    "^@xsi:\\w+$": {
-                      "type": "string"
-                    },
-                    "^\\?\\w+$": {
-                      "type": "string"
-                    }
-                  },
-                  "properties": {
-                    "#": {
-                      "type": "string"
-                    },
-                    "$": {
-                      "enum": [
-                        "Bathroom",
-                        "Kitchen hood",
-                        "Laboratory hood",
-                        "Other",
-                        "Unknown"
-                      ],
-                      "type": "string"
-                    }
-                  },
-                  "type": "object"
-                },
-                "auc:MakeupAirSourceID": {
-                  "additionalProperties": false,
-                  "description": "ID number of the Space that provides makeup air for exhaust ventilation.",
-                  "patternProperties": {
-                    "^@xmlns(:\\w+)?$": {
-                      "type": "string"
-                    },
-                    "^@xsi:\\w+$": {
-                      "type": "string"
-                    },
-                    "^\\?\\w+$": {
-                      "type": "string"
-                    }
-                  },
-                  "properties": {
-                    "#": {
-                      "type": "string"
-                    },
-                    "$": {
-                      "$ref": "#/definitions/xs:IDREF"
-                    },
-                    "@IDref": {
-                      "$ref": "#/definitions/xs:IDREF"
-                    }
-                  },
-                  "type": "object"
-                },
-                "auc:RequiredVentilationRate": {
-                  "additionalProperties": false,
-                  "description": "Minimum ventilation rate required by local code. (cfm)",
-                  "patternProperties": {
-                    "^@xmlns(:\\w+)?$": {
-                      "type": "string"
-                    },
-                    "^@xsi:\\w+$": {
-                      "type": "string"
-                    },
-                    "^\\?\\w+$": {
-                      "type": "string"
-                    }
-                  },
-                  "properties": {
-                    "#": {
-                      "type": "string"
-                    },
-                    "$": {
-                      "$ref": "#/definitions/xs:decimal"
-                    },
-                    "@auc:Source": {
-                      "enum": [
-                        "Default",
-                        "Estimate",
-                        "Agent",
-                        "Assessor",
-                        "Auditor",
-                        "Product specification",
-                        "Building Component Library",
-                        "Utility transfer",
-                        "Energy Management System",
-                        "Direct measurement",
-                        "Design files",
-                        "Simulation",
-                        "ENERGY STAR Portfolio Manager",
-                        "US EPA",
-                        "US EIA",
-                        "Target Finder",
-                        "Arch2030",
-                        "ASHRAE",
-                        "Other"
-                      ],
-                      "type": "string"
-                    }
-                  },
-                  "type": "object"
-                },
-                "auc:SystemPerformanceRatio": {
-                  "$ref": "#/definitions/.auc:SystemPerformanceRatio"
-                },
-                "auc:ThirdPartyCertification": {
-                  "$ref": "#/definitions/.auc:ThirdPartyCertification"
-                },
-                "auc:VentilationControlMethod": {
-                  "$ref": "#/definitions/.auc:VentilationControlMethod"
-                },
-                "auc:VentilationRate": {
-                  "additionalProperties": false,
-                  "description": "Installed flow rate for mechanical ventilation system. (cfm)",
-                  "patternProperties": {
-                    "^@xmlns(:\\w+)?$": {
-                      "type": "string"
-                    },
-                    "^@xsi:\\w+$": {
-                      "type": "string"
-                    },
-                    "^\\?\\w+$": {
-                      "type": "string"
-                    }
-                  },
-                  "properties": {
-                    "#": {
-                      "type": "string"
-                    },
-                    "$": {
-                      "$ref": "#/definitions/xs:decimal"
-                    },
-                    "@auc:Source": {
-                      "enum": [
-                        "Default",
-                        "Estimate",
-                        "Agent",
-                        "Assessor",
-                        "Auditor",
-                        "Product specification",
-                        "Building Component Library",
-                        "Utility transfer",
-                        "Energy Management System",
-                        "Direct measurement",
-                        "Design files",
-                        "Simulation",
-                        "ENERGY STAR Portfolio Manager",
-                        "US EPA",
-                        "US EIA",
-                        "Target Finder",
-                        "Arch2030",
-                        "ASHRAE",
-                        "Other"
-                      ],
-                      "type": "string"
-                    }
-                  },
-                  "type": "object"
-                }
-              },
-              "type": "object"
-            },
             "auc:Unknown": {
               "$ref": "#/definitions/xs:anyType"
             }
           },
           "type": "object"
         },
-        "auc:PrimaryFuel": {
-          "$ref": "#/definitions/.auc:PrimaryFuel"
-        },
+
         "auc:Quantity": {
           "$ref": "#/definitions/.auc:Quantity"
-        },
-        "auc:UserDefinedFields": {
-          "$ref": "#/definitions/.auc:UserDefinedFields"
         },
         "auc:YearInstalled": {
           "$ref": "#/definitions/.auc:YearInstalled"

@@ -53,7 +53,7 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
         "Lighting System": buildingSyncSchema.definitions[".auc:Audits"].properties["auc:Audit"].anyOf["0"].properties["auc:Systems"].properties["auc:LightingSystems"]
     };
 
-
+    $scope.format = 'hh:mm:ss';
     $scope.building = {};
     $scope.building.buildingName = 'example buildingName';
     $scope.building.addressStreet = 'example street';
@@ -90,8 +90,6 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
     $scope.selectedSystemCategory = {};
     $scope.selectedSystem = {};
 
-
-
     $scope.system = {};
 
     $scope.measures = {'list': [] };
@@ -117,6 +115,8 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
     };
 
     $scope.selectedSystemCategoryChanged = function() {
+        $scope.system = {};
+     console.log('selectedSystemCategoryChanged');
         if ($scope.selectedSystemCategory.selected == "Domestic Hot Water System") {
             $scope.showType1 = true;
             $scope.showType2 = false;
@@ -124,13 +124,6 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
             $scope.showType4 = false;
             $scope.showType5 = false;
             $scope.showType6 = false;
-
-            $scope.system['auc:DomesticHotWaterSystems'] = {};
-            $scope.system['auc:DomesticHotWaterSystems']['auc:DomesticHotWaterSystem'] = {};
-            $scope.system['auc:DomesticHotWaterSystems']['auc:DomesticHotWaterSystem']['auc:DomesticHotWaterSystemType'] = {};
-            $scope.system['auc:DomesticHotWaterSystems']['auc:DomesticHotWaterSystem']['auc:DomesticHotWaterSystemType']['auc:DomesticHotWaterType'] = {};
-            $scope.system['auc:DomesticHotWaterSystems']['auc:DomesticHotWaterSystem']['auc:DomesticHotWaterSystemType']['auc:DomesticHotWaterType'].$ = "Instantaneous";
-
         }
         if ($scope.selectedSystemCategory.selected == "Fan System") {
             $scope.showType1 = false;
@@ -174,10 +167,6 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
         }
     };
 
-    $scope.selectedSystemChanged = function() {
-        console.log('selectedsystemChanged');
-    };
-
     $scope.addSystemToList = function() {
         console.log('system added: ', $scope.system);
         console.log('system type: ',  $scope.selectedSystemCategory.selected);
@@ -189,6 +178,7 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
     };
 
     $scope.removeSystem = function(index) {
+        console.log('removing ', index);
        $scope.systemList.splice(index, 1);
     };
 
@@ -269,6 +259,7 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
         var systems = { };
         if ($scope.systemList.length > 0) {
             audits['auc:Audit']['auc:Systems'] = {};
+            // in the future -> angular.toJson(obj);
             audits['auc:Audit']['auc:Systems'] = $scope.systemList;
         }
 

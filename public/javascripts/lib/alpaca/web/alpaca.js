@@ -832,7 +832,7 @@ this["HandlebarsPrecompiled"]["web-edit"]["control-checkbox"] = Handlebars.templ
 },"11":function(container,depth0,helpers,partials,data) {
     var stack1, helper, alias1=depth0 != null ? depth0 : {};
 
-  return "\n        <div>\n\n                <input type=\"checkbox\" "
+  return "\n        <div class=\"ui checkbox\">\n\n                <input type=\"checkbox\" "
     + ((stack1 = helpers["if"].call(alias1,((stack1 = (depth0 != null ? depth0.data : depth0)) != null ? stack1.length : stack1),{"name":"if","hash":{},"fn":container.program(3, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + " "
     + ((stack1 = helpers["if"].call(alias1,((stack1 = (depth0 != null ? depth0.options : depth0)) != null ? stack1.readonly : stack1),{"name":"if","hash":{},"fn":container.program(5, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
@@ -854,7 +854,7 @@ this["HandlebarsPrecompiled"]["web-edit"]["control-checkbox"] = Handlebars.templ
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data,blockParams,depths) {
     var stack1;
 
-  return "<script type=\"text/x-handlebars-template\">\n\n<div class=\"ui checkbox\">\n"
+  return "<script type=\"text/x-handlebars-template\">\n\n<div class=\"field\">\n"
     + ((stack1 = helpers["if"].call(depth0 != null ? depth0 : {},((stack1 = (depth0 != null ? depth0.options : depth0)) != null ? stack1.multiple : stack1),{"name":"if","hash":{},"fn":container.program(1, data, 0, blockParams, depths),"inverse":container.program(11, data, 0, blockParams, depths),"data":data})) != null ? stack1 : "")
     + "</div>\n</script>\n";
 },"useData":true,"useDepths":true});
@@ -1236,9 +1236,9 @@ this["HandlebarsPrecompiled"]["web-edit"]["control-text"] = Handlebars.template(
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1, helper, alias1=depth0 != null ? depth0 : {}, alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
 
-  return "<script type=\"text/x-handlebars-template\">\n\n<div class=\"field\">\n	<label>"
+  return "<script type=\"text/x-handlebars-template\">\n\n<div class=\"field\">\n\n	<label>"
     + alias4(((helper = (helper = helpers.shortName || (depth0 != null ? depth0.shortName : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"shortName","hash":{},"data":data}) : helper)))
-    + "</label>\n    <input type=\""
+    + "</label>\n\n    <input type=\""
     + alias4(((helper = (helper = helpers.inputType || (depth0 != null ? depth0.inputType : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"inputType","hash":{},"data":data}) : helper)))
     + "\" id=\""
     + alias4(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"id","hash":{},"data":data}) : helper)))
@@ -2916,7 +2916,7 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
 
             if (schema && typeof(schema["enum"]) !== "undefined")
             {
-                if (schema["enum"].length > 3)
+                if (schema["enum"].length > 0)
                 {
                     type = "select";
                 }
@@ -3871,16 +3871,16 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
                     var fin = function()
                     {
                         // if this is the top-level alpaca field, we apply some additional CSS classes
-                        if (!field.parent)
-                        {
-                            field.getFieldEl().addClass("alpaca-" + self.getNormalizedView(view).type);
-                        }
+                        // if (!field.parent)
+                        // {
+                        //     field.getFieldEl().addClass("alpaca-" + self.getNormalizedView(view).type);
+                        // }
 
                         // if this is the top-level alpaca field, we mark as top
-                        if (!field.parent)
-                        {
-                            field.getFieldEl().addClass("alpaca-top");
-                        }
+                        // if (!field.parent)
+                        // {
+                        //     field.getFieldEl().addClass("alpaca-top");
+                        // }
 
                         /*
                         // if this is the top-level alpaca field, then we call for validation state to be recalculated across
@@ -5406,7 +5406,7 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
             // valid?
             if (entry.valid)
             {
-                field.getFieldEl().addClass("alpaca-field-valid");
+                // field.getFieldEl().addClass("alpaca-field-valid");
                 field.fireCallback("valid");
             }
             else
@@ -8697,7 +8697,7 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
          *
          * @class Abstract class that served as base for all Alpaca field classes that provide actual implementation.
          *
-         * @param {Object} domEl The dom element to which this field is ultimately rendering.
+         * @param {Object} domEl The dom element to which this field is ultimately renderigetFullPath.
          * @param {Any} data Field data
          * @param {Object} options Field options.
          * @param {Object} schema Field schema.
@@ -9557,7 +9557,7 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
                 }
                 else
                 {
-                    $(this.field).addClass("alpaca-optional");
+                    // $(this.field).addClass("alpaca-optional");
 
                     // CALLBACK: "optional"
                     self.fireCallback("optional");
@@ -9927,7 +9927,7 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
         },
 
         getShortName: function() {
-            return this.name.split(":").pop();
+            return this.name.split(":").pop().replace('_$', '').replace(/([A-Z])/g, ' $1').replace(/^./, function(str){ return str.toUpperCase(); });
         },
 
         getTadasDescription: function() {
@@ -9942,6 +9942,18 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
                 partsBracketsNotation[i] = '[\'' + withNamespace + '\']';
             }
             return 'system' + '[\''+ 'auc:' +parts[0]+"s" +'\']' + partsBracketsNotation.join('');
+            
+
+        },
+
+        getParentPath: function() {
+            var parts = this.name.split("_");
+            var partsBracketsNotation = [];
+            for (var i = 0; i < parts.length-3; i++) {
+                var withNamespace = (parts[i].startsWith("auc:") || parts[i].startsWith("@") || parts[i].startsWith("$"))  ? parts[i] : 'auc:'+parts[i];
+                partsBracketsNotation[i] = '[\'' + withNamespace + '\']';
+            }
+            return 'system' + '[\''+ 'auc:' +parts[0]+"s" +'\']' + partsBracketsNotation.join('') + '[\'$\']';
             
 
         },
@@ -11664,7 +11676,7 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
                                 self.control.replaceWith(controlField);
                                 self.control = controlField;
 
-                                self.control.addClass(Alpaca.CLASS_CONTROL);
+                                // self.control.addClass(Alpaca.CLASS_CONTROL);
                             }
 
                             // CALLBACK: "control"
@@ -11694,6 +11706,7 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
                 model.name = this.name;
                 model.shortName = this.getShortName();
                 model.ngModel = this.getFullPath();
+                model.parentPath = this.getParentPath();
                 model.tadasDescription = "maybe put description in the future";
                 model.options = this.options;
                 model.schema = this.schema;
@@ -12791,18 +12804,18 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
                             self.container.replaceWith(containerField);
                             self.container = containerField;
 
-                            self.container.addClass(Alpaca.CLASS_CONTAINER);
+                            // self.container.addClass(Alpaca.CLASS_CONTAINER);
                         }
 
                         // mark the form field with "alpaca-horizontal" or "alpaca-vertical"
-                        if (self.view.horizontal)
-                        {
-                            self.container.addClass("alpaca-horizontal");
-                        }
-                        else
-                        {
-                            self.container.addClass("alpaca-vertical");
-                        }
+                        // if (self.view.horizontal)
+                        // {
+                        //     self.container.addClass("alpaca-horizontal");
+                        // }
+                        // else
+                        // {
+                        //     self.container.addClass("alpaca-vertical");
+                        // }
 
                         // CALLBACK: "container"
                         self.fireCallback("container");
@@ -12986,16 +12999,16 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
 
             }
 
-            if (model.items.length > 0)
-            {
-                $(self.container).addClass("alpaca-container-has-items");
-                $(self.container).attr("data-alpaca-container-item-count", model.items.length);
-            }
-            else
-            {
-                $(self.container).removeClass("alpaca-container-has-items");
-                $(self.container).removeAttr("data-alpaca-container-item-count");
-            }
+            // if (model.items.length > 0)
+            // {
+            //     $(self.container).addClass("alpaca-container-has-items");
+            //     $(self.container).attr("data-alpaca-container-item-count", model.items.length);
+            // }
+            // else
+            // {
+            //     $(self.container).removeClass("alpaca-container-has-items");
+            //     $(self.container).removeAttr("data-alpaca-container-item-count");
+            // }
 
             for (var i = 0; i < model.items.length; i++)
             {
@@ -13041,21 +13054,21 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
                     $(insertionPoint).remove();
                 }
 
-                $(item.containerItemEl).addClass("alpaca-container-item");
+                // $(item.containerItemEl).addClass("alpaca-container-item");
 
-                if (i === 0)
-                {
-                    $(item.containerItemEl).addClass("alpaca-container-item-first");
-                }
+                // if (i === 0)
+                // {
+                //     $(item.containerItemEl).addClass("alpaca-container-item-first");
+                // }
 
-                if (i + 1 === model.items.length)
-                {
-                    $(item.containerItemEl).addClass("alpaca-container-item-last");
-                }
+                // if (i + 1 === model.items.length)
+                // {
+                //     $(item.containerItemEl).addClass("alpaca-container-item-last");
+                // }
 
-                $(item.containerItemEl).attr("data-alpaca-container-item-index", i);
-                $(item.containerItemEl).attr("data-alpaca-container-item-name", item.name);
-                $(item.containerItemEl).attr("data-alpaca-container-item-parent-field-id", self.getId());
+                // // $(item.containerItemEl).attr("data-alpaca-container-item-index", i);
+                // $(item.containerItemEl).attr("data-alpaca-container-item-name", item.name);
+                // $(item.containerItemEl).attr("data-alpaca-container-item-parent-field-id", self.getId());
 
                 // register the child
                 self.registerChild(item, i);
@@ -13140,16 +13153,16 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
 
             this.base();
 
-            if (self.children.length > 0)
-            {
-                $(self.getContainerEl()).addClass("alpaca-container-has-items");
-                $(self.getContainerEl()).attr("data-alpaca-container-item-count", self.children.length);
-            }
-            else
-            {
-                $(self.getContainerEl()).removeClass("alpaca-container-has-items");
-                $(self.getContainerEl()).removeAttr("data-alpaca-container-item-count");
-            }
+            // if (self.children.length > 0)
+            // {
+            //     $(self.getContainerEl()).addClass("alpaca-container-has-items");
+            //     $(self.getContainerEl()).attr("data-alpaca-container-item-count", self.children.length);
+            // }
+            // else
+            // {
+            //     $(self.getContainerEl()).removeClass("alpaca-container-has-items");
+            //     $(self.getContainerEl()).removeAttr("data-alpaca-container-item-count");
+            // }
 
             for (var i = 0; i < self.children.length; i++)
             {
@@ -13175,20 +13188,20 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
                 $(child.containerItemEl).removeClass("alpaca-container-item-index");
                 $(child.containerItemEl).removeClass("alpaca-container-item-key");
 
-                $(child.containerItemEl).addClass("alpaca-container-item");
+                // $(child.containerItemEl).addClass("alpaca-container-item");
 
-                if (i === 0)
-                {
-                    $(child.containerItemEl).addClass("alpaca-container-item-first");
-                }
-                if (i + 1 === self.children.length)
-                {
-                    $(child.containerItemEl).addClass("alpaca-container-item-last");
-                }
+                // if (i === 0)
+                // {
+                //     $(child.containerItemEl).addClass("alpaca-container-item-first");
+                // }
+                // if (i + 1 === self.children.length)
+                // {
+                //     $(child.containerItemEl).addClass("alpaca-container-item-last");
+                // }
 
-                $(child.containerItemEl).attr("data-alpaca-container-item-index", i);
-                $(child.containerItemEl).attr("data-alpaca-container-item-name", child.name);
-                $(child.containerItemEl).attr("data-alpaca-container-item-parent-field-id", self.getId());
+                // $(child.containerItemEl).attr("data-alpaca-container-item-index", i);
+                // $(child.containerItemEl).attr("data-alpaca-container-item-name", child.name);
+                // $(child.containerItemEl).attr("data-alpaca-container-item-parent-field-id", self.getId());
 
                 self.updateChildDOMWrapperElement(i, child);
 
@@ -13582,15 +13595,15 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
                 }
             }
 
-            if (this.attributes.id)
-            {
-                this.id = this.attributes.id;
-            }
-            else
-            {
-                this.id = Alpaca.generateId();
-                this.attributes.id = this.id;
-            }
+            // if (this.attributes.id)
+            // {
+            //     this.id = this.attributes.id;
+            // }
+            // else
+            // {
+            //     this.id = Alpaca.generateId();
+            //     this.attributes.id = this.id;
+            // }
 
             // if we have a submit button specified, and toggleSubmitValidState isn't defined, set to true by default
             // don't allow the form to submit unless valid
@@ -13630,7 +13643,7 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
                 self.form.appendTo(self.domEl);
 
                 // add default class
-                self.form.addClass("alpaca-form");
+                // self.form.addClass("alpaca-form");
 
                 // CALLBACK: "form"
                 self.fireCallback("form");
@@ -15275,8 +15288,8 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
             // autocomplete
             if (typeof(self.options.autocomplete) !== "undefined")
             {
-                $(self.field).addClass("alpaca-autocomplete");
-                $(self.control).attr("autocomplete", (self.options.autocomplete ? "on" : "off"));
+                // $(self.field).addClass("alpaca-autocomplete");
+                // $(self.control).attr("autocomplete", (self.options.autocomplete ? "on" : "off"));
 
                 // CALLBACK: "autocomplete"
                 self.fireCallback("autocomplete");

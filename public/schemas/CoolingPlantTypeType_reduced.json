@@ -16,19 +16,6 @@
       "#": {
         "type": "string"
       },
-      "@ID": {
-        "$ref": "#/definitions/xs:ID"
-      },
-      "@auc:Status": {
-        "enum": [
-          "Existing",
-          "Proposed",
-          "Past",
-          "Reference",
-          "Other"
-        ],
-        "type": "string"
-      },
       "$": {
         "enum": [
           "Chiller",
@@ -111,30 +98,6 @@
               },
               "$": {
                 "$ref": "#/definitions/xs:decimal"
-              },
-              "@auc:Source": {
-                "enum": [
-                  "Default",
-                  "Estimate",
-                  "Agent",
-                  "Assessor",
-                  "Auditor",
-                  "Product specification",
-                  "Building Component Library",
-                  "Utility transfer",
-                  "Energy Management System",
-                  "Direct measurement",
-                  "Design files",
-                  "Simulation",
-                  "ENERGY STAR Portfolio Manager",
-                  "US EPA",
-                  "US EIA",
-                  "Target Finder",
-                  "Arch2030",
-                  "ASHRAE",
-                  "Other"
-                ],
-                "type": "string"
               }
             },
             "type": "object"
@@ -145,7 +108,7 @@
           "auc:CapacityUnits": {
             "$ref": "#/definitions/.auc:CapacityUnits"
           },
-          "auc:ChillerType": {
+            "auc:ChillerType": {
             "additionalProperties": false,
             "description": "Vehicle for driving the compressor used in a chiller",
             "patternProperties": {
@@ -224,30 +187,6 @@
               },
               "$": {
                 "$ref": "#/definitions/xs:decimal"
-              },
-              "@auc:Source": {
-                "enum": [
-                  "Default",
-                  "Estimate",
-                  "Agent",
-                  "Assessor",
-                  "Auditor",
-                  "Product specification",
-                  "Building Component Library",
-                  "Utility transfer",
-                  "Energy Management System",
-                  "Direct measurement",
-                  "Design files",
-                  "Simulation",
-                  "ENERGY STAR Portfolio Manager",
-                  "US EPA",
-                  "US EIA",
-                  "Target Finder",
-                  "Arch2030",
-                  "ASHRAE",
-                  "Other"
-                ],
-                "type": "string"
               }
             },
             "type": "object"
@@ -257,7 +196,7 @@
           },
           "auc:CapacityUnits": {
             "$ref": "#/definitions/.auc:CapacityUnits"
-          },
+          }
         },
         "type": "object"
       },
