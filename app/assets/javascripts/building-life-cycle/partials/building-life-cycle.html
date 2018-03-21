@@ -387,21 +387,17 @@
                         <h2>SYSTEMS</h2>
                         <div class="ui segment" style="height:300px; overflow:scroll">
                             <div class="details">
-                                <div ng-repeat="system in systemList">
-                                    <div class="fluid accordion">
+
+                                <div ng-repeat="system in systemList track by $index">
+                                    <div class="fluid">
+                                        <div id='output'></div>
                                         <div class="active title">
                                             <img class="ui mini avatar image" ng-click="removeSystem($index)" src="/assets/images/x-gray-dark.svg">
-                                            {{getSystemName(system)}}
-
                                             <i class="blue dropdown icon"></i>
                                         </div>
                                         <div class="active content">
-                                            <div class="subtitle">
-                                            {{asset.asset}}
-                                            </div>  
-                                            <div class="indent" ng-while="component in system">
-                                                {{getFirstKey(system)}}
-                                                {{getSecondKey(system)}}
+                                            <div class="indent">
+                                                <render-system system="system"></render-system>
                                             </div>
                                         </div>
                                     </div>

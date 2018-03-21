@@ -183,6 +183,18 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
         return Object.keys(level1[key2])[0];
     };
 
+    $scope.propertyHasChildren = function(input) {
+        return angular.isObject(Object.keys(input)[0]);
+    };
+
+//    $scope.printObject = function(object) {
+//        var keys = Object.keys(object);
+//        for (var i = 0; i < keys.length; i++) {
+//
+//        }
+//        return
+//    };
+
     $scope.addSystemToList = function() {
         console.log('system added: ', $scope.system);
         console.log('system type: ',  $scope.selectedSystemCategory.selected);

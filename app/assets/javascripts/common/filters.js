@@ -17,6 +17,17 @@ define(['angular'], function(angular) {
         return value[property];
       }
     }
-  });
+  })
+  .filter('titleCase', function () {
+     return function(object) {
+       if (object !== undefined) {
+         return object.replace(/([A-Z][a-z])/g, ' $1')
+           .replace(/^./, function (str) {
+             return str.toUpperCase();
+           });
+       }
+     };
+   });
+
   return mod;
 });
