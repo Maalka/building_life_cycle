@@ -34,8 +34,6 @@ define(['angular', './main'], function(angular) {
             }).map( function(key) {
                 value = $scope.part[key];
                 if (key !== '$' && typeof value === "object") {
-
-                    console.log('go value: ', value);
                     return {
                         part: value,
                         key: key,
@@ -43,11 +41,8 @@ define(['angular', './main'], function(angular) {
                         recurse: true
                     };
                 } else {
-
-//                    console.log('not object key', key);
-//                    console.log('not object value', value);
                     return {
-                        part: value,//key === '$' ? value.$ : value,
+                        part: value,
                         key: key,
                         depth: depth + 1,
                         recurse: false
@@ -56,7 +51,6 @@ define(['angular', './main'], function(angular) {
             }
 
             );
-            console.log('thid: ', $scope.segments);
         }]
         };
        }]);

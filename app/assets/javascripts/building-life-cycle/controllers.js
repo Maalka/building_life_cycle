@@ -114,9 +114,18 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
 
     };
 
+    $scope.systemAdded = function(systemName) {
+        if ($scope.systemList.filter( function (system) {
+            return Object.keys(system)[0] === systemName;
+        }).length > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    };
+
     $scope.selectedSystemCategoryChanged = function() {
         $scope.system = {};
-     console.log('selectedSystemCategoryChanged');
         if ($scope.selectedSystemCategory.selected == "Domestic Hot Water System") {
             $scope.showType1 = true;
             $scope.showType2 = false;
@@ -187,17 +196,7 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
         return angular.isObject(Object.keys(input)[0]);
     };
 
-//    $scope.printObject = function(object) {
-//        var keys = Object.keys(object);
-//        for (var i = 0; i < keys.length; i++) {
-//
-//        }
-//        return
-//    };
-
     $scope.addSystemToList = function() {
-        console.log('system added: ', $scope.system);
-        console.log('system type: ',  $scope.selectedSystemCategory.selected);
         $scope.systemList.push($scope.system);
     };
 
@@ -284,11 +283,30 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
                         }
         };
 
+        $scope.removeMeta = function(obj) {
+            console.log('called rem meta');
+          for(var prop in obj) {
+            if (prop === '$')
+              delete obj[prop];
+            else if (typeof obj[prop] === 'object')
+               $scope.removeMeta(obj[prop]);
+          }
+        };
+
+
         var systems = { };
         if ($scope.systemList.length > 0) {
             audits['auc:Audit']['auc:Systems'] = {};
             // in the future -> angular.toJson(obj);
-            audits['auc:Audit']['auc:Systems'] = $scope.systemList;
+            for (var j = 0; j < $scope.systemList.length; j++) {
+
+                var key = Object.keys($scope.systemList[j])[0];
+                var rem = $scope.filterObject($scope.systemList[j], '$');
+                console.log('rem: ', rem);
+                var cloned = {};
+//                clone(cloned, $scope.systemList[j][key]);
+                audits['auc:Audit']['auc:Systems'][key] = cloned;
+            }
         }
 
         if ($scope.measures.list.length > 0) {

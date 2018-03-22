@@ -205,22 +205,22 @@
                                                 <div>
 
                                                     <div id="type1" ng-show="showType1">
-                                                        <div ng-include src="'javascripts/building-life-cycle/partials/type1.html'"></div>
+                                                        <div ng-include src="'javascripts/building-life-cycle/partials/DomesticHotWaterSystem.html'"></div>
                                                     </div>
                                                     <div id="type2" ng-show="showType2">
-                                                        <div ng-include src="'javascripts/building-life-cycle/partials/type2.html'"></div>
+                                                        <div ng-include src="'javascripts/building-life-cycle/partials/FanSystem.html'"></div>
                                                     </div>
                                                     <div id="type3" ng-show="showType3">
-                                                        <div ng-include src="'javascripts/building-life-cycle/partials/type3.html'"></div>
+                                                        <div ng-include src="'javascripts/building-life-cycle/partials/HVACSystem.html'"></div>
                                                     </div>
                                                     <div id="type4" ng-show="showType4">
-                                                        <div ng-include src="'javascripts/building-life-cycle/partials/type4.html'"></div>
+                                                        <div ng-include src="'javascripts/building-life-cycle/partials/FenestrationSystem.html'"></div>
                                                     </div>
                                                     <div id="type5" ng-show="showType5">
-                                                        <div ng-include src="'javascripts/building-life-cycle/partials/type5.html'"></div>
+                                                        <div ng-include src="'javascripts/building-life-cycle/partials/HeatRecoverySystem.html'"></div>
                                                     </div>
                                                     <div id="type6" ng-show="showType6">
-                                                        <div ng-include src="'javascripts/building-life-cycle/partials/type6.html'"></div>
+                                                        <div ng-include src="'javascripts/building-life-cycle/partials/LightingSystem.html'"></div>
                                                     </div>
 
                                                 </div>
@@ -329,7 +329,8 @@
                                 <table class="ui very basic table">
                                     <tr>
                                         <td class="top aligned collapsing">
-                                            <img class="ui avatar image" src="/assets/images/check-blue-light.svg"/>
+                                            <img ng-if="systemAdded('auc:HVACSystems')" class="ui avatar image" src="/assets/images/check-blue-light.svg"/>
+                                            <img ng-if="!systemAdded('auc:HVACSystems')" class="ui avatar image" src="/assets/images/x-red-light.svg"/>
                                         </td>
                                         <td>
                                             HVAC Systems
@@ -337,7 +338,8 @@
                                     </tr>
                                     <tr>
                                         <td class="top aligned collapsing">
-                                            <img class="ui avatar image" src="/assets/images/x-red-light.svg"/>
+                                            <img ng-if="systemAdded('auc:DomesticHotWaterSystems')" class="ui avatar image" src="/assets/images/check-blue-light.svg"/>
+                                            <img ng-if="!systemAdded('auc:DomesticHotWaterSystems')" class="ui avatar image" src="/assets/images/x-red-light.svg"/>
                                         </td>
                                         <td>
                                             Domestic Home Water Systems
@@ -345,7 +347,8 @@
                                     </tr>
                                     <tr>
                                         <td class="top aligned collapsing">
-                                            <img class="ui avatar image" src="/assets/images/x-red-light.svg"/>
+                                            <img ng-if="systemAdded('auc:FanSystems')" class="ui avatar image" src="/assets/images/check-blue-light.svg"/>
+                                            <img ng-if="!systemAdded('auc:FanSystems')" class="ui avatar image" src="/assets/images/x-red-light.svg"/>
                                         </td>
                                         <td>
                                             Fan Systems
@@ -353,7 +356,8 @@
                                     </tr>
                                     <tr>
                                         <td class="top aligned collapsing">
-                                            <img class="ui avatar image" src="/assets/images/x-red-light.svg"/>
+                                            <img ng-if="systemAdded('auc:FenestrationSystems')" class="ui avatar image" src="/assets/images/check-blue-light.svg"/>
+                                            <img ng-if="!systemAdded('auc:FenestrationSystems')" class="ui avatar image" src="/assets/images/x-red-light.svg"/>
                                         </td>
                                         <td>
                                             Fenestration Systems
@@ -361,7 +365,8 @@
                                     </tr>
                                     <tr>
                                         <td class="top aligned collapsing">
-                                            <img class="ui avatar image" src="/assets/images/x-red-light.svg"/>
+                                            <img ng-if="systemAdded('auc:HeatRecoverySystems')" class="ui avatar image" src="/assets/images/check-blue-light.svg"/>
+                                            <img ng-if="!systemAdded('auc:HeatRecoverySystems')" class="ui avatar image" src="/assets/images/x-red-light.svg"/>
                                         </td>
                                         <td>
                                             Heat Recovery Systems
@@ -369,7 +374,9 @@
                                     </tr>
                                     <tr>
                                         <td class="top aligned collapsing">
-                                            <img class="ui avatar image" src="/assets/images/x-red-light.svg"/>
+                                            <img ng-if="systemAdded('auc:LightingSystems')" class="ui avatar image" src="/assets/images/check-blue-light.svg"/>
+                                            <img ng-if="!systemAdded('auc:LightingSystems')" class="ui avatar image" src="/assets/images/x-red-light.svg"/>
+                                        </td>
                                         </td>
                                         <td>
                                             Lighting Systems

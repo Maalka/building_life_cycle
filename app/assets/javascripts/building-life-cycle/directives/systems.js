@@ -12,9 +12,6 @@ define(['angular', './main'], function(angular) {
             },
         templateUrl: "javascripts/building-life-cycle/partials/system.html",
         controller: ['$scope', '$element', function ($scope, $element) {
-            console.log('inside of directive');
-            console.log('element:', $element );
-
         }]
         };
        }]);
