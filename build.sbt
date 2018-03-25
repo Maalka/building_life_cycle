@@ -1,6 +1,6 @@
 import WebKeys._
 
-name := "data_quality_tool"
+name := "building_life_cycle"
 organization in ThisBuild := "com.maalka"
 
 version := "1.2.0.0"
