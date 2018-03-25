@@ -45,7 +45,7 @@ libraryDependencies ++= Seq(
   "org.webjars" % "highstock" % "4.2.3",
   "org.webjars" % "matchmedia-ng" % "1.0.5",
   "org.webjars.bower" % "json-formatter" % "0.2.7",
-  "org.webjars.bower" % "ng-file-upload" % "12.2.13",
+  "org.webjars.bower" % "ng-file-upload" % "12.2.13" exclude("org.webjars.bower", "angular"),
   "org.webjars.bower" % "ng-csv" % "0.3.6",
   "org.webjars.bower" % "ngInfiniteScroll" % "1.3.0",
   "org.webjars.bower" % "moment" % "2.18.1",
