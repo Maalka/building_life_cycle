@@ -1,7 +1,7 @@
 <div>
     <div style="margin-left: 10px;" ng-repeat="segment in segments">
     <span>
-        <span style="color:black" ng-if="segment.key !== '$'">{{segment.key | systemLabel | titleCase }}: </span>
+        <span style="color:black" ng-if="segment.key !== '$' && segment.depth > 2">{{segment.key | systemLabel | titleCase }}: </span>
         <span style="color:gray" ng-if="segment.recurse === true && segment.part !== undefined">
             <span systems-recursive part = "segment.part" depth = "segment.depth" ></span>
         </span>
