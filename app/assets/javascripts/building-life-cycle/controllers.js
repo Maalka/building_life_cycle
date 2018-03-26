@@ -299,19 +299,9 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
             audits['auc:Audit']['auc:Systems'] = {};
             // in the future -> angular.toJson(obj);
             for (var j = 0; j < $scope.systemList.length; j++) {
-
                 var key = Object.keys($scope.systemList[j])[0];
-                var rem = $scope.filterObject($scope.systemList[j], '$');
-                console.log('rem: ', rem);
-                var cloned = {};
-//                clone(cloned, $scope.systemList[j][key]);
-                audits['auc:Audit']['auc:Systems'][key] = cloned;
+                audits['auc:Audit']['auc:Systems'][key] = $scope.systemList[j][key];
             }
-        }
-
-        if ($scope.measures.list.length > 0) {
-            audits['auc:Measures'] = {};
-            audits['auc:Measures'] = { 'auc:Measure': generateMeasures };
         }
 
         var generateMeasures = [];
@@ -345,6 +335,11 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
                 }
             };
             generateMeasures.push(mes);
+        }
+
+        if ($scope.measures.list.length > 0) {
+            audits['auc:Measures'] = {};
+            audits['auc:Measures'] = { 'auc:Measure': generateMeasures };
         }
 
         var out = {
