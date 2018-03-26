@@ -19,6 +19,9 @@ h2 {
 .ui.checkbox {
     padding-top:5px !important;
 }
+.ui.mini.icon.button {
+    padding:3px;
+}
 .site {
   display: flex;
   min-height: 100vh;

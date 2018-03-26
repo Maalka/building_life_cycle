@@ -36,10 +36,12 @@
                         </p>
                     </div>
                 </div>
+                <!--
                 <div class="ui hidden divider"></div>
                     <h2 class="ui header">UPLOAD DATA:
                         <button class="ui blue button" style="margin-left:10px">Upload</button>
                     </h2>
+                -->
                 <div class="ui hidden divider"></div>
                 <h2>BUILDING INFORMATION</h2>
                 <div class="ui very padded segment">
@@ -400,18 +402,21 @@
                 <div class="ui two column grid">
                     <div class="column">                
                         <h2>SYSTEMS</h2>
-                        <div class="ui segment" style="height:300px; overflow:scroll">
+                        <div class="ui segment" style="height:400px; overflow:scroll">
                             <div class="details">
 
                                 <div ng-repeat="system in systemList track by $index">
-                                    <div class="fluid">
+                                    <div class="fluid accordion">
                                         <div id='output'></div>
                                         <div class="active title">
-                                            <img class="ui mini avatar image" ng-click="removeSystem($index)" src="/assets/images/x-gray-dark.svg">
+                                            <button class="ui mini circular icon button" ng-click="removeSystem($index)">
+                                                <i class="remove icon"></i>
+                                            </button>
+                                            {{getFirstKey(system) | systemLabel | titleCase}}
                                             <i class="blue dropdown icon"></i>
                                         </div>
                                         <div class="active content">
-                                            <div class="indent">
+                                            <div>
                                                 <render-system system="system"></render-system>
                                             </div>
                                         </div>
@@ -425,13 +430,15 @@
                     </div>
                     <div class="column">
                         <h2>MEASURES</h2>
-                        <div class="ui segment" style="height:300px; overflow:scroll">
+                        <div class="ui segment" style="height:400px; overflow:scroll">
                             <div class="details">
                                 <div ng-repeat="measure in measures.list track by $index">
                                     <div class="fluid accordion">
                                         <div class="active title">
-                                            <img class="ui mini avatar image" ng-click="removeMeasure($index)" src="/assets/images/x-gray-dark.svg">
-                                            {{measure.systemType}}
+                                            <button class="ui mini circular icon button" ng-click="removeSystem($index)">
+                                                <i class="remove icon"></i>
+                                            </button>
+                                            {{getFirstKey(system) | systemLabel | titleCase}}
                                             <i class="blue dropdown icon"></i>
                                         </div>
                                         <div class="active content">
