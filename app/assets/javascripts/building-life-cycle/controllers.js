@@ -288,13 +288,16 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
             // itself minus the "$"
             console.log('called rem meta');
             if (typeof obj === 'object') {
-                Object.keys(obj).forEach( function (key) { 
-                    if (key === '$') {
-                        delete obj[key];
-                    } else {
-                        removeMeta(obj[key]);
-                    }
-                });
+                var keys = Object.keys(obj);
+                if (keys.length > 1) {
+                    keys.forEach( function (key) { 
+                        if (key === '$') {
+                            delete obj[key];
+                        } else {
+                            removeMeta(obj[key]);
+                        }
+                    });
+                }
             }
             return obj;
         };
