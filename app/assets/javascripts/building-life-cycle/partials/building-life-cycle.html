@@ -24,7 +24,7 @@
                 <div class="ui stackable grid">
                     <div class="sixteen wide column">
                         <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                            The Building Life Cycle Tool offers municipalities and energy service providers a transparent, cost-effective approach to collecting and structuring building energy audit data in a standardized way. The survey guides users in the collection of the most relevant building information that can be used to assess strategies for upgrading the building to run more efficiently. In addition to guiding users in the collection of data for the most common building systems and measures, the Building Life Cycle Tool allows users to export the data in a standardized format so that it can be analyzed and used by third parties to jump start Building Energy Audits.
                         </p>
                     </div>
                 </div>
@@ -401,7 +401,9 @@
                                     <div class="fluid accordion">
                                         <div id='output'></div>
                                         <div class="active title">
-                                            <img class="ui mini avatar image" ng-click="removeSystem($index)" src="/assets/images/x-gray-dark.svg">
+                                            <button class="ui mini circular icon button" ng-click="removeSystem($index)">
+                                                <i class="remove icon"></i>
+                                            </button>
                                             {{getFirstKey(system) | systemLabel | titleCase}}
                                             <i class="blue dropdown icon"></i>
                                         </div>
@@ -425,8 +427,10 @@
                                 <div ng-repeat="measure in measures.list track by $index">
                                     <div class="fluid accordion">
                                         <div class="active title">
-                                            <img class="ui mini avatar image" ng-click="removeMeasure($index)" src="/assets/images/x-gray-dark.svg">
-                                            {{measure.systemType}}
+                                            <button class="ui mini circular icon button" ng-click="removeSystem($index)">
+                                                <i class="remove icon"></i>
+                                            </button>
+                                            {{getFirstKey(system) | systemLabel | titleCase}}
                                             <i class="blue dropdown icon"></i>
                                         </div>
                                         <div class="active content">
