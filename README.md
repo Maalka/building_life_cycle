@@ -4,7 +4,7 @@
 Verson 1.0
 The [**Building Lifecycle Tool**](https://lifecycle.maalka.com) is a simple, open source, application that offers municipalities and energy service providers a transparent, cost-effective approach to collecting and structuring building energy audit data in a standardized way.  The Building Life Cycle Tool guides users in the collection of the most relevant building information that can be used to assess strategies for upgrading the building to run more efficiently. Users are guided by a dynamic survey for collecting data on the most important building Systems (e.g. HVAC, Ventilation, Lighting Systems) and relevant Measures (e.g. Boiler Improvements, Lighting Upgrades). In this way, users can follow a standardized approach for collecting initial Building Audit data, as each system and measure is defined by a set of associated, standardized fields.
 
-The Building Lifecycle Tool key features:
+**The Building Lifecycle Tool key features:**
 
 * Custom “Systems” and “Measurements” inputs 
 * Printable visual timeline of Systems and Measures 
@@ -15,6 +15,7 @@ The **Building Lifecycle Tool** is one of many open source tools created by the 
 
 For information on how to use the Building Life Cycle Tool,  check out the <a href="https://lifecycle.maalka.com/#/usecase">use case</a> In addition, we have prepared [a video tutorial](http://xxxxx) to help.
 
+The following list includes all data points included with the Open-source Life-cycle tool
 
 ### Building parameters ###
 
@@ -25,7 +26,7 @@ For information on how to use the Building Life Cycle Tool,  check out the <a hr
 	* StreetAddressDetail
 
 **SiteType**
-	* Facilities
+ * Facilities
 	 * Facility
 	 * CommercialFacilityType  
  * FloorsAboveGrade
@@ -33,10 +34,10 @@ For information on how to use the Building Life Cycle Tool,  check out the <a hr
  * YearOfConstruction
  * OccupancyClassification
  * PremisesName
-  * FloorAreas
-  * FloorArea
+  	* FloorAreas
+  	* FloorArea
  * FloorAreas
-  * FloorAreaValue
+  	* FloorAreaValue
 
 ### Measures ###
  
@@ -47,29 +48,29 @@ For information on how to use the Building Life Cycle Tool,  check out the <a hr
  * LongDescription free text box
  * SystemCategoryAffected for each Measure
  * TechnologyCategories [each will have its own subfields]
-  *	AdvancedMeteringSystems
-  *	BoilerPlantImprovements
-  *	BuildingAutomationSystems
-  *	BuildingEnvelopeModifications
-  *	ChilledWaterHotWaterAndSteamDistributionSystems
-  *	ChillerPlantImprovements
-  *	DistributedGeneration
-  *	ElectricMotorsAndDrives
-  *	ElectricalPeakShavingLoadShifting
-  *	EnergyDistributionSystems
-  *	LightingImprovements
-  *	PlugLoadReductions
-  *	Other
+  	* AdvancedMeteringSystems
+  	* BoilerPlantImprovements
+  	* BuildingAutomationSystems
+  	* BuildingEnvelopeModifications
+  	* ChilledWaterHotWaterAndSteamDistributionSystems
+  	* ChillerPlantImprovements
+  	* DistributedGeneration
+  	* ElectricMotorsAndDrives
+  	* ElectricalPeakShavingLoadShifting
+  	* EnergyDistributionSystems
+  	* LightingImprovements
+  	* PlugLoadReductions
+  	* Other
 
 ### Systems ###
 
 **SystemType [each will have its own subfields]**
- *	HVACSystems
- *	DomesticHotWaterSystems
- *	FanSystems
- *	FenestrationSystems
- *	HeatRecoverySystems
- *	LightingSystems
+ * HVACSystems
+ * DomesticHotWaterSystems
+ * FanSystems
+ * FenestrationSystems
+ * HeatRecoverySystems
+ * LightingSystems
 
 Each Measure and System category also contains a large set of associated fields required to better defined the entry. For example, HVAC Systems may have a Type Category with an option to select Boiler, which also has a list of associated fields.
 
