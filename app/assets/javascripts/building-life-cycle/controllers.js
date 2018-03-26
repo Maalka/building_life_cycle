@@ -284,6 +284,8 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
         };
 
         var removeMeta = function(obj) {
+            // obj is passed by reference and will return 
+            // itself minus the "$"
             console.log('called rem meta');
             if (typeof obj === 'object') {
                 Object.keys(obj).forEach( function (key) { 
@@ -294,6 +296,7 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
                     }
                 });
             }
+            return obj;
         };
 
         var systems = { };
@@ -301,9 +304,11 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
         if ($scope.systemList.length > 0) {
             audits['auc:Audit']['auc:Systems'] = {};
             // in the future -> angular.toJson(obj);
-            for (var j = 0; j < $scope.systemList.length; j++) {
-                var key = Object.keys($scope.systemList[j])[0];
-                audits['auc:Audit']['auc:Systems'][key] = $scope.systemList[j][key];
+            var j, sl, key;
+            for (j = 0; j < $scope.systemList.length; j++) {
+                sl = removeMeta($scope.systemList[j]);
+                key = Object.keys(sl)[0];
+                audits['auc:Audit']['auc:Systems'][key] = removeMeta(sl[key]);
             }
         }
 
@@ -506,6 +511,7 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
         var rows = [];
         var row, sourceRow, toolTip, validator, validatorMessages, validatorMessage, tooltip;
         var i, j, k; 
+
         headers.push("Property Name");
         for (i = 0; i < $scope.validation.length; i += 1) {
             sourceRow = $scope.validation[i];
