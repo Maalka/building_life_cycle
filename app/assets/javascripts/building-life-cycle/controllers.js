@@ -283,18 +283,21 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
                         }
         };
 
-        $scope.removeMeta = function(obj) {
+        var removeMeta = function(obj) {
             console.log('called rem meta');
-          for(var prop in obj) {
-            if (prop === '$')
-              delete obj[prop];
-            else if (typeof obj[prop] === 'object')
-               $scope.removeMeta(obj[prop]);
-          }
+            if (typeof obj === 'object') {
+                Object.keys(obj).forEach( function (key) { 
+                    if (key === '$') {
+                        delete obj[key];
+                    } else {
+                        removeMeta(obj[key]);
+                    }
+                });
+            }
         };
 
-
         var systems = { };
+
         if ($scope.systemList.length > 0) {
             audits['auc:Audit']['auc:Systems'] = {};
             // in the future -> angular.toJson(obj);
