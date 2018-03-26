@@ -1,0 +1,493 @@
+{
+  "auc:OtherHVACSystemType": {
+    "additionalProperties": false,
+    "patternProperties": {
+      "^@xmlns(:\\w+)?$": {
+        "type": "string"
+      },
+      "^@xsi:\\w+$": {
+        "type": "string"
+      },
+      "^\\?\\w+$": {
+        "type": "string"
+      }
+    },
+    "properties": {
+      "#": {
+        "type": "string"
+      },
+      "auc:Integration": {
+        "additionalProperties": false,
+        "description": "Level of integration with primary heating and cooling sources and delivery systems.",
+        "patternProperties": {
+          "^@xmlns(:\\w+)?$": {
+            "type": "string"
+          },
+          "^@xsi:\\w+$": {
+            "type": "string"
+          },
+          "^\\?\\w+$": {
+            "type": "string"
+          }
+        },
+        "properties": {
+          "#": {
+            "type": "string"
+          },
+          "$": {
+            "enum": [
+              "Integrated with central air distribution",
+              "Integrated with local air distribution",
+              "Stand-alone",
+              "Other",
+              "Unknown"
+            ],
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "auc:Manufacturer": {
+        "$ref": "#/definitions/.auc:Manufacturer"
+      },
+      "auc:ModelNumber": {
+        "$ref": "#/definitions/.auc:ModelNumber"
+      },
+      "auc:OtherHVACType": {
+        "additionalProperties": false,
+        "description": "Type of space conditioning equipment that is not classified as heating, cooling, or air-distribution. This category includes ventilation, dehumidification, humidification, and air cleaning systems.",
+        "patternProperties": {
+          "^@xmlns(:\\w+)?$": {
+            "type": "string"
+          },
+          "^@xsi:\\w+$": {
+            "type": "string"
+          },
+          "^\\?\\w+$": {
+            "type": "string"
+          }
+        },
+        "properties": {
+          "#": {
+            "type": "string"
+          },
+          "$": {
+            "enum": [
+              "AirCleaner",
+              "Dehumidifier",
+              "Humidifier",
+              "MechanicalVentilation",
+              "NaturalVentilation",
+              "OtherCombination",
+              "Unknown"
+            ],
+            "type": "string"
+          },
+          "auc:AirCleaner": {
+            "additionalProperties": false,
+            "patternProperties": {
+              "^@xmlns(:\\w+)?$": {
+                "type": "string"
+              },
+              "^@xsi:\\w+$": {
+                "type": "string"
+              },
+              "^\\?\\w+$": {
+                "type": "string"
+              }
+            },
+            "properties": {
+              "#": {
+                "type": "string"
+              },
+              "auc:Capacity": {
+                "$ref": "#/definitions/.auc:Capacity"
+              },
+              "auc:CapacityUnits": {
+                "$ref": "#/definitions/.auc:CapacityUnits"
+              },
+              "auc:DutyCycle": {
+                "$ref": "#/definitions/.auc:DutyCycle"
+              },
+              "auc:SystemPerformanceRatio": {
+                "$ref": "#/definitions/.auc:SystemPerformanceRatio"
+              }
+            },
+            "type": "object"
+          },
+          "auc:Dehumidifier": {
+            "additionalProperties": false,
+            "patternProperties": {
+              "^@xmlns(:\\w+)?$": {
+                "type": "string"
+              },
+              "^@xsi:\\w+$": {
+                "type": "string"
+              },
+              "^\\?\\w+$": {
+                "type": "string"
+              }
+            },
+            "properties": {
+              "#": {
+                "type": "string"
+              },
+              "auc:Capacity": {
+                "$ref": "#/definitions/.auc:Capacity"
+              },
+              "auc:CapacityUnits": {
+                "$ref": "#/definitions/.auc:CapacityUnits"
+              },
+              "auc:DehumidificationType": {
+                "additionalProperties": false,
+                "description": "Dehumidification type in air-distribution system.",
+                "patternProperties": {
+                  "^@xmlns(:\\w+)?$": {
+                    "type": "string"
+                  },
+                  "^@xsi:\\w+$": {
+                    "type": "string"
+                  },
+                  "^\\?\\w+$": {
+                    "type": "string"
+                  }
+                },
+                "properties": {
+                  "#": {
+                    "type": "string"
+                  },
+                  "$": {
+                    "enum": [
+                      "Desiccant wheel",
+                      "Liquid desiccant",
+                      "Other",
+                      "Unknown"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              },
+              "auc:DutyCycle": {
+                "$ref": "#/definitions/.auc:DutyCycle"
+              },
+              "auc:HumidityControlMaximum": {
+                "additionalProperties": false,
+                "description": "Relative humidity above which moisture is removed from the space. (0-1) (%)",
+                "patternProperties": {
+                  "^@xmlns(:\\w+)?$": {
+                    "type": "string"
+                  },
+                  "^@xsi:\\w+$": {
+                    "type": "string"
+                  },
+                  "^\\?\\w+$": {
+                    "type": "string"
+                  }
+                },
+                "properties": {
+                  "#": {
+                    "type": "string"
+                  },
+                  "$": {
+                    "$ref": "#/definitions/xs:decimal"
+                  }
+                },
+                "type": "object"
+              },
+              "auc:SystemPerformanceRatio": {
+                "$ref": "#/definitions/.auc:SystemPerformanceRatio"
+              },
+              "auc:ThirdPartyCertification": {
+                "$ref": "#/definitions/.auc:ThirdPartyCertification"
+              }
+            },
+            "type": "object"
+          },
+          "auc:Humidifier": {
+            "additionalProperties": false,
+            "patternProperties": {
+              "^@xmlns(:\\w+)?$": {
+                "type": "string"
+              },
+              "^@xsi:\\w+$": {
+                "type": "string"
+              },
+              "^\\?\\w+$": {
+                "type": "string"
+              }
+            },
+            "properties": {
+              "#": {
+                "type": "string"
+              },
+              "auc:Capacity": {
+                "$ref": "#/definitions/.auc:Capacity"
+              },
+              "auc:CapacityUnits": {
+                "$ref": "#/definitions/.auc:CapacityUnits"
+              },
+              "auc:DutyCycle": {
+                "$ref": "#/definitions/.auc:DutyCycle"
+              },
+              "auc:HumidificationType": {
+                "additionalProperties": false,
+                "description": "Humidification type in air-distribution system.",
+                "patternProperties": {
+                  "^@xmlns(:\\w+)?$": {
+                    "type": "string"
+                  },
+                  "^@xsi:\\w+$": {
+                    "type": "string"
+                  },
+                  "^\\?\\w+$": {
+                    "type": "string"
+                  }
+                },
+                "properties": {
+                  "#": {
+                    "type": "string"
+                  },
+                  "$": {
+                    "enum": [
+                      "Steam",
+                      "Water Spray",
+                      "Other",
+                      "Unknown"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              },
+              "auc:HumidityControlMinimum": {
+                "additionalProperties": false,
+                "description": "Relative humidity below which moisture is added to the space. (0-1) (%)",
+                "patternProperties": {
+                  "^@xmlns(:\\w+)?$": {
+                    "type": "string"
+                  },
+                  "^@xsi:\\w+$": {
+                    "type": "string"
+                  },
+                  "^\\?\\w+$": {
+                    "type": "string"
+                  }
+                },
+                "properties": {
+                  "#": {
+                    "type": "string"
+                  },
+                  "$": {
+                    "$ref": "#/definitions/xs:decimal"
+                  }
+                },
+                "type": "object"
+              },
+              "auc:SystemPerformanceRatio": {
+                "$ref": "#/definitions/.auc:SystemPerformanceRatio"
+              }
+            },
+            "type": "object"
+          },
+          "auc:MechanicalVentilation": {
+            "additionalProperties": false,
+            "patternProperties": {
+              "^@xmlns(:\\w+)?$": {
+                "type": "string"
+              },
+              "^@xsi:\\w+$": {
+                "type": "string"
+              },
+              "^\\?\\w+$": {
+                "type": "string"
+              }
+            },
+            "properties": {
+              "#": {
+                "type": "string"
+              },
+              "auc:Capacity": {
+                "$ref": "#/definitions/.auc:Capacity"
+              },
+              "auc:CapacityUnits": {
+                "$ref": "#/definitions/.auc:CapacityUnits"
+              },
+              "auc:DemandControlVentilation": {
+                "additionalProperties": false,
+                "description": "True if ventilation system is controlled based on level of occupancy or pollutants, false otherwise",
+                "patternProperties": {
+                  "^@xmlns(:\\w+)?$": {
+                    "type": "string"
+                  },
+                  "^@xsi:\\w+$": {
+                    "type": "string"
+                  },
+                  "^\\?\\w+$": {
+                    "type": "string"
+                  }
+                },
+                "properties": {
+                  "#": {
+                    "type": "string"
+                  },
+                  "$": {
+                    "$ref": "#/definitions/xs:boolean"
+                  }
+                },
+                "type": "object"
+              },
+              "auc:DutyCycle": {
+                "$ref": "#/definitions/.auc:DutyCycle"
+              },
+              "auc:ThirdPartyCertification": {
+                "$ref": "#/definitions/.auc:ThirdPartyCertification"
+              },
+              "auc:VentilationControlMethod": {
+                "$ref": "#/definitions/.auc:VentilationControlMethod"
+              },
+              "auc:VentilationType": {
+                "additionalProperties": false,
+                "description": "Type of ventilation, and use of heat recovery",
+                "patternProperties": {
+                  "^@xmlns(:\\w+)?$": {
+                    "type": "string"
+                  },
+                  "^@xsi:\\w+$": {
+                    "type": "string"
+                  },
+                  "^\\?\\w+$": {
+                    "type": "string"
+                  }
+                },
+                "properties": {
+                  "#": {
+                    "type": "string"
+                  },
+                  "$": {
+                    "enum": [
+                      "Exhaust only",
+                      "Supply only",
+                      "Dedicated outdoor air system",
+                      "Heat recovery ventilator",
+                      "Energy recovery ventilator",
+                      "Other",
+                      "Unknown"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              }
+            },
+            "type": "object"
+          },
+          "auc:NaturalVentilation": {
+            "additionalProperties": false,
+            "patternProperties": {
+              "^@xmlns(:\\w+)?$": {
+                "type": "string"
+              },
+              "^@xsi:\\w+$": {
+                "type": "string"
+              },
+              "^\\?\\w+$": {
+                "type": "string"
+              }
+            },
+            "properties": {
+              "#": {
+                "type": "string"
+              },
+              "auc:Capacity": {
+                "$ref": "#/definitions/.auc:Capacity"
+              },
+              "auc:CapacityUnits": {
+                "$ref": "#/definitions/.auc:CapacityUnits"
+              },
+              "auc:DutyCycle": {
+                "$ref": "#/definitions/.auc:DutyCycle"
+              },
+              "auc:NaturalVentilationMethod": {
+                "additionalProperties": false,
+                "description": "Strategy for introducing natural ventilation.",
+                "patternProperties": {
+                  "^@xmlns(:\\w+)?$": {
+                    "type": "string"
+                  },
+                  "^@xsi:\\w+$": {
+                    "type": "string"
+                  },
+                  "^\\?\\w+$": {
+                    "type": "string"
+                  }
+                },
+                "properties": {
+                  "#": {
+                    "type": "string"
+                  },
+                  "$": {
+                    "enum": [
+                      "Air changes per hour",
+                      "Flow per area",
+                      "Flow per person",
+                      "Flow per zone",
+                      "Wind and stack open area",
+                      "Other",
+                      "Unknown"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              },
+              "auc:NaturalVentilationRate": {
+                "additionalProperties": false,
+                "description": "Average rate of natural ventilation when used. Units depend on ventilation method. (cfm)",
+                "patternProperties": {
+                  "^@xmlns(:\\w+)?$": {
+                    "type": "string"
+                  },
+                  "^@xsi:\\w+$": {
+                    "type": "string"
+                  },
+                  "^\\?\\w+$": {
+                    "type": "string"
+                  }
+                },
+                "properties": {
+                  "#": {
+                    "type": "string"
+                  },
+                  "$": {
+                    "$ref": "#/definitions/xs:decimal"
+                  }
+                },
+                "type": "object"
+              }
+            },
+            "type": "object"
+          },
+          "auc:OtherCombination": {
+            "$ref": "#/definitions/xs:anyType"
+          },
+          "auc:Unknown": {
+            "$ref": "#/definitions/xs:anyType"
+          }
+        },
+        "type": "object"
+      },
+
+      "auc:Quantity": {
+        "$ref": "#/definitions/.auc:Quantity"
+      },
+      "auc:YearInstalled": {
+        "$ref": "#/definitions/.auc:YearInstalled"
+      },
+      "auc:YearofManufacture": {
+        "$ref": "#/definitions/.auc:YearofManufacture"
+      }
+    },
+    "type": "object"
+  }
+}

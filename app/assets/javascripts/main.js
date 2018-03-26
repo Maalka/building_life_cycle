@@ -9,7 +9,7 @@
   requirejs.config({
     // Packages = top-level folders; loads a contained file named 'main.js"
     wrapShim: true,
-    packages: ['common', 'data-quality'],
+    packages: ['common', 'building-life-cycle'],
     shim: {
       'jsRoutes': {
         deps: [],
@@ -29,6 +29,11 @@
       },
       'angular-route': ['angular'],
       'angular-cookies': ['angular'],
+
+      flatpickr: {
+        exports: 'flatpickr',
+        deps: ['moment']
+      },
 
       'maalka-templates': {
         deps: ['angular']
@@ -67,6 +72,8 @@
     },
     paths: {
       'requirejs': '../lib/requirejs/require',
+      'text': './requirejs-plugins/text',
+      'json': './requirejs-plugins/json',
       'jquery': ['../lib/jquery/jquery'],
       'angular': '../lib/angularjs/angular',
       'angular-route': '../lib/angularjs/angular-route',
@@ -78,6 +85,7 @@
       'highcharts-drilldown': '../lib/highstock/modules/drilldown',
       'highcharts-exporting': '../lib/highstock/modules/exporting',
       'highcharts': './highcharts-theme',
+      'flatpickr': '../lib/flatpickr/dist/flatpickr',
       'maalkaflags': './highcharts/maalkaFlags',
       'moment': '../lib/moment/min/moment-with-locales',
       'matchmedia-ng': '../lib/matchmedia-ng/matchmedia-ng',
@@ -86,7 +94,8 @@
       'semantic': '../lib/semantic-ui/dist/semantic',
       'jsRoutes': '/jsroutes',
       'json-formatter': '../lib/json-formatter/dist/json-formatter',
-      'maalka-templates': '../templates'
+      'maalka-templates': '../templates',
+
     }
   });
 

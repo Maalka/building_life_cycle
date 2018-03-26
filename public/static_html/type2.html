@@ -1,0 +1,505 @@
+
+<!-- saved from url=(0027)http://localhost:9000/type2 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- jQuery -->
+    <link rel="shortcut icon" type="image/x-icon" href="http://localhost:9000/assets/images/favicon.png">
+    <link rel="stylesheet" type="text/css" href="./type2_files/css">
+    <link href="./type2_files/css(1)" rel="stylesheet" type="text/css">
+
+    <link rel="stylesheet" href="./type2_files/font-awesome.css">
+
+    <link rel="stylesheet" media="screen" href="./type2_files/semantic.min.css">
+
+    <link rel="stylesheet" href="./type2_files/main.css">
+    <link rel="stylesheet" media="print" href="./type2_files/print.css">
+
+    <script type="text/javascript" src="./type2_files/jquery.js"></script>
+    <!-- Handlebars -->
+    <script type="text/javascript" src="./type2_files/handlebars.js"></script>
+
+    <!-- Alpaca -->
+    <script type="text/javascript" src="./type2_files/alpaca.js"></script>
+
+</head>
+<body data-feedly-mini="yes">
+<script type="text/javascript">
+
+var schema = (function() {
+        var json = null;
+        $.ajax({
+            'async': false,
+            'global': false,
+            'url': "assets/BuildingSyncTypesPoundsRemoved.json",
+            'dataType': "json",
+            'success': function (data) {
+                json = data;
+            }
+        });
+        return json;
+    })();
+
+            $(document).ready(function() {
+                $("#form").alpaca({
+
+                    "schema": {
+                        "title":" ",
+                        "description":" ",
+                        "type":"object",
+
+    "definitions": schema.definitions,
+
+    "properties": {
+      "FanSystem": {
+          "$ref": "#/definitions/auc:FanSystemType"
+      }
+    }
+  },
+  "options": {
+    "renderForm": true,
+    "form": {
+
+
+  },
+    "view": "web-edit"
+
+    }
+  });
+            });
+        </script>
+<div id="form" class=""><form role="form" class="ui form" id="undefined-form-outer">
+
+        <div class="alpaca-field alpaca-field-object" data-alpaca-field-id="alpaca1" data-alpaca-field-path="/" data-alpaca-field-name="">
+
+        <legend class=" alpaca-container-label"> </legend>
+
+
+
+
+            <div>
+
+
+            <div>
+
+        <div class="alpaca-field alpaca-field-object" data-alpaca-field-id="alpaca2" data-alpaca-field-path="/FanSystem" data-alpaca-field-name="FanSystem">
+
+
+
+
+
+            <div>
+
+
+            <div>
+
+        <div class="alpaca-field alpaca-field-object" data-alpaca-field-id="alpaca3" data-alpaca-field-path="/FanSystem/auc:FanApplication" data-alpaca-field-name="FanSystem_auc:FanApplication">
+
+
+
+
+
+            <div>
+
+
+            <div>
+
+        <div class="alpaca-field alpaca-field-select" data-alpaca-field-id="alpaca11" data-alpaca-field-path="/FanSystem/auc:FanApplication/$" data-alpaca-field-name="FanSystem_auc:FanApplication_$">
+
+
+
+        <div class="field" name="FanSystem_auc:FanApplication_$">
+    <label> Fan Application</label>
+    <select id="alpaca11" ng-model="system[&#39;auc:FanSystems&#39;][&#39;auc:FanSystem&#39;][&#39;auc:FanApplication&#39;][&#39;$&#39;]" name="FanSystem_auc:FanApplication_$">
+
+
+        <option value="">None</option>
+
+        <option value="Exhaust">Exhaust</option>
+        <option value="Other">Other</option>
+        <option value="Return">Return</option>
+        <option value="Supply">Supply</option>
+        <option value="Unknown">Unknown</option>
+
+
+    </select>
+</div>
+
+
+
+    </div>
+
+    </div>
+
+
+    </div>
+
+
+
+    </div>
+
+    </div>
+
+
+            <div>
+
+        <div class="alpaca-field alpaca-field-object" data-alpaca-field-id="alpaca4" data-alpaca-field-path="/FanSystem/auc:FanControlType" data-alpaca-field-name="FanSystem_auc:FanControlType">
+
+
+
+
+
+            <div>
+
+
+            <div>
+
+        <div class="alpaca-field alpaca-field-select" data-alpaca-field-id="alpaca12" data-alpaca-field-path="/FanSystem/auc:FanControlType/$" data-alpaca-field-name="FanSystem_auc:FanControlType_$">
+
+
+
+        <div class="field" name="FanSystem_auc:FanControlType_$">
+    <label> Fan Control Type</label>
+    <select id="alpaca12" ng-model="system[&#39;auc:FanSystems&#39;][&#39;auc:FanSystem&#39;][&#39;auc:FanControlType&#39;][&#39;$&#39;]" name="FanSystem_auc:FanControlType_$">
+
+
+        <option value="">None</option>
+
+        <option value="Constant Volume">Constant Volume</option>
+        <option value="Other">Other</option>
+        <option value="Stepped">Stepped</option>
+        <option value="Unknown">Unknown</option>
+        <option value="Variable Volume">Variable Volume</option>
+
+
+    </select>
+</div>
+
+
+
+    </div>
+
+    </div>
+
+
+    </div>
+
+
+
+    </div>
+
+    </div>
+
+
+            <div>
+
+        <div class="alpaca-field alpaca-field-object" data-alpaca-field-id="alpaca5" data-alpaca-field-path="/FanSystem/auc:FanType" data-alpaca-field-name="FanSystem_auc:FanType">
+
+
+
+
+
+            <div>
+
+
+            <div>
+
+        <div class="alpaca-field alpaca-field-select" data-alpaca-field-id="alpaca13" data-alpaca-field-path="/FanSystem/auc:FanType/$" data-alpaca-field-name="FanSystem_auc:FanType_$">
+
+
+
+        <div class="field" name="FanSystem_auc:FanType_$">
+    <label> Fan Type</label>
+    <select id="alpaca13" ng-model="system[&#39;auc:FanSystems&#39;][&#39;auc:FanSystem&#39;][&#39;auc:FanType&#39;][&#39;$&#39;]" name="FanSystem_auc:FanType_$">
+
+
+        <option value="">None</option>
+
+        <option value="Axial">Axial</option>
+        <option value="Centrifugal">Centrifugal</option>
+        <option value="Other">Other</option>
+        <option value="Unknown">Unknown</option>
+
+
+    </select>
+</div>
+
+
+
+    </div>
+
+    </div>
+
+
+    </div>
+
+
+
+    </div>
+
+    </div>
+
+
+            <div>
+
+        <div class="alpaca-field alpaca-field-object" data-alpaca-field-id="alpaca6" data-alpaca-field-path="/FanSystem/auc:Manufacturer" data-alpaca-field-name="FanSystem_auc:Manufacturer">
+
+
+
+
+
+            <div>
+
+
+            <div>
+
+        <div class="alpaca-field alpaca-field-text" data-alpaca-field-id="alpaca14" data-alpaca-field-path="/FanSystem/auc:Manufacturer/$" data-alpaca-field-name="FanSystem_auc:Manufacturer_$">
+
+
+
+        <div class="field" name="FanSystem_auc:Manufacturer_$">
+
+	<label> Manufacturer</label>
+
+    <input type="text" id="alpaca14" ng-model="system[&#39;auc:FanSystems&#39;][&#39;auc:FanSystem&#39;][&#39;auc:Manufacturer&#39;][&#39;$&#39;]" name="FanSystem_auc:Manufacturer_$">
+</div>
+
+
+
+    </div>
+
+    </div>
+
+
+    </div>
+
+
+
+    </div>
+
+    </div>
+
+
+            <div>
+
+        <div class="alpaca-field alpaca-field-object" data-alpaca-field-id="alpaca7" data-alpaca-field-path="/FanSystem/auc:ModelNumber" data-alpaca-field-name="FanSystem_auc:ModelNumber">
+
+
+
+
+
+            <div>
+
+
+            <div>
+
+        <div class="alpaca-field alpaca-field-text" data-alpaca-field-id="alpaca15" data-alpaca-field-path="/FanSystem/auc:ModelNumber/$" data-alpaca-field-name="FanSystem_auc:ModelNumber_$">
+
+
+
+        <div class="field" name="FanSystem_auc:ModelNumber_$">
+
+	<label> Model Number</label>
+
+    <input type="text" id="alpaca15" ng-model="system[&#39;auc:FanSystems&#39;][&#39;auc:FanSystem&#39;][&#39;auc:ModelNumber&#39;][&#39;$&#39;]" name="FanSystem_auc:ModelNumber_$">
+</div>
+
+
+
+    </div>
+
+    </div>
+
+
+    </div>
+
+
+
+    </div>
+
+    </div>
+
+
+            <div>
+
+        <div class="alpaca-field alpaca-field-object" data-alpaca-field-id="alpaca8" data-alpaca-field-path="/FanSystem/auc:Quantity" data-alpaca-field-name="FanSystem_auc:Quantity">
+
+
+
+
+
+            <div>
+
+
+            <div>
+
+        <div class="alpaca-field alpaca-field-integer" data-alpaca-field-id="alpaca16" data-alpaca-field-path="/FanSystem/auc:Quantity/$" data-alpaca-field-name="FanSystem_auc:Quantity_$">
+
+
+
+        <div class="field" name="FanSystem_auc:Quantity_$">
+
+	<label> Quantity</label>
+
+    <input type="text" id="alpaca16" ng-model="system[&#39;auc:FanSystems&#39;][&#39;auc:FanSystem&#39;][&#39;auc:Quantity&#39;][&#39;$&#39;]" name="FanSystem_auc:Quantity_$">
+</div>
+
+
+
+    </div>
+
+    </div>
+
+
+            <div>
+
+        <div class="alpaca-field alpaca-field-select" data-alpaca-field-id="alpaca17" data-alpaca-field-path="/FanSystem/auc:Quantity/@auc:Source" data-alpaca-field-name="FanSystem_auc:Quantity_@auc:Source">
+
+
+
+        <div class="field" name="FanSystem_auc:Quantity_@auc:Source">
+    <label> Source</label>
+    <select id="alpaca17" ng-model="system[&#39;auc:FanSystems&#39;][&#39;auc:FanSystem&#39;][&#39;auc:Quantity&#39;][&#39;@auc:Source&#39;]" name="FanSystem_auc:Quantity_@auc:Source">
+
+
+        <option value="">None</option>
+
+        <option value="ASHRAE">ASHRAE</option>
+        <option value="Agent">Agent</option>
+        <option value="Arch2030">Arch2030</option>
+        <option value="Assessor">Assessor</option>
+        <option value="Auditor">Auditor</option>
+        <option value="Building Component Library">Building Component Library</option>
+        <option value="Default">Default</option>
+        <option value="Design files">Design files</option>
+        <option value="Direct measurement">Direct measurement</option>
+        <option value="ENERGY STAR Portfolio Manager">ENERGY STAR Portfolio Manager</option>
+        <option value="Energy Management System">Energy Management System</option>
+        <option value="Estimate">Estimate</option>
+        <option value="Other">Other</option>
+        <option value="Product specification">Product specification</option>
+        <option value="Simulation">Simulation</option>
+        <option value="Target Finder">Target Finder</option>
+        <option value="US EIA">US EIA</option>
+        <option value="US EPA">US EPA</option>
+        <option value="Utility transfer">Utility transfer</option>
+
+
+    </select>
+</div>
+
+
+
+    </div>
+
+    </div>
+
+
+    </div>
+
+
+
+    </div>
+
+    </div>
+
+
+            <div>
+
+        <div class="alpaca-field alpaca-field-object" data-alpaca-field-id="alpaca9" data-alpaca-field-path="/FanSystem/auc:YearInstalled" data-alpaca-field-name="FanSystem_auc:YearInstalled">
+
+
+
+
+
+            <div>
+
+
+            <div>
+
+        <div class="alpaca-field alpaca-field-text" data-alpaca-field-id="alpaca18" data-alpaca-field-path="/FanSystem/auc:YearInstalled/$" data-alpaca-field-name="FanSystem_auc:YearInstalled_$">
+
+
+
+        <div class="field" name="FanSystem_auc:YearInstalled_$">
+
+	<label> Year Installed</label>
+
+    <input type="text" id="alpaca18" ng-model="system[&#39;auc:FanSystems&#39;][&#39;auc:FanSystem&#39;][&#39;auc:YearInstalled&#39;][&#39;$&#39;]" name="FanSystem_auc:YearInstalled_$">
+</div>
+
+
+
+    </div>
+
+    </div>
+
+
+    </div>
+
+
+
+    </div>
+
+    </div>
+
+
+            <div>
+
+        <div class="alpaca-field alpaca-field-object" data-alpaca-field-id="alpaca10" data-alpaca-field-path="/FanSystem/auc:YearofManufacture" data-alpaca-field-name="FanSystem_auc:YearofManufacture">
+
+
+
+
+
+            <div>
+
+
+            <div>
+
+        <div class="alpaca-field alpaca-field-text" data-alpaca-field-id="alpaca19" data-alpaca-field-path="/FanSystem/auc:YearofManufacture/$" data-alpaca-field-name="FanSystem_auc:YearofManufacture_$">
+
+
+
+        <div class="field" name="FanSystem_auc:YearofManufacture_$">
+
+	<label> Yearof Manufacture</label>
+
+    <input type="text" id="alpaca19" ng-model="system[&#39;auc:FanSystems&#39;][&#39;auc:FanSystem&#39;][&#39;auc:YearofManufacture&#39;][&#39;$&#39;]" name="FanSystem_auc:YearofManufacture_$">
+</div>
+
+
+
+    </div>
+
+    </div>
+
+
+    </div>
+
+
+
+    </div>
+
+    </div>
+
+
+    </div>
+
+
+
+    </div>
+
+    </div>
+
+
+    </div>
+
+
+
+    </div>
+
+        <div class="alpaca-form-buttons-container">
+        </div>
+
+    </form></div>
+
+<div id="feedly-mini" title="feedly Mini tookit"></div></body></html>

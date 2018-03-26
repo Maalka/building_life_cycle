@@ -1,0 +1,1026 @@
+
+<!-- saved from url=(0027)http://localhost:9000/type6 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- jQuery -->
+    <link rel="shortcut icon" type="image/x-icon" href="http://localhost:9000/assets/images/favicon.png">
+    <link rel="stylesheet" type="text/css" href="./type6_files/css">
+    <link href="./type6_files/css(1)" rel="stylesheet" type="text/css">
+
+    <link rel="stylesheet" href="./type6_files/font-awesome.css">
+
+    <link rel="stylesheet" media="screen" href="./type6_files/semantic.min.css">
+
+    <link rel="stylesheet" href="./type6_files/main.css">
+    <link rel="stylesheet" media="print" href="./type6_files/print.css">
+
+    <script type="text/javascript" src="./type6_files/jquery.js"></script>
+    <!-- Handlebars -->
+    <script type="text/javascript" src="./type6_files/handlebars.js"></script>
+
+    <!-- Alpaca -->
+    <script type="text/javascript" src="./type6_files/alpaca.js"></script>
+
+</head>
+<body data-feedly-mini="yes">
+<script type="text/javascript">
+
+var schema = (function() {
+        var json = null;
+        $.ajax({
+            'async': false,
+            'global': false,
+            'url': "assets/BuildingSyncTypesPoundsRemoved.json",
+            'dataType': "json",
+            'success': function (data) {
+                json = data;
+            }
+        });
+        return json;
+    })();
+
+            $(document).ready(function() {
+                $("#form").alpaca({
+
+                    "schema": {
+                        "title":" ",
+                        "description":" ",
+                        "type":"object",
+
+    "definitions": schema.definitions,
+
+    "properties": {
+      "LightingSystem": {
+          "$ref": "#/definitions/auc:LightingSystemType"
+    },
+
+    }
+  },
+  "options": {
+    "renderForm": true,
+    "form": {
+
+        }
+  },
+    "view": "web-edit"
+  });
+            });
+        </script>
+<div id="form" class=""><form role="form" class="ui form" id="undefined-form-outer">
+
+        <div class="alpaca-field alpaca-field-object" data-alpaca-field-id="alpaca1" data-alpaca-field-path="/" data-alpaca-field-name="">
+
+        <legend class=" alpaca-container-label"> </legend>
+
+
+
+
+            <div>
+
+
+            <div>
+
+        <div class="alpaca-field alpaca-field-object" data-alpaca-field-id="alpaca2" data-alpaca-field-path="/LightingSystem" data-alpaca-field-name="LightingSystem">
+
+
+
+
+
+            <div>
+
+
+            <div>
+
+        <div class="alpaca-field alpaca-field-object" data-alpaca-field-id="alpaca3" data-alpaca-field-path="/LightingSystem/auc:OutsideLighting" data-alpaca-field-name="LightingSystem_auc:OutsideLighting">
+
+
+
+
+
+            <div>
+
+
+            <div>
+
+        <div class="alpaca-field alpaca-field-checkbox" data-alpaca-field-id="alpaca13" data-alpaca-field-path="/LightingSystem/auc:OutsideLighting/$" data-alpaca-field-name="LightingSystem_auc:OutsideLighting_$">
+
+
+
+        <div class="field" name="LightingSystem_auc:OutsideLighting_$">
+
+        <div class="ui checkbox">
+
+                <input type="checkbox" name="LightingSystem_auc:OutsideLighting_$">
+
+
+             <label> Outside Lighting</label>
+
+        </div>
+
+</div>
+
+
+
+    </div>
+
+    </div>
+
+
+    </div>
+
+
+
+    </div>
+
+    </div>
+
+
+            <div>
+
+        <div class="alpaca-field alpaca-field-object" data-alpaca-field-id="alpaca4" data-alpaca-field-path="/LightingSystem/auc:LampType" data-alpaca-field-name="LightingSystem_auc:LampType">
+
+
+
+
+
+            <div>
+
+
+            <div>
+
+        <div class="alpaca-field alpaca-field-select" data-alpaca-field-id="alpaca14" data-alpaca-field-path="/LightingSystem/auc:LampType/$" data-alpaca-field-name="LightingSystem_auc:LampType_$">
+
+
+
+        <div class="field" name="LightingSystem_auc:LampType_$">
+    <label> Lamp Type</label>
+    <select id="alpaca14" ng-model="system[&#39;auc:LightingSystems&#39;][&#39;auc:LightingSystem&#39;][&#39;auc:LampType&#39;][&#39;$&#39;]" name="LightingSystem_auc:LampType_$">
+
+
+        <option value="">None</option>
+
+        <option value="CompactFluorescent">CompactFluorescent</option>
+        <option value="Halogen">Halogen</option>
+        <option value="Incandescent">Incandescent</option>
+        <option value="Neon">Neon</option>
+        <option value="OtherCombination">OtherCombination</option>
+        <option value="SolidStateLighting">SolidStateLighting</option>
+        <option value="Unknown">Unknown</option>
+
+
+    </select>
+</div>
+
+
+
+    </div>
+
+    </div>
+
+
+            <div>
+
+        <div class="alpaca-field alpaca-field-object" data-alpaca-field-id="alpaca15" data-alpaca-field-path="/LightingSystem/auc:LampType/auc:CompactFluorescent" data-alpaca-field-name="LightingSystem_auc:LampType_auc:CompactFluorescent">
+
+
+
+
+
+            <div>
+
+
+            <div>
+
+        <div class="alpaca-field alpaca-field-object" data-alpaca-field-id="alpaca31" data-alpaca-field-path="/LightingSystem/auc:LampType/auc:CompactFluorescent/auc:LampLabel" data-alpaca-field-name="LightingSystem_auc:LampType_auc:CompactFluorescent_auc:LampLabel">
+
+
+
+
+
+            <div>
+
+
+            <div>
+
+        <div class="alpaca-field alpaca-field-select" data-alpaca-field-id="alpaca38" data-alpaca-field-path="/LightingSystem/auc:LampType/auc:CompactFluorescent/auc:LampLabel/$" data-alpaca-field-name="LightingSystem_auc:LampType_auc:CompactFluorescent_auc:LampLabel_$">
+
+
+
+        <div class="field" name="LightingSystem_auc:LampType_auc:CompactFluorescent_auc:LampLabel_$">
+    <label> Lamp Label</label>
+    <select id="alpaca38" ng-model="system[&#39;auc:LightingSystems&#39;][&#39;auc:LightingSystem&#39;][&#39;auc:LampType&#39;][&#39;auc:CompactFluorescent&#39;][&#39;auc:LampLabel&#39;][&#39;$&#39;]" name="LightingSystem_auc:LampType_auc:CompactFluorescent_auc:LampLabel_$">
+
+
+        <option value="">None</option>
+
+        <option value="2D">2D</option>
+        <option value="A-series">A-series</option>
+        <option value="Circline">Circline</option>
+        <option value="Other">Other</option>
+        <option value="Spiral">Spiral</option>
+        <option value="Unknown">Unknown</option>
+
+
+    </select>
+</div>
+
+
+
+    </div>
+
+    </div>
+
+
+    </div>
+
+
+
+    </div>
+
+    </div>
+
+
+    </div>
+
+
+
+    </div>
+
+    </div>
+
+
+            <div>
+
+        <div class="alpaca-field alpaca-field-object" data-alpaca-field-id="alpaca16" data-alpaca-field-path="/LightingSystem/auc:LampType/auc:Halogen" data-alpaca-field-name="LightingSystem_auc:LampType_auc:Halogen">
+
+
+
+
+
+            <div>
+
+
+            <div>
+
+        <div class="alpaca-field alpaca-field-object" data-alpaca-field-id="alpaca32" data-alpaca-field-path="/LightingSystem/auc:LampType/auc:Halogen/auc:LampLabel" data-alpaca-field-name="LightingSystem_auc:LampType_auc:Halogen_auc:LampLabel">
+
+
+
+
+
+            <div>
+
+
+            <div>
+
+        <div class="alpaca-field alpaca-field-select" data-alpaca-field-id="alpaca39" data-alpaca-field-path="/LightingSystem/auc:LampType/auc:Halogen/auc:LampLabel/$" data-alpaca-field-name="LightingSystem_auc:LampType_auc:Halogen_auc:LampLabel_$">
+
+
+
+        <div class="field" name="LightingSystem_auc:LampType_auc:Halogen_auc:LampLabel_$">
+    <label> Lamp Label</label>
+    <select id="alpaca39" ng-model="system[&#39;auc:LightingSystems&#39;][&#39;auc:LightingSystem&#39;][&#39;auc:LampType&#39;][&#39;auc:Halogen&#39;][&#39;auc:LampLabel&#39;][&#39;$&#39;]" name="LightingSystem_auc:LampType_auc:Halogen_auc:LampLabel_$">
+
+
+        <option value="">None</option>
+
+        <option value="A-shape">A-shape</option>
+        <option value="BR30">BR30</option>
+        <option value="BR40">BR40</option>
+        <option value="MR11">MR11</option>
+        <option value="MR16">MR16</option>
+        <option value="MR8">MR8</option>
+        <option value="Other">Other</option>
+        <option value="PAR20">PAR20</option>
+        <option value="PAR30">PAR30</option>
+        <option value="PAR38">PAR38</option>
+        <option value="Pin Base">Pin Base</option>
+        <option value="R20">R20</option>
+        <option value="Unknown">Unknown</option>
+
+
+    </select>
+</div>
+
+
+
+    </div>
+
+    </div>
+
+
+    </div>
+
+
+
+    </div>
+
+    </div>
+
+
+    </div>
+
+
+
+    </div>
+
+    </div>
+
+
+            <div>
+
+        <div class="alpaca-field alpaca-field-object" data-alpaca-field-id="alpaca17" data-alpaca-field-path="/LightingSystem/auc:LampType/auc:Incandescent" data-alpaca-field-name="LightingSystem_auc:LampType_auc:Incandescent">
+
+
+
+
+
+            <div>
+
+
+            <div>
+
+        <div class="alpaca-field alpaca-field-object" data-alpaca-field-id="alpaca33" data-alpaca-field-path="/LightingSystem/auc:LampType/auc:Incandescent/auc:LampLabel" data-alpaca-field-name="LightingSystem_auc:LampType_auc:Incandescent_auc:LampLabel">
+
+
+
+
+
+            <div>
+
+
+            <div>
+
+        <div class="alpaca-field alpaca-field-select" data-alpaca-field-id="alpaca40" data-alpaca-field-path="/LightingSystem/auc:LampType/auc:Incandescent/auc:LampLabel/$" data-alpaca-field-name="LightingSystem_auc:LampType_auc:Incandescent_auc:LampLabel_$">
+
+
+
+        <div class="field" name="LightingSystem_auc:LampType_auc:Incandescent_auc:LampLabel_$">
+    <label> Lamp Label</label>
+    <select id="alpaca40" ng-model="system[&#39;auc:LightingSystems&#39;][&#39;auc:LightingSystem&#39;][&#39;auc:LampType&#39;][&#39;auc:Incandescent&#39;][&#39;auc:LampLabel&#39;][&#39;$&#39;]" name="LightingSystem_auc:LampType_auc:Incandescent_auc:LampLabel_$">
+
+
+        <option value="">None</option>
+
+        <option value="A19">A19</option>
+        <option value="A21">A21</option>
+        <option value="G16C">G16C</option>
+        <option value="G25M">G25M</option>
+        <option value="G40M">G40M</option>
+        <option value="MR16">MR16</option>
+        <option value="Other">Other</option>
+        <option value="PAR16">PAR16</option>
+        <option value="PAR20">PAR20</option>
+        <option value="PAR30">PAR30</option>
+        <option value="PAR38">PAR38</option>
+        <option value="PS-Series">PS-Series</option>
+        <option value="R20">R20</option>
+        <option value="R30">R30</option>
+        <option value="R40">R40</option>
+        <option value="TC">TC</option>
+        <option value="TM">TM</option>
+        <option value="Unknown">Unknown</option>
+
+
+    </select>
+</div>
+
+
+
+    </div>
+
+    </div>
+
+
+    </div>
+
+
+
+    </div>
+
+    </div>
+
+
+    </div>
+
+
+
+    </div>
+
+    </div>
+
+
+            <div>
+
+        <div class="alpaca-field alpaca-field-object" data-alpaca-field-id="alpaca18" data-alpaca-field-path="/LightingSystem/auc:LampType/auc:Neon" data-alpaca-field-name="LightingSystem_auc:LampType_auc:Neon">
+
+
+
+
+
+            <div>
+
+
+            <div>
+
+        <div class="alpaca-field alpaca-field-text" data-alpaca-field-id="alpaca34" data-alpaca-field-path="/LightingSystem/auc:LampType/auc:Neon/$" data-alpaca-field-name="LightingSystem_auc:LampType_auc:Neon_$">
+
+
+
+        <div class="field" name="LightingSystem_auc:LampType_auc:Neon_$">
+
+	<label> Neon</label>
+
+    <input type="text" id="alpaca34" ng-model="system[&#39;auc:LightingSystems&#39;][&#39;auc:LightingSystem&#39;][&#39;auc:LampType&#39;][&#39;auc:Neon&#39;][&#39;$&#39;]" name="LightingSystem_auc:LampType_auc:Neon_$">
+</div>
+
+
+
+    </div>
+
+    </div>
+
+
+    </div>
+
+
+
+    </div>
+
+    </div>
+
+
+            <div>
+
+        <div class="alpaca-field alpaca-field-object" data-alpaca-field-id="alpaca19" data-alpaca-field-path="/LightingSystem/auc:LampType/auc:OtherCombination" data-alpaca-field-name="LightingSystem_auc:LampType_auc:OtherCombination">
+
+
+
+
+
+            <div>
+
+
+            <div>
+
+        <div class="alpaca-field alpaca-field-text" data-alpaca-field-id="alpaca35" data-alpaca-field-path="/LightingSystem/auc:LampType/auc:OtherCombination/$" data-alpaca-field-name="LightingSystem_auc:LampType_auc:OtherCombination_$">
+
+
+
+        <div class="field" name="LightingSystem_auc:LampType_auc:OtherCombination_$">
+
+	<label> Other Combination</label>
+
+    <input type="text" id="alpaca35" ng-model="system[&#39;auc:LightingSystems&#39;][&#39;auc:LightingSystem&#39;][&#39;auc:LampType&#39;][&#39;auc:OtherCombination&#39;][&#39;$&#39;]" name="LightingSystem_auc:LampType_auc:OtherCombination_$">
+</div>
+
+
+
+    </div>
+
+    </div>
+
+
+    </div>
+
+
+
+    </div>
+
+    </div>
+
+
+            <div>
+
+        <div class="alpaca-field alpaca-field-object" data-alpaca-field-id="alpaca20" data-alpaca-field-path="/LightingSystem/auc:LampType/auc:SolidStateLighting" data-alpaca-field-name="LightingSystem_auc:LampType_auc:SolidStateLighting">
+
+
+
+
+
+            <div>
+
+
+            <div>
+
+        <div class="alpaca-field alpaca-field-object" data-alpaca-field-id="alpaca36" data-alpaca-field-path="/LightingSystem/auc:LampType/auc:SolidStateLighting/auc:LampLabel" data-alpaca-field-name="LightingSystem_auc:LampType_auc:SolidStateLighting_auc:LampLabel">
+
+
+
+
+
+            <div>
+
+
+            <div>
+
+        <div class="alpaca-field alpaca-field-select" data-alpaca-field-id="alpaca41" data-alpaca-field-path="/LightingSystem/auc:LampType/auc:SolidStateLighting/auc:LampLabel/$" data-alpaca-field-name="LightingSystem_auc:LampType_auc:SolidStateLighting_auc:LampLabel_$">
+
+
+
+        <div class="field" name="LightingSystem_auc:LampType_auc:SolidStateLighting_auc:LampLabel_$">
+    <label> Lamp Label</label>
+    <select id="alpaca41" ng-model="system[&#39;auc:LightingSystems&#39;][&#39;auc:LightingSystem&#39;][&#39;auc:LampType&#39;][&#39;auc:SolidStateLighting&#39;][&#39;auc:LampLabel&#39;][&#39;$&#39;]" name="LightingSystem_auc:LampType_auc:SolidStateLighting_auc:LampLabel_$">
+
+
+        <option value="">None</option>
+
+        <option value="LED">LED</option>
+        <option value="Other">Other</option>
+
+
+    </select>
+</div>
+
+
+
+    </div>
+
+    </div>
+
+
+    </div>
+
+
+
+    </div>
+
+    </div>
+
+
+    </div>
+
+
+
+    </div>
+
+    </div>
+
+
+            <div>
+
+        <div class="alpaca-field alpaca-field-object" data-alpaca-field-id="alpaca21" data-alpaca-field-path="/LightingSystem/auc:LampType/auc:Unknown" data-alpaca-field-name="LightingSystem_auc:LampType_auc:Unknown">
+
+
+
+
+
+            <div>
+
+
+            <div>
+
+        <div class="alpaca-field alpaca-field-text" data-alpaca-field-id="alpaca37" data-alpaca-field-path="/LightingSystem/auc:LampType/auc:Unknown/$" data-alpaca-field-name="LightingSystem_auc:LampType_auc:Unknown_$">
+
+
+
+        <div class="field" name="LightingSystem_auc:LampType_auc:Unknown_$">
+
+	<label> Unknown</label>
+
+    <input type="text" id="alpaca37" ng-model="system[&#39;auc:LightingSystems&#39;][&#39;auc:LightingSystem&#39;][&#39;auc:LampType&#39;][&#39;auc:Unknown&#39;][&#39;$&#39;]" name="LightingSystem_auc:LampType_auc:Unknown_$">
+</div>
+
+
+
+    </div>
+
+    </div>
+
+
+    </div>
+
+
+
+    </div>
+
+    </div>
+
+
+    </div>
+
+
+
+    </div>
+
+    </div>
+
+
+            <div>
+
+        <div class="alpaca-field alpaca-field-object" data-alpaca-field-id="alpaca5" data-alpaca-field-path="/LightingSystem/auc:InstallationType" data-alpaca-field-name="LightingSystem_auc:InstallationType">
+
+
+
+
+
+            <div>
+
+
+            <div>
+
+        <div class="alpaca-field alpaca-field-select" data-alpaca-field-id="alpaca22" data-alpaca-field-path="/LightingSystem/auc:InstallationType/$" data-alpaca-field-name="LightingSystem_auc:InstallationType_$">
+
+
+
+        <div class="field" name="LightingSystem_auc:InstallationType_$">
+    <label> Installation Type</label>
+    <select id="alpaca22" ng-model="system[&#39;auc:LightingSystems&#39;][&#39;auc:LightingSystem&#39;][&#39;auc:InstallationType&#39;][&#39;$&#39;]" name="LightingSystem_auc:InstallationType_$">
+
+
+        <option value="">None</option>
+
+        <option value="Other">Other</option>
+        <option value="Plug-in">Plug-in</option>
+        <option value="Recessed">Recessed</option>
+        <option value="Surface">Surface</option>
+        <option value="Suspended">Suspended</option>
+        <option value="Unknown">Unknown</option>
+
+
+    </select>
+</div>
+
+
+
+    </div>
+
+    </div>
+
+
+    </div>
+
+
+
+    </div>
+
+    </div>
+
+
+            <div>
+
+        <div class="alpaca-field alpaca-field-object" data-alpaca-field-id="alpaca6" data-alpaca-field-path="/LightingSystem/auc:LightingControlTypeOccupancy" data-alpaca-field-name="LightingSystem_auc:LightingControlTypeOccupancy">
+
+
+
+
+
+            <div>
+
+
+            <div>
+
+        <div class="alpaca-field alpaca-field-select" data-alpaca-field-id="alpaca23" data-alpaca-field-path="/LightingSystem/auc:LightingControlTypeOccupancy/$" data-alpaca-field-name="LightingSystem_auc:LightingControlTypeOccupancy_$">
+
+
+
+        <div class="field" name="LightingSystem_auc:LightingControlTypeOccupancy_$">
+    <label> Lighting Control Type Occupancy</label>
+    <select id="alpaca23" ng-model="system[&#39;auc:LightingSystems&#39;][&#39;auc:LightingSystem&#39;][&#39;auc:LightingControlTypeOccupancy&#39;][&#39;$&#39;]" name="LightingSystem_auc:LightingControlTypeOccupancy_$">
+
+
+        <option value="">None</option>
+
+        <option value="None">None</option>
+        <option value="Occupancy Sensors">Occupancy Sensors</option>
+        <option value="Other">Other</option>
+        <option value="Unknown">Unknown</option>
+        <option value="Vacancy Sensors">Vacancy Sensors</option>
+
+
+    </select>
+</div>
+
+
+
+    </div>
+
+    </div>
+
+
+    </div>
+
+
+
+    </div>
+
+    </div>
+
+
+            <div>
+
+        <div class="alpaca-field alpaca-field-object" data-alpaca-field-id="alpaca7" data-alpaca-field-path="/LightingSystem/auc:LightingDirection" data-alpaca-field-name="LightingSystem_auc:LightingDirection">
+
+
+
+
+
+            <div>
+
+
+            <div>
+
+        <div class="alpaca-field alpaca-field-select" data-alpaca-field-id="alpaca24" data-alpaca-field-path="/LightingSystem/auc:LightingDirection/$" data-alpaca-field-name="LightingSystem_auc:LightingDirection_$">
+
+
+
+        <div class="field" name="LightingSystem_auc:LightingDirection_$">
+    <label> Lighting Direction</label>
+    <select id="alpaca24" ng-model="system[&#39;auc:LightingSystems&#39;][&#39;auc:LightingSystem&#39;][&#39;auc:LightingDirection&#39;][&#39;$&#39;]" name="LightingSystem_auc:LightingDirection_$">
+
+
+        <option value="">None</option>
+
+        <option value="Direct">Direct</option>
+        <option value="Direct-Indirect">Direct-Indirect</option>
+        <option value="Floodlighting">Floodlighting</option>
+        <option value="Indirect">Indirect</option>
+        <option value="Omnidirectional">Omnidirectional</option>
+        <option value="Other">Other</option>
+        <option value="Spotlight">Spotlight</option>
+        <option value="Unknown">Unknown</option>
+
+
+    </select>
+</div>
+
+
+
+    </div>
+
+    </div>
+
+
+    </div>
+
+
+
+    </div>
+
+    </div>
+
+
+            <div>
+
+        <div class="alpaca-field alpaca-field-object" data-alpaca-field-id="alpaca8" data-alpaca-field-path="/LightingSystem/auc:Manufacturer" data-alpaca-field-name="LightingSystem_auc:Manufacturer">
+
+
+
+
+
+            <div>
+
+
+            <div>
+
+        <div class="alpaca-field alpaca-field-text" data-alpaca-field-id="alpaca25" data-alpaca-field-path="/LightingSystem/auc:Manufacturer/$" data-alpaca-field-name="LightingSystem_auc:Manufacturer_$">
+
+
+
+        <div class="field" name="LightingSystem_auc:Manufacturer_$">
+
+	<label> Manufacturer</label>
+
+    <input type="text" id="alpaca25" ng-model="system[&#39;auc:LightingSystems&#39;][&#39;auc:LightingSystem&#39;][&#39;auc:Manufacturer&#39;][&#39;$&#39;]" name="LightingSystem_auc:Manufacturer_$">
+</div>
+
+
+
+    </div>
+
+    </div>
+
+
+    </div>
+
+
+
+    </div>
+
+    </div>
+
+
+            <div>
+
+        <div class="alpaca-field alpaca-field-object" data-alpaca-field-id="alpaca9" data-alpaca-field-path="/LightingSystem/auc:ModelNumber" data-alpaca-field-name="LightingSystem_auc:ModelNumber">
+
+
+
+
+
+            <div>
+
+
+            <div>
+
+        <div class="alpaca-field alpaca-field-text" data-alpaca-field-id="alpaca26" data-alpaca-field-path="/LightingSystem/auc:ModelNumber/$" data-alpaca-field-name="LightingSystem_auc:ModelNumber_$">
+
+
+
+        <div class="field" name="LightingSystem_auc:ModelNumber_$">
+
+	<label> Model Number</label>
+
+    <input type="text" id="alpaca26" ng-model="system[&#39;auc:LightingSystems&#39;][&#39;auc:LightingSystem&#39;][&#39;auc:ModelNumber&#39;][&#39;$&#39;]" name="LightingSystem_auc:ModelNumber_$">
+</div>
+
+
+
+    </div>
+
+    </div>
+
+
+    </div>
+
+
+
+    </div>
+
+    </div>
+
+
+            <div>
+
+        <div class="alpaca-field alpaca-field-object" data-alpaca-field-id="alpaca10" data-alpaca-field-path="/LightingSystem/auc:Quantity" data-alpaca-field-name="LightingSystem_auc:Quantity">
+
+
+
+
+
+            <div>
+
+
+            <div>
+
+        <div class="alpaca-field alpaca-field-integer" data-alpaca-field-id="alpaca27" data-alpaca-field-path="/LightingSystem/auc:Quantity/$" data-alpaca-field-name="LightingSystem_auc:Quantity_$">
+
+
+
+        <div class="field" name="LightingSystem_auc:Quantity_$">
+
+	<label> Quantity</label>
+
+    <input type="text" id="alpaca27" ng-model="system[&#39;auc:LightingSystems&#39;][&#39;auc:LightingSystem&#39;][&#39;auc:Quantity&#39;][&#39;$&#39;]" name="LightingSystem_auc:Quantity_$">
+</div>
+
+
+
+    </div>
+
+    </div>
+
+
+            <div>
+
+        <div class="alpaca-field alpaca-field-select" data-alpaca-field-id="alpaca28" data-alpaca-field-path="/LightingSystem/auc:Quantity/@auc:Source" data-alpaca-field-name="LightingSystem_auc:Quantity_@auc:Source">
+
+
+
+        <div class="field" name="LightingSystem_auc:Quantity_@auc:Source">
+    <label> Source</label>
+    <select id="alpaca28" ng-model="system[&#39;auc:LightingSystems&#39;][&#39;auc:LightingSystem&#39;][&#39;auc:Quantity&#39;][&#39;@auc:Source&#39;]" name="LightingSystem_auc:Quantity_@auc:Source">
+
+
+        <option value="">None</option>
+
+        <option value="ASHRAE">ASHRAE</option>
+        <option value="Agent">Agent</option>
+        <option value="Arch2030">Arch2030</option>
+        <option value="Assessor">Assessor</option>
+        <option value="Auditor">Auditor</option>
+        <option value="Building Component Library">Building Component Library</option>
+        <option value="Default">Default</option>
+        <option value="Design files">Design files</option>
+        <option value="Direct measurement">Direct measurement</option>
+        <option value="ENERGY STAR Portfolio Manager">ENERGY STAR Portfolio Manager</option>
+        <option value="Energy Management System">Energy Management System</option>
+        <option value="Estimate">Estimate</option>
+        <option value="Other">Other</option>
+        <option value="Product specification">Product specification</option>
+        <option value="Simulation">Simulation</option>
+        <option value="Target Finder">Target Finder</option>
+        <option value="US EIA">US EIA</option>
+        <option value="US EPA">US EPA</option>
+        <option value="Utility transfer">Utility transfer</option>
+
+
+    </select>
+</div>
+
+
+
+    </div>
+
+    </div>
+
+
+    </div>
+
+
+
+    </div>
+
+    </div>
+
+
+            <div>
+
+        <div class="alpaca-field alpaca-field-object" data-alpaca-field-id="alpaca11" data-alpaca-field-path="/LightingSystem/auc:YearInstalled" data-alpaca-field-name="LightingSystem_auc:YearInstalled">
+
+
+
+
+
+            <div>
+
+
+            <div>
+
+        <div class="alpaca-field alpaca-field-text" data-alpaca-field-id="alpaca29" data-alpaca-field-path="/LightingSystem/auc:YearInstalled/$" data-alpaca-field-name="LightingSystem_auc:YearInstalled_$">
+
+
+
+        <div class="field" name="LightingSystem_auc:YearInstalled_$">
+
+	<label> Year Installed</label>
+
+    <input type="text" id="alpaca29" ng-model="system[&#39;auc:LightingSystems&#39;][&#39;auc:LightingSystem&#39;][&#39;auc:YearInstalled&#39;][&#39;$&#39;]" name="LightingSystem_auc:YearInstalled_$">
+</div>
+
+
+
+    </div>
+
+    </div>
+
+
+    </div>
+
+
+
+    </div>
+
+    </div>
+
+
+            <div>
+
+        <div class="alpaca-field alpaca-field-object" data-alpaca-field-id="alpaca12" data-alpaca-field-path="/LightingSystem/auc:YearofManufacture" data-alpaca-field-name="LightingSystem_auc:YearofManufacture">
+
+
+
+
+
+            <div>
+
+
+            <div>
+
+        <div class="alpaca-field alpaca-field-text" data-alpaca-field-id="alpaca30" data-alpaca-field-path="/LightingSystem/auc:YearofManufacture/$" data-alpaca-field-name="LightingSystem_auc:YearofManufacture_$">
+
+
+
+        <div class="field" name="LightingSystem_auc:YearofManufacture_$">
+
+	<label> Yearof Manufacture</label>
+
+    <input type="text" id="alpaca30" ng-model="system[&#39;auc:LightingSystems&#39;][&#39;auc:LightingSystem&#39;][&#39;auc:YearofManufacture&#39;][&#39;$&#39;]" name="LightingSystem_auc:YearofManufacture_$">
+</div>
+
+
+
+    </div>
+
+    </div>
+
+
+    </div>
+
+
+
+    </div>
+
+    </div>
+
+
+    </div>
+
+
+
+    </div>
+
+    </div>
+
+
+    </div>
+
+
+
+    </div>
+
+        <div class="alpaca-form-buttons-container">
+        </div>
+
+    </form></div>
+
+<div id="feedly-mini" title="feedly Mini tookit"></div></body></html>

@@ -1,0 +1,346 @@
+{
+  "auc:FenestrationSystemType": {
+    "additionalProperties": false,
+    "patternProperties": {
+      "^@xmlns(:\\w+)?$": {
+        "type": "string"
+      },
+      "^@xsi:\\w+$": {
+        "type": "string"
+      },
+      "^\\?\\w+$": {
+        "type": "string"
+      }
+    },
+    "properties": {
+      "#": {
+        "type": "string"
+      },          
+      "auc:FenestrationType": {
+        "additionalProperties": false,
+        "description": "Type of fenestration in this group (windows, skylights, doors)",
+        "patternProperties": {
+          "^@xmlns(:\\w+)?$": {
+            "type": "string"
+          },
+          "^@xsi:\\w+$": {
+            "type": "string"
+          },
+          "^\\?\\w+$": {
+            "type": "string"
+          }
+        },
+        "properties": {
+          "#": {
+            "type": "string"
+          },
+          "$": {
+            "enum": [
+              "Window",
+              "Other"
+            ],
+            "type": "string"
+          },
+          "auc:Window": {
+            "additionalProperties": false,
+            "patternProperties": {
+              "^@xmlns(:\\w+)?$": {
+                "type": "string"
+              },
+              "^@xsi:\\w+$": {
+                "type": "string"
+              },
+              "^\\?\\w+$": {
+                "type": "string"
+              }
+            },
+            "properties": {
+              "#": {
+                "type": "string"
+              },                                                      
+              "auc:WindowHeight": {
+                "additionalProperties": false,
+                "description": "Vertical height of each window. (ft)",
+                "patternProperties": {
+                  "^@xmlns(:\\w+)?$": {
+                    "type": "string"
+                  },
+                  "^@xsi:\\w+$": {
+                    "type": "string"
+                  },
+                  "^\\?\\w+$": {
+                    "type": "string"
+                  }
+                },
+                "properties": {
+                  "#": {
+                    "type": "string"
+                  },
+                  "$": {
+                    "$ref": "#/definitions/xs:decimal"
+                  }
+                },
+                "type": "object"
+              },
+               "auc:WindowWidth": {
+                "additionalProperties": false,
+                "description": "Horizontal width of each window. (ft)",
+                "patternProperties": {
+                  "^@xmlns(:\\w+)?$": {
+                    "type": "string"
+                  },
+                  "^@xsi:\\w+$": {
+                    "type": "string"
+                  },
+                  "^\\?\\w+$": {
+                    "type": "string"
+                  }
+                },
+                "properties": {
+                  "#": {
+                    "type": "string"
+                  },
+                  "$": {
+                    "$ref": "#/definitions/xs:decimal"
+                  }                  
+                },
+                "type": "object"
+              },
+              "auc:WindowHorizontalSpacing": {
+                "additionalProperties": false,
+                "description": "Horizontal distance between the centers of adjacent windows. (ft)",
+                "patternProperties": {
+                  "^@xmlns(:\\w+)?$": {
+                    "type": "string"
+                  },
+                  "^@xsi:\\w+$": {
+                    "type": "string"
+                  },
+                  "^\\?\\w+$": {
+                    "type": "string"
+                  }
+                },
+                "properties": {
+                  "#": {
+                    "type": "string"
+                  },
+                  "$": {
+                    "$ref": "#/definitions/xs:decimal"
+                  }                  
+                },
+                "type": "object"
+              },              
+              "auc:WindowOrientation": {
+                "additionalProperties": false,
+                "description": "Orientation of a surface or premises in terms of the attributes of North, South, East and West. Can be applied to the orientation of the front of the building, of a specific surface (wall, roof), window or skylight, or on-site generation technology, such as photovoltaic panels.",
+                "patternProperties": {
+                  "^@xmlns(:\\w+)?$": {
+                    "type": "string"
+                  },
+                  "^@xsi:\\w+$": {
+                    "type": "string"
+                  },
+                  "^\\?\\w+$": {
+                    "type": "string"
+                  }
+                },
+                "properties": {
+                  "#": {
+                    "type": "string"
+                  },
+                  "$": {
+                    "enum": [
+                      "North",
+                      "Northeast",
+                      "East",
+                      "Southeast",
+                      "South",
+                      "Southwest",
+                      "West",
+                      "Northwest",
+                      "Unknown"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              }                           
+            },
+            "type": "object"
+          },
+          "auc:Other": {
+            "$ref": "#/definitions/xs:anyType"
+          }
+        },
+        "type": "object"
+      },      
+      "auc:FenestrationFrameMaterial": {
+        "additionalProperties": false,
+        "description": "The construction and material used in the frame of the fenestration product. Some frames are made of combinations of materials. This characterization also include whether an aluminum frame has a thermal break as part of the construction",
+        "patternProperties": {
+          "^@xmlns(:\\w+)?$": {
+            "type": "string"
+          },
+          "^@xsi:\\w+$": {
+            "type": "string"
+          },
+          "^\\?\\w+$": {
+            "type": "string"
+          }
+        },
+        "properties": {
+          "#": {
+            "type": "string"
+          },
+          "$": {
+            "enum": [
+              "Aluminum-uncategorized",
+              "Aluminum-no thermal break",
+              "Aluminum-thermal break",
+              "Clad",
+              "Composite",
+              "Fiberglass",
+              "Steel",
+              "Vinyl",
+              "Wood",
+              "Other",
+              "Unknown"
+            ],
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },      
+      "auc:GlassType": {
+        "additionalProperties": false,
+        "description": "Type of glass used in this fenestration group.",
+        "patternProperties": {
+          "^@xmlns(:\\w+)?$": {
+            "type": "string"
+          },
+          "^@xsi:\\w+$": {
+            "type": "string"
+          },
+          "^\\?\\w+$": {
+            "type": "string"
+          }
+        },
+        "properties": {
+          "#": {
+            "type": "string"
+          },
+          "$": {
+            "enum": [
+              "Clear uncoated",
+              "Low-e",
+              "Tinted",
+              "Tinted + low-e",
+              "Reflective",
+              "Reflective on tint",
+              "High performance tint",
+              "Sunbelt low-E (low SHGC)",
+              "Suspended film",
+              "Plastic",
+              "Other",
+              "Unknown"
+            ],
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },  
+      "auc:FenestrationGlassLayers": {
+        "additionalProperties": false,
+        "description": "A description of the number of layers of glass in a fenestration glazing system.",
+        "patternProperties": {
+          "^@xmlns(:\\w+)?$": {
+            "type": "string"
+          },
+          "^@xsi:\\w+$": {
+            "type": "string"
+          },
+          "^\\?\\w+$": {
+            "type": "string"
+          }
+        },
+        "properties": {
+          "#": {
+            "type": "string"
+          },
+          "$": {
+            "enum": [
+              "Single-pane",
+              "Double-pane",
+              "Triple-pane",
+              "Single-paned with storm panel",
+              "Unknown"
+            ],
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "auc:FenestrationOperation": {
+        "additionalProperties": false,
+        "description": "True if the fenestration product can be opened and closed as desired by the occupant to provide better control of office space conditions.",
+        "patternProperties": {
+          "^@xmlns(:\\w+)?$": {
+            "type": "string"
+          },
+          "^@xsi:\\w+$": {
+            "type": "string"
+          },
+          "^\\?\\w+$": {
+            "type": "string"
+          }
+        },
+        "properties": {
+          "#": {
+            "type": "string"
+          },
+          "$": {
+            "$ref": "#/definitions/xs:boolean"
+          }
+        },
+        "type": "object"
+      },                 
+      "auc:Weatherstripped": {
+        "additionalProperties": false,
+        "description": "True if fenestration is weatherstripped, false otherwise.",
+        "patternProperties": {
+          "^@xmlns(:\\w+)?$": {
+            "type": "string"
+          },
+          "^@xsi:\\w+$": {
+            "type": "string"
+          },
+          "^\\?\\w+$": {
+            "type": "string"
+          }
+        },
+        "properties": {
+          "#": {
+            "type": "string"
+          },
+          "$": {
+            "$ref": "#/definitions/xs:boolean"
+          }
+        },
+        "type": "object"
+      },
+      "auc:Manufacturer": {
+        "$ref": "#/definitions/.auc:Manufacturer"
+      },
+      "auc:ModelNumber": {
+        "$ref": "#/definitions/.auc:ModelNumber"
+      },
+      "auc:Quantity": {
+        "$ref": "#/definitions/.auc:Quantity"
+      }, 
+      "auc:YearInstalled": {
+        "$ref": "#/definitions/.auc:YearInstalled"
+      }
+    },
+    "type": "object"
+  }
+}

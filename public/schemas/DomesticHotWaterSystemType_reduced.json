@@ -1,0 +1,265 @@
+{
+  "auc:DomesticHotWaterSystemType": {
+    "additionalProperties": false,
+    "patternProperties": {
+      "^@xmlns(:\\w+)?$": {
+        "type": "string"
+      },
+      "^@xsi:\\w+$": {
+        "type": "string"
+      },
+      "^\\?\\w+$": {
+        "type": "string"
+      }
+    },
+    "properties": {
+      "#": {
+        "type": "string"
+      },
+      "$": {
+        "enum": [
+          "Heat Exchanger",
+          "Instantaneous",
+          "Storage Tank",
+          "Unknown"
+        ],
+        "type": "string"
+      },
+      "auc:DomesticHotWaterType": {
+        "additionalProperties": false,
+        "description": "Type of water heating equipment for hot running water.",
+        "patternProperties": {
+          "^@xmlns(:\\w+)?$": {
+            "type": "string"
+          },
+          "^@xsi:\\w+$": {
+            "type": "string"
+          },
+          "^\\?\\w+$": {
+            "type": "string"
+          }
+        },
+        "properties": {
+          "#": {
+            "type": "string"
+          },
+          "auc:HeatExchanger": {
+            "$ref": "#/definitions/xs:anyType"
+          },
+          "auc:Instantaneous": {
+            "additionalProperties": false,
+            "patternProperties": {
+              "^@xmlns(:\\w+)?$": {
+                "type": "string"
+              },
+              "^@xsi:\\w+$": {
+                "type": "string"
+              },
+              "^\\?\\w+$": {
+                "type": "string"
+              }
+            },
+            "properties": {
+              "#": {
+                "type": "string"
+              },
+              "auc:InstantaneousWaterHeatingSource": {
+                "additionalProperties": false,
+                "description": "Source of heat for instantaneous water heater.",
+                "patternProperties": {
+                  "^@xmlns(:\\w+)?$": {
+                    "type": "string"
+                  },
+                  "^@xsi:\\w+$": {
+                    "type": "string"
+                  },
+                  "^\\?\\w+$": {
+                    "type": "string"
+                  }
+                },
+                "properties": {
+                  "#": {
+                    "type": "string"
+                  },
+                  "$": {
+                    "enum": [
+                      "Combustion",
+                      "ElectricResistance",
+                      "Other",                     
+                      "Unknown"
+                    ],
+                    "type": "string"
+                  }              
+                },
+                "type": "object"
+              }
+            },
+            "type": "object"
+          },
+          "auc:StorageTank": {
+            "additionalProperties": false,
+            "patternProperties": {
+              "^@\\w+$": {
+                "type": [
+                  "string",
+                  "number",
+                  "boolean"
+                ]
+              },
+              "^@xmlns(:\\w+)?$": {
+                "type": "string"
+              },
+              "^@xsi:\\w+$": {
+                "type": "string"
+              },
+              "^\\?\\w+$": {
+                "type": "string"
+              },
+              "^\\w+$": {}
+            },
+            "properties": {
+              "#": {
+                "type": "string"
+              },
+              "auc:TankVolume": {
+                "additionalProperties": false,
+                "description": "Hot water tank volume. (gal)",
+                "patternProperties": {
+                  "^@xmlns(:\\w+)?$": {
+                    "type": "string"
+                  },
+                  "^@xsi:\\w+$": {
+                    "type": "string"
+                  },
+                  "^\\?\\w+$": {
+                    "type": "string"
+                  }
+                },
+                "properties": {
+                  "#": {
+                    "type": "string"
+                  },
+                  "$": {
+                    "$ref": "#/definitions/xs:decimal"
+                  }
+                },
+                "type": "object"
+              }
+            },
+            "type": "object"               
+            },
+          "auc:Unknown": {
+            "$ref": "#/definitions/xs:anyType"
+          }
+        },
+        "type": "object"
+      },
+      "auc:HotWaterDistributionType": {
+        "additionalProperties": false,
+        "description": "Manner in which hot water is distributed.",
+        "patternProperties": {
+          "^@xmlns(:\\w+)?$": {
+            "type": "string"
+          },
+          "^@xsi:\\w+$": {
+            "type": "string"
+          },
+          "^\\?\\w+$": {
+            "type": "string"
+          }
+        },
+        "properties": {
+          "#": {
+            "type": "string"
+          },
+          "$": {
+            "enum": [
+              "Looped",
+              "Distributed",
+              "Point-of-use",
+              "Other",
+              "Unknown"
+            ],
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },                  
+      "auc:WaterHeaterEfficiency": {
+        "additionalProperties": false,
+        "description": "A factor is used to compare the relative efficiency of water heaters, dishwashers, clothes washers, and clothes dryers.",
+        "patternProperties": {
+          "^@xmlns(:\\w+)?$": {
+            "type": "string"
+          },
+          "^@xsi:\\w+$": {
+            "type": "string"
+          },
+          "^\\?\\w+$": {
+            "type": "string"
+          }
+        },
+        "properties": {
+          "#": {
+            "type": "string"
+          },
+          "$": {
+            "$ref": "#/definitions/xs:decimal"
+          }
+        },
+        "type": "object"
+      },
+      "auc:WaterHeaterEfficiencyType": {
+        "additionalProperties": false,
+        "patternProperties": {
+          "^@xmlns(:\\w+)?$": {
+            "type": "string"
+          },
+          "^@xsi:\\w+$": {
+            "type": "string"
+          },
+          "^\\?\\w+$": {
+            "type": "string"
+          }
+        },
+        "properties": {
+          "#": {
+            "type": "string"
+          },
+          "$": {
+            "enum": [
+              "Energy Factor",
+              "Thermal Efficiency"
+            ],
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "auc:Capacity": {
+        "$ref": "#/definitions/.auc:Capacity"
+      },
+      ".auc:CapacityUnits": {
+        "$ref": "#/definitions/.auc:CapacityUnits"
+      },   
+      "auc:Manufacturer": {
+        "$ref": "#/definitions/.auc:Manufacturer"
+      },    
+      "auc:ModelNumber": {
+        "$ref": "#/definitions/.auc:ModelNumber"
+      },    
+      "auc:Quantity": {
+        "$ref": "#/definitions/.auc:Quantity"
+      },    
+      "auc:YearInstalled": {
+        "$ref": "#/definitions/.auc:YearInstalled"
+      },
+      "auc:YearofManufacture": {
+        "$ref": "#/definitions/.auc:YearofManufacture"
+      }
+    }, 
+    "type": "object"            
+  }
+}
+
+    

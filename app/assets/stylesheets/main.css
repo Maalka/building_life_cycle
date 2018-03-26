@@ -1,13 +1,63 @@
+
+body {
+    font-family:"Gesta", arial, sans-serif;
+}
+p {
+    font-size: 18px;
+    line-height: 24px;
+}
+h2 {
+    font-color: black;
+}
+.indent {
+    margin-left: 20px;
+}
+.alpaca-field .field {
+    padding-top:20px !important;
+    margin-left:20px !important;
+}
+.ui.checkbox {
+    padding-top:5px !important;
+}
 .site {
   display: flex;
   min-height: 100vh;
   flex-direction: column;
 }
 
-.site-content {
-  flex: 1;
+.ui.mini.avatar.image {
+    margin-right: 10px; 
+    width:20px !important;
 }
 
+.fluid.accordion .content {
+    margin-left: 50px;
+}
+
+.fluid.accordion .block {
+    margin-left: 20px;
+    font-style: italic;
+}
+
+.fluid.accordion .title {
+    font-weight: 600;
+    color: rgba(0,0,0,.95);
+}
+
+.fluid.accordian .subtitle {
+    color: rgba(0,0,0,.95);
+}
+.site-content {
+  flex: 1;
+} 
+.ui.form .ui.row {
+    padding-top: .5em !important;
+    padding-bottom: .5em !important;
+}
+.ui.form .column {
+    padding-left: .5em !important;
+    padding-right: .5em !important;
+}
 .design-label {
 	line-height:1.7em !important;
 }
@@ -21,6 +71,11 @@ input.small {
 .sup {
     vertical-align: super;
     font-size: smaller;
+}
+
+.ui.padded.centered.image {
+    margin-top: 100px;
+    margin-bottom:100px;
 }
 
 ul.icon1 {
