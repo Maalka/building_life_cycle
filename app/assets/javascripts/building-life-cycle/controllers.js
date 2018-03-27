@@ -85,7 +85,6 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
     };
 
     $scope.systemCategories = Object.keys(systemCategories);
-    $scope.systems = ['Steam', 'Combustion', 'Waste heat', 'Other', 'Unknown'];
 
     $scope.selectedSystemCategory = {};
     $scope.selectedSystem = {};
@@ -111,7 +110,6 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
             } else {
                 console.log('measure end date not defined');
             }
-
     };
 
     $scope.systemAdded = function(systemName) {
@@ -198,6 +196,7 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
 
     $scope.addSystemToList = function() {
         $scope.systemList.push($scope.system);
+        $scope.system = {};
     };
 
     $scope.removeMeasure = function(index) {
@@ -285,19 +284,16 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
 
         var removeMeta = function(obj) {
             // obj is passed by reference and will return 
-            // itself minus the "$"
-            console.log('called rem meta');
+            // itself minus the "$" unless it's the leaf of a tree
             if (typeof obj === 'object') {
                 var keys = Object.keys(obj);
-                if (keys.length > 1) {
-                    keys.forEach( function (key) { 
-                        if (key === '$') {
+                    keys.forEach( function (key) {
+                        if (key === '$' && keys.length > 1) {
                             delete obj[key];
                         } else {
                             removeMeta(obj[key]);
                         }
                     });
-                }
             }
             return obj;
         };
