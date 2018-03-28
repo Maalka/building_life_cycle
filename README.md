@@ -84,10 +84,6 @@ In order to focus the task of data collection, subfield sets of each category we
 ## Run
 * from sbt command line run: sbt run
 
-* Now the application can be invoked either from a browser or from the command line (curl)
+* Now the application can be invoked either from a browser at http://localhost:9000 or from the command line (curl)
 
-* To Set which gfa field to use:
-maalka {
- bedesOccupencyTypeCompositeField = "Observed Primary Occupancy Classification"
-}
-
+ 
