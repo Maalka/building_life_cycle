@@ -67,22 +67,30 @@ define(['angular', 'moment', 'highcharts', 'highcharts-drilldown', 'highcharts-e
                     chart: {
                         backgroundColor: "transparent",
                         style: {
-                            fontFamily: 'Gesta',
+                            fontFamily: "gesta,'Helvetica Neue',Arial,Helvetica,sans-serif"
                         },
                         marginLeft:150,
                         marginRight:150,
                         MarginTop:50
                     },
+                      global: {
+                        useUTC: false
+                    },
                     xAxis: {
 						title: {
-							text: 'Year',
+                            text: 'Date Installed',
+                            style: {
+                                color: 'black',
+                            },
 						},
-                        type: "datetime",
-                        tickInterval: 24 * 3600 * 1000 * 365,
+                        type: "datetime", 
+                        labels: {
+                            format: '{value:%b - %e - %Y}'
+                        },
 						gridLineWidth: 0,
-						lineWidth: 0,
+						lineWidth: 1,
 						minorGridLineWidth: 0,
-						lineColor: 'transparent'
+						lineColor: '#cdcdcd'
                     },
 
                     yAxis: {
@@ -94,10 +102,12 @@ define(['angular', 'moment', 'highcharts', 'highcharts-drilldown', 'highcharts-e
                     legend: {
                         enabled: false
                     },
-					tooltip: {
-						headerFormat: '',
-					},
-					plotOptions: {
+                    tooltip: {
+                        xDateFormat: 'End Date: ' + '%b - %e - %Y',
+                        pointFormat: '',
+                        useHTML: true
+                    },
+                    plotOptions: {
 						flags: {
 							useHTML: true,
 							lineWidth: 2,

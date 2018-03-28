@@ -234,13 +234,14 @@
                                 </div>
                                 <div class="ui hidden divider"></div>
                                 <div class="padded row">
-                                    <h2 class="ui right floated small blue header">
+                                    <div class="pointer" ng-click="addSystemToList()">
+                                        <h2 class="ui right floated small blue header">
                                         ADD TO LIST
-                                        <a data-tooltip = "Add system information to System list"
-                                            ng-click="addSystemToList()">
+                                        <a data-tooltip = "Add system information to system list">
                                             <img class="ui right floated mini image" src="/assets/images/down-arrow-blue.svg" />
                                         </a>
-                                    </h2>
+                                        </h2>
+                                    </div>
                                 </div>
                             </div>
                             <div class="ui bottom attached inactive tab very padded segment" data-tab="Measures">
@@ -319,13 +320,14 @@
                                 </div>
                                 <div class="ui hidden divider"></div>
                                 <div class="row">
-                                    <h2 class="ui right floated small blue header">
+                                    <div class="pointer" ng-click="addMeasureToList()">
+                                        <h2 class="ui right floated small blue header">
                                         ADD TO LIST
-                                        <a data-tooltip = "Add measure event to Measures list"
-                                           ng-click="addMeasureToList()">
-                                        <img class="ui right floated mini image" src="/assets/images/down-arrow-blue.svg"/ >
+                                        <a data-tooltip = "Add measure information to measures list">
+                                            <img class="ui right floated mini image" src="/assets/images/down-arrow-blue.svg" />
                                         </a>
-                                    </h2>
+                                        </h2>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -420,8 +422,7 @@
                                 </div>
                             </div>
                         </div>
-                        <button class="ui blue button" ng-click="downloadData()">Download</button>
-                        <button class="ui gray button"> View JSON</button>
+                        <button class="ui blue button" ng-click="downloadData()">Download BuildingSync</button>
                     </div>
                     <div class="column">
                         <h2>MEASURES</h2>
@@ -436,18 +437,20 @@
                                             {{measure.systemType}}
                                             <i class="blue dropdown icon"></i>
                                         </div>
-                                        <div class="active content">
-                                            <div style="color:#06a1f9">
-                                                {{measure.startDate | date:'MM/dd/yyyy' }} - 
-                                                {{measure.endDate | date:'MM/dd/yyyy' }}
-                                            </div>
-                                            <div class="subtitle">
-                                            {{measure.detail}}
-                                            </div>  
-                                            <div class="indent">
-                                                <div><span style="color:black">Status: </span>{{measure.implementationStatus}}</div>
-                                                <div><span style="color:black">System Category: </span>{{measure.systemCategory}}</div>
-                                                <div><i><span style="color:black">Comment: </span>{{measure.comment}}</i></div>
+                                        <div class="indent">
+                                            <div class="active content">
+                                                <div style="color:#06a1f9">
+                                                    {{measure.startDate | date:'MM/dd/yyyy' }} - 
+                                                    {{measure.endDate | date:'MM/dd/yyyy' }}
+                                                </div>
+                                                <div class="subtitle">
+                                                {{measure.detail}}
+                                                </div>  
+                                                <div class="indent">
+                                                    <div><span style="color:black">Status: </span>{{measure.implementationStatus}}</div>
+                                                    <div><span style="color:black">System Category: </span>{{measure.systemCategory}}</div>
+                                                    <div><i><span style="color:black">Comment: </span>{{measure.comment}}</i></div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -455,8 +458,7 @@
                                 </div>
                             </div>
                         </div>
-                        <button class="ui blue button" ng-click="downloadData()">Download</button>
-                        <button class="ui gray button"> View JSON</button>
+                        <button class="ui blue button" ng-click="downloadData()">Download BuildingSync</button>
                     </div>
                 </div>
                 <div class="ui hidden divider"></div>
