@@ -45,12 +45,12 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
     };
 
     var systemCategories = {
-        "HVAC System": buildingSyncSchema.definitions[".auc:Audits"].properties["auc:Audit"].anyOf["0"].properties["auc:Systems"].properties["auc:HVACSystems"],
-        "Domestic Hot Water System": buildingSyncSchema.definitions[".auc:Audits"].properties["auc:Audit"].anyOf["0"].properties["auc:Systems"].properties["auc:DomesticHotWaterSystems"],
-        "Fan System": buildingSyncSchema.definitions[".auc:Audits"].properties["auc:Audit"].anyOf["0"].properties["auc:Systems"].properties["auc:FanSystems"],
-        "Fenestration System": buildingSyncSchema.definitions[".auc:Audits"].properties["auc:Audit"].anyOf["0"].properties["auc:Systems"].properties["auc:FenestrationSystems"],
-        "Heat Recovery System": buildingSyncSchema.definitions[".auc:Audits"].properties["auc:Audit"].anyOf["0"].properties["auc:Systems"].properties["auc:HeatRecoverySystems"],
-        "Lighting System": buildingSyncSchema.definitions[".auc:Audits"].properties["auc:Audit"].anyOf["0"].properties["auc:Systems"].properties["auc:LightingSystems"]
+        "HVAC": buildingSyncSchema.definitions[".auc:Audits"].properties["auc:Audit"].anyOf["0"].properties["auc:Systems"].properties["auc:HVACSystems"],
+        "Domestic Hot Water": buildingSyncSchema.definitions[".auc:Audits"].properties["auc:Audit"].anyOf["0"].properties["auc:Systems"].properties["auc:DomesticHotWaterSystems"],
+        "Fan": buildingSyncSchema.definitions[".auc:Audits"].properties["auc:Audit"].anyOf["0"].properties["auc:Systems"].properties["auc:FanSystems"],
+        "Fenestration": buildingSyncSchema.definitions[".auc:Audits"].properties["auc:Audit"].anyOf["0"].properties["auc:Systems"].properties["auc:FenestrationSystems"],
+        "Heat Recovery": buildingSyncSchema.definitions[".auc:Audits"].properties["auc:Audit"].anyOf["0"].properties["auc:Systems"].properties["auc:HeatRecoverySystems"],
+        "Lighting": buildingSyncSchema.definitions[".auc:Audits"].properties["auc:Audit"].anyOf["0"].properties["auc:Systems"].properties["auc:LightingSystems"]
     };
 
     $scope.format = 'hh:mm:ss';
@@ -124,7 +124,7 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
 
     $scope.selectedSystemCategoryChanged = function() {
         $scope.system = {};
-        if ($scope.selectedSystemCategory.selected == "Domestic Hot Water System") {
+        if ($scope.selectedSystemCategory.selected == "Domestic Hot Water") {
             $scope.showType1 = true;
             $scope.showType2 = false;
             $scope.showType3 = false;
@@ -132,7 +132,7 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
             $scope.showType5 = false;
             $scope.showType6 = false;
         }
-        if ($scope.selectedSystemCategory.selected == "Fan System") {
+        if ($scope.selectedSystemCategory.selected == "Fan") {
             $scope.showType1 = false;
             $scope.showType2 = true;
             $scope.showType3 = false;
@@ -140,7 +140,7 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
             $scope.showType5 = false;
             $scope.showType6 = false;
         }
-        if ($scope.selectedSystemCategory.selected == "HVAC System") {
+        if ($scope.selectedSystemCategory.selected == "HVAC") {
             $scope.showType1 = false;
             $scope.showType2 = false;
             $scope.showType3 = true;
@@ -148,7 +148,7 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
             $scope.showType5 = false;
             $scope.showType6 = false;
         }
-        if ($scope.selectedSystemCategory.selected == "Fenestration System") {
+        if ($scope.selectedSystemCategory.selected == "Fenestration") {
             $scope.showType1 = false;
             $scope.showType2 = false;
             $scope.showType3 = false;
@@ -156,7 +156,7 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
             $scope.showType5 = false;
             $scope.showType6 = false;
         }
-        if ($scope.selectedSystemCategory.selected == "Heat Recovery System") {
+        if ($scope.selectedSystemCategory.selected == "Heat Recovery") {
             $scope.showType1 = false;
             $scope.showType2 = false;
             $scope.showType3 = false;
@@ -164,7 +164,7 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
             $scope.showType5 = true;
             $scope.showType6 = false;
         }
-        if ($scope.selectedSystemCategory.selected == "Lighting System") {
+        if ($scope.selectedSystemCategory.selected == "Lighting") {
             $scope.showType1 = false;
             $scope.showType2 = false;
             $scope.showType3 = false;
@@ -196,7 +196,11 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
 
     $scope.addSystemToList = function() {
         $scope.systemList.push($scope.system);
+        delete $scope.system;
         $scope.system = {};
+
+        console.log('syst: ', $scope.selectedSystemCategory.selected);
+        $scope.selectedSystemCategory.selected = "Fan System";
     };
 
     $scope.removeMeasure = function(index) {
@@ -345,8 +349,8 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
         }
 
         if ($scope.measures.list.length > 0) {
-            audits['auc:Measures'] = {};
-            audits['auc:Measures'] = { 'auc:Measure': generateMeasures };
+            audits['auc:Audit']['auc:Measures'] = {};
+            audits['auc:Audit']['auc:Measures'] = { 'auc:Measure': generateMeasures };
         }
 
         var out = {

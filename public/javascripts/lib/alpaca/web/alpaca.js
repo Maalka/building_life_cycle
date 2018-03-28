@@ -9927,7 +9927,7 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
         },
 
         getShortName: function() {
-            return this.name.split(":").pop().replace('_$', '').replace(/([A-Z])/g, ' $1').replace(/^./, function(str){ return str.toUpperCase(); });
+            return this.name.split(":").pop().replace('_$', '').replace(/([A-Z]+)/g, " $1").replace(/([A-Z][a-z])/g, " $1").replace(/^./, function(str){ return str.toUpperCase(); });
         },
 
         getTadasDescription: function() {
@@ -9938,7 +9938,15 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
             var parts = this.name.split("_");
             var partsBracketsNotation = [];
             for (var i = 0; i < parts.length; i++) {
-                var withNamespace = (parts[i].startsWith("auc:") || parts[i].startsWith("@") || parts[i].startsWith("$"))  ? parts[i] : 'auc:'+parts[i];
+                var withNamespace = "";
+                if (parts[i].startsWith("auc:") || parts[i].startsWith("@") || parts[i].startsWith("$")) {
+                    withNamespace = parts[i];
+                } else if (parts[i].startsWith(".auc:")) {
+                    withNamespace = parts[i].slice(1);
+                } else {
+                   withNamespace = 'auc:'+parts[i];
+                }
+                
                 partsBracketsNotation[i] = '[\'' + withNamespace + '\']';
             }
             return 'system' + '[\''+ 'auc:' +parts[0]+"s" +'\']' + partsBracketsNotation.join('');

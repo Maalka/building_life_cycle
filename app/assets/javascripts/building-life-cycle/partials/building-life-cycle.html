@@ -36,12 +36,7 @@
                         </p>
                     </div>
                 </div>
-                <!--
-                <div class="ui hidden divider"></div>
-                    <h2 class="ui header">UPLOAD DATA:
-                        <button class="ui blue button" style="margin-left:10px">Upload</button>
-                    </h2>
-                -->
+
                 <div class="ui hidden divider"></div>
                 <h2>BUILDING INFORMATION</h2>
                 <div class="ui very padded segment">
@@ -468,6 +463,7 @@
                 <div class="ui hidden divider"></div>
                 <div class="row">
                     <h2>TIMELINE</h2>
+                        <p ng-if="measures.list.length < 1">Add a measure</p>
                         <div class="ui secondary segment" style="height:325px">
                             <div timeline-graph data-measures="measures.list"></div>
                         </div>
