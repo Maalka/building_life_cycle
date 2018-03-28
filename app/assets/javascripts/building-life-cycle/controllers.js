@@ -198,9 +198,6 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
         $scope.systemList.push($scope.system);
         delete $scope.system;
         $scope.system = {};
-
-        console.log('syst: ', $scope.selectedSystemCategory.selected);
-        $scope.selectedSystemCategory.selected = "Fan System";
     };
 
     $scope.removeMeasure = function(index) {
