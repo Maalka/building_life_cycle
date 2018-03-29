@@ -4,6 +4,14 @@
       "#": {
         "type": "string"
       },
+      "$": {
+        "enum": [
+          "HeatingAndCoolingSystems",
+          "OtherHVACSystems",
+          "Plants"
+        ],
+        "type": "string"
+      },
       "auc:HeatingAndCoolingSystems": {
         "additionalProperties": false,
         "patternProperties": {

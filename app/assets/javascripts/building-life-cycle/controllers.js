@@ -45,12 +45,12 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
     };
 
     var systemCategories = {
-        "HVAC System": buildingSyncSchema.definitions[".auc:Audits"].properties["auc:Audit"].anyOf["0"].properties["auc:Systems"].properties["auc:HVACSystems"],
-        "Domestic Hot Water System": buildingSyncSchema.definitions[".auc:Audits"].properties["auc:Audit"].anyOf["0"].properties["auc:Systems"].properties["auc:DomesticHotWaterSystems"],
-        "Fan System": buildingSyncSchema.definitions[".auc:Audits"].properties["auc:Audit"].anyOf["0"].properties["auc:Systems"].properties["auc:FanSystems"],
-        "Fenestration System": buildingSyncSchema.definitions[".auc:Audits"].properties["auc:Audit"].anyOf["0"].properties["auc:Systems"].properties["auc:FenestrationSystems"],
-        "Heat Recovery System": buildingSyncSchema.definitions[".auc:Audits"].properties["auc:Audit"].anyOf["0"].properties["auc:Systems"].properties["auc:HeatRecoverySystems"],
-        "Lighting System": buildingSyncSchema.definitions[".auc:Audits"].properties["auc:Audit"].anyOf["0"].properties["auc:Systems"].properties["auc:LightingSystems"]
+        "HVAC": buildingSyncSchema.definitions[".auc:Audits"].properties["auc:Audit"].anyOf["0"].properties["auc:Systems"].properties["auc:HVACSystems"],
+        "Domestic Hot Water": buildingSyncSchema.definitions[".auc:Audits"].properties["auc:Audit"].anyOf["0"].properties["auc:Systems"].properties["auc:DomesticHotWaterSystems"],
+        "Fan": buildingSyncSchema.definitions[".auc:Audits"].properties["auc:Audit"].anyOf["0"].properties["auc:Systems"].properties["auc:FanSystems"],
+        "Fenestration": buildingSyncSchema.definitions[".auc:Audits"].properties["auc:Audit"].anyOf["0"].properties["auc:Systems"].properties["auc:FenestrationSystems"],
+        "Heat Recovery": buildingSyncSchema.definitions[".auc:Audits"].properties["auc:Audit"].anyOf["0"].properties["auc:Systems"].properties["auc:HeatRecoverySystems"],
+        "Lighting": buildingSyncSchema.definitions[".auc:Audits"].properties["auc:Audit"].anyOf["0"].properties["auc:Systems"].properties["auc:LightingSystems"]
     };
 
     $scope.format = 'hh:mm:ss';
@@ -85,7 +85,6 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
     };
 
     $scope.systemCategories = Object.keys(systemCategories);
-    $scope.systems = ['Steam', 'Combustion', 'Waste heat', 'Other', 'Unknown'];
 
     $scope.selectedSystemCategory = {};
     $scope.selectedSystem = {};
@@ -111,7 +110,6 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
             } else {
                 console.log('measure end date not defined');
             }
-
     };
 
     $scope.systemAdded = function(systemName) {
@@ -126,7 +124,7 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
 
     $scope.selectedSystemCategoryChanged = function() {
         $scope.system = {};
-        if ($scope.selectedSystemCategory.selected == "Domestic Hot Water System") {
+        if ($scope.selectedSystemCategory.selected == "Domestic Hot Water") {
             $scope.showType1 = true;
             $scope.showType2 = false;
             $scope.showType3 = false;
@@ -134,7 +132,7 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
             $scope.showType5 = false;
             $scope.showType6 = false;
         }
-        if ($scope.selectedSystemCategory.selected == "Fan System") {
+        if ($scope.selectedSystemCategory.selected == "Fan") {
             $scope.showType1 = false;
             $scope.showType2 = true;
             $scope.showType3 = false;
@@ -142,7 +140,7 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
             $scope.showType5 = false;
             $scope.showType6 = false;
         }
-        if ($scope.selectedSystemCategory.selected == "HVAC System") {
+        if ($scope.selectedSystemCategory.selected == "HVAC") {
             $scope.showType1 = false;
             $scope.showType2 = false;
             $scope.showType3 = true;
@@ -150,7 +148,7 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
             $scope.showType5 = false;
             $scope.showType6 = false;
         }
-        if ($scope.selectedSystemCategory.selected == "Fenestration System") {
+        if ($scope.selectedSystemCategory.selected == "Fenestration") {
             $scope.showType1 = false;
             $scope.showType2 = false;
             $scope.showType3 = false;
@@ -158,7 +156,7 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
             $scope.showType5 = false;
             $scope.showType6 = false;
         }
-        if ($scope.selectedSystemCategory.selected == "Heat Recovery System") {
+        if ($scope.selectedSystemCategory.selected == "Heat Recovery") {
             $scope.showType1 = false;
             $scope.showType2 = false;
             $scope.showType3 = false;
@@ -166,7 +164,7 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
             $scope.showType5 = true;
             $scope.showType6 = false;
         }
-        if ($scope.selectedSystemCategory.selected == "Lighting System") {
+        if ($scope.selectedSystemCategory.selected == "Lighting") {
             $scope.showType1 = false;
             $scope.showType2 = false;
             $scope.showType3 = false;
@@ -198,6 +196,8 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
 
     $scope.addSystemToList = function() {
         $scope.systemList.push($scope.system);
+        delete $scope.system;
+        $scope.system = {};
     };
 
     $scope.removeMeasure = function(index) {
@@ -283,35 +283,33 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
                         }
         };
 
-        $scope.removeMeta = function(obj) {
-            console.log('called rem meta');
-          for(var prop in obj) {
-            if (prop === '$')
-              delete obj[prop];
-            else if (typeof obj[prop] === 'object')
-               $scope.removeMeta(obj[prop]);
-          }
+        var removeMeta = function(obj) {
+            // obj is passed by reference and will return 
+            // itself minus the "$" unless it's the leaf of a tree
+            if (typeof obj === 'object') {
+                var keys = Object.keys(obj);
+                    keys.forEach( function (key) {
+                        if (key === '$' && keys.length > 1) {
+                            delete obj[key];
+                        } else {
+                            removeMeta(obj[key]);
+                        }
+                    });
+            }
+            return obj;
         };
 
-
         var systems = { };
+
         if ($scope.systemList.length > 0) {
             audits['auc:Audit']['auc:Systems'] = {};
             // in the future -> angular.toJson(obj);
-            for (var j = 0; j < $scope.systemList.length; j++) {
-
-                var key = Object.keys($scope.systemList[j])[0];
-                var rem = $scope.filterObject($scope.systemList[j], '$');
-                console.log('rem: ', rem);
-                var cloned = {};
-//                clone(cloned, $scope.systemList[j][key]);
-                audits['auc:Audit']['auc:Systems'][key] = cloned;
+            var j, sl, key;
+            for (j = 0; j < $scope.systemList.length; j++) {
+                sl = removeMeta($scope.systemList[j]);
+                key = Object.keys(sl)[0];
+                audits['auc:Audit']['auc:Systems'][key] = removeMeta(sl[key]);
             }
-        }
-
-        if ($scope.measures.list.length > 0) {
-            audits['auc:Measures'] = {};
-            audits['auc:Measures'] = { 'auc:Measure': generateMeasures };
         }
 
         var generateMeasures = [];
@@ -345,6 +343,11 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
                 }
             };
             generateMeasures.push(mes);
+        }
+
+        if ($scope.measures.list.length > 0) {
+            audits['auc:Audit']['auc:Measures'] = {};
+            audits['auc:Audit']['auc:Measures'] = { 'auc:Measure': generateMeasures };
         }
 
         var out = {
@@ -508,6 +511,7 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
         var rows = [];
         var row, sourceRow, toolTip, validator, validatorMessages, validatorMessage, tooltip;
         var i, j, k; 
+
         headers.push("Property Name");
         for (i = 0; i < $scope.validation.length; i += 1) {
             sourceRow = $scope.validation[i];

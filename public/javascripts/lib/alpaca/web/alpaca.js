@@ -832,7 +832,9 @@ this["HandlebarsPrecompiled"]["web-edit"]["control-checkbox"] = Handlebars.templ
 },"11":function(container,depth0,helpers,partials,data) {
     var stack1, helper, alias1=depth0 != null ? depth0 : {};
 
-  return "\n        <div class=\"ui checkbox\">\n\n                <input type=\"checkbox\" "
+  return "\n        <label>"
+    + container.escapeExpression(((helper = (helper = helpers.shortName || (depth0 != null ? depth0.shortName : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(alias1,{"name":"shortName","hash":{},"data":data}) : helper)))
+    + "</label>\n        <div class=\"ui checkbox\" checkbox ng-model=\"{ngModel}}\">\n\n                <input type=\"checkbox\" "
     + ((stack1 = helpers["if"].call(alias1,((stack1 = (depth0 != null ? depth0.data : depth0)) != null ? stack1.length : stack1),{"name":"if","hash":{},"fn":container.program(3, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + " "
     + ((stack1 = helpers["if"].call(alias1,((stack1 = (depth0 != null ? depth0.options : depth0)) != null ? stack1.readonly : stack1),{"name":"if","hash":{},"fn":container.program(5, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
@@ -842,9 +844,7 @@ this["HandlebarsPrecompiled"]["web-edit"]["control-checkbox"] = Handlebars.templ
     + ((stack1 = helpers.each.call(alias1,((stack1 = (depth0 != null ? depth0.options : depth0)) != null ? stack1.data : stack1),{"name":"each","hash":{},"fn":container.program(9, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "/>\n\n"
     + ((stack1 = helpers["if"].call(alias1,((stack1 = (depth0 != null ? depth0.options : depth0)) != null ? stack1.rightLabel : stack1),{"name":"if","hash":{},"fn":container.program(12, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + "\n             <label>"
-    + container.escapeExpression(((helper = (helper = helpers.shortName || (depth0 != null ? depth0.shortName : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(alias1,{"name":"shortName","hash":{},"data":data}) : helper)))
-    + "</label>\n\n        </div>\n\n";
+    + "\n\n        </div>\n\n";
 },"12":function(container,depth0,helpers,partials,data) {
     var stack1;
 
@@ -1182,7 +1182,7 @@ this["HandlebarsPrecompiled"]["web-edit"]["control-select"] = Handlebars.templat
 
   return "<script type=\"text/x-handlebars-template\">\n\n<div class=\"field\">\n    <label>"
     + alias4(((helper = (helper = helpers.shortName || (depth0 != null ? depth0.shortName : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"shortName","hash":{},"data":data}) : helper)))
-    + "</label>\n    <select id=\""
+    + "</label>\n    <select dropdown id=\""
     + alias4(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"id","hash":{},"data":data}) : helper)))
     + "\" ng-model=\""
     + alias4(((helper = (helper = helpers.ngModel || (depth0 != null ? depth0.ngModel : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"ngModel","hash":{},"data":data}) : helper)))
@@ -9927,7 +9927,7 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
         },
 
         getShortName: function() {
-            return this.name.split(":").pop().replace('_$', '').replace(/([A-Z])/g, ' $1').replace(/^./, function(str){ return str.toUpperCase(); });
+            return this.name.split(":").pop().replace('_$', '').replace(/([A-Z]+)/g, " $1").replace(/([A-Z][a-z])/g, " $1").replace(/^./, function(str){ return str.toUpperCase(); });
         },
 
         getTadasDescription: function() {
@@ -9938,7 +9938,15 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
             var parts = this.name.split("_");
             var partsBracketsNotation = [];
             for (var i = 0; i < parts.length; i++) {
-                var withNamespace = (parts[i].startsWith("auc:") || parts[i].startsWith("@") || parts[i].startsWith("$"))  ? parts[i] : 'auc:'+parts[i];
+                var withNamespace = "";
+                if (parts[i].startsWith("auc:") || parts[i].startsWith("@") || parts[i].startsWith("$")) {
+                    withNamespace = parts[i];
+                } else if (parts[i].startsWith(".auc:")) {
+                    withNamespace = parts[i].slice(1);
+                } else {
+                   withNamespace = 'auc:'+parts[i];
+                }
+                
                 partsBracketsNotation[i] = '[\'' + withNamespace + '\']';
             }
             return 'system' + '[\''+ 'auc:' +parts[0]+"s" +'\']' + partsBracketsNotation.join('');
