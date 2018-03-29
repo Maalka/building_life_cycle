@@ -7,8 +7,7 @@ The [**Building Lifecycle Tool**](https://lifecycle.maalka.com) is a simple, ope
 **The Building Lifecycle Tool key features:**
 
 * Custom “Systems” and “Measurements” inputs 
-* Printable visual timeline of Systems and Measures 
-* CSV Export  
+* Printable visual timeline of Systems and Measures  
 * Building sync compatible JSON Export 
 
 The **Building Lifecycle Tool** is one of many open source tools created by the [Maalka Team](http://www.maalka.com) with support from the U.S. Department of Energy Better Buildings [Municipal Portfolio Benchmarking](https://www.maalka.com/mpb) project. 
