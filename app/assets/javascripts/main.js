@@ -64,6 +64,7 @@
         deps: ['angular']
       },
       'moment': {
+        deps: [],
         export: 'moment'
       },
       'semantic': {
@@ -74,7 +75,7 @@
       'requirejs': '../lib/requirejs/require',
       'text': './requirejs-plugins/text',
       'json': './requirejs-plugins/json',
-      'jquery': ['../lib/jquery/jquery'],
+      'jquery': '../lib/jquery/jquery',
       'angular': '../lib/angular/angular',
       'angular-route': '../lib/angular-route/angular-route',
       'angular-cookies': '../lib/angular-cookies/angular-cookies',

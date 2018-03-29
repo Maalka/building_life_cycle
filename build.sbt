@@ -40,7 +40,7 @@ libraryDependencies ++= Seq(
   "org.webjars" % "requirejs" % "2.1.22",
   "org.webjars" % "jquery" % "2.1.3",
   "org.webjars" %% "webjars-play" % "2.4.0-1",
-  "org.webjars.bower" % "angular" % "1.6.6",
+  "org.webjars.bower" % "angular" % "1.6.6" exclude("org.webjars.bower", "jquery"),
   "org.webjars.bower" % "angular-route" % "1.6.6",
   "org.webjars.bower" % "angular-cookies" % "1.6.6",
   "org.webjars.bower" % "angular-sanitize" % "1.6.6",
@@ -51,7 +51,7 @@ libraryDependencies ++= Seq(
   "org.webjars.bower" % "ng-file-upload" % "12.2.13" exclude("org.webjars.bower", "angular"),
   "org.webjars.bower" % "ng-csv" % "0.3.6",
   "org.webjars.bower" % "ngInfiniteScroll" % "1.3.0",
-  "org.webjars.bower" % "moment" % "2.18.1",
+  "org.webjars.bower" % "moment" % "2.13.0",
   "org.webjars.bower" % "angular-xeditable" % "0.8.1",
   "org.webjars.npm" % "flatpickr" % "3.0.7",
   "net.sourceforge.htmlunit" % "htmlunit" % "2.27"
@@ -101,7 +101,8 @@ pipelineStages := Seq(rjs, digest, gzip)
 
 // RequireJS with sbt-rjs (https://github.com/sbt/sbt-rjs#sbt-rjs)
 // ~~~
-RjsKeys.paths += ("jsRoutes" -> ("/jsroutes" -> "empty:"))
+RjsKeys.paths := Map("jsRoutes" -> ("/jsroutes" -> "empty:"),
+  "moment" -> ("../lib/moment/" -> "empty:"))
 
 //RjsKeys.mainModule := "main"
 
