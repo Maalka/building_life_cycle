@@ -37,13 +37,14 @@ define(['angular', 'moment', 'highcharts', 'highcharts-drilldown', 'highcharts-e
                          var newMeasures = [];
                          for (var i = 0; i < $scope.last5measures.length; i++) {
                             var randomColor = colors[Math.floor(Math.random()*colors.length)];
+                            var endDate = moment.utc($scope.last5measures[i].endDate);
                             newMeasures.push({x: Date.UTC(
-                                $scope.last5measures[i].endDate.getFullYear(),
-                                $scope.last5measures[i].endDate.getUTCMonth(),
-                                $scope.last5measures[i].endDate.getDate()
+                                endDate.year(),
+                                endDate.month(),
+                                endDate.day()
                                 ),
                                 y: Math.floor(Math.random()*90),
-                                text: $scope.last5measures[i].endDate.getFullYear() + ' ' + $scope.last5measures[i].endDate.getUTCMonth() + ' ' + $scope.last5measures[i].endDate.getDate(),
+                                text: endDate.format("ll"),
                                 title: '<span style="margin: 15px">'+$scope.last5measures[i].detail+'</span>',
                                 color: randomColor,
                                 fillColor: randomColor});

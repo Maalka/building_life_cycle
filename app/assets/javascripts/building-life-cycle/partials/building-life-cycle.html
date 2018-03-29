@@ -148,7 +148,7 @@
                                         <input type="text" ng-model="building.numberOfFloorsBelowGrade">
                                     </div>
                                 </div>
-                                <div class="eight wide column">
+                                <div class="seven wide column">
                                     <div class="required field">
                                         <label>Use Type</label>
                                         <select
@@ -160,7 +160,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="two wide column">
+                                <div class="three wide column">
                                     <div class="required field">
                                         <label>Floor Area (ft&#178)</label>
                                         <input type="text" ng-model="building.floorArea">
@@ -286,17 +286,18 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="ui row">
-                                            <div class="seven wide column">
+                                        <div class="ui two column row">
+                                            <div class="column">
                                                 <div class="required field">
                                                     <label>Start Date</label>
-                                                    <input type="date" ng-model="measure.startDate">
+                                                        <input daterangepicker ng-model="measure.startDate">
                                                 </div>
                                             </div>
-                                            <div class="seven wide column">
+                                            <div class="column">
                                                 <div class="required field">
                                                     <label>End Date</label>
-                                                    <input type="date" ng-model="measure.endDate">
+                                                    <input daterangepicker  ng-model="measure.endDate">
+                                                    <p ng-if="measure.startDate > measure.endDate">End date must be before start date</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -422,7 +423,7 @@
                                 </div>
                             </div>
                         </div>
-                        <button class="ui blue button" ng-click="downloadData()">Download BuildingSync</button>
+                        <button ng-if="measures.list.length > 0 || systemList.length > 0" class="ui blue button" ng-click="downloadData()">Download BuildingSync</button>
                     </div>
                     <div class="column">
                         <h2>MEASURES</h2>
@@ -431,7 +432,7 @@
                                 <div ng-repeat="measure in measures.list track by $index">
                                     <div class="fluid accordion">
                                         <div class="active title">
-                                            <button class="ui mini circular icon button" ng-click="removeSystem($index)">
+                                            <button class="ui mini circular icon button" ng-click="removeMeasure($index)">
                                                 <i class="remove icon"></i>
                                             </button>
                                             {{measure.systemType}}
@@ -440,7 +441,7 @@
                                         <div class="indent">
                                             <div class="active content">
                                                 <div style="color:#06a1f9">
-                                                    {{measure.startDate | date:'MM/dd/yyyy' }} - 
+                                                    {{measure.startDate | date:'MM/dd/yyyy' }} -
                                                     {{measure.endDate | date:'MM/dd/yyyy' }}
                                                 </div>
                                                 <div class="subtitle">
@@ -458,12 +459,11 @@
                                 </div>
                             </div>
                         </div>
-                        <button class="ui blue button" ng-click="downloadData()">Download BuildingSync</button>
                     </div>
                 </div>
                 <div class="ui hidden divider"></div>
                 <div class="ui hidden divider"></div>
-                <div class="row">
+                <div class="row" ng-if="measures.list.length > 0">
                     <h2>TIMELINE</h2>
                         <p ng-if="measures.list.length < 1">Add a measure</p>
                         <div class="ui secondary segment" style="height:325px">

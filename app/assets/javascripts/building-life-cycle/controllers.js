@@ -55,17 +55,6 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
 
     $scope.format = 'hh:mm:ss';
     $scope.building = {};
-    $scope.building.buildingName = 'example buildingName';
-    $scope.building.addressStreet = 'example street';
-    $scope.building.addressCity = 'example city';
-    $scope.building.addressState = 'KS';
-    $scope.building.addressZip = '12345';
-    $scope.building.yearCompleted = '1999';
-    $scope.building.numberOfFloorsAboveGrade = '5';
-    $scope.building.numberOfFloorsBelowGrade = '3';
-    $scope.building.useType = 'Library';
-    $scope.building.floorArea = '2250';
-    $scope.building.orientation = 'North';
 
     $scope.useTypes = buildingSyncSchema.definitions[".auc:AssetScore"].properties["auc:UseType"].anyOf["0"].properties["auc:AssetScoreUseType"].properties.$.enum;
     $scope.implementationStatuses = buildingSyncSchema.definitions["auc:MeasureType"].properties["auc:ImplementationStatus"].properties.$.enum;
@@ -174,6 +163,16 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
         }
     };
 
+//    $scope.checkDates = function () {
+//    if ($scope.measure.startDate !== undefined && $scope.measure.endDate !== undefined) {
+//        if ($scope.measure.startDate > $scope.measure.endDate) {
+//            console.log('wrong');
+//        } else {
+//            console.log('right');
+//        }
+//       }
+//    };
+
     $scope.getSystemName = function(system) {
         return Object.keys(system)[0];
     };
@@ -205,7 +204,6 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
     };
 
     $scope.removeSystem = function(index) {
-        console.log('removing ', index);
        $scope.systemList.splice(index, 1);
     };
 
