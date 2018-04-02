@@ -25,3 +25,4 @@ addSbtPlugin("com.typesafe.sbt" % "sbt-uglify" % "1.0.3")
 
 addSbtPlugin("org.databrary" % "sbt-angular-templates" % "0.2")
 
+addSbtPlugin("net.virtual-void" % "sbt-dependency-graph" % "0.9.0")

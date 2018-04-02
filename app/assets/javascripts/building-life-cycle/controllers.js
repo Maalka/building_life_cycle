@@ -55,17 +55,6 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
 
     $scope.format = 'hh:mm:ss';
     $scope.building = {};
-    $scope.building.buildingName = 'example buildingName';
-    $scope.building.addressStreet = 'example street';
-    $scope.building.addressCity = 'example city';
-    $scope.building.addressState = 'KS';
-    $scope.building.addressZip = '12345';
-    $scope.building.yearCompleted = '1999';
-    $scope.building.numberOfFloorsAboveGrade = '5';
-    $scope.building.numberOfFloorsBelowGrade = '3';
-    $scope.building.useType = 'Library';
-    $scope.building.floorArea = '2250';
-    $scope.building.orientation = 'North';
 
     $scope.useTypes = buildingSyncSchema.definitions[".auc:AssetScore"].properties["auc:UseType"].anyOf["0"].properties["auc:AssetScoreUseType"].properties.$.enum;
     $scope.implementationStatuses = buildingSyncSchema.definitions["auc:MeasureType"].properties["auc:ImplementationStatus"].properties.$.enum;
@@ -174,6 +163,16 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
         }
     };
 
+//    $scope.checkDates = function () {
+//    if ($scope.measure.startDate !== undefined && $scope.measure.endDate !== undefined) {
+//        if ($scope.measure.startDate > $scope.measure.endDate) {
+//            console.log('wrong');
+//        } else {
+//            console.log('right');
+//        }
+//       }
+//    };
+
     $scope.getSystemName = function(system) {
         return Object.keys(system)[0];
     };
@@ -205,7 +204,6 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
     };
 
     $scope.removeSystem = function(index) {
-        console.log('removing ', index);
        $scope.systemList.splice(index, 1);
     };
 
@@ -299,6 +297,17 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
             return obj;
         };
 
+        var convertInnerIntoObject = function(obj) {
+            var newObj = {};
+            if (typeof obj === 'object') {
+                var key = Object.keys(obj)[0];
+                var innerObj = obj[key];
+                var newArray = [innerObj];
+                obj[Object.keys(obj)[0]] = newArray;
+            }
+            return obj;
+        };
+
         var systems = { };
 
         if ($scope.systemList.length > 0) {
@@ -308,7 +317,19 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
             for (j = 0; j < $scope.systemList.length; j++) {
                 sl = removeMeta($scope.systemList[j]);
                 key = Object.keys(sl)[0];
-                audits['auc:Audit']['auc:Systems'][key] = removeMeta(sl[key]);
+                var newSystem = removeMeta(sl[key]);
+                console.log(audits['auc:Audit']['auc:Systems'][key]);
+                if (audits['auc:Audit']['auc:Systems'][key] !== undefined && Object.keys(audits['auc:Audit']['auc:Systems']).indexOf(key) > -1) {
+                    console.log('type exists, adding new');
+                     var newSystemInner = newSystem[Object.keys(newSystem)[0]];
+                     var currentInner = audits['auc:Audit']['auc:Systems'][key][Object.keys(audits['auc:Audit']['auc:Systems'][key])[0]];
+                     currentInner.push(newSystemInner);
+                     console.log(currentInner);
+                     audits['auc:Audit']['auc:Systems'][key][Object.keys(audits['auc:Audit']['auc:Systems'][key])[0]] = currentInner;
+                } else {
+                    audits['auc:Audit']['auc:Systems'][key] = convertInnerIntoObject(newSystem);
+                }
+
             }
         }
 
@@ -324,7 +345,7 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
             var systemType = $scope.measures.list[i].systemType;
             var mes = {
                 'auc:EndDate':  {
-                    '$': $scope.measures.list[i].endDate
+                    '$': moment.utc($scope.measures.list[i].endDate).format("ll")
                 },
                 'auc:ImplementationStatus': {
                     '$': $scope.measures.list[i].implementationStatus
@@ -333,7 +354,7 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
                     '$': $scope.measures.list[i].comment
                 },
                 'auc:StartDate': {
-                    '$': $scope.measures.list[i].startDate
+                    '$': moment.utc($scope.measures.list[i].startDate).format("ll")
                 },
                 'auc:SystemCategoryAffected': {
                     '$': $scope.measures.list[i].systemCategory

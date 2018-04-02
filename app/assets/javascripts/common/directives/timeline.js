@@ -37,13 +37,14 @@ define(['angular', 'moment', 'highcharts', 'highcharts-drilldown', 'highcharts-b
                          var newMeasures = [];
                          for (var i = 0; i < $scope.last5measures.length; i++) {
                             var randomColor = colors[Math.floor(Math.random()*colors.length)];
+                            var endDate = moment.utc($scope.last5measures[i].endDate);
                             newMeasures.push({x: Date.UTC(
-                                $scope.last5measures[i].endDate.getFullYear(),
-                                $scope.last5measures[i].endDate.getUTCMonth(),
-                                $scope.last5measures[i].endDate.getDate()
+                                endDate.year(),
+                                endDate.month(),
+                                endDate.day()
                                 ),
                                 y: Math.floor(Math.random()*90),
-                                text: $scope.last5measures[i].endDate.getFullYear() + ' ' + $scope.last5measures[i].endDate.getUTCMonth() + ' ' + $scope.last5measures[i].endDate.getDate(),
+                                text: endDate.format("ll"),
                                 title: '<span style="margin: 15px">'+$scope.last5measures[i].detail+'</span>',
                                 color: randomColor,
                                 fillColor: randomColor});
@@ -61,25 +62,36 @@ define(['angular', 'moment', 'highcharts', 'highcharts-drilldown', 'highcharts-b
                     title: {
                         text: '',
                     },
+                    exporting: {
+                        enabled: true
+                    }, 
                     chart: {
                         backgroundColor: "transparent",
                         style: {
-                            fontFamily: 'Gesta',
+                            fontFamily: "gesta,'Helvetica Neue',Arial,Helvetica,sans-serif"
                         },
                         marginLeft:150,
                         marginRight:150,
                         MarginTop:50
                     },
+                      global: {
+                        useUTC: false
+                    },
                     xAxis: {
 						title: {
-							text: 'Year',
+                            text: 'Date Installed',
+                            style: {
+                                color: 'black',
+                            },
 						},
-                        type: "datetime",
-                        tickInterval: 24 * 3600 * 1000 * 365,
+                        type: "datetime", 
+                        labels: {
+                            format: '{value:%b - %e - %Y}'
+                        },
 						gridLineWidth: 0,
-						lineWidth: 0,
+						lineWidth: 1,
 						minorGridLineWidth: 0,
-						lineColor: 'transparent'
+						lineColor: '#cdcdcd'
                     },
 
                     yAxis: {
@@ -91,10 +103,12 @@ define(['angular', 'moment', 'highcharts', 'highcharts-drilldown', 'highcharts-b
                     legend: {
                         enabled: false
                     },
-					tooltip: {
-						headerFormat: '',
-					},
-					plotOptions: {
+                    tooltip: {
+                        xDateFormat: 'End Date: ' + '%b - %e - %Y',
+                        pointFormat: '',
+                        useHTML: true
+                    },
+                    plotOptions: {
 						flags: {
 							useHTML: true,
 							lineWidth: 2,
