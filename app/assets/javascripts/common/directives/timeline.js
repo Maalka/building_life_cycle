@@ -2,7 +2,7 @@
 /*
  * A Timeline Graph Directive
  */
-define(['angular', 'moment', 'highcharts', 'highcharts-drilldown', 'highcharts-exporting', 'highcharts-boost', './main'], function(angular, moment) { 
+define(['angular', 'moment', 'highcharts', 'highcharts-drilldown', 'highcharts-boost', './main'], function(angular, moment) { 
     'use strict';
     var mod = angular.module('maalka.common.directives');
     mod.directive('timelineGraph', ['$timeout',
@@ -64,7 +64,7 @@ define(['angular', 'moment', 'highcharts', 'highcharts-drilldown', 'highcharts-e
                     },
                     exporting: {
                         enabled: true
-                        }, 
+                    }, 
                     chart: {
                         backgroundColor: "transparent",
                         style: {

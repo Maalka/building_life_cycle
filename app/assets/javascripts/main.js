@@ -9,7 +9,9 @@
   requirejs.config({
     // Packages = top-level folders; loads a contained file named 'main.js"
     wrapShim: true,
+    excludeShallow: ['moment'],
     packages: ['common', 'building-life-cycle'],
+    waitSeconds: 200,
     shim: {
       'jsRoutes': {
         deps: [],
@@ -40,12 +42,10 @@
       },
       'matchmedia-ng': ['angular'],
       'highcharts-core': {
-        deps: ['jquery'],
-        exports: 'highcharts-core'
+        deps: ['jquery']
       },
       'highcharts-more': {
-        deps: ['highcharts-core'],
-        exports: 'highcharts-more'
+        deps: ['highcharts-core']
       },
       'highcharts-boost': {
         deps: ['highcharts-core']
@@ -57,13 +57,14 @@
         deps: ['highcharts-core']
       },
       'highcharts': {
-        deps: ['highcharts-more'],
+        deps: ['highcharts-more', 'highcharts-exporting'],
         exports: 'highcharts'
       },
       'json-formatter': {
         deps: ['angular']
       },
       'moment': {
+        deps: [],
         export: 'moment'
       },
       'semantic': {
@@ -74,7 +75,7 @@
       'requirejs': '../lib/requirejs/require',
       'text': './requirejs-plugins/text',
       'json': './requirejs-plugins/json',
-      'jquery': ['../lib/jquery/jquery'],
+      'jquery': '../lib/jquery/jquery',
       'angular': '../lib/angular/angular',
       'angular-route': '../lib/angular-route/angular-route',
       'angular-cookies': '../lib/angular-cookies/angular-cookies',
