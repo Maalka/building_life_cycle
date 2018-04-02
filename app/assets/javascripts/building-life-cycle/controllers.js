@@ -297,6 +297,17 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
             return obj;
         };
 
+        var convertInnerIntoObject = function(obj) {
+            var newObj = {};
+            if (typeof obj === 'object') {
+                var key = Object.keys(obj)[0];
+                var innerObj = obj[key];
+                var newArray = [innerObj];
+                obj[Object.keys(obj)[0]] = newArray;
+            }
+            return obj;
+        };
+
         var systems = { };
 
         if ($scope.systemList.length > 0) {
@@ -306,7 +317,19 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
             for (j = 0; j < $scope.systemList.length; j++) {
                 sl = removeMeta($scope.systemList[j]);
                 key = Object.keys(sl)[0];
-                audits['auc:Audit']['auc:Systems'][key] = removeMeta(sl[key]);
+                var newSystem = removeMeta(sl[key]);
+                console.log(audits['auc:Audit']['auc:Systems'][key]);
+                if (audits['auc:Audit']['auc:Systems'][key] !== undefined && Object.keys(audits['auc:Audit']['auc:Systems']).indexOf(key) > -1) {
+                    console.log('type exists, adding new');
+                     var newSystemInner = newSystem[Object.keys(newSystem)[0]];
+                     var currentInner = audits['auc:Audit']['auc:Systems'][key][Object.keys(audits['auc:Audit']['auc:Systems'][key])[0]];
+                     currentInner.push(newSystemInner);
+                     console.log(currentInner);
+                     audits['auc:Audit']['auc:Systems'][key][Object.keys(audits['auc:Audit']['auc:Systems'][key])[0]] = currentInner;
+                } else {
+                    audits['auc:Audit']['auc:Systems'][key] = convertInnerIntoObject(newSystem);
+                }
+
             }
         }
 
@@ -322,7 +345,7 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
             var systemType = $scope.measures.list[i].systemType;
             var mes = {
                 'auc:EndDate':  {
-                    '$': $scope.measures.list[i].endDate
+                    '$': moment.utc($scope.measures.list[i].endDate).format("ll")
                 },
                 'auc:ImplementationStatus': {
                     '$': $scope.measures.list[i].implementationStatus
@@ -331,7 +354,7 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
                     '$': $scope.measures.list[i].comment
                 },
                 'auc:StartDate': {
-                    '$': $scope.measures.list[i].startDate
+                    '$': moment.utc($scope.measures.list[i].startDate).format("ll")
                 },
                 'auc:SystemCategoryAffected': {
                     '$': $scope.measures.list[i].systemCategory
