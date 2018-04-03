@@ -86,7 +86,7 @@ define(['angular', 'moment', 'highcharts', 'highcharts-drilldown', 'highcharts-b
 						},
                         type: "datetime", 
                         labels: {
-                            format: '{value:%b - %e - %Y}'
+                            format: '{value:%b-%Y}'
                         },
 						gridLineWidth: 0,
 						lineWidth: 1,
