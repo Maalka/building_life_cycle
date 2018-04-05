@@ -195,15 +195,13 @@
                                     <div class="sixteen wide column">
                                         <div class="ui large form">
 
-
-
                                                 <div class="field">
                                                     <label>System Type</label>
                                                     <select
                                                             dropdown
                                                             class="ui dropdown" dropdown
                                                             ma-change="selectedSystemCategoryChanged(value)"
-                                                            ng-model="selectedSystemCategory.selected">
+                                                            ng-model="selectedSystemCategory.selected" required >
                                                         <option value="">Select</option>
                                                         <option ng-repeat="system in systemCategories"
                                                                 value="{{system}}">{{system}}</option>
@@ -252,12 +250,12 @@
                                     <div class="ui stackable grid">
                                         <div class="ui sixteen wide column">
                                             <div class="required field">
-                                                <label>System Type</label>
+                                                <label>Measure Type</label>
                                                 <select
                                                         dropdown
                                                         class="ui dropdown" dropdown
                                                         ma-change="selectedMeasureCategoryChanged(value)"
-                                                        ng-model="selectedMeasureCategory.selected">
+                                                        ng-model="selectedMeasureCategory.selected" required>
                                                     <option value="">Select</option>
                                                     <option ng-repeat="category in measureCategories"
                                                             value="{{category}}">{{category}}</option>
@@ -293,17 +291,25 @@
                                             <div class="column">
                                                 <div class="required field">
                                                     <label>Start Date</label>
+                                                    <div class = "ui icon input">
+                                                        <i class="calendar icon"></i>
                                                         <input daterangepicker ng-model="measure.startDate">
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="column">
                                                 <div class="required field">
                                                     <label>End Date</label>
-                                                    <input daterangepicker  ng-model="measure.endDate">
-                                                    <p ng-if="measure.startDate > measure.endDate">End date must be before start date</p>
+                                                    <div class = "ui icon input">
+                                                        <i class="calendar icon"></i>
+                                                        <input daterangepicker
+                                                               min-date = "measure.startDate"
+                                                               ng-model="measure.endDate">
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
+                                        <!--
                                         <div class="ui sixteen wide column">
                                             <div class="required field">
                                                 <label >System Category</label>
@@ -314,6 +320,7 @@
                                                 </select>
                                             </div>
                                         </div>
+                                        -->
                                         <div class="ui sixteen wide column">
                                             <div class="field">
                                                 <label>Comments</label>

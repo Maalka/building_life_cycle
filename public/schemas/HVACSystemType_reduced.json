@@ -29,6 +29,13 @@
           "#": {
             "type": "string"
           },
+          "$": {
+            "enum": [
+              "CoolingSource",
+              "HeatingSource"
+            ],
+            "type": "string"
+          },
           "auc:CoolingSource": {
                 "additionalProperties": false,
                 "patternProperties": {
@@ -226,6 +233,35 @@
                     },
                     "type": "object"
                   },
+                  "auc:ZoningSystemType": {
+                    "additionalProperties": false,
+                    "description": "Identifies whether a system is single or multi-zone.",
+                    "patternProperties": {
+                      "^@xmlns(:\\w+)?$": {
+                        "type": "string"
+                      },
+                      "^@xsi:\\w+$": {
+                        "type": "string"
+                      },
+                      "^\\?\\w+$": {
+                        "type": "string"
+                      }
+                    },
+                    "properties": {
+                      "#": {
+                        "type": "string"
+                      },
+                      "$": {
+                        "enum": [
+                          "Single zone",
+                          "Multi zone",
+                          "Unknown"
+                        ],
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  },
                   "auc:Manufacturer": {
                     "$ref": "#/definitions/.auc:Manufacturer"
                   },
@@ -243,7 +279,7 @@
                   }
                 },
                 "type": "object"
-                      },
+          },
           "auc:HeatingSource": {
                 "additionalProperties": false,
                 "patternProperties": {
@@ -519,6 +555,35 @@
                     },
                     "type": "object"
                   },
+                  "auc:ZoningSystemType": {
+                    "additionalProperties": false,
+                    "description": "Identifies whether a system is single or multi-zone.",
+                    "patternProperties": {
+                      "^@xmlns(:\\w+)?$": {
+                        "type": "string"
+                      },
+                      "^@xsi:\\w+$": {
+                        "type": "string"
+                      },
+                      "^\\?\\w+$": {
+                        "type": "string"
+                      }
+                    },
+                    "properties": {
+                      "#": {
+                        "type": "string"
+                      },
+                      "$": {
+                        "enum": [
+                          "Single zone",
+                          "Multi zone",
+                          "Unknown"
+                        ],
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  },
                   "auc:Manufacturer": {
                     "$ref": "#/definitions/.auc:Manufacturer"
                   },
@@ -536,38 +601,6 @@
                   }
                 },
                 "type": "object"
-
-
-
-          },
-          "auc:ZoningSystemType": {
-            "additionalProperties": false,
-            "description": "Identifies whether a system is single or multi-zone.",
-            "patternProperties": {
-              "^@xmlns(:\\w+)?$": {
-                "type": "string"
-              },
-              "^@xsi:\\w+$": {
-                "type": "string"
-              },
-              "^\\?\\w+$": {
-                "type": "string"
-              }
-            },
-            "properties": {
-              "#": {
-                "type": "string"
-              },
-              "$": {
-                "enum": [
-                  "Single zone",
-                  "Multi zone",
-                  "Unknown"
-                ],
-                "type": "string"
-              }
-            },
-            "type": "object"
           }
         },
         "type": "object"
