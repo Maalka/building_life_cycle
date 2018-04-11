@@ -109,7 +109,7 @@ define(['angular', 'moment', 'highcharts', 'highcharts-drilldown', 'highcharts-e
                     },
                     "plotOptions": {
                         "column": {
-                            color: "transparent",
+                            color: "#d3d3d3",
                             maxPointWidth: 1,
                             dataLabels: {
                                 enabled: true,
