@@ -38,11 +38,12 @@ define(['angular', 'moment', 'highcharts', 'highcharts-drilldown', 'highcharts-b
                          for (var i = 0; i < $scope.last5measures.length; i++) {
                             var randomColor = colors[Math.floor(Math.random()*colors.length)];
                             var endDate = moment.utc($scope.last5measures[i].endDate);
-                            newMeasures.push({x: Date.UTC(
-                                endDate.year(),
-                                endDate.month(),
-                                endDate.day()
-                                ),
+                            newMeasures.push({
+                                x: Date.UTC(
+                                    endDate.year(),
+                                    endDate.month(),
+                                    endDate.day()
+                                    ),
                                 y: Math.floor(Math.random()*90),
                                 text: endDate.format("ll"),
                                 title: '<span style="margin: 15px">'+$scope.last5measures[i].detail+'</span>',
