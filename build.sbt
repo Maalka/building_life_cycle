@@ -3,7 +3,7 @@ import WebKeys._
 name := "building_life_cycle"
 organization in ThisBuild := "com.maalka"
 
-version := "1.0.0.0"
+version := "1.0.1.0"
 
 lazy val root = (project in file(".")).enablePlugins(PlayScala)
 
