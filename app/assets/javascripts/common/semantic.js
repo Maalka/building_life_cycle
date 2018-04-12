@@ -1,6 +1,6 @@
 // define some builtin semantic loaders
 
-define(['angular', 'moment', 'flatpickr'], function (angular, moment, flatpickr) {
+define(['angular', 'moment', 'flatpickr' ], function (angular, moment, flatpickr) {
   'use strict';
 
   var mod = angular.module('maalka.common.semantic', []);
@@ -26,7 +26,7 @@ define(['angular', 'moment', 'flatpickr'], function (angular, moment, flatpickr)
                   },
                   onUnchecked: function() {
                     // this event doesn't seem to fire for radio buttons;
-                    $timeout(function () {
+                    $timeout(function () { 
                       scope.ngModel = false;
                       if(scope.maChange !== undefined) {
                         scope.maChange({'value': scope.ngModel});
@@ -216,16 +216,16 @@ define(['angular', 'moment', 'flatpickr'], function (angular, moment, flatpickr)
           var previousValue;
           var ignoreNextUpdate;
 
-          $scope.$watch("ngModel", function (ngModel) {
+          $scope.$watch("ngModel", function (ngModel) { 
             if (ignoreNextUpdate) {
               ignoreNextUpdate = false;
               return;
             }
             if (setup) {
               if (ngModel === undefined) {
-               //   angular.element($element).dropdown().dropdown('clear');
+                angular.element($element).dropdown().dropdown('clear');
               } else if (ngModel !== null && (!isNaN(ngModel) || typeof(ngModel) === "string" || typeof(ngModel) === "object")) {
-                $timeout( function () {
+                $timeout( function () { 
                   var value;
                   if ($scope.itemKey !== undefined) {
                     value = ngModel[$scope.itemKey];
@@ -235,15 +235,14 @@ define(['angular', 'moment', 'flatpickr'], function (angular, moment, flatpickr)
                   if (angular.element($element).dropdown().dropdown('get value') !== value) {
                     angular.element($element).dropdown().dropdown('set selected', value);
                   }
-
                 });
               }
             }
           });
 
           var updateScope = function (semanticValue) {
-            console.log("Updating Scope");
-            if (typeof($scope.ngModel) === "object" && $scope.items === undefined) {
+//            console.log("Updating Scope: " + semanticValue);
+            if (typeof($scope.ngModel) === "object" && $scope.items === undefined) { 
               console.log("Semantic Dropdown: dropdown is an object.  use items and keys");
               return;
             }
@@ -254,7 +253,7 @@ define(['angular', 'moment', 'flatpickr'], function (angular, moment, flatpickr)
 
             if ($scope.items !== undefined) {
               for (i = 0; i < $scope.items.length; i +=1) {
-                if ($scope.items[i].$$hashKey === semanticValue) {
+                if ($scope.items[i].$$hashKey === semanticValue) { 
                   ngModel = $scope.items[i];
                   break;
                 } else if (semanticValue === $scope.items[i][$scope.itemKey]) {
@@ -269,11 +268,14 @@ define(['angular', 'moment', 'flatpickr'], function (angular, moment, flatpickr)
               ngModel = semanticValue;
             }
             $timeout(function () {
-              ignoreNextUpdate = true;
+              if ($scope.ngModel !== ngModel) {
+                ignoreNextUpdate = true;
                 $scope.ngModel = ngModel;
-                if ($scope.maChange !== undefined) {
-                    $scope.maChange({"value": ngModel});
-                }
+              }
+
+              if ($scope.maChange !== undefined) {
+                  $scope.maChange({"value": ngModel});
+              }
             });
           };
           var onLabelCreate = function (value, text) {
@@ -299,7 +301,7 @@ define(['angular', 'moment', 'flatpickr'], function (angular, moment, flatpickr)
                       delimiter  : 188, // comma
                       deleteKey  : 46,
                       enter      : 13,
-                      escape     : 27,
+                      escape     : 27,  
                       pageUp     : 33,
                       pageDown   : 34,
                       leftArrow  : -1,
@@ -310,8 +312,8 @@ define(['angular', 'moment', 'flatpickr'], function (angular, moment, flatpickr)
                 });
                 setup = true;
               });
-
-        }
+          
+        } 
       };
     }]);
 
@@ -373,7 +375,7 @@ define(['angular', 'moment', 'flatpickr'], function (angular, moment, flatpickr)
             }
           };
     }]);
-    mod.directive('popup', ["$log", "$timeout", function ($log, $timeout) {
+    mod.directive('popup', ["$log", "$timeout", function ($log, $timeout) { 
       return {
         restrict: "EA",
         scope: {
@@ -415,13 +417,14 @@ define(['angular', 'moment', 'flatpickr'], function (angular, moment, flatpickr)
         require: 'ngModel',
         scope: {
           ngModel: "=",
+          minDate: "=",
           ngChange: "&",
           format: "=",
         },
         priority: 100,
-        link: function ($scope, $element, attrs, ngModel) {
+        link: function ($scope, $element, attrs, ngModel) { 
           // TODO: There are two ways to fire this.  from xeditable or from
-          // daterangepicker directive.
+          // daterangepicker directive. 
           // the daterangepicker uses the standard ngModel scope variable
           // the xeditable uses the model directive
 
@@ -435,7 +438,7 @@ define(['angular', 'moment', 'flatpickr'], function (angular, moment, flatpickr)
           var localValue;
 
           var dateChanged = function () {
-            if (pickr.selectedDates && pickr.selectedDates.length > 0) {
+            if (pickr.selectedDates && pickr.selectedDates.length > 0) { 
               var m = moment(pickr.selectedDates[0]);
               var year = m.year();
               var month = m.month();
@@ -457,23 +460,35 @@ define(['angular', 'moment', 'flatpickr'], function (angular, moment, flatpickr)
             }
           };
 
+          $scope.$watch("ngModel", function (value) { 
+            if (value === undefined && pickr !== undefined) { 
+              pickr.clear();
+            }
+          });
+
           /*
+          $scope.
 
           */
 
-          $element.on("click", function () {
+          $element.on("click", function () { 
             var d = ngModel.$modelValue;
-            var date;
+            var date, minDate;
 
-            if (d !== undefined && localValue !== d) {
-                var m = moment.utc(d);
-                date = new Date(m.year(), m.month(), m.date(), m.hour(), m.minute(), m.second());
-              }
+            if (d !== undefined && localValue !== d && d !== "") {
+              var m = moment.utc(d);
+              date = new Date(m.year(), m.month(), m.date(), m.hour(), m.minute(), m.second());
+            }
+
+            if ($scope.minDate !== undefined) { 
+              minDate = $scope.minDate;
+            }
 
             // only load this picker once
             if (pickr === undefined) {
               pickr = $element.flatpickr({
                 utc: true,
+                minDate: minDate,
                 altFormat: "m/d/Y",
                 altInput: true,
                 enableTime: true,
@@ -482,12 +497,15 @@ define(['angular', 'moment', 'flatpickr'], function (angular, moment, flatpickr)
                 onChange: dateChanged
               });
               pickr.open();
+            } else {
+              // update min date
+              pickr.set("minDate", minDate);
             }
           });
 
           ngModel.$render = function() {
             var d = ngModel.$modelValue;
-            if (d !== undefined && d !== null && localValue !== d) {
+            if (d !== undefined && d !== null && localValue !== d && d !== "") {
               var m = moment.utc(d);
               // set the value of date to be the UTC
               // i'll reset the value to UTC when the date changes.
@@ -496,7 +514,7 @@ define(['angular', 'moment', 'flatpickr'], function (angular, moment, flatpickr)
             }
           };
 
-
+          
 
           // angular.element(elm).daterangepicker({
           //   "autoApply": true,
@@ -524,12 +542,12 @@ define(['angular', 'moment', 'flatpickr'], function (angular, moment, flatpickr)
       return {
         restrict: "C",
         scope: false,
-        link: function (scope, elm, attr) {
+        link: function (scope, elm, attr) { 
             var handler = {
               activate: function(target) {
                 $log.info("common.semantic: SemanticMenu - Menu Activated");
                 if(!angular.element(target).hasClass('dropdown')) {
-
+                  
                     angular.element(target)
                       .addClass('active')
                       .closest('.ui.menu')
@@ -541,14 +559,14 @@ define(['angular', 'moment', 'flatpickr'], function (angular, moment, flatpickr)
             };
             var parent = angular.element(elm).parent();
             if (!parent.hasClass("dropdown")) {
-              angular.element(elm).children(".item:not(.transparent)").on('click', function (e) {
+              angular.element(elm).children(".item:not(.transparent)").on('click', function (e) { 
                 handler.activate(this);
               });
             }
         }
       };
     }]);
-    mod.directive('tab', ["$log", function ($log) {
+    mod.directive('tab', ["$log", function ($log) { 
       return {
         restrict: "A",
         link: function (scope, elm, attr) {

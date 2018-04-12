@@ -89,7 +89,7 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
             "systemType": $scope.selectedMeasureCategory.selected,
             "detail": $scope.measure.selected,
             "implementationStatus": $scope.implementationStatus.selected,
-            "systemCategory": $scope.systemCategory.selected,
+//            "systemCategory": $scope.systemCategory.selected,
             "startDate": $scope.measure.startDate,
             "endDate": $scope.measure.endDate,
             "comment": $scope.measure.comment
@@ -194,7 +194,18 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
     };
 
     $scope.addSystemToList = function() {
-        $scope.systemList.push($scope.system);
+        console.log('sys: ', $scope.form1);
+//        console.log('sys: ', $scope.systems_form.system);
+
+        console.log("system: ", $scope.system);
+        if (Object.keys($scope.system).length === 0) {
+
+
+            console.log("empty");
+        } else {
+            $scope.systemList.push($scope.system);
+        }
+
         delete $scope.system;
         $scope.system = {};
     };
