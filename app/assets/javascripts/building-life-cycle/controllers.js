@@ -66,6 +66,8 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
     $scope.measureCategories = Object.keys(measureCategories);
 
     $scope.selectedMeasureCategoryChanged = function(value) {
+            $scope.measure = {};
+            $scope.implementationStatus = {};
             $scope.availableMeasures = measureCategories[value];
     };
 
