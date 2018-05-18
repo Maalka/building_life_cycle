@@ -16,7 +16,7 @@ define(['angular', './main', 'angular-file-upload'], function(angular) {
             restrict: 'E',
             scope: {
                 meter: '=meter',
-                model: '=model',
+//                model: '=model',
                 file: '=file'
 
             },
