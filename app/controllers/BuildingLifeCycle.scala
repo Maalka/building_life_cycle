@@ -17,15 +17,8 @@
 package controllers
 
 import java.io.{File, FileOutputStream, InputStream, OutputStream, PrintWriter, StringWriter}
-import java.nio.file.Files
-import java.util.UUID
 
-import actors.CommonMessage
-import actors.flows.BankValidationThresholdFlow
 import actors.flows._
-import actors.validators.Validator
-import actors.validators.Validator.UpdateObjectValidatedDocument
-import actors.validators.bedes._
 import akka.actor.ActorSystem
 import akka.stream._
 import com.google.inject.Inject
@@ -70,9 +63,9 @@ class BuildingLifeCycle @Inject()(
   def buildXlsx = Action.async(parse.json) { request =>
 
     val systems = (request.body \ "systems").as[List[JsObject]]
-    Logger.info("oo: " + systems)
 
     val systemTypes = systems.groupBy(_.fields.head._1)
+
     Logger.info("systemTypes: " + systemTypes)
 
     val workbook: XSSFWorkbook = new XSSFWorkbook
@@ -81,7 +74,7 @@ class BuildingLifeCycle @Inject()(
     // Measures Sheet
     val sheet1 = workbook.createSheet("Measures")
 
-    val fieldNames = List("systemType", "detail", "implementationStatus", "startDate", "endDate", "comment")
+    val fieldNames = List("systemType", "detail", "implementationStatus", "startDate", "endDate", "comment", "buildingName", "buildingAddress")
 
     // header
     val row = sheet1.createRow(0)
@@ -111,53 +104,182 @@ class BuildingLifeCycle @Inject()(
     }
 
     // Start Systems sheets
-    systemTypes.map { g =>
-      val safeName = WorkbookUtil.createSafeSheetName(g._1)
+
+    val commonFields = List(
+      "Manufacturer",
+      "ModelNumber",
+      "Quantity",
+      "YearInstalled",
+      "YearofManufacture"
+    )
+
+    val systemsHeaders = Map(
+      "HVACSystem" -> (List(
+        "HVACSystem",
+        "HeatingAndCoolingSystems",
+        "HeatingAndCoolingSystems:CoolingSource",
+        "HeatingAndCoolingSystems:CoolingSource:CoolingSourceType",
+        "HeatingAndCoolingSystems:CoolingSource:AnnualCoolingEfficiencyUnits",
+        "HeatingAndCoolingSystems:CoolingSource:AnnualCoolingEfficiencyValue",
+        "HeatingAndCoolingSystems:CoolingSource:Capacity",
+        "HeatingAndCoolingSystems:CoolingSource:CapacityUnits",
+        "HeatingAndCoolingSystems:CoolingSource:CoolingSourceType",
+        "HeatingAndCoolingSystems:CoolingSource:CoolingSourceType:DX:DXSystemType",
+        "HeatingAndCoolingSystems:CoolingSource:CoolingSourceType:EvaporativeCooler:EvaporativeCoolingType",
+        "HeatingAndCoolingSystems:CoolingSource:CoolingSourceType:EvaporativeCooler:EvaporativeCoolingType",
+        "HeatingAndCoolingSystems:CoolingSource:CoolingSourceType:NoCooling:NoCooling",
+        "HeatingAndCoolingSystems:CoolingSource:CoolingSourceType:OtherCombination:OtherCombination",
+        "HeatingAndCoolingSystems:CoolingSource:CoolingSourceType:Unknown:Unknown",
+        "HeatingAndCoolingSystems:CoolingSource:CoolingSourceType:ZoningSystemType",
+        "HeatingAndCoolingSystems:HeatingSource:HeatingSourceType",
+        "HeatingAndCoolingSystems:HeatingSource:AnnualHeatingEfficiencyUnit",
+        "HeatingAndCoolingSystems:HeatingSource:AnnualHeatingEfficiencyValue",
+        "HeatingAndCoolingSystems:HeatingSource:CapacityUnits",
+        "HeatingAndCoolingSystems:HeatingSource:HeatingMedium",
+        "HeatingAndCoolingSystems:HeatingSource:HeatingSourceType",
+        "HeatingAndCoolingSystems:HeatingSource:HeatingSourceType:Furnace:BurnerType",
+        "HeatingAndCoolingSystems:HeatingSource:HeatingSourceType:Furnace:CombustionEfficiency",
+        "HeatingAndCoolingSystems:HeatingSource:HeatingSourceType:Furnace:FurnaceType",
+        "HeatingAndCoolingSystems:HeatingSource:HeatingSourceType:Furnace:ThermalEfficiency",
+        "HeatingAndCoolingSystems:HeatingSource:HeatingSourceType:HeatPump:HeatPumpType",
+        "HeatingAndCoolingSystems:HeatingSource:HeatingSourceType:NoHeating:NoHeating",
+        "HeatingAndCoolingSystems:HeatingSource:HeatingSourceType:OtherCombination:OtherCombination",
+        "HeatingAndCoolingSystems:HeatingSource:HeatingSourceType:Unknown:Unknown",
+        "HeatingAndCoolingSystems:HeatingSource:HeatingSourceType:Unknown:Unknown",
+        "HeatingAndCoolingSystems:HeatingSource:HeatingSourceType:ZoningSystemType",
+        "OtherHVACSystems:Integration",
+        "OtherHVACSystems:OtherHVACType",
+        "OtherHVACSystems:OtherHVACType",
+        "Plants",
+        "Plants:CoolingPlantType",
+        "Plants:CoolingPlantType:Chiller:AbsorptionHeatSource",
+        "Plants:CoolingPlantType:Chiller:AnnualCoolingEfficiencyUnits",
+        "Plants:CoolingPlantType:Chiller:AnnualCoolingEfficiencyValue",
+        "Plants:CoolingPlantType:Chiller:Capacity",
+        "Plants:CoolingPlantType:Chiller:CapacityUnits",
+        "Plants:CoolingPlantType:Chiller:ChillerType",
+        "Plants:CoolingPlantType:Chiller:Quantity",
+        "Plants:CoolingPlantType:Chiller:ThirdPartyCertification",
+        "Plants:CoolingPlantType:DistrictChilledWater:AnnualCoolingEfficiencyUnits",
+        "Plants:CoolingPlantType:DistrictChilledWater:AnnualCoolingEfficiencyValue",
+        "Plants:CoolingPlantType:DistrictChilledWater:Capacity",
+        "Plants:CoolingPlantType:DistrictChilledWater:CapacityUnits",
+        "Plants:CoolingPlantType:NoCooling:NoCooling",
+        "Plants:CoolingPlantType:OtherCombination:OtherCombination",
+        "Plants:CoolingPlantType:Unknown:Unknown",
+        "Plants:HeatingPlantType",
+        "Plants:HeatingPlantType:Boiler:BoilerType",
+        "Plants:HeatingPlantType:Boiler:AnnualHeatingEfficiencyUnit",
+        "Plants:HeatingPlantType:Boiler:AnnualHeatingEfficiencyValue",
+        "Plants:HeatingPlantType:Boiler:BurnerType",
+        "Plants:HeatingPlantType:Boiler:CapacityUnits",
+        "Plants:HeatingPlantType:Boiler:CombustionEfficiency",
+        "Plants:HeatingPlantType:Boiler:Quantity",
+        "Plants:HeatingPlantType:Boiler:ThermalEfficiency",
+        "Plants:HeatingPlantType:DistrictHeating:DistrictHeatingType",
+        "Plants:HeatingPlantType:DistrictHeating:AnnualHeatingEfficiencyUnit",
+        "Plants:HeatingPlantType:DistrictHeating:AnnualHeatingEfficiencyValue",
+        "Plants:HeatingPlantType:DistrictHeating:Quantity",
+        "Plants:HeatingPlantType:NoHeating:NoHeating",
+        "Plants:HeatingPlantType:OtherCombination:OtherCombination",
+        "Plants:HeatingPlantType:SolarThermal:AnnualHeatingEfficiencyUnit",
+        "Plants:HeatingPlantType:SolarThermal:AnnualHeatingEfficiencyValue",
+        "Plants:HeatingPlantType:SolarThermal:CapacityUnits",
+        "Plants:HeatingPlantType:SolarThermal:OutputCapacity",
+        "Plants:HeatingPlantType:SolarThermal:Quantity"
+      ) ::: commonFields),
+
+      "DomesticHotWaterSystem" -> (List(
+        "DomesticHotWaterSystem",
+        "HeatExchanger:HeatExchanger",
+        "Instantaneous:InstantaneousWaterHeatingSource",
+        "StorageTank:TankVolume",
+        "HotWaterDistributionType",
+        "WaterHeaterEfficiency",
+        "WaterHeaterEfficiencyType",
+        "Capacity",
+        "CapacityUnits"
+      ) ::: commonFields),
+
+      "FanSystem" -> (List(
+        "FanApplication",
+        "FanControlType",
+        "FanType"
+      ) ::: commonFields),
+
+      "FenestrationSystem" -> (List(
+        "FenestrationType",
+        "Window:WindowHeight",
+        "Window:WindowWidth",
+        "Window:WindowHorizontalSpacing",
+        "Window:WindowOrientation",
+        "Other:Other",
+        "FenestrationFrameMaterial",
+        "GlassType",
+        "FenestrationGlassLayers",
+        "FenestrationOperation",
+        "Weatherstripped"
+      ) ::: commonFields),
+
+      "HeatRecoverySystem" -> (List(
+        "HeatRecoveryType",
+        "EnergyRecoveryEfficiency",
+        "HeatRecoveryEfficiency"
+      ) ::: commonFields),
+
+      "LightingSystem" -> (List(
+        "OutsideLighting",
+        "LampType",
+        "LampType:LampLabel",
+        "LampType:Neon",
+        "LampType:OtherCombination",
+        "LampType:Unknown",
+        "InstallationType",
+        "LightingControlTypeOccupancy",
+        "LightingDirection"
+      ) ::: commonFields)
+   )
+
+    systemsHeaders.map { sh =>
+      val safeName = WorkbookUtil.createSafeSheetName(sh._1)
       val sheet2 = workbook.createSheet(safeName)
       val headerRow = sheet2.createRow(0)
 
-      // build header
-      val distinctFields: List[List[String]] = g._2.flatMap { s =>
-        s.fields.toList.flatMap { field =>
-          val o = buildPath(field._2, List.empty[String])
-          o.keys.toList
-        }
-      }.distinct
-
-      distinctFields.zipWithIndex.foreach {
-        case (f, i) => {
+      sh._2.zipWithIndex.foreach {
+        case (f, i) =>
           val cell = headerRow.createCell(i)
-          cell.setCellValue(f.reverse.mkString("-"))
-        }
+          cell.setCellValue(f.split(":").reverse.head)
       }
 
-      g._2.zipWithIndex.foreach{
-        case (system, systemIndex) =>
-         val systemFields: Seq[Map[List[String], Any]] = system.fields.map { field =>
-           buildPath(field._2, List.empty[String])
-         }
+      systemTypes.filter( st => st._1.substring(4, st._1.length-1) == sh._1).zipWithIndex.foreach {
+        case (systemFields, i: Int) =>
+          systemFields._2.zipWithIndex.foreach {
+            case (sf, fi) =>
+              val dataRow = sheet2.createRow(fi+1)
+              val excelField = buildPath(sf, List.empty[String])
+              Logger.info("excelField: " + excelField)
+              excelField.zipWithIndex.foreach {
+                case (ef, ei) =>
+                  Logger.info("searching in: " + sh._2)
+                  Logger.info("searching for: " + ef._1(1))
+                  val needle = if (ef._1(1).startsWith("auc:")) ef._1(1).substring(4) else ef._1(1)
+                  Logger.info("searching for needle: " + needle)
 
-        Logger.info("systemFields: " + systemFields)
-
-        // fill rows
-        systemFields.map { sf =>
-            val dataRow = sheet2.createRow(systemIndex+1)
-            distinctFields.zipWithIndex.foreach {
-              case (df, cellIndex) => {
-                val cell = dataRow.createCell(cellIndex)
-                sf.get(df).map { cellValue =>
-                  cellValue match {
+                  val cellIndex = sh._2.indexWhere( fieldName => fieldName.split(":").reverse.head == needle)
+                  if (cellIndex == -1) {
+                    Logger.info("not found: " + ef._2)
+                  }
+                  // some fields are not mapped, just putting them on the sheet for inspection
+                  val cell = dataRow.createCell(if (cellIndex == -1) cellIndex+50 else cellIndex)
+                  ef._2 match {
                     case c: String => cell.setCellValue(c)
                     case c: Int => cell.setCellValue(c)
                     case c: Boolean => cell.setCellValue(c)
                   }
               }
-            }
           }
-        }
-
+          }
       }
-    }
 
     val ff = new File("workbook.xlsx")
     val fileOut: OutputStream = new FileOutputStream(ff)
