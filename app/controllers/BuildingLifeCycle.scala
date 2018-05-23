@@ -16,7 +16,8 @@
 
 package controllers
 
-import java.io.{File, FileOutputStream, InputStream, OutputStream, PrintWriter, StringWriter}
+import java.io.{BufferedOutputStream, ByteArrayInputStream, ByteArrayOutputStream, File, FileOutputStream, InputStream, OutputStream, PrintWriter, StringWriter}
+import java.util.Base64
 
 import actors.flows._
 import akka.actor.ActorSystem
@@ -59,6 +60,27 @@ class BuildingLifeCycle @Inject()(
   implicit val measureWrites = Json.writes[Measure]
 //  implicit val systemReads = Json.reads[models.System]
 //  implicit val systemWrites = Json.writes[models.System]
+
+  def readme = Action {
+    Ok.sendFile(
+      content = new java.io.File("README.md"),
+      inline = false)
+  }
+
+  def getFile = Action.async { request =>
+
+    Future {
+      val tt = "123"
+
+      val data = Base64.getDecoder.decode(tt.getBytes());
+      val is: InputStream = new ByteArrayInputStream(data);
+      val CHUNK_SIZE = 100
+      val dataContent = StreamConverters.fromInputStream(() => is, CHUNK_SIZE)
+      Ok.chunked(dataContent).as("application/pdf").withHeaders(CONTENT_DISPOSITION -> "attachment; filename=aa.pdf")
+    }
+
+  }
+
 
   def buildXlsx = Action.async(parse.json) { request =>
 
@@ -281,21 +303,28 @@ class BuildingLifeCycle @Inject()(
           }
       }
 
-    val ff = new File("workbook.xlsx")
-    val fileOut: OutputStream = new FileOutputStream(ff)
+//    val ff = new File("workbook.xlsx")
+//    BufferedOutputStream
+//    val fileOut: OutputStream = new FileOutputStream(ff)
 
-    workbook.write(fileOut)
+//    workbook.write(fileOut)
+//
+//    fileOut.flush()
+//    fileOut.close()
 
-    fileOut.flush()
-    fileOut.close()
+    val bos = new ByteArrayOutputStream
+    workbook.write(bos)
+
+    val bytes: Array[Byte] = bos.toByteArray
+
+    val is: InputStream = new ByteArrayInputStream(bytes);
 
 
-    val dataContent: Sink[ByteString, _] = StreamConverters.fromOutputStream(() => fileOut)
-
-
+    val CHUNK_SIZE = 100
+    val dataContent = StreamConverters.fromInputStream(() => is, CHUNK_SIZE)
 
     Future {
-      Ok("").withHeaders(
+      Ok.chunked(dataContent).withHeaders(
         "Content-Type" -> "application/vnd.openxmlformats-officedocument.spreadsheetml.template",
         "Content-Disposition" -> "attachment; filename=out.xlsx"
       )

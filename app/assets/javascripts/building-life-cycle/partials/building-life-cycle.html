@@ -454,7 +454,7 @@
                         </div>
                         <button ng-if="measures.list.length > 0 || systemList.length > 0" class="ui blue button" ng-click="downloadData()">Download BuildingSync</button>
                         <button ng-if="measures.list.length > 0 || systemList.length > 0" class="ui blue button" ng-click="downloadCsv()">Download CSV</button>
-                        <a href="@routes.BuildingLifeCycle.getXlsx()">xlsx</a>
+
                     </div>
                     <div class="column">
                         <h2>MEASURES</h2>
@@ -504,6 +504,12 @@
                 </div>
         </div>
         <div class="ui hidden divider"></div>
+    </form>
+    <form action="getXlsx" method="post">
+        <button type="submit" name="your_name" value="your_value" class="btn-link">Go</button>
+    </form>
+    <form action="readme" method="get">
+        <button type="submit" name="your_name" value="your_value" class="btn-link">readme</button>
     </form>
 </div>
 
