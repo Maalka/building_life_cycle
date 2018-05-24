@@ -23,6 +23,7 @@ define(['angular', 'moment', 'highcharts', 'highcharts-drilldown', 'highcharts-e
                     }
                 });
                 var groupedSeries = [];
+                var colors = ['#06A1F9', '#0D95BB', '#0A708C', '#2F4598', '#5D70D4', '#eb885c', '#d4483d', '#f7e3b1', '#3f58ce', '#1f2c5c'];
 
                 var refresh = function() {
 
@@ -51,7 +52,6 @@ define(['angular', 'moment', 'highcharts', 'highcharts-drilldown', 'highcharts-e
                         $scope.last5measures = $scope.measures.slice(0,5);
                         var newMeasures = [];
                         for (var i = 0; i < $scope.last5measures.length; i++) {
-                            var randomColor = colors[Math.floor(Math.random()*colors.length)];
                             var endDate = moment.utc($scope.last5measures[i].endDate);
                             newMeasures.push({
                                 x: Date.UTC(
@@ -61,10 +61,6 @@ define(['angular', 'moment', 'highcharts', 'highcharts-drilldown', 'highcharts-e
                                 ),
                                 y: i % 5 * 10 + 10,
                                 text: endDate.format("ll"),
-                                dataLabels: {
-                                    backgroundColor: randomColor,
-                                    borderColor: randomColor,
-                                },
                                 name: $scope.last5measures[i].detail,
                                 implementationStatus: $scope.last5measures[i].implementationStatus
                             });
@@ -77,12 +73,20 @@ define(['angular', 'moment', 'highcharts', 'highcharts-drilldown', 'highcharts-e
                             groupedSeries[j] = {};
                             groupedSeries[j].type = 'column';
                             groupedSeries[j].name = Object.keys(grouped)[j];
-                            groupedSeries[j].data = grouped[Object.keys(grouped)[j]];
+                            var points = grouped[Object.keys(grouped)[j]];
+                            groupedSeries[j].data = points;
+                            var color = colors[j];
+                            for (var k = 0; k < points.length; k++) {
+                                groupedSeries[j].dataLabels = {
+                                    backgroundColor: color,
+                                    borderColor: color,
+                                 };
+                             }
                         }
                         angular.element($element).height(300).highcharts($scope.options);
                     }, 0);
                 };
-                var colors = ['#06A1F9', '#0D95BB', '#0A708C', '#2F4598', '#5D70D4'];
+
                 $scope.last5measures = [];
                 $scope.options = {
 

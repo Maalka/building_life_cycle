@@ -398,6 +398,11 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
     };
 
     $scope.downloadCsv = function() {
+
+        console.log("forms: ", $scope.forms);
+
+//        $scope.forms.hiddenform.submit();
+
         console.log("download csv");
         var measuresOut = "";
         var systemsOut = "";
@@ -419,9 +424,13 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
                 'measures': $scope.measures.list,
                 'systems': $scope.systemList
             }
+
+//            token
         ).then ( function(response) {
+//                /tmp/sec4
                 console.log('response: ', response);
             }
+//            window.location.href
         );
 
         if ($scope.measures.list.length > 0) {
@@ -666,7 +675,7 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
         $scope.validation = [];
 
         Upload.upload({
-            url: playRoutes.controllers.BuildingLifeCycle.parseCsv().url,
+            url: playRoutes.controllers.BuildingLifeCycle.parseXls().url,
             data: {
                 inputData: file,
                 type: $scope.uploadType.type

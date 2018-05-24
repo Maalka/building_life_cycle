@@ -29,8 +29,11 @@ import akka.stream.scaladsl._
 import akka.util.ByteString
 import com.github.tototoshi.csv.{CSVReader, DefaultCSVFormat}
 import models.Measure
+import org.apache.poi.openxml4j.opc.OPCPackage
 import org.apache.poi.ss.util.WorkbookUtil
+import org.apache.poi.ss.usermodel.{Cell, Row, Sheet, Workbook}
 import org.apache.poi.xssf.usermodel.XSSFWorkbook
+import scala.collection.JavaConversions._
 import org.joda.time.{DateTime, LocalDate}
 import play.api.Logger
 
@@ -58,8 +61,6 @@ class BuildingLifeCycle @Inject()(
 
   implicit val measureReads = Json.reads[Measure]
   implicit val measureWrites = Json.writes[Measure]
-//  implicit val systemReads = Json.reads[models.System]
-//  implicit val systemWrites = Json.writes[models.System]
 
   def readme = Action {
     Ok.sendFile(
@@ -362,7 +363,9 @@ class BuildingLifeCycle @Inject()(
     }
   }
 
-  def parseCsv = Action.async(parse.multipartFormData) { request =>
+  val measureFields = List("systemType", "detail", "implementationStatus", "startDate", "endDate", "comment", "buildingName", "buildingAddress")
+
+  def parseXls = Action.async(parse.multipartFormData) { request =>
 
       val result: Option[Future[Result]] = for {
         uploadType <- request.body.dataParts.get("type")
@@ -370,9 +373,32 @@ class BuildingLifeCycle @Inject()(
       } yield {
         uploadType.headOption match {
           case Some("measures") => {
-            val reader = CSVReader.open(uploadFile.ref.file)
-            Future { Ok(Json.toJson(readMeasures(reader.all())))}
+
+            val pkg: OPCPackage = OPCPackage.open(uploadFile.ref.file)
+            import org.apache.poi.xssf.usermodel.XSSFWorkbook
+            val wb = new XSSFWorkbook(pkg)
+            val measures = (0 until wb.getNumberOfSheets()).map { i =>
+              wb.getSheetAt(i) }
+            .filter(_.getSheetName.toLowerCase == "measures")
+            .flatMap { sheet =>
+                sheet.rowIterator().toSeq
+              }
+              // drop header
+            .drop(1)
+            .map { row =>
+              Measure(row.getCell(0).toString,
+                      row.getCell(1).toString,
+                      row.getCell(2).toString,
+                      BigInt(1),
+                      BigInt(2),
+                      Some(row.getCell(4).toString),
+                      Some("building"),
+                      Some("address"))
+            }.toList
+
+            Future { Ok(Json.toJson(measures))}
           }
+
           case Some("systems") => {
             val reader = CSVReader.open(uploadFile.ref.file)
 //            Future { Ok(Json.toJson(readSystems(reader.all())))}
@@ -390,7 +416,7 @@ class BuildingLifeCycle @Inject()(
   private def readMeasures(readings: List[List[String]]): List[Measure] = {
     readings.map {
       case List(systemType, detail, implementationStatus, startDate, endDate, comments) =>
-        Measure(systemType, detail, implementationStatus, BigInt(startDate), BigInt(endDate), Some(comments))
+        Measure(systemType, detail, implementationStatus, BigInt(startDate), BigInt(endDate), Some(comments), None, None)
     }
   }
 

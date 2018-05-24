@@ -8,7 +8,7 @@ GET     /                           controllers.Application.index(includeHeader:
 GET     /jsroutes.js                controllers.Application.jsRoutes()
 
 POST    /validate                   controllers.BuildingLifeCycle.validate()
-POST    /parseCsv                   controllers.BuildingLifeCycle.parseCsv()
+POST    /parseXls                   controllers.BuildingLifeCycle.parseXls()
 POST    /getXlsx                    controllers.BuildingLifeCycle.buildXlsx()
 
 POST    /getFile                    controllers.BuildingLifeCycle.getFile()
