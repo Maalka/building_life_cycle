@@ -399,17 +399,18 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
 
     $scope.downloadCsv = function() {
 
-        console.log("forms: ", $scope.forms);
-
-//        $scope.forms.hiddenform.submit();
-
         console.log("download csv");
         var measuresOut = "";
         var systemsOut = "";
         $scope.measures.list.forEach( function(m) {
+                console.log("endDat: ", moment.utc(m.endDate).format("ll"));
+                var startDate = moment.utc(m.startDate).format("ll");
+                var endDate = moment.utc(m.endDate).format("ll");
             var comment = (m.comment === undefined) ? "\"\"" : "\""+m.comment+"\"";
-            measuresOut += "\"" + m.systemType + "\",\"" + m.detail + "\",\"" + m.implementationStatus + "\",\"" + moment.utc(m.startDate).format("MM/DD/YYYY") + "\",\"" + moment.utc(m.endDate).format("MM/DD/YYYY") + "\"," + comment + "\r\n";
+            measuresOut += "\"" + m.systemType + "\",\"" + m.detail + "\",\"" + m.implementationStatus + "\",\"" + startDate + "\",\"" + endDate + "\"," + comment + "\r\n";
         });
+
+        console.log('measuresOut: ' + $scope.measures.list);
 
         $scope.systemList.forEach( function(s) {
             var keys = Object.keys(s);
@@ -424,32 +425,28 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
                 'measures': $scope.measures.list,
                 'systems': $scope.systemList
             }
-
-//            token
         ).then ( function(response) {
-//                /tmp/sec4
-                console.log('response: ', response);
+                window.location.href = '/getFile?token='+response.data;
             }
-//            window.location.href
         );
 
-        if ($scope.measures.list.length > 0) {
-            var dataStr = "data:text/csv;charset=utf-8," + encodeURIComponent(measuresOut);
-            var downloadAnchorNode = document.createElement('a');
-            downloadAnchorNode.setAttribute("href",     dataStr);
-            downloadAnchorNode.setAttribute("download", "measures.csv");
-            downloadAnchorNode.click();
-            downloadAnchorNode.remove();
-        }
-
-        if ($scope.systemList.length > 0) {
-            var dataStr2 = "data:text/csv;charset=utf-8," + encodeURIComponent(systemsOut);
-            var downloadAnchorNode2 = document.createElement('a');
-            downloadAnchorNode2.setAttribute("href",     dataStr2);
-            downloadAnchorNode2.setAttribute("download", "systems.csv");
-            downloadAnchorNode2.click();
-            downloadAnchorNode2.remove();
-        }
+//        if ($scope.measures.list.length > 0) {
+//            var dataStr = "data:text/csv;charset=utf-8," + encodeURIComponent(measuresOut);
+//            var downloadAnchorNode = document.createElement('a');
+//            downloadAnchorNode.setAttribute("href",     dataStr);
+//            downloadAnchorNode.setAttribute("download", "measures.csv");
+//            downloadAnchorNode.click();
+//            downloadAnchorNode.remove();
+//        }
+//
+//        if ($scope.systemList.length > 0) {
+//            var dataStr2 = "data:text/csv;charset=utf-8," + encodeURIComponent(systemsOut);
+//            var downloadAnchorNode2 = document.createElement('a');
+//            downloadAnchorNode2.setAttribute("href",     dataStr2);
+//            downloadAnchorNode2.setAttribute("download", "systems.csv");
+//            downloadAnchorNode2.click();
+//            downloadAnchorNode2.remove();
+//        }
 
     };
 

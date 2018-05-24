@@ -11,8 +11,7 @@ POST    /validate                   controllers.BuildingLifeCycle.validate()
 POST    /parseXls                   controllers.BuildingLifeCycle.parseXls()
 POST    /getXlsx                    controllers.BuildingLifeCycle.buildXlsx()
 
-POST    /getFile                    controllers.BuildingLifeCycle.getFile()
-GET     /readme                    controllers.BuildingLifeCycle.readme
+GET     /getFile                    controllers.BuildingLifeCycle.getFile(token: Option[String])
 
 GET     /type1  controllers.StaticController.type1
 GET     /type2  controllers.StaticController.type2

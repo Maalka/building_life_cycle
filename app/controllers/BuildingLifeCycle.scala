@@ -26,16 +26,20 @@ import com.google.inject.Inject
 import play.api.mvc._
 import com.maalka.bedes.{BEDESTransform, BEDESTransformResult}
 import akka.stream.scaladsl._
-import akka.util.ByteString
 import com.github.tototoshi.csv.{CSVReader, DefaultCSVFormat}
 import models.Measure
 import org.apache.poi.openxml4j.opc.OPCPackage
 import org.apache.poi.ss.util.WorkbookUtil
 import org.apache.poi.ss.usermodel.{Cell, Row, Sheet, Workbook}
 import org.apache.poi.xssf.usermodel.XSSFWorkbook
+import org.joda.time.format.ISODateTimeFormat
+
 import scala.collection.JavaConversions._
 import org.joda.time.{DateTime, LocalDate}
-import play.api.Logger
+import play.api.{Configuration, Logger}
+import play.api.cache.CacheApi
+import play.api.data.validation.ValidationError
+import play.api.libs.Files.TemporaryFile
 
 import scala.concurrent.Future
 import scala.util.control.NonFatal
@@ -43,9 +47,13 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.duration._
 import play.api.libs.json._
 
+import scala.util.{Random, Try}
+
 class BuildingLifeCycle @Inject()(
                              implicit actorSystem: ActorSystem,
-                             validateFlow: ValidateFlow
+                             validateFlow: ValidateFlow,
+                             cache: CacheApi,
+                             config: Configuration
                             ) extends Controller {
 
 
@@ -59,26 +67,40 @@ class BuildingLifeCycle @Inject()(
     case _ => JsError(s"Invalid BigInt")
   }
 
+  val fmt = ISODateTimeFormat.dateTime
+
+  implicit val localDateReads: Reads[LocalDate] = new Reads[LocalDate] {
+    override def reads(json: JsValue): JsResult[LocalDate] = json match {
+      case JsString(value) => {
+        Logger.info("converting date: " + json)
+        JsSuccess(fmt parseLocalDate value)
+      }
+      case _ => JsError(Seq(JsPath() -> Seq(ValidationError("validate.error.expected.datetime"))))
+    }
+  }
+
+
   implicit val measureReads = Json.reads[Measure]
   implicit val measureWrites = Json.writes[Measure]
 
-  def readme = Action {
-    Ok.sendFile(
-      content = new java.io.File("README.md"),
-      inline = false)
-  }
+  def getFile(token: Option[String]) = Action.async { request =>
 
-  def getFile = Action.async { request =>
-
-    Future {
-      val tt = "123"
-
-      val data = Base64.getDecoder.decode(tt.getBytes());
-      val is: InputStream = new ByteArrayInputStream(data);
-      val CHUNK_SIZE = 100
-      val dataContent = StreamConverters.fromInputStream(() => is, CHUNK_SIZE)
-      Ok.chunked(dataContent).as("application/pdf").withHeaders(CONTENT_DISPOSITION -> "attachment; filename=aa.pdf")
+    Logger.info("searching file by token: " + token.getOrElse(""))
+    val file: Option[File] = token.flatMap { t =>
+      cache.get[File](t)
     }
+
+    file.map { f =>
+      Future {
+        Ok.sendFile(
+          content = f,
+          inline = false)
+      }
+    }.getOrElse(
+      Future {
+        Ok("no file")
+      }
+    )
 
   }
 
@@ -97,11 +119,11 @@ class BuildingLifeCycle @Inject()(
     // Measures Sheet
     val sheet1 = workbook.createSheet("Measures")
 
-    val fieldNames = List("systemType", "detail", "implementationStatus", "startDate", "endDate", "comment", "buildingName", "buildingAddress")
+    val measureFieldNames = List("systemType", "detail", "implementationStatus", "startDate", "endDate", "comment", "buildingName", "buildingAddress")
 
     // header
     val row = sheet1.createRow(0)
-    fieldNames.zipWithIndex.foreach {
+    measureFieldNames.zipWithIndex.foreach {
       case (field, index) => {
         val cell = row.createCell(index)
         cell.setCellValue(field)
@@ -112,11 +134,13 @@ class BuildingLifeCycle @Inject()(
       m.as[List[Measure]]
     }
 
+    Logger.info("measures: " + measures)
+
     measures.map { m =>
       m.zipWithIndex.foreach {
         case (measure, index) => {
           val row = sheet1.createRow(index + 1)
-          fieldNames.zipWithIndex.foreach {
+          measureFieldNames.zipWithIndex.foreach {
             case (fieldName, fieldIndex) => {
               val cell = row.createCell(fieldIndex)
               cell.setCellValue(extract(measure, fieldName).getOrElse(""))
@@ -280,17 +304,12 @@ class BuildingLifeCycle @Inject()(
             case (sf, fi) =>
               val dataRow = sheet2.createRow(fi+1)
               val excelField = buildPath(sf, List.empty[String])
-              Logger.info("excelField: " + excelField)
               excelField.zipWithIndex.foreach {
                 case (ef, ei) =>
-                  Logger.info("searching in: " + sh._2)
-                  Logger.info("searching for: " + ef._1(1))
                   val needle = if (ef._1(1).startsWith("auc:")) ef._1(1).substring(4) else ef._1(1)
-                  Logger.info("searching for needle: " + needle)
-
                   val cellIndex = sh._2.indexWhere( fieldName => fieldName.split(":").reverse.head == needle)
                   if (cellIndex == -1) {
-                    Logger.info("not found: " + ef._2)
+                    Logger.error("not found field: " + ef._2)
                   }
                   // some fields are not mapped, just putting them on the sheet for inspection
                   val cell = dataRow.createCell(if (cellIndex == -1) cellIndex+50 else cellIndex)
@@ -304,31 +323,22 @@ class BuildingLifeCycle @Inject()(
           }
       }
 
-//    val ff = new File("workbook.xlsx")
-//    BufferedOutputStream
-//    val fileOut: OutputStream = new FileOutputStream(ff)
-
-//    workbook.write(fileOut)
-//
-//    fileOut.flush()
-//    fileOut.close()
-
     val bos = new ByteArrayOutputStream
     workbook.write(bos)
 
-    val bytes: Array[Byte] = bos.toByteArray
+    import java.io.FileOutputStream
+    val file = new File(config.getString("file.path").getOrElse("") + "lifecycle.xlsx")
+    val fos = new FileOutputStream(file)
+    bos.writeTo(fos)
+    fos.flush()
+    fos.close()
 
-    val is: InputStream = new ByteArrayInputStream(bytes);
+    val token = Random.alphanumeric.take(10).toList.mkString("")
 
-
-    val CHUNK_SIZE = 100
-    val dataContent = StreamConverters.fromInputStream(() => is, CHUNK_SIZE)
+    cache.set(token, file)
 
     Future {
-      Ok.chunked(dataContent).withHeaders(
-        "Content-Type" -> "application/vnd.openxmlformats-officedocument.spreadsheetml.template",
-        "Content-Disposition" -> "attachment; filename=out.xlsx"
-      )
+      Ok(token)
     }
   }
 
@@ -356,14 +366,12 @@ class BuildingLifeCycle @Inject()(
          case "systemType" => Some(measure.systemType)
          case "detail" => Some(measure.detail)
          case "implementationStatus" => Some(measure.implementationStatus)
-         case "startDate" => Some(measure.startDate.toString())
-         case "endDate" => Some(measure.endDate.toString())
+         case "startDate" => Some(measure.startDate.formatted(("MM/dd/yyyy")))
+         case "endDate" => Some(measure.endDate.formatted(("MM/dd/yyyy")))
          case "comment" => measure.comment
          case _ => None
     }
   }
-
-  val measureFields = List("systemType", "detail", "implementationStatus", "startDate", "endDate", "comment", "buildingName", "buildingAddress")
 
   def parseXls = Action.async(parse.multipartFormData) { request =>
 
@@ -389,8 +397,8 @@ class BuildingLifeCycle @Inject()(
               Measure(row.getCell(0).toString,
                       row.getCell(1).toString,
                       row.getCell(2).toString,
-                      BigInt(1),
-                      BigInt(2),
+                      LocalDate.parse(row.getCell(3).toString),
+                      LocalDate.parse(row.getCell(4).toString),
                       Some(row.getCell(4).toString),
                       Some("building"),
                       Some("address"))
@@ -412,19 +420,6 @@ class BuildingLifeCycle @Inject()(
     }
 
   }
-
-  private def readMeasures(readings: List[List[String]]): List[Measure] = {
-    readings.map {
-      case List(systemType, detail, implementationStatus, startDate, endDate, comments) =>
-        Measure(systemType, detail, implementationStatus, BigInt(startDate), BigInt(endDate), Some(comments), None, None)
-    }
-  }
-
-//  private def readSystems(readings: List[List[String]]): List[models.System] = {
-//    readings.map {
-//      r => models.System(r)
-//    }
-//  }
 
   private def parseDate(date: String): DateTime = {
     import org.joda.time.format.DateTimeFormat
