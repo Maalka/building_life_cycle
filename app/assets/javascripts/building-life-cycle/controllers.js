@@ -397,15 +397,14 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
         downloadAnchorNode.remove();
     };
 
-    $scope.downloadCsv = function() {
+    $scope.downloadXls = function() {
 
-        console.log("download csv");
+        console.log("download xls");
         var measuresOut = "";
         var systemsOut = "";
         $scope.measures.list.forEach( function(m) {
-                console.log("endDat: ", moment.utc(m.endDate).format("ll"));
-                var startDate = moment.utc(m.startDate).format("ll");
-                var endDate = moment.utc(m.endDate).format("ll");
+            var startDate = moment.utc(m.startDate).format("ll");
+            var endDate = moment.utc(m.endDate).format("ll");
             var comment = (m.comment === undefined) ? "\"\"" : "\""+m.comment+"\"";
             measuresOut += "\"" + m.systemType + "\",\"" + m.detail + "\",\"" + m.implementationStatus + "\",\"" + startDate + "\",\"" + endDate + "\"," + comment + "\r\n";
         });

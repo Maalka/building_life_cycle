@@ -29,7 +29,6 @@ import com.github.tototoshi.csv.{CSVReader, DefaultCSVFormat}
 import models.Measure
 import org.apache.poi.openxml4j.opc.OPCPackage
 import org.apache.poi.ss.util.WorkbookUtil
-import org.apache.poi.ss.usermodel.{Cell, Row, Sheet, Workbook}
 import org.apache.poi.xssf.usermodel.XSSFWorkbook
 
 import scala.collection.JavaConversions._
@@ -38,6 +37,7 @@ import org.joda.time.format.DateTimeFormat
 import play.api.{Configuration, Logger}
 import play.api.cache.CacheApi
 import play.api.data.validation.ValidationError
+import play.api.libs.Files.TemporaryFile
 
 import scala.concurrent.Future
 import scala.util.control.NonFatal
@@ -69,15 +69,15 @@ class BuildingLifeCycle @Inject()(
   def getFile(token: Option[String]) = Action.async { request =>
 
     Logger.info("searching file by token: " + token.getOrElse(""))
-    val file: Option[File] = token.flatMap { t =>
-      cache.get[File](t)
+    val file: Option[TemporaryFile] = token.flatMap { t =>
+      cache.get[TemporaryFile](t)
     }
 
-    file.map { f =>
+    file.map { tf =>
       Future {
         Ok.sendFile(
-          content = f,
-          inline = false)
+          content = tf.file,
+          inline = false, onClose = () => { tf.clean })
       }
     }.getOrElse(
       Future {
@@ -310,7 +310,8 @@ class BuildingLifeCycle @Inject()(
     workbook.write(bos)
 
     import java.io.FileOutputStream
-    val file = new File(config.getString("file.path").getOrElse("") + "lifecycle.xlsx")
+    val file = new File("/tmp/" + "lifecycle.xlsx")
+    val tfile = TemporaryFile(file)
     val fos = new FileOutputStream(file)
     bos.writeTo(fos)
     fos.flush()
@@ -318,7 +319,7 @@ class BuildingLifeCycle @Inject()(
 
     val token = Random.alphanumeric.take(10).toList.mkString("")
 
-    cache.set(token, file)
+    cache.set(token, tfile)
 
     Future {
       Ok(token)

@@ -52,15 +52,10 @@ define(['angular', 'moment', 'highcharts', 'highcharts-drilldown', 'highcharts-e
                         $scope.last5measures = $scope.measures.slice(0,5);
                         var newMeasures = [];
                         for (var i = 0; i < $scope.last5measures.length; i++) {
-                            var endDate = moment.utc($scope.last5measures[i].endDate);
                             newMeasures.push({
-                                x: Date.UTC(
-                                    endDate.year(),
-                                    endDate.month(),
-                                    endDate.day()
-                                ),
+                                x: moment.utc($scope.last5measures[i].endDate).valueOf(),
                                 y: i % 5 * 10 + 10,
-                                text: endDate.format("ll"),
+                                text: moment.utc($scope.last5measures[i].endDate).format('ll'),
                                 name: $scope.last5measures[i].detail,
                                 implementationStatus: $scope.last5measures[i].implementationStatus
                             });
