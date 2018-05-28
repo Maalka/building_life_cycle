@@ -56,7 +56,7 @@
                             <input type="radio" ng-model="uploadType.type" value="systems">
                             Systems
                         </label>
-                        <button class="ui blue button" ng-click="submitFile()">
+                        <button class="ui blue button" ng-class="{'disabled': uploadType.type === undefined}" ng-click="submitFile()">
 			                Upload
 	                    </button>
                     </div>
@@ -504,12 +504,6 @@
                 </div>
         </div>
         <div class="ui hidden divider"></div>
-    </form>
-    <form action="getXlsx" method="post">
-        <button type="submit" name="your_name" value="your_value" class="btn-link">Go</button>
-    </form>
-    <form action="readme" method="get" class="ui form" novalidate name="forms.hiddenform">
-        <button type="submit" name="your_name" value="your_value" class="btn-link">readme</button>
     </form>
 </div>
 

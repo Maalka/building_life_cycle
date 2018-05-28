@@ -17,7 +17,6 @@
 package controllers
 
 import java.io.{BufferedOutputStream, ByteArrayInputStream, ByteArrayOutputStream, File, FileOutputStream, InputStream, OutputStream, PrintWriter, StringWriter}
-import java.util.Base64
 
 import actors.flows._
 import akka.actor.ActorSystem
@@ -32,14 +31,13 @@ import org.apache.poi.openxml4j.opc.OPCPackage
 import org.apache.poi.ss.util.WorkbookUtil
 import org.apache.poi.ss.usermodel.{Cell, Row, Sheet, Workbook}
 import org.apache.poi.xssf.usermodel.XSSFWorkbook
-import org.joda.time.format.ISODateTimeFormat
 
 import scala.collection.JavaConversions._
-import org.joda.time.{DateTime, LocalDate}
+import org.joda.time.LocalDate
+import org.joda.time.format.DateTimeFormat
 import play.api.{Configuration, Logger}
 import play.api.cache.CacheApi
 import play.api.data.validation.ValidationError
-import play.api.libs.Files.TemporaryFile
 
 import scala.concurrent.Future
 import scala.util.control.NonFatal
@@ -56,29 +54,14 @@ class BuildingLifeCycle @Inject()(
                              config: Configuration
                             ) extends Controller {
 
-
-  implicit val BigIntWrite: Writes[BigInt] = new Writes[BigInt] {
-    override def writes(bigInt: BigInt): JsValue = JsString(bigInt.toString())
-  }
-
-  implicit val BigIntRead: Reads[BigInt] = Reads {
-    case JsString(value) => JsSuccess(scala.math.BigInt(value))
-    case JsNumber(value) => JsSuccess(value.toBigInt())
-    case _ => JsError(s"Invalid BigInt")
-  }
-
-  val fmt = ISODateTimeFormat.dateTime
-
   implicit val localDateReads: Reads[LocalDate] = new Reads[LocalDate] {
     override def reads(json: JsValue): JsResult[LocalDate] = json match {
-      case JsString(value) => {
-        Logger.info("converting date: " + json)
-        JsSuccess(fmt parseLocalDate value)
+      case JsNumber(value) => {
+        JsSuccess(new LocalDate(value.toLong))
       }
       case _ => JsError(Seq(JsPath() -> Seq(ValidationError("validate.error.expected.datetime"))))
     }
   }
-
 
   implicit val measureReads = Json.reads[Measure]
   implicit val measureWrites = Json.writes[Measure]
@@ -366,8 +349,8 @@ class BuildingLifeCycle @Inject()(
          case "systemType" => Some(measure.systemType)
          case "detail" => Some(measure.detail)
          case "implementationStatus" => Some(measure.implementationStatus)
-         case "startDate" => Some(measure.startDate.formatted(("MM/dd/yyyy")))
-         case "endDate" => Some(measure.endDate.formatted(("MM/dd/yyyy")))
+         case "startDate" => Some(measure.startDate.toString(("MM/dd/yyyy")))
+         case "endDate" => Some(measure.endDate.toString(("MM/dd/yyyy")))
          case "comment" => measure.comment
          case _ => None
     }
@@ -384,6 +367,7 @@ class BuildingLifeCycle @Inject()(
 
             val pkg: OPCPackage = OPCPackage.open(uploadFile.ref.file)
             import org.apache.poi.xssf.usermodel.XSSFWorkbook
+
             val wb = new XSSFWorkbook(pkg)
             val measures = (0 until wb.getNumberOfSheets()).map { i =>
               wb.getSheetAt(i) }
@@ -397,8 +381,8 @@ class BuildingLifeCycle @Inject()(
               Measure(row.getCell(0).toString,
                       row.getCell(1).toString,
                       row.getCell(2).toString,
-                      LocalDate.parse(row.getCell(3).toString),
-                      LocalDate.parse(row.getCell(4).toString),
+                      LocalDate.parse(row.getCell(3).toString, DateTimeFormat.forPattern("MM/dd/yyyy")),
+                      LocalDate.parse(row.getCell(4).toString, DateTimeFormat.forPattern("MM/dd/yyyy")),
                       Some(row.getCell(4).toString),
                       Some("building"),
                       Some("address"))
@@ -419,13 +403,6 @@ class BuildingLifeCycle @Inject()(
       Future {Ok("failed")}
     }
 
-  }
-
-  private def parseDate(date: String): DateTime = {
-    import org.joda.time.format.DateTimeFormat
-    import org.joda.time.format.DateTimeFormatter
-    val formatter = DateTimeFormat.forPattern("MM/dd/yyyy")
-    formatter.parseDateTime(date)
   }
 
   def validate = Action.async(parse.multipartFormData) { request =>
