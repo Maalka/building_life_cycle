@@ -360,45 +360,33 @@ class BuildingLifeCycle @Inject()(
   def parseXls = Action.async(parse.multipartFormData) { request =>
 
       val result: Option[Future[Result]] = for {
-        uploadType <- request.body.dataParts.get("type")
         uploadFile <- request.body.file("inputData")
       } yield {
-        uploadType.headOption match {
-          case Some("measures") => {
+          val pkg: OPCPackage = OPCPackage.open(uploadFile.ref.file)
+          import org.apache.poi.xssf.usermodel.XSSFWorkbook
 
-            val pkg: OPCPackage = OPCPackage.open(uploadFile.ref.file)
-            import org.apache.poi.xssf.usermodel.XSSFWorkbook
+          val wb = new XSSFWorkbook(pkg)
+          val measures = (0 until wb.getNumberOfSheets()).map { i =>
+            wb.getSheetAt(i) }
+          .filter(_.getSheetName.toLowerCase == "measures")
+          .flatMap { sheet =>
+              sheet.rowIterator().toSeq
+            }
+            // drop header
+          .drop(1)
+          .map { row =>
+            Measure(row.getCell(0).toString,
+                    row.getCell(1).toString,
+                    row.getCell(2).toString,
+                    LocalDate.parse(row.getCell(3).toString, DateTimeFormat.forPattern("MM/dd/yyyy")),
+                    LocalDate.parse(row.getCell(4).toString, DateTimeFormat.forPattern("MM/dd/yyyy")),
+                    Some(row.getCell(5).toString),
+                    Some("building"),
+                    Some("address"))
+          }.toList
 
-            val wb = new XSSFWorkbook(pkg)
-            val measures = (0 until wb.getNumberOfSheets()).map { i =>
-              wb.getSheetAt(i) }
-            .filter(_.getSheetName.toLowerCase == "measures")
-            .flatMap { sheet =>
-                sheet.rowIterator().toSeq
-              }
-              // drop header
-            .drop(1)
-            .map { row =>
-              Measure(row.getCell(0).toString,
-                      row.getCell(1).toString,
-                      row.getCell(2).toString,
-                      LocalDate.parse(row.getCell(3).toString, DateTimeFormat.forPattern("MM/dd/yyyy")),
-                      LocalDate.parse(row.getCell(4).toString, DateTimeFormat.forPattern("MM/dd/yyyy")),
-                      Some(row.getCell(4).toString),
-                      Some("building"),
-                      Some("address"))
-            }.toList
-
-            Future { Ok(Json.toJson(measures))}
-          }
-
-          case Some("systems") => {
-            val reader = CSVReader.open(uploadFile.ref.file)
-//            Future { Ok(Json.toJson(readSystems(reader.all())))}
-            Future { Ok(Json.toJson(""))}
-          }
+          Future { Ok(Json.toJson(measures))}
         }
-      }
 
     result.getOrElse {
       Future {Ok("failed")}

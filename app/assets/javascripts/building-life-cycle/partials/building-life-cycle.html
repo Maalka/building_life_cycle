@@ -48,15 +48,7 @@
                         <files model="model.value" file="model.file"></files>
                     </div>
                     <div class="content" ng-if="model.file.name !== undefined && loadingFileFiller.attachmentName === undefined && !loadingFileFilter.loading">
-                        <label>
-                            <input type="radio" ng-model="uploadType.type" value="measures">
-                            Measures
-                        </label>
-                        <label>
-                            <input type="radio" ng-model="uploadType.type" value="systems">
-                            Systems
-                        </label>
-                        <button class="ui blue button" ng-class="{'disabled': uploadType.type === undefined}" ng-click="submitFile()">
+                        <button class="ui blue button" ng-click="submitFile()">
 			                Upload
 	                    </button>
                     </div>

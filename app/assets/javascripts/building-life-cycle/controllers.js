@@ -673,8 +673,7 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
         Upload.upload({
             url: playRoutes.controllers.BuildingLifeCycle.parseXls().url,
             data: {
-                inputData: file,
-                type: $scope.uploadType.type
+                inputData: file
             }
 
         }).then(function (resp) {
@@ -682,31 +681,15 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
             verificationRows = [];
             $scope.validation = [];
 
-            if ($scope.uploadType.type === "measures") {
-                $scope.measures.list = resp.data;
-            }
-            else if ($scope.uploadType.type === "systems") {
-                var results = [];
-                var result = resp.data;
-                result.forEach(function(r) {
-                    // first level is not displayed in GUI
-                    var item = { "placeholder" : {}};
-                    item.placeholder[r.systemType] = {r: "value"};
-                    results.push(item);
-                }
-                );
-                console.log("results: ", results);
-                $scope.systemList = results;
-            }
+            $scope.measures.list = resp.data;
 
             $scope.loadingFileFiller = {
                 loading: false
-
             };
 
         }, function (resp) {
             $scope.loadingFileFiller = {
-            'loading': true
+                'loading': true
             };
             $scope.model.value = resp.data;
 
