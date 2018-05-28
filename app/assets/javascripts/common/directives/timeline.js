@@ -22,6 +22,9 @@ define(['angular', 'moment', 'highcharts', 'highcharts-drilldown', 'highcharts-e
                         refresh();
                     }
                 });
+                var groupedSeries = [];
+                var colors = ['#06A1F9', '#0D95BB', '#0A708C', '#2F4598', '#5D70D4', '#eb885c', '#d4483d', '#f7e3b1', '#3f58ce', '#1f2c5c'];
+
                 var refresh = function() {
 
                     function sortDescByEndDate(a,b) {
@@ -31,34 +34,54 @@ define(['angular', 'moment', 'highcharts', 'highcharts-drilldown', 'highcharts-e
                         return 1;
                       return 0;
                     }
+
+                    function sortAscByX(a,b) {
+                      return a.x - b.x;
+                    }
+
+                    var groupBy = function(xs, key) {
+                        return xs.reduce(function(rv, x) {
+                            (rv[x[key]] = rv[x[key]] || []).push(x);
+                            return rv;
+                        }, {});
+                    };
+
                     $timeout(function () {
+                        // first we sort in desc order, because we need to find 5 newest measures
                         $scope.measures.sort(sortDescByEndDate);
                         $scope.last5measures = $scope.measures.slice(0,5);
                         var newMeasures = [];
                         for (var i = 0; i < $scope.last5measures.length; i++) {
-                            var randomColor = colors[Math.floor(Math.random()*colors.length)];
-                            var endDate = moment.utc($scope.last5measures[i].endDate);
                             newMeasures.push({
-                                x: Date.UTC(
-                                    endDate.year(),
-                                    endDate.month(),
-                                    endDate.day()
-                                ),
+                                x: moment.utc($scope.last5measures[i].endDate).valueOf(),
                                 y: i % 5 * 10 + 10,
-                                text: endDate.format("ll"),
-                                dataLabels: {
-                                    backgroundColor: randomColor,
-                                    borderColor: randomColor,
-                                },
-                                name: $scope.last5measures[i].detail
+                                text: moment.utc($scope.last5measures[i].endDate).format('ll'),
+                                name: $scope.last5measures[i].detail,
+                                implementationStatus: $scope.last5measures[i].implementationStatus
                             });
                         }
-                        $scope.options.series[0].data = newMeasures;
-                        console.log($scope.options);
+                        // now sort in asc order, because highcharts requires data be sorted on x axis
+                        newMeasures.sort(sortAscByX);
+                        var grouped = groupBy(newMeasures, 'implementationStatus');
+
+                        for (var j = 0; j < Object.keys(grouped).length; j++) {
+                            groupedSeries[j] = {};
+                            groupedSeries[j].type = 'column';
+                            groupedSeries[j].name = Object.keys(grouped)[j];
+                            var points = grouped[Object.keys(grouped)[j]];
+                            groupedSeries[j].data = points;
+                            var color = colors[j];
+                            for (var k = 0; k < points.length; k++) {
+                                groupedSeries[j].dataLabels = {
+                                    backgroundColor: color,
+                                    borderColor: color,
+                                 };
+                             }
+                        }
                         angular.element($element).height(300).highcharts($scope.options);
                     }, 0);
                 };
-                var colors = ['#06A1F9', '#0D95BB', '#0A708C', '#2F4598', '#5D70D4'];
+
                 $scope.last5measures = [];
                 $scope.options = {
 
@@ -97,10 +120,15 @@ define(['angular', 'moment', 'highcharts', 'highcharts-drilldown', 'highcharts-e
                         min: 0,
                         max: 70,
                     },
-
-                    legend: {
-                        enabled: false
-                    },
+                    "legend": {
+                        "align": "center",
+                        "verticalAlign": "bottom",
+                        "x": 0,
+                        "y": 0,
+                        style: {
+                            fontFamily: '"Gesta", "Helvetica Neue", Arial, Helvetica, sans-serif'
+                        }
+                      },
                     tooltip: {
                         xDateFormat: 'End Date: ' + '%b - %e - %Y',
                         pointFormat: '',
@@ -130,14 +158,7 @@ define(['angular', 'moment', 'highcharts', 'highcharts-drilldown', 'highcharts-e
                             }
                         }
                     },
-
-                    series: [{
-                        type: 'column',
-                        name: 'Observations',
-                        id: 'dataseries',
-                        pointWidth: 1,
-                        data: [],
-                    }]
+                        series: groupedSeries
                 };
                  $timeout(function () {
                 }, 0);

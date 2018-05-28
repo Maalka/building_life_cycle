@@ -156,6 +156,13 @@ div.entry {
 /	padding-right:1em;
 }
 
+.break {
+    height: 35px;
+    border-bottom: 1px solid rgba(200,200,200,.6);
+    width: 100%;
+}
+}
+
 @media all {
 	.page-break	{ display: none; }
 }

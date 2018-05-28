@@ -17,9 +17,10 @@
 <script> $('.tabular.menu .item').tab(); </script>
 
 <div class="ui">
-    <div class="ui container" style="padding-top:14px">
-        <h1 class="ui horizontal divider header">Life Cycle Tool</h1>
-        <div class="ui hidden divider"></div>
+    <form class="ui form" novalidate name="forms.buildingLifeCycleForm" ng-cloak>
+        <div class="ui container" style="padding-top:14px">
+            <h1 class="ui horizontal divider header">Life Cycle Tool</h1>
+            <div class="ui hidden divider"></div>
             <div class="ui white very padded segment">
                 <div class="ui stackable grid">
                     <div class="sixteen wide column">
@@ -42,6 +43,24 @@
 
                 <div class="ui hidden divider"></div>
                 <h2>BUILDING INFORMATION</h2>
+                <div class="ui fluid card">
+                    <div class="content">
+                        <files model="model.value" file="model.file"></files>
+                    </div>
+                    <div class="content" ng-if="model.file.name !== undefined && loadingFileFiller.attachmentName === undefined && !loadingFileFilter.loading">
+                        <label>
+                            <input type="radio" ng-model="uploadType.type" value="measures">
+                            Measures
+                        </label>
+                        <label>
+                            <input type="radio" ng-model="uploadType.type" value="systems">
+                            Systems
+                        </label>
+                        <button class="ui blue button" ng-class="{'disabled': uploadType.type === undefined}" ng-click="submitFile()">
+			                Upload
+	                    </button>
+                    </div>
+                </div>
                 <div class="ui very padded segment">
                     <div class="ui large form">
                         <div class="ui stackable grid">
@@ -434,6 +453,8 @@
                             </div>
                         </div>
                         <button ng-if="measures.list.length > 0 || systemList.length > 0" class="ui blue button" ng-click="downloadData()">Download BuildingSync</button>
+                        <button ng-if="measures.list.length > 0 || systemList.length > 0" class="ui blue button" ng-click="downloadXls()">Download XLS</button>
+
                     </div>
                     <div class="column">
                         <h2>MEASURES</h2>
@@ -481,8 +502,9 @@
                         </div>
                     </div>
                 </div>
-            </div>
         </div>
         <div class="ui hidden divider"></div>
-    </div>
+    </form>
 </div>
+
+

@@ -16,33 +16,395 @@
 
 package controllers
 
-import java.io.{PrintWriter, StringWriter}
-import java.util.UUID
+import java.io.{BufferedOutputStream, ByteArrayInputStream, ByteArrayOutputStream, File, FileOutputStream, InputStream, OutputStream, PrintWriter, StringWriter}
 
-import actors.CommonMessage
-import actors.flows.BankValidationThresholdFlow
 import actors.flows._
-import actors.validators.Validator
-import actors.validators.Validator.UpdateObjectValidatedDocument
-import actors.validators.bedes._
 import akka.actor.ActorSystem
-import akka.pattern.ask
 import akka.stream._
 import com.google.inject.Inject
 import play.api.mvc._
 import com.maalka.bedes.{BEDESTransform, BEDESTransformResult}
 import akka.stream.scaladsl._
+import com.github.tototoshi.csv.{CSVReader, DefaultCSVFormat}
+import models.Measure
+import org.apache.poi.openxml4j.opc.OPCPackage
+import org.apache.poi.ss.util.WorkbookUtil
+import org.apache.poi.xssf.usermodel.XSSFWorkbook
+
+import scala.collection.JavaConversions._
+import org.joda.time.LocalDate
+import org.joda.time.format.DateTimeFormat
+import play.api.{Configuration, Logger}
+import play.api.cache.CacheApi
+import play.api.data.validation.ValidationError
+import play.api.libs.Files.TemporaryFile
 
 import scala.concurrent.Future
 import scala.util.control.NonFatal
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.duration._
-import play.api.libs.json.{JsString, Json}
+import play.api.libs.json._
+
+import scala.util.{Random, Try}
 
 class BuildingLifeCycle @Inject()(
                              implicit actorSystem: ActorSystem,
-                             validateFlow: ValidateFlow
+                             validateFlow: ValidateFlow,
+                             cache: CacheApi,
+                             config: Configuration
                             ) extends Controller {
+
+  implicit val localDateReads: Reads[LocalDate] = new Reads[LocalDate] {
+    override def reads(json: JsValue): JsResult[LocalDate] = json match {
+      case JsNumber(value) => {
+        JsSuccess(new LocalDate(value.toLong))
+      }
+      case _ => JsError(Seq(JsPath() -> Seq(ValidationError("validate.error.expected.datetime"))))
+    }
+  }
+
+  implicit val measureReads = Json.reads[Measure]
+  implicit val measureWrites = Json.writes[Measure]
+
+  def getFile(token: Option[String]) = Action.async { request =>
+
+    Logger.info("searching file by token: " + token.getOrElse(""))
+    val file: Option[TemporaryFile] = token.flatMap { t =>
+      cache.get[TemporaryFile](t)
+    }
+
+    file.map { tf =>
+      Future {
+        Ok.sendFile(
+          content = tf.file,
+          inline = false, onClose = () => { tf.clean })
+      }
+    }.getOrElse(
+      Future {
+        Ok("no file")
+      }
+    )
+
+  }
+
+
+  def buildXlsx = Action.async(parse.json) { request =>
+
+    val systems = (request.body \ "systems").as[List[JsObject]]
+
+    val systemTypes = systems.groupBy(_.fields.head._1)
+
+    Logger.info("systemTypes: " + systemTypes)
+
+    val workbook: XSSFWorkbook = new XSSFWorkbook
+
+
+    // Measures Sheet
+    val sheet1 = workbook.createSheet("Measures")
+
+    val measureFieldNames = List("systemType", "detail", "implementationStatus", "startDate", "endDate", "comment", "buildingName", "buildingAddress")
+
+    // header
+    val row = sheet1.createRow(0)
+    measureFieldNames.zipWithIndex.foreach {
+      case (field, index) => {
+        val cell = row.createCell(index)
+        cell.setCellValue(field)
+      }
+    }
+
+    val measures = (request.body \ "measures").toOption.map { m =>
+      m.as[List[Measure]]
+    }
+
+    Logger.info("measures: " + measures)
+
+    measures.map { m =>
+      m.zipWithIndex.foreach {
+        case (measure, index) => {
+          val row = sheet1.createRow(index + 1)
+          measureFieldNames.zipWithIndex.foreach {
+            case (fieldName, fieldIndex) => {
+              val cell = row.createCell(fieldIndex)
+              cell.setCellValue(extract(measure, fieldName).getOrElse(""))
+            }
+          }
+        }
+      }
+    }
+
+    // Start Systems sheets
+
+    val commonFields = List(
+      "Manufacturer",
+      "ModelNumber",
+      "Quantity",
+      "YearInstalled",
+      "YearofManufacture"
+    )
+
+    val systemsHeaders = Map(
+      "HVACSystem" -> (List(
+        "HVACSystem",
+        "HeatingAndCoolingSystems",
+        "HeatingAndCoolingSystems:CoolingSource",
+        "HeatingAndCoolingSystems:CoolingSource:CoolingSourceType",
+        "HeatingAndCoolingSystems:CoolingSource:AnnualCoolingEfficiencyUnits",
+        "HeatingAndCoolingSystems:CoolingSource:AnnualCoolingEfficiencyValue",
+        "HeatingAndCoolingSystems:CoolingSource:Capacity",
+        "HeatingAndCoolingSystems:CoolingSource:CapacityUnits",
+        "HeatingAndCoolingSystems:CoolingSource:CoolingSourceType",
+        "HeatingAndCoolingSystems:CoolingSource:CoolingSourceType:DX:DXSystemType",
+        "HeatingAndCoolingSystems:CoolingSource:CoolingSourceType:EvaporativeCooler:EvaporativeCoolingType",
+        "HeatingAndCoolingSystems:CoolingSource:CoolingSourceType:EvaporativeCooler:EvaporativeCoolingType",
+        "HeatingAndCoolingSystems:CoolingSource:CoolingSourceType:NoCooling:NoCooling",
+        "HeatingAndCoolingSystems:CoolingSource:CoolingSourceType:OtherCombination:OtherCombination",
+        "HeatingAndCoolingSystems:CoolingSource:CoolingSourceType:Unknown:Unknown",
+        "HeatingAndCoolingSystems:CoolingSource:CoolingSourceType:ZoningSystemType",
+        "HeatingAndCoolingSystems:HeatingSource:HeatingSourceType",
+        "HeatingAndCoolingSystems:HeatingSource:AnnualHeatingEfficiencyUnit",
+        "HeatingAndCoolingSystems:HeatingSource:AnnualHeatingEfficiencyValue",
+        "HeatingAndCoolingSystems:HeatingSource:CapacityUnits",
+        "HeatingAndCoolingSystems:HeatingSource:HeatingMedium",
+        "HeatingAndCoolingSystems:HeatingSource:HeatingSourceType",
+        "HeatingAndCoolingSystems:HeatingSource:HeatingSourceType:Furnace:BurnerType",
+        "HeatingAndCoolingSystems:HeatingSource:HeatingSourceType:Furnace:CombustionEfficiency",
+        "HeatingAndCoolingSystems:HeatingSource:HeatingSourceType:Furnace:FurnaceType",
+        "HeatingAndCoolingSystems:HeatingSource:HeatingSourceType:Furnace:ThermalEfficiency",
+        "HeatingAndCoolingSystems:HeatingSource:HeatingSourceType:HeatPump:HeatPumpType",
+        "HeatingAndCoolingSystems:HeatingSource:HeatingSourceType:NoHeating:NoHeating",
+        "HeatingAndCoolingSystems:HeatingSource:HeatingSourceType:OtherCombination:OtherCombination",
+        "HeatingAndCoolingSystems:HeatingSource:HeatingSourceType:Unknown:Unknown",
+        "HeatingAndCoolingSystems:HeatingSource:HeatingSourceType:Unknown:Unknown",
+        "HeatingAndCoolingSystems:HeatingSource:HeatingSourceType:ZoningSystemType",
+        "OtherHVACSystems:Integration",
+        "OtherHVACSystems:OtherHVACType",
+        "OtherHVACSystems:OtherHVACType",
+        "Plants",
+        "Plants:CoolingPlantType",
+        "Plants:CoolingPlantType:Chiller:AbsorptionHeatSource",
+        "Plants:CoolingPlantType:Chiller:AnnualCoolingEfficiencyUnits",
+        "Plants:CoolingPlantType:Chiller:AnnualCoolingEfficiencyValue",
+        "Plants:CoolingPlantType:Chiller:Capacity",
+        "Plants:CoolingPlantType:Chiller:CapacityUnits",
+        "Plants:CoolingPlantType:Chiller:ChillerType",
+        "Plants:CoolingPlantType:Chiller:Quantity",
+        "Plants:CoolingPlantType:Chiller:ThirdPartyCertification",
+        "Plants:CoolingPlantType:DistrictChilledWater:AnnualCoolingEfficiencyUnits",
+        "Plants:CoolingPlantType:DistrictChilledWater:AnnualCoolingEfficiencyValue",
+        "Plants:CoolingPlantType:DistrictChilledWater:Capacity",
+        "Plants:CoolingPlantType:DistrictChilledWater:CapacityUnits",
+        "Plants:CoolingPlantType:NoCooling:NoCooling",
+        "Plants:CoolingPlantType:OtherCombination:OtherCombination",
+        "Plants:CoolingPlantType:Unknown:Unknown",
+        "Plants:HeatingPlantType",
+        "Plants:HeatingPlantType:Boiler:BoilerType",
+        "Plants:HeatingPlantType:Boiler:AnnualHeatingEfficiencyUnit",
+        "Plants:HeatingPlantType:Boiler:AnnualHeatingEfficiencyValue",
+        "Plants:HeatingPlantType:Boiler:BurnerType",
+        "Plants:HeatingPlantType:Boiler:CapacityUnits",
+        "Plants:HeatingPlantType:Boiler:CombustionEfficiency",
+        "Plants:HeatingPlantType:Boiler:Quantity",
+        "Plants:HeatingPlantType:Boiler:ThermalEfficiency",
+        "Plants:HeatingPlantType:DistrictHeating:DistrictHeatingType",
+        "Plants:HeatingPlantType:DistrictHeating:AnnualHeatingEfficiencyUnit",
+        "Plants:HeatingPlantType:DistrictHeating:AnnualHeatingEfficiencyValue",
+        "Plants:HeatingPlantType:DistrictHeating:Quantity",
+        "Plants:HeatingPlantType:NoHeating:NoHeating",
+        "Plants:HeatingPlantType:OtherCombination:OtherCombination",
+        "Plants:HeatingPlantType:SolarThermal:AnnualHeatingEfficiencyUnit",
+        "Plants:HeatingPlantType:SolarThermal:AnnualHeatingEfficiencyValue",
+        "Plants:HeatingPlantType:SolarThermal:CapacityUnits",
+        "Plants:HeatingPlantType:SolarThermal:OutputCapacity",
+        "Plants:HeatingPlantType:SolarThermal:Quantity"
+      ) ::: commonFields),
+
+      "DomesticHotWaterSystem" -> (List(
+        "DomesticHotWaterSystem",
+        "HeatExchanger:HeatExchanger",
+        "Instantaneous:InstantaneousWaterHeatingSource",
+        "StorageTank:TankVolume",
+        "HotWaterDistributionType",
+        "WaterHeaterEfficiency",
+        "WaterHeaterEfficiencyType",
+        "Capacity",
+        "CapacityUnits"
+      ) ::: commonFields),
+
+      "FanSystem" -> (List(
+        "FanApplication",
+        "FanControlType",
+        "FanType"
+      ) ::: commonFields),
+
+      "FenestrationSystem" -> (List(
+        "FenestrationType",
+        "Window:WindowHeight",
+        "Window:WindowWidth",
+        "Window:WindowHorizontalSpacing",
+        "Window:WindowOrientation",
+        "Other:Other",
+        "FenestrationFrameMaterial",
+        "GlassType",
+        "FenestrationGlassLayers",
+        "FenestrationOperation",
+        "Weatherstripped"
+      ) ::: commonFields),
+
+      "HeatRecoverySystem" -> (List(
+        "HeatRecoveryType",
+        "EnergyRecoveryEfficiency",
+        "HeatRecoveryEfficiency"
+      ) ::: commonFields),
+
+      "LightingSystem" -> (List(
+        "OutsideLighting",
+        "LampType",
+        "LampType:LampLabel",
+        "LampType:Neon",
+        "LampType:OtherCombination",
+        "LampType:Unknown",
+        "InstallationType",
+        "LightingControlTypeOccupancy",
+        "LightingDirection"
+      ) ::: commonFields)
+   )
+
+    systemsHeaders.map { sh =>
+      val safeName = WorkbookUtil.createSafeSheetName(sh._1)
+      val sheet2 = workbook.createSheet(safeName)
+      val headerRow = sheet2.createRow(0)
+
+      sh._2.zipWithIndex.foreach {
+        case (f, i) =>
+          val cell = headerRow.createCell(i)
+          cell.setCellValue(f.split(":").reverse.head)
+      }
+
+      systemTypes.filter( st => st._1.substring(4, st._1.length-1) == sh._1).zipWithIndex.foreach {
+        case (systemFields, i: Int) =>
+          systemFields._2.zipWithIndex.foreach {
+            case (sf, fi) =>
+              val dataRow = sheet2.createRow(fi+1)
+              val excelField = buildPath(sf, List.empty[String])
+              excelField.zipWithIndex.foreach {
+                case (ef, ei) =>
+                  val needle = if (ef._1(1).startsWith("auc:")) ef._1(1).substring(4) else ef._1(1)
+                  val cellIndex = sh._2.indexWhere( fieldName => fieldName.split(":").reverse.head == needle)
+                  if (cellIndex == -1) {
+                    Logger.error("not found field: " + ef._2)
+                  }
+                  // some fields are not mapped, just putting them on the sheet for inspection
+                  val cell = dataRow.createCell(if (cellIndex == -1) cellIndex+50 else cellIndex)
+                  ef._2 match {
+                    case c: String => cell.setCellValue(c)
+                    case c: Int => cell.setCellValue(c)
+                    case c: Boolean => cell.setCellValue(c)
+                  }
+              }
+          }
+          }
+      }
+
+    val bos = new ByteArrayOutputStream
+    workbook.write(bos)
+
+    import java.io.FileOutputStream
+    val file = new File("/tmp/" + "lifecycle.xlsx")
+    val tfile = TemporaryFile(file)
+    val fos = new FileOutputStream(file)
+    bos.writeTo(fos)
+    fos.flush()
+    fos.close()
+
+    val token = Random.alphanumeric.take(10).toList.mkString("")
+
+    cache.set(token, tfile)
+
+    Future {
+      Ok(token)
+    }
+  }
+
+  private def buildPath(in: JsValue, path: List[String]): Map[List[String], Any] = {
+    in match {
+      case i: JsObject => {
+        i.value.flatMap { f =>
+          buildPath(f._2, f._1 :: path):  Map[List[String], Any]
+        }
+      }.toMap
+      case i: JsString => {
+        Map(path -> i.as[String])
+      }
+      case i: JsNumber => {
+        Map(path -> i.as[Int])
+      }
+      case i: JsBoolean => {
+        Map(path -> i.as[Boolean])
+      }
+    }
+  }
+
+  private def extract(measure: Measure, fieldName: String): Option[String] = {
+    fieldName match {
+         case "systemType" => Some(measure.systemType)
+         case "detail" => Some(measure.detail)
+         case "implementationStatus" => Some(measure.implementationStatus)
+         case "startDate" => Some(measure.startDate.toString(("MM/dd/yyyy")))
+         case "endDate" => Some(measure.endDate.toString(("MM/dd/yyyy")))
+         case "comment" => measure.comment
+         case _ => None
+    }
+  }
+
+  def parseXls = Action.async(parse.multipartFormData) { request =>
+
+      val result: Option[Future[Result]] = for {
+        uploadType <- request.body.dataParts.get("type")
+        uploadFile <- request.body.file("inputData")
+      } yield {
+        uploadType.headOption match {
+          case Some("measures") => {
+
+            val pkg: OPCPackage = OPCPackage.open(uploadFile.ref.file)
+            import org.apache.poi.xssf.usermodel.XSSFWorkbook
+
+            val wb = new XSSFWorkbook(pkg)
+            val measures = (0 until wb.getNumberOfSheets()).map { i =>
+              wb.getSheetAt(i) }
+            .filter(_.getSheetName.toLowerCase == "measures")
+            .flatMap { sheet =>
+                sheet.rowIterator().toSeq
+              }
+              // drop header
+            .drop(1)
+            .map { row =>
+              Measure(row.getCell(0).toString,
+                      row.getCell(1).toString,
+                      row.getCell(2).toString,
+                      LocalDate.parse(row.getCell(3).toString, DateTimeFormat.forPattern("MM/dd/yyyy")),
+                      LocalDate.parse(row.getCell(4).toString, DateTimeFormat.forPattern("MM/dd/yyyy")),
+                      Some(row.getCell(4).toString),
+                      Some("building"),
+                      Some("address"))
+            }.toList
+
+            Future { Ok(Json.toJson(measures))}
+          }
+
+          case Some("systems") => {
+            val reader = CSVReader.open(uploadFile.ref.file)
+//            Future { Ok(Json.toJson(readSystems(reader.all())))}
+            Future { Ok(Json.toJson(""))}
+          }
+        }
+      }
+
+    result.getOrElse {
+      Future {Ok("failed")}
+    }
+
+  }
 
   def validate = Action.async(parse.multipartFormData) { request =>
 
