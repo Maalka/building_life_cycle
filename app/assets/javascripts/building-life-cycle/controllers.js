@@ -419,8 +419,9 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
         }
         );
 
-        playRoutes.controllers.BuildingLifeCycle.buildXlsx($scope.measures.list).post(
+        playRoutes.controllers.BuildingLifeCycle.buildXlsx().post(
             {
+                'building': $scope.building,
                 'measures': $scope.measures.list,
                 'systems': $scope.systemList
             }

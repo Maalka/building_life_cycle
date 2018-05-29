@@ -90,11 +90,12 @@ class BuildingLifeCycle @Inject()(
 
   def buildXlsx = Action.async(parse.json) { request =>
 
+    val bName = (request.body \ "building" \ "buildingName").asOpt[String]
+    val bAddress = (request.body \ "building" \ "addressStreet").asOpt[String]
+
     val systems = (request.body \ "systems").as[List[JsObject]]
 
     val systemTypes = systems.groupBy(_.fields.head._1)
-
-    Logger.info("systemTypes: " + systemTypes)
 
     val workbook: XSSFWorkbook = new XSSFWorkbook
 
@@ -102,7 +103,7 @@ class BuildingLifeCycle @Inject()(
     // Measures Sheet
     val sheet1 = workbook.createSheet("Measures")
 
-    val measureFieldNames = List("systemType", "detail", "implementationStatus", "startDate", "endDate", "comment", "buildingName", "buildingAddress")
+    val measureFieldNames = List("buildingName", "buildingAddress", "systemType", "detail", "implementationStatus", "startDate", "endDate", "comment")
 
     // header
     val row = sheet1.createRow(0)
@@ -117,9 +118,12 @@ class BuildingLifeCycle @Inject()(
       m.as[List[Measure]]
     }
 
-    Logger.info("measures: " + measures)
+    val x = measures.map { m => m.map { i =>
+      i.copy(buildingName = bName, buildingAddress = bAddress)
+      }
+    }
 
-    measures.map { m =>
+    x.map { m =>
       m.zipWithIndex.foreach {
         case (measure, index) => {
           val row = sheet1.createRow(index + 1)
@@ -135,6 +139,11 @@ class BuildingLifeCycle @Inject()(
 
     // Start Systems sheets
 
+    val buildingFields = List(
+      "buildingName",
+      "buildingAddress"
+    )
+
     val commonFields = List(
       "Manufacturer",
       "ModelNumber",
@@ -144,7 +153,7 @@ class BuildingLifeCycle @Inject()(
     )
 
     val systemsHeaders = Map(
-      "HVACSystem" -> (List(
+      "HVACSystem" -> (buildingFields ::: (List(
         "HVACSystem",
         "HeatingAndCoolingSystems",
         "HeatingAndCoolingSystems:CoolingSource",
@@ -217,9 +226,9 @@ class BuildingLifeCycle @Inject()(
         "Plants:HeatingPlantType:SolarThermal:CapacityUnits",
         "Plants:HeatingPlantType:SolarThermal:OutputCapacity",
         "Plants:HeatingPlantType:SolarThermal:Quantity"
-      ) ::: commonFields),
+      ) ::: commonFields)),
 
-      "DomesticHotWaterSystem" -> (List(
+      "DomesticHotWaterSystem" -> (buildingFields ::: (List(
         "DomesticHotWaterSystem",
         "HeatExchanger:HeatExchanger",
         "Instantaneous:InstantaneousWaterHeatingSource",
@@ -229,15 +238,15 @@ class BuildingLifeCycle @Inject()(
         "WaterHeaterEfficiencyType",
         "Capacity",
         "CapacityUnits"
-      ) ::: commonFields),
+      ) ::: commonFields)),
 
-      "FanSystem" -> (List(
+      "FanSystem" -> (buildingFields ::: (List(
         "FanApplication",
         "FanControlType",
         "FanType"
-      ) ::: commonFields),
+      ) ::: commonFields)),
 
-      "FenestrationSystem" -> (List(
+      "FenestrationSystem" -> (buildingFields ::: (List(
         "FenestrationType",
         "Window:WindowHeight",
         "Window:WindowWidth",
@@ -249,15 +258,15 @@ class BuildingLifeCycle @Inject()(
         "FenestrationGlassLayers",
         "FenestrationOperation",
         "Weatherstripped"
-      ) ::: commonFields),
+      ) ::: commonFields)),
 
-      "HeatRecoverySystem" -> (List(
+      "HeatRecoverySystem" -> (buildingFields ::: (List(
         "HeatRecoveryType",
         "EnergyRecoveryEfficiency",
         "HeatRecoveryEfficiency"
-      ) ::: commonFields),
+      ) ::: commonFields)),
 
-      "LightingSystem" -> (List(
+      "LightingSystem" -> (buildingFields ::: (List(
         "OutsideLighting",
         "LampType",
         "LampType:LampLabel",
@@ -267,7 +276,7 @@ class BuildingLifeCycle @Inject()(
         "InstallationType",
         "LightingControlTypeOccupancy",
         "LightingDirection"
-      ) ::: commonFields)
+      ) ::: commonFields))
    )
 
     systemsHeaders.map { sh =>
@@ -286,8 +295,9 @@ class BuildingLifeCycle @Inject()(
           systemFields._2.zipWithIndex.foreach {
             case (sf, fi) =>
               val dataRow = sheet2.createRow(fi+1)
-              val excelField = buildPath(sf, List.empty[String])
-              excelField.zipWithIndex.foreach {
+              val excelField: Map[List[String], Any] = buildPath(sf, List.empty[String])
+              val buildingFields = Map(List("", "buildingName") -> bName.getOrElse(""), List("", "buildingAddress") -> bAddress.getOrElse(""))
+              (buildingFields ++ excelField).zipWithIndex.foreach {
                 case (ef, ei) =>
                   val needle = if (ef._1(1).startsWith("auc:")) ef._1(1).substring(4) else ef._1(1)
                   val cellIndex = sh._2.indexWhere( fieldName => fieldName.split(":").reverse.head == needle)
@@ -347,6 +357,8 @@ class BuildingLifeCycle @Inject()(
 
   private def extract(measure: Measure, fieldName: String): Option[String] = {
     fieldName match {
+         case "buildingName" => measure.buildingName
+         case "buildingAddress" => measure.buildingAddress
          case "systemType" => Some(measure.systemType)
          case "detail" => Some(measure.detail)
          case "implementationStatus" => Some(measure.implementationStatus)
@@ -375,14 +387,15 @@ class BuildingLifeCycle @Inject()(
             // drop header
           .drop(1)
           .map { row =>
-            Measure(row.getCell(0).toString,
+            Measure(Some("building"),
+                    Some("address"),
+                    row.getCell(0).toString,
                     row.getCell(1).toString,
                     row.getCell(2).toString,
                     LocalDate.parse(row.getCell(3).toString, DateTimeFormat.forPattern("MM/dd/yyyy")),
                     LocalDate.parse(row.getCell(4).toString, DateTimeFormat.forPattern("MM/dd/yyyy")),
-                    Some(row.getCell(5).toString),
-                    Some("building"),
-                    Some("address"))
+                    Some(row.getCell(5).toString)
+                  )
           }.toList
 
           Future { Ok(Json.toJson(measures))}
