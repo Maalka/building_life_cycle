@@ -26,14 +26,15 @@ import play.api.mvc._
 import com.maalka.bedes.{BEDESTransform, BEDESTransformResult}
 import akka.stream.scaladsl._
 import com.github.tototoshi.csv.{CSVReader, DefaultCSVFormat}
-import models.Measure
+import org.apache.poi.ss.usermodel._
+import models.{Measure, MeasuresWithToken}
 import org.apache.poi.openxml4j.opc.OPCPackage
 import org.apache.poi.ss.util.WorkbookUtil
 import org.apache.poi.xssf.usermodel.XSSFWorkbook
 
 import scala.collection.JavaConversions._
 import org.joda.time.LocalDate
-import org.joda.time.format.DateTimeFormat
+import org.joda.time.format.{DateTimeFormat, DateTimeFormatterBuilder, DateTimeParser}
 import play.api.{Configuration, Logger}
 import play.api.cache.CacheApi
 import play.api.data.validation.ValidationError
@@ -45,7 +46,7 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.duration._
 import play.api.libs.json._
 
-import scala.util.{Random, Try}
+import scala.util.{Failure, Random, Try}
 
 class BuildingLifeCycle @Inject()(
                              implicit actorSystem: ActorSystem,
@@ -66,6 +67,9 @@ class BuildingLifeCycle @Inject()(
   implicit val measureReads = Json.reads[Measure]
   implicit val measureWrites = Json.writes[Measure]
 
+  implicit val measureWithTokenReads = Json.reads[MeasuresWithToken]
+  implicit val measureWithTokenWrites = Json.writes[MeasuresWithToken]
+
   def getFile(token: Option[String]) = Action.async { request =>
 
     Logger.info("searching file by token: " + token.getOrElse(""))
@@ -84,9 +88,7 @@ class BuildingLifeCycle @Inject()(
         Ok("no file")
       }
     )
-
   }
-
 
   def buildXlsx = Action.async(parse.json) { request =>
 
@@ -369,12 +371,29 @@ class BuildingLifeCycle @Inject()(
     }
   }
 
+  private def getCellValue(cell: Cell) = {
+    import org.apache.poi.ss.usermodel.DataFormatter
+    val formatter = new DataFormatter
+    formatter.formatCellValue(cell)
+  }
+
   def parseXls = Action.async(parse.multipartFormData) { request =>
 
-      val result: Option[Future[Result]] = for {
+    import org.joda.time.format.DateTimeFormat
+    import org.joda.time.format.DateTimeParser
+    val formatter =  new DateTimeFormatterBuilder().append(
+      null,
+      Array[DateTimeParser](
+        DateTimeFormat.forPattern("MM/dd/yyyy").getParser,
+        DateTimeFormat.forPattern("dd/MM/yyyy").getParser,
+        DateTimeFormat.forPattern("dd-MM-yyyy").getParser,
+        DateTimeFormat.forPattern("yyyy-MM-dd").getParser)
+    ).toFormatter
+
+      val result = for {
         uploadFile <- request.body.file("inputData")
       } yield {
-          val pkg: OPCPackage = OPCPackage.open(uploadFile.ref.file)
+          val pkg = OPCPackage.open(uploadFile.ref.file)
           import org.apache.poi.xssf.usermodel.XSSFWorkbook
 
           val wb = new XSSFWorkbook(pkg)
@@ -387,18 +406,55 @@ class BuildingLifeCycle @Inject()(
             // drop header
           .drop(1)
           .map { row =>
-            Measure(Some("building"),
-                    Some("address"),
-                    row.getCell(0).toString,
-                    row.getCell(1).toString,
-                    row.getCell(2).toString,
-                    LocalDate.parse(row.getCell(3).toString, DateTimeFormat.forPattern("MM/dd/yyyy")),
-                    LocalDate.parse(row.getCell(4).toString, DateTimeFormat.forPattern("MM/dd/yyyy")),
-                    Some(row.getCell(5).toString)
-                  )
+            Try {
+              Measure(
+                Some(getCellValue(row.getCell(0))),
+                Some(getCellValue(row.getCell(1))),
+                getCellValue(row.getCell(2)),
+                getCellValue(row.getCell(3)),
+                getCellValue(row.getCell(4)),
+                formatter.parseLocalDate(getCellValue(row.getCell(5))),
+                formatter.parseLocalDate(getCellValue(row.getCell(6))),
+                Some(getCellValue(row.getCell(7)))
+              )
+            }
           }.toList
 
-          Future { Ok(Json.toJson(measures))}
+          // put errors xls into cache for later, return successes
+          val workbook = new XSSFWorkbook
+          val sheet1 = workbook.createSheet("Errors in measures")
+
+          val failures = measures.filter(_.isFailure)
+          failures.map { fails =>
+            fails match {
+              case Failure(e) => e
+              case _ => new Exception("will not happen")
+            }
+          }.zipWithIndex.foreach {
+            case (f, i) => {
+              val row = sheet1.createRow(i + 1)
+              val errorCell = row.createCell(0)
+              errorCell.setCellValue(f.getMessage)
+            }
+          }
+
+        val bos = new ByteArrayOutputStream
+        workbook.write(bos)
+
+        val file = new File("/tmp/" + "errors.xlsx")
+        val tfile = TemporaryFile(file)
+        val fos = new FileOutputStream(file)
+        bos.writeTo(fos)
+        fos.flush()
+        fos.close()
+
+        val token = Random.alphanumeric.take(10).toList.mkString("")
+
+        Logger.info("creating error xls for token: " + token)
+
+        cache.set(token, tfile)
+
+        Future { Ok(Json.toJson(MeasuresWithToken(if (failures.length > 0) Some(token) else None, measures.filter(_.isSuccess).map{_.get} ))) }
         }
 
     result.getOrElse {

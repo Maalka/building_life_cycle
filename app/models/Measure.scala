@@ -13,3 +13,5 @@ case class Measure(
                   comment: Option[String]
 )
 
+case class MeasuresWithToken(token: Option[String], measures: List[Measure])
+

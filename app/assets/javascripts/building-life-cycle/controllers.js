@@ -197,13 +197,7 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
     };
 
     $scope.addSystemToList = function() {
-        console.log('sys: ', $scope.form1);
-//        console.log('sys: ', $scope.systems_form.system);
-
-        console.log("system: ", $scope.system);
         if (Object.keys($scope.system).length === 0) {
-
-
             console.log("empty");
         } else {
             $scope.systemList.push($scope.system);
@@ -678,11 +672,15 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
             }
 
         }).then(function (resp) {
-            console.log('Success ' + resp.config.data.inputData.name + 'uploaded. Response: ' + resp.data);
+            console.log('Success ' + resp.config.data.inputData.name + ' uploaded. Response: ', resp.data);
             verificationRows = [];
             $scope.validation = [];
 
-            $scope.measures.list = resp.data;
+            $scope.measures.list = resp.data.measures;
+            $scope.token = resp.data.token;
+
+            $scope.building.buildingName = $scope.measures.list[0].buildingName;
+            $scope.building.addressStreet = $scope.measures.list[0].buildingAddress;
 
             $scope.loadingFileFiller = {
                 loading: false
@@ -702,7 +700,15 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
                 attachmentName: evt.config.data.inputData.name
             };
             console.log('progress: ' + progressPercentage + '% ' + evt.config.data.inputData.name);
-        });
+        })
+        .then ( function(response) {
+            console.log('errors token: ', $scope.token);
+            if ($scope.token !== undefined) {
+                window.location.href = '/getFile?token='+$scope.token;
+            }
+          }
+        );
+
      };
 
   };
