@@ -406,7 +406,7 @@ class BuildingLifeCycle @Inject()(
             // drop header
           .drop(1)
           .map { row =>
-            Try {
+            val e = Try {
               Measure(
                 Some(getCellValue(row.getCell(0))),
                 Some(getCellValue(row.getCell(1))),
@@ -418,23 +418,33 @@ class BuildingLifeCycle @Inject()(
                 Some(getCellValue(row.getCell(7)))
               )
             }
+            (row.getRowNum, e)
           }.toList
 
           // put errors xls into cache for later, return successes
           val workbook = new XSSFWorkbook
           val sheet1 = workbook.createSheet("Errors in measures")
 
-          val failures = measures.filter(_.isFailure)
+          // create header
+          val row = sheet1.createRow(0)
+          val c0 = row.createCell(0)
+          val c1 = row.createCell(1)
+          c0.setCellValue("Line number")
+          c1.setCellValue("Error message")
+
+          val failures = measures.filter(_._2.isFailure)
           failures.map { fails =>
             fails match {
-              case Failure(e) => e
-              case _ => new Exception("will not happen")
+              case (rowNum, Failure(e)) => (rowNum, e)
+              case _ => (0, new Exception("will not happen"))
             }
           }.zipWithIndex.foreach {
             case (f, i) => {
               val row = sheet1.createRow(i + 1)
-              val errorCell = row.createCell(0)
-              errorCell.setCellValue(f.getMessage)
+              val rowNumCell = row.createCell(0)
+              rowNumCell.setCellValue(f._1)
+              val errorMsgCell = row.createCell(1)
+              errorMsgCell.setCellValue(f._2.getMessage)
             }
           }
 
@@ -454,7 +464,7 @@ class BuildingLifeCycle @Inject()(
 
         cache.set(token, tfile)
 
-        Future { Ok(Json.toJson(MeasuresWithToken(if (failures.length > 0) Some(token) else None, measures.filter(_.isSuccess).map{_.get} ))) }
+        Future { Ok(Json.toJson(MeasuresWithToken(if (failures.length > 0) Some(token) else None, measures.filter(_._2.isSuccess).map{_._2.get} ))) }
         }
 
     result.getOrElse {
