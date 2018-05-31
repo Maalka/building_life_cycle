@@ -2,12 +2,16 @@ package models
 
 import org.joda.time.LocalDate
 
-case class Measure(systemType: String,
-                   detail: String,
-                   implementationStatus: String,
-                   startDate: LocalDate,
-                   endDate: LocalDate,
-                   comment: Option[String],
-                   buildingName: Option[String],
-                   buildingAddress: Option[String])
+case class Measure(
+                  buildingName: Option[String],
+                  buildingAddress: Option[String],
+                  systemType: String,
+                  detail: String,
+                  implementationStatus: String,
+                  startDate: LocalDate,
+                  endDate: LocalDate,
+                  comment: Option[String]
+)
+
+case class MeasuresWithToken(token: Option[String], measures: List[Measure])
 

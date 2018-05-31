@@ -197,13 +197,7 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
     };
 
     $scope.addSystemToList = function() {
-        console.log('sys: ', $scope.form1);
-//        console.log('sys: ', $scope.systems_form.system);
-
-        console.log("system: ", $scope.system);
         if (Object.keys($scope.system).length === 0) {
-
-
             console.log("empty");
         } else {
             $scope.systemList.push($scope.system);
@@ -419,8 +413,9 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
         }
         );
 
-        playRoutes.controllers.BuildingLifeCycle.buildXlsx($scope.measures.list).post(
+        playRoutes.controllers.BuildingLifeCycle.buildXlsx().post(
             {
+                'building': $scope.building,
                 'measures': $scope.measures.list,
                 'systems': $scope.systemList
             }
@@ -673,40 +668,27 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
         Upload.upload({
             url: playRoutes.controllers.BuildingLifeCycle.parseXls().url,
             data: {
-                inputData: file,
-                type: $scope.uploadType.type
+                inputData: file
             }
 
         }).then(function (resp) {
-            console.log('Success ' + resp.config.data.inputData.name + 'uploaded. Response: ' + resp.data);
+            console.log('Success ' + resp.config.data.inputData.name + ' uploaded. Response: ', resp.data);
             verificationRows = [];
             $scope.validation = [];
 
-            if ($scope.uploadType.type === "measures") {
-                $scope.measures.list = resp.data;
-            }
-            else if ($scope.uploadType.type === "systems") {
-                var results = [];
-                var result = resp.data;
-                result.forEach(function(r) {
-                    // first level is not displayed in GUI
-                    var item = { "placeholder" : {}};
-                    item.placeholder[r.systemType] = {r: "value"};
-                    results.push(item);
-                }
-                );
-                console.log("results: ", results);
-                $scope.systemList = results;
-            }
+            $scope.measures.list = resp.data.measures;
+            $scope.token = resp.data.token;
+
+            $scope.building.buildingName = $scope.measures.list[0].buildingName;
+            $scope.building.addressStreet = $scope.measures.list[0].buildingAddress;
 
             $scope.loadingFileFiller = {
                 loading: false
-
             };
 
         }, function (resp) {
             $scope.loadingFileFiller = {
-            'loading': true
+                'loading': true
             };
             $scope.model.value = resp.data;
 
@@ -718,7 +700,15 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
                 attachmentName: evt.config.data.inputData.name
             };
             console.log('progress: ' + progressPercentage + '% ' + evt.config.data.inputData.name);
-        });
+        })
+        .then ( function(response) {
+            console.log('errors token: ', $scope.token);
+            if ($scope.token !== undefined) {
+                window.location.href = '/getFile?token='+$scope.token;
+            }
+          }
+        );
+
      };
 
   };
