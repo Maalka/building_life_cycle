@@ -36,6 +36,8 @@ libraryDependencies ++= Seq(
   "com.typesafe.akka" %% "akka-contrib" % "2.4.14",
   "com.typesafe.akka" %% "akka-testkit" % "2.4.14",
 
+  "com.github.tototoshi" %% "scala-csv" % "1.3.5",
+  "org.apache.poi" % "poi" % "3.14",
 
   "org.webjars" % "requirejs" % "2.1.22",
   "org.webjars" % "jquery" % "2.1.3",

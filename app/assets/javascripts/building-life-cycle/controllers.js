@@ -55,6 +55,7 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
 
     $scope.format = 'hh:mm:ss';
     $scope.building = {};
+    $scope.uploadType = {};
 
     $scope.useTypes = buildingSyncSchema.definitions[".auc:AssetScore"].properties["auc:UseType"].anyOf["0"].properties["auc:AssetScoreUseType"].properties.$.enum;
     $scope.implementationStatuses = buildingSyncSchema.definitions["auc:MeasureType"].properties["auc:ImplementationStatus"].properties.$.enum;
@@ -66,6 +67,8 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
     $scope.measureCategories = Object.keys(measureCategories);
 
     $scope.selectedMeasureCategoryChanged = function(value) {
+            $scope.measure = {};
+            $scope.implementationStatus = {};
             $scope.availableMeasures = measureCategories[value];
     };
 
@@ -194,13 +197,7 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
     };
 
     $scope.addSystemToList = function() {
-        console.log('sys: ', $scope.form1);
-//        console.log('sys: ', $scope.systems_form.system);
-
-        console.log("system: ", $scope.system);
         if (Object.keys($scope.system).length === 0) {
-
-
             console.log("empty");
         } else {
             $scope.systemList.push($scope.system);
@@ -329,13 +326,11 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
                 sl = removeMeta($scope.systemList[j]);
                 key = Object.keys(sl)[0];
                 var newSystem = removeMeta(sl[key]);
-                console.log(audits['auc:Audit']['auc:Systems'][key]);
                 if (audits['auc:Audit']['auc:Systems'][key] !== undefined && Object.keys(audits['auc:Audit']['auc:Systems']).indexOf(key) > -1) {
                     console.log('type exists, adding new');
                      var newSystemInner = newSystem[Object.keys(newSystem)[0]];
                      var currentInner = audits['auc:Audit']['auc:Systems'][key][Object.keys(audits['auc:Audit']['auc:Systems'][key])[0]];
                      currentInner.push(newSystemInner);
-                     console.log(currentInner);
                      audits['auc:Audit']['auc:Systems'][key][Object.keys(audits['auc:Audit']['auc:Systems'][key])[0]] = currentInner;
                 } else {
                     audits['auc:Audit']['auc:Systems'][key] = convertInnerIntoObject(newSystem);
@@ -394,7 +389,61 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
         downloadAnchorNode.setAttribute("download", "output.json");
         downloadAnchorNode.click();
         downloadAnchorNode.remove();
-  };
+    };
+
+    $scope.downloadXls = function() {
+
+        console.log("download xls");
+        var measuresOut = "";
+        var systemsOut = "";
+        $scope.measures.list.forEach( function(m) {
+            var startDate = moment.utc(m.startDate).format("ll");
+            var endDate = moment.utc(m.endDate).format("ll");
+            var comment = (m.comment === undefined) ? "\"\"" : "\""+m.comment+"\"";
+            measuresOut += "\"" + m.systemType + "\",\"" + m.detail + "\",\"" + m.implementationStatus + "\",\"" + startDate + "\",\"" + endDate + "\"," + comment + "\r\n";
+        });
+
+        console.log('measuresOut: ' + $scope.measures.list);
+
+        $scope.systemList.forEach( function(s) {
+            var keys = Object.keys(s);
+            keys.forEach(function(k) {
+                systemsOut += k + "\r\n";
+            });
+        }
+        );
+
+        playRoutes.controllers.BuildingLifeCycle.buildXlsx().post(
+            {
+                'building': $scope.building,
+                'measures': $scope.measures.list,
+                'systems': $scope.systemList
+            }
+        ).then ( function(response) {
+                window.location.href = '/getFile?token='+response.data;
+            }
+        );
+
+//        if ($scope.measures.list.length > 0) {
+//            var dataStr = "data:text/csv;charset=utf-8," + encodeURIComponent(measuresOut);
+//            var downloadAnchorNode = document.createElement('a');
+//            downloadAnchorNode.setAttribute("href",     dataStr);
+//            downloadAnchorNode.setAttribute("download", "measures.csv");
+//            downloadAnchorNode.click();
+//            downloadAnchorNode.remove();
+//        }
+//
+//        if ($scope.systemList.length > 0) {
+//            var dataStr2 = "data:text/csv;charset=utf-8," + encodeURIComponent(systemsOut);
+//            var downloadAnchorNode2 = document.createElement('a');
+//            downloadAnchorNode2.setAttribute("href",     dataStr2);
+//            downloadAnchorNode2.setAttribute("download", "systems.csv");
+//            downloadAnchorNode2.click();
+//            downloadAnchorNode2.remove();
+//        }
+
+    };
+
 
     // check the media to handel the ng-if media statements
     // it turns out that form elements do not respect "display: none"
@@ -439,11 +488,9 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
     };
 
     $scope.submitFile = function() {
-        if($scope.forms.buildingLifeCycleForm.$valid){
             if ($scope.model.file.name) {
                 $scope.upload($scope.model.file, $scope.meter);
             }
-        }
     };
 
     $scope.validation = [];
@@ -597,7 +644,7 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
                 if (model.result[i][0][0] !== undefined) {
                     propertyName = model.result[i][0][0].value;
                 } else {
-                    propertyName = "Unknonwn";
+                    propertyName = "Unknown";
                 }
                 verificationRows.push({
                     propertyName: propertyName,
@@ -619,26 +666,29 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
         $scope.validation = [];
 
         Upload.upload({
-            url: playRoutes.controllers.BuildingLifeCycle.validate().url,
+            url: playRoutes.controllers.BuildingLifeCycle.parseXls().url,
             data: {
                 inputData: file
             }
 
         }).then(function (resp) {
-            console.log('Success ' + resp.config.data.inputData.name + 'uploaded. Response: ' + resp.data);
+            console.log('Success ' + resp.config.data.inputData.name + ' uploaded. Response: ', resp.data);
             verificationRows = [];
             $scope.validation = [];
 
-            parseServerResponse(resp.data);
+            $scope.measures.list = resp.data.measures;
+            $scope.token = resp.data.token;
+
+            $scope.building.buildingName = $scope.measures.list[0].buildingName;
+            $scope.building.addressStreet = $scope.measures.list[0].buildingAddress;
 
             $scope.loadingFileFiller = {
                 loading: false
-
             };
 
         }, function (resp) {
             $scope.loadingFileFiller = {
-            'loading': true
+                'loading': true
             };
             $scope.model.value = resp.data;
 
@@ -650,7 +700,15 @@ define(['angular', 'moment', 'json!data/BuildingSyncSchema.json', 'matchmedia-ng
                 attachmentName: evt.config.data.inputData.name
             };
             console.log('progress: ' + progressPercentage + '% ' + evt.config.data.inputData.name);
-        });
+        })
+        .then ( function(response) {
+            console.log('errors token: ', $scope.token);
+            if ($scope.token !== undefined) {
+                window.location.href = '/getFile?token='+$scope.token;
+            }
+          }
+        );
+
      };
 
   };

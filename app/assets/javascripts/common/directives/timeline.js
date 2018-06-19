@@ -31,30 +31,52 @@ define(['angular', 'moment', 'highcharts', 'highcharts-drilldown', 'highcharts-e
                         return 1;
                       return 0;
                     }
+
+                    function sortAscByX(a,b) {
+                      return a.x - b.x;
+                    }
+
+                    var groupBy = function(xs, key) {
+                        return xs.reduce(function(rv, x) {
+                            (rv[x[key]] = rv[x[key]] || []).push(x);
+                            return rv;
+                        }, {});
+                    };
+
                     $timeout(function () {
+                        // first we sort in desc order, because we need to find 5 newest measures
                         $scope.measures.sort(sortDescByEndDate);
                         $scope.last5measures = $scope.measures.slice(0,5);
-                        var newMeasures = [];
+                        $scope.newMeasures = [];
                         for (var i = 0; i < $scope.last5measures.length; i++) {
                             var randomColor = colors[Math.floor(Math.random()*colors.length)];
                             var endDate = moment.utc($scope.last5measures[i].endDate);
-                            newMeasures.push({
-                                x: Date.UTC(
-                                    endDate.year(),
-                                    endDate.month(),
-                                    endDate.day()
-                                ),
+                            $scope.newMeasures.push({
+                                x: moment.utc($scope.last5measures[i].endDate).valueOf(),
                                 y: i % 5 * 10 + 10,
                                 text: endDate.format("ll"),
-                                dataLabels: {
-                                    backgroundColor: randomColor,
-                                    borderColor: randomColor,
-                                },
-                                name: $scope.last5measures[i].detail
+                                name: $scope.last5measures[i].detail,
+                                implementationStatus: $scope.last5measures[i].implementationStatus
                             });
                         }
-                        $scope.options.series[0].data = newMeasures;
-                        console.log($scope.options);
+                        // now sort in asc order, because highcharts requires data be sorted on x axis
+                        $scope.newMeasures.sort(sortAscByX);
+                        $scope.grouped = groupBy($scope.newMeasures, 'implementationStatus');
+
+                        $scope.groups = [];
+                        for (var t = 0; t < Object.keys($scope.grouped).length; t++) {
+                            var newObject = {};
+                            newObject.name = Object.keys($scope.grouped)[t];
+                            newObject.type = 'column';
+                            newObject.data = $scope.grouped[Object.keys($scope.grouped)[t]];
+                            newObject.dataLabels = {
+                                backgroundColor: colors[t],
+                                borderColor: colors[t],
+                            };
+                            $scope.groups.push(newObject);
+                        }
+                        $scope.options.series = $scope.groups;
+
                         angular.element($element).height(300).highcharts($scope.options);
                     }, 0);
                 };
@@ -85,7 +107,7 @@ define(['angular', 'moment', 'highcharts', 'highcharts-drilldown', 'highcharts-e
                         "type": "datetime",
 
                         "labels": {
-                            "format": "{value:%b - %e - %Y}"
+                            "format": "{value:%m/%e/%Y}"
                         },
                         "gridLineWidth": 0,
                         "lineWidth": 1,
@@ -97,9 +119,14 @@ define(['angular', 'moment', 'highcharts', 'highcharts-drilldown', 'highcharts-e
                         min: 0,
                         max: 70,
                     },
-
-                    legend: {
-                        enabled: false
+                    "legend": {
+                        "align": "center",
+                        "verticalAlign": "bottom",
+                        "x": 0,
+                        "y": 0,
+                        style: {
+                            fontFamily: '"Gesta", "Helvetica Neue", Arial, Helvetica, sans-serif'
+                        }
                     },
                     tooltip: {
                         xDateFormat: 'End Date: ' + '%b - %e - %Y',
@@ -131,13 +158,7 @@ define(['angular', 'moment', 'highcharts', 'highcharts-drilldown', 'highcharts-e
                         }
                     },
 
-                    series: [{
-                        type: 'column',
-                        name: 'Observations',
-                        id: 'dataseries',
-                        pointWidth: 1,
-                        data: [],
-                    }]
+                    series: $scope.groups
                 };
                  $timeout(function () {
                 }, 0);
