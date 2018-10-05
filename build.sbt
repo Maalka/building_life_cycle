@@ -11,8 +11,8 @@ lazy val root = (project in file(".")).enablePlugins(PlayScala)
 maintainer in Linux := "Clay Teeter <clay.teeter@maalka.com>"
 maintainer in Docker := "Clay Teeter <clay.teeter@maalka.com>"
 
-packageSummary in Linux := "Maalka - Data Quality Tool"
-packageDescription := "Maalka - Data Quality Tool"
+packageSummary in Linux := "Maalka - Life Cycle Tool"
+packageDescription := "Maalka - Life Cycle Tool"
 
 dockerRepository := Some("maalka")
 dockerUpdateLatest := true
