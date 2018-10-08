@@ -22,10 +22,9 @@ import actors.ValidatorActors.BedesValidators.{BedesValidator, BedesValidatorCom
 import actors.validators.Validator
 import actors.validators.basic.Exists
 import akka.actor.{ActorSystem, Props}
-import akka.stream.ActorMaterializer
 import akka.stream.scaladsl.Sink
 import com.maalka.bedes.BEDESTransformResult
-import play.api.libs.json.{JsObject, Json}
+import play.api.libs.json.JsObject
 
 import scala.concurrent.Future
 
@@ -51,11 +50,6 @@ case class PremisesNameIdentifier(guid: String,
                         propertyId: String,
                         validatorCategory: Option[String],
                         override val arguments: Option[JsObject] = None)(implicit actorSystem: ActorSystem) extends BedesValidator {
-
-  // the materializer to use.  this must be an ActorMaterializer
-
-  implicit val materializer = ActorMaterializer()
-
 
   val validator = "bedes_premises_name_identifier"
   val bedesCompositeName = "Premises Name Identifier"

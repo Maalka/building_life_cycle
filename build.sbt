@@ -17,31 +17,33 @@ packageDescription := "Maalka - Data Quality Tool"
 dockerRepository := Some("maalka")
 dockerUpdateLatest := true
 
-scalaVersion := "2.11.8"
+scalaVersion := "2.12.6"
 lazy val maalkaApp = (project in file(".")).enablePlugins(SbtWeb, PlayScala, SbtNativePackager,
   BuildInfoPlugin)
 
 
 libraryDependencies ++= Seq(
   jdbc, filters,
-  cache,
-  ws,
+  guice,
+  ehcache,  ws,
   specs2 % Test,
 
-  "com.maalka" %% "bedes" % "1.1.0.0",
+  "com.maalka" %% "bedes" % "1.3.9.6-2.6.9",
 
-  "org.scalatestplus.play" %% "scalatestplus-play" % "1.5.1" % "test",
-  "com.typesafe.akka" %% "akka-slf4j" % "2.4.14",
-  "com.typesafe.akka" %% "akka-stream" % "2.4.14",
-  "com.typesafe.akka" %% "akka-contrib" % "2.4.14",
-  "com.typesafe.akka" %% "akka-testkit" % "2.4.14",
+  "com.typesafe.play" %% "play-json-joda" % "2.6.4",
+
+  "org.scalatestplus.play" %% "scalatestplus-play" % "3.1.2" % "test",
+  "com.typesafe.akka" %% "akka-slf4j" % "2.5.15",
+  "com.typesafe.akka" %% "akka-stream" % "2.5.15",
+  "com.typesafe.akka" %% "akka-contrib" % "2.5.15",
+  "com.typesafe.akka" %% "akka-testkit" % "2.5.15",
 
   "com.github.tototoshi" %% "scala-csv" % "1.3.5",
   "org.apache.poi" % "poi" % "3.14",
 
   "org.webjars" % "requirejs" % "2.1.22",
   "org.webjars" % "jquery" % "2.1.3",
-  "org.webjars" %% "webjars-play" % "2.4.0-1",
+  "org.webjars" %% "webjars-play" % "2.6.3",
   "org.webjars.bower" % "angular" % "1.6.6" exclude("org.webjars.bower", "jquery"),
   "org.webjars.bower" % "angular-route" % "1.6.6",
   "org.webjars.bower" % "angular-cookies" % "1.6.6",

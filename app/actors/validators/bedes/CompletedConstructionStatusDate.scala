@@ -54,10 +54,8 @@ case class CompletedConstructionStatusDate(guid: String,
                                            validatorCategory: Option[String],
                                            override val arguments: Option[JsObject] = None)(implicit actorSystem: ActorSystem) extends BedesValidator {
 
-  // the materializer to use.  this must be an ActorMaterializer
-
-  implicit val materializer = ActorMaterializer()
   val validator = "bedes_completed_construction_status_date"
+
   val bedesCompositeName = "Completed Construction Status Date"
 
   val componentValidators = Seq(propsWrapper(Exists.props),

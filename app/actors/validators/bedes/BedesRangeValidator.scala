@@ -19,6 +19,7 @@ package actors.validators.bedes
 import java.util.UUID
 
 import actors.ValidatorActors.BedesValidators.{BedesValidator, BedesValidatorCompanion}
+import actors.materializers.AkkaMaterializer
 import actors.validators.Validator
 import actors.validators.Validator.MapValid
 import actors.validators.basic.{Exists, Numeric, WithinRange}
@@ -30,7 +31,8 @@ import play.api.libs.json.{JsObject, Json}
 
 import scala.concurrent.Future
 
-case class BedesRangeValidatorProps(arguments: Option[JsObject] = None) extends BedesValidatorCompanion {
+case class BedesRangeValidatorProps(arguments: Option[JsObject] = None)
+  extends BedesValidatorCompanion {
 
   def props(guid: String,
             name: String,
@@ -52,10 +54,6 @@ case class BedesRangeValidator(guid: String,
                                  propertyId: String,
                                  validatorCategory: Option[String],
                                  override val arguments: Option[JsObject] = None)(implicit actorSystem: ActorSystem) extends BedesValidator {
-
-  // the materializer to use.  this must be an ActorMaterializer
-
-  implicit val materializer = ActorMaterializer()
 
   val validator = "bedes_range_validator"
 

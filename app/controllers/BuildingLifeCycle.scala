@@ -16,81 +16,80 @@
 
 package controllers
 
-import java.io.{BufferedOutputStream, ByteArrayInputStream, ByteArrayOutputStream, File, FileOutputStream, InputStream, OutputStream, PrintWriter, StringWriter}
+import java.io.{ByteArrayOutputStream, File, FileOutputStream}
 
 import actors.flows._
+import actors.materializers.AkkaMaterializer
 import akka.actor.ActorSystem
-import akka.stream._
 import com.google.inject.Inject
 import play.api.mvc._
 import com.maalka.bedes.{BEDESTransform, BEDESTransformResult}
 import akka.stream.scaladsl._
-import com.github.tototoshi.csv.{CSVReader, DefaultCSVFormat}
+import akka.util.Timeout
 import org.apache.poi.ss.usermodel._
 import models.{Measure, MeasuresWithToken}
 import org.apache.poi.openxml4j.opc.OPCPackage
 import org.apache.poi.ss.util.WorkbookUtil
 import org.apache.poi.xssf.usermodel.XSSFWorkbook
 
-import scala.collection.JavaConversions._
+import scala.collection.JavaConverters._
 import org.joda.time.LocalDate
-import org.joda.time.format.{DateTimeFormat, DateTimeFormatterBuilder, DateTimeParser}
+import org.joda.time.format.DateTimeFormatterBuilder
 import play.api.{Configuration, Logger}
-import play.api.cache.CacheApi
-import play.api.data.validation.ValidationError
+import play.api.cache.AsyncCacheApi
 import play.api.libs.Files.TemporaryFile
 
-import scala.concurrent.Future
-import scala.util.control.NonFatal
-import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.{ExecutionContext, Future}
 import scala.concurrent.duration._
 import play.api.libs.json._
+import play.api.libs.json.JodaWrites._
+import play.api.libs.json.JodaReads._
 
 import scala.util.{Failure, Random, Try}
 
 class BuildingLifeCycle @Inject()(
-                             implicit actorSystem: ActorSystem,
-                             validateFlow: ValidateFlow,
-                             cache: CacheApi,
-                             config: Configuration
-                            ) extends Controller {
+                                   validateFlow: ValidateFlow,
+                                   cache: AsyncCacheApi,
+                                   config: Configuration,
+                                   implicit val actorSystem: ActorSystem,
+                                   implicit val executionContext: ExecutionContext
+                                 ) extends InjectedController with AkkaMaterializer {
 
-  implicit val localDateReads: Reads[LocalDate] = new Reads[LocalDate] {
-    override def reads(json: JsValue): JsResult[LocalDate] = json match {
-      case JsNumber(value) => {
-        JsSuccess(new LocalDate(value.toLong))
-      }
-      case _ => JsError(Seq(JsPath() -> Seq(ValidationError("validate.error.expected.datetime"))))
-    }
-  }
 
-  implicit val measureReads = Json.reads[Measure]
-  implicit val measureWrites = Json.writes[Measure]
 
-  implicit val measureWithTokenReads = Json.reads[MeasuresWithToken]
-  implicit val measureWithTokenWrites = Json.writes[MeasuresWithToken]
+  implicit val measureReads: Reads[Measure] = Json.reads[Measure]
+  implicit val measureWrites: OWrites[Measure] = Json.writes[Measure]
 
-  def getFile(token: Option[String]) = Action.async { request =>
+  implicit val measureWithTokenReads: Reads[MeasuresWithToken] = Json.reads[MeasuresWithToken]
+  implicit val measureWithTokenWrites: OWrites[MeasuresWithToken] = Json.writes[MeasuresWithToken]
+
+  def getFile(token: Option[String]) = Action.async { _ =>
 
     Logger.info("searching file by token: " + token.getOrElse(""))
-    val file: Option[TemporaryFile] = token.flatMap { t =>
-      cache.get[TemporaryFile](t)
-    }
 
-    file.map { tf =>
-      Future {
+    for {
+      maybeTf <- token match {
+        case Some(t) =>
+          Logger.info(s"Found Token: ${t}")
+          cache.get[String](t)
+        case None => Future(None)
+      }
+    } yield {
+      maybeTf.map { tf =>
+        Logger.info(s"Found Token: ${tf}")
+        val file = new File(tf)
         Ok.sendFile(
-          content = tf.file,
-          inline = false, onClose = () => { tf.clean })
-      }
-    }.getOrElse(
-      Future {
+          content = file,
+          fileName = _ => "building_life_cycle.xlsx",
+          inline = false
+        )
+      }.getOrElse(
         Ok("no file")
-      }
-    )
+      )
+    }
   }
 
-  def buildXlsx = Action.async(parse.json) { request =>
+  def buildXlsx: Action[JsValue] = Action.async(parse.json) { request =>
 
     val bName = (request.body \ "building" \ "buildingName").asOpt[String]
     val bAddress = (request.body \ "building" \ "addressStreet").asOpt[String]
@@ -120,14 +119,15 @@ class BuildingLifeCycle @Inject()(
       m.as[List[Measure]]
     }
 
-    val x = measures.map { m => m.map { i =>
-      i.copy(buildingName = bName, buildingAddress = bAddress)
+    val x = measures.map { m =>
+      m.map { i =>
+        i.copy(buildingName = bName, buildingAddress = bAddress)
       }
     }
 
-    x.map { m =>
+    x.foreach { m =>
       m.zipWithIndex.foreach {
-        case (measure, index) => {
+        case (measure, index) =>
           val row = sheet1.createRow(index + 1)
           measureFieldNames.zipWithIndex.foreach {
             case (fieldName, fieldIndex) => {
@@ -135,7 +135,7 @@ class BuildingLifeCycle @Inject()(
               cell.setCellValue(extract(measure, fieldName).getOrElse(""))
             }
           }
-        }
+
       }
     }
 
@@ -279,9 +279,9 @@ class BuildingLifeCycle @Inject()(
         "LightingControlTypeOccupancy",
         "LightingDirection"
       ) ::: commonFields))
-   )
+    )
 
-    systemsHeaders.map { sh =>
+    systemsHeaders.foreach { sh =>
       val safeName = WorkbookUtil.createSafeSheetName(sh._1)
       val sheet2 = workbook.createSheet(safeName)
       val headerRow = sheet2.createRow(0)
@@ -292,22 +292,22 @@ class BuildingLifeCycle @Inject()(
           cell.setCellValue(f.split(":").reverse.head)
       }
 
-      systemTypes.filter( st => st._1.substring(4, st._1.length-1) == sh._1).zipWithIndex.foreach {
+      systemTypes.filter(st => st._1.substring(4, st._1.length - 1) == sh._1).zipWithIndex.foreach {
         case (systemFields, i: Int) =>
           systemFields._2.zipWithIndex.foreach {
             case (sf, fi) =>
-              val dataRow = sheet2.createRow(fi+1)
+              val dataRow = sheet2.createRow(fi + 1)
               val excelField: Map[List[String], Any] = buildPath(sf, List.empty[String])
               val buildingFields = Map(List("", "buildingName") -> bName.getOrElse(""), List("", "buildingAddress") -> bAddress.getOrElse(""))
               (buildingFields ++ excelField).zipWithIndex.foreach {
                 case (ef, ei) =>
                   val needle = if (ef._1(1).startsWith("auc:")) ef._1(1).substring(4) else ef._1(1)
-                  val cellIndex = sh._2.indexWhere( fieldName => fieldName.split(":").reverse.head == needle)
+                  val cellIndex = sh._2.indexWhere(fieldName => fieldName.split(":").reverse.head == needle)
                   if (cellIndex == -1) {
                     Logger.error("not found field: " + ef._2)
                   }
                   // some fields are not mapped, just putting them on the sheet for inspection
-                  val cell = dataRow.createCell(if (cellIndex == -1) cellIndex+50 else cellIndex)
+                  val cell = dataRow.createCell(if (cellIndex == -1) cellIndex + 50 else cellIndex)
                   ef._2 match {
                     case c: String => cell.setCellValue(c)
                     case c: Int => cell.setCellValue(c)
@@ -315,25 +315,23 @@ class BuildingLifeCycle @Inject()(
                   }
               }
           }
-          }
       }
+    }
 
     val bos = new ByteArrayOutputStream
     workbook.write(bos)
 
     import java.io.FileOutputStream
-    val file = new File("/tmp/" + "lifecycle.xlsx")
-    val tfile = TemporaryFile(file)
+    val file = File.createTempFile("lifecycle", "xlsx")
     val fos = new FileOutputStream(file)
     bos.writeTo(fos)
     fos.flush()
     fos.close()
 
     val token = Random.alphanumeric.take(10).toList.mkString("")
+    Logger.info(s"Setting Token: ${token}")
 
-    cache.set(token, tfile)
-
-    Future {
+    cache.set(token, file.getAbsolutePath).map { _ =>
       Ok(token)
     }
   }
@@ -345,29 +343,26 @@ class BuildingLifeCycle @Inject()(
           buildPath(f._2, f._1 :: path):  Map[List[String], Any]
         }
       }.toMap
-      case i: JsString => {
+      case i: JsString =>
         Map(path -> i.as[String])
-      }
-      case i: JsNumber => {
+      case i: JsNumber =>
         Map(path -> i.as[Int])
-      }
-      case i: JsBoolean => {
+      case i: JsBoolean =>
         Map(path -> i.as[Boolean])
-      }
     }
   }
 
   private def extract(measure: Measure, fieldName: String): Option[String] = {
     fieldName match {
-         case "buildingName" => measure.buildingName
-         case "buildingAddress" => measure.buildingAddress
-         case "systemType" => Some(measure.systemType)
-         case "detail" => Some(measure.detail)
-         case "implementationStatus" => Some(measure.implementationStatus)
-         case "startDate" => Some(measure.startDate.toString(("MM/dd/yyyy")))
-         case "endDate" => Some(measure.endDate.toString(("MM/dd/yyyy")))
-         case "comment" => measure.comment
-         case _ => None
+      case "buildingName" => measure.buildingName
+      case "buildingAddress" => measure.buildingAddress
+      case "systemType" => Some(measure.systemType)
+      case "detail" => Some(measure.detail)
+      case "implementationStatus" => Some(measure.implementationStatus)
+      case "startDate" => Some(measure.startDate.toString(("MM/dd/yyyy")))
+      case "endDate" => Some(measure.endDate.toString(("MM/dd/yyyy")))
+      case "comment" => measure.comment
+      case _ => None
     }
   }
 
@@ -381,7 +376,7 @@ class BuildingLifeCycle @Inject()(
 
     import org.joda.time.format.DateTimeFormat
     import org.joda.time.format.DateTimeParser
-    val formatter =  new DateTimeFormatterBuilder().append(
+    val formatter = new DateTimeFormatterBuilder().append(
       null,
       Array[DateTimeParser](
         DateTimeFormat.forPattern("MM/dd/yyyy").getParser,
@@ -390,114 +385,102 @@ class BuildingLifeCycle @Inject()(
         DateTimeFormat.forPattern("yyyy-MM-dd").getParser)
     ).toFormatter
 
-      val result = for {
-        uploadFile <- request.body.file("inputData")
-      } yield {
-          val pkg = OPCPackage.open(uploadFile.ref.file)
-          import org.apache.poi.xssf.usermodel.XSSFWorkbook
+    val result = for {
+      uploadFile <- request.body.file("inputData")
+    } yield {
+      val pkg = OPCPackage.open(uploadFile.ref.file)
+      import org.apache.poi.xssf.usermodel.XSSFWorkbook
 
-          val wb = new XSSFWorkbook(pkg)
-          val measures = (0 until wb.getNumberOfSheets()).map { i =>
-            wb.getSheetAt(i) }
-          .filter(_.getSheetName.toLowerCase == "measures")
-          .flatMap { sheet =>
-              sheet.rowIterator().toSeq
-            }
-            // drop header
-          .drop(1)
-          .map { row =>
-            val e = Try {
-              Measure(
-                Some(getCellValue(row.getCell(0))),
-                Some(getCellValue(row.getCell(1))),
-                getCellValue(row.getCell(2)),
-                getCellValue(row.getCell(3)),
-                getCellValue(row.getCell(4)),
-                formatter.parseLocalDate(getCellValue(row.getCell(5))),
-                formatter.parseLocalDate(getCellValue(row.getCell(6))),
-                Some(getCellValue(row.getCell(7)))
-              )
-            }
-            (row.getRowNum, e)
-          }.toList
-
-          // put errors xls into cache for later, return successes
-          val workbook = new XSSFWorkbook
-          val sheet1 = workbook.createSheet("Errors in measures")
-
-          // create header
-          val row = sheet1.createRow(0)
-          val c0 = row.createCell(0)
-          val c1 = row.createCell(1)
-          c0.setCellValue("Line number")
-          c1.setCellValue("Error message")
-
-          val failures = measures.filter(_._2.isFailure)
-          failures.map { fails =>
-            fails match {
-              case (rowNum, Failure(e)) => (rowNum, e)
-              case _ => (0, new Exception("will not happen"))
-            }
-          }.zipWithIndex.foreach {
-            case (f, i) => {
-              val row = sheet1.createRow(i + 1)
-              val rowNumCell = row.createCell(0)
-              rowNumCell.setCellValue(f._1)
-              val errorMsgCell = row.createCell(1)
-              errorMsgCell.setCellValue(f._2.getMessage)
-            }
-          }
-
-        val bos = new ByteArrayOutputStream
-        workbook.write(bos)
-
-        val file = new File("/tmp/" + "errors.xlsx")
-        val tfile = TemporaryFile(file)
-        val fos = new FileOutputStream(file)
-        bos.writeTo(fos)
-        fos.flush()
-        fos.close()
-
-        val token = Random.alphanumeric.take(10).toList.mkString("")
-
-        Logger.info("creating error xls for token: " + token)
-
-        cache.set(token, tfile)
-
-        Future { Ok(Json.toJson(MeasuresWithToken(if (failures.length > 0) Some(token) else None, measures.filter(_._2.isSuccess).map{_._2.get} ))) }
+      val wb = new XSSFWorkbook(pkg)
+      val measures = (0 until wb.getNumberOfSheets()).map { i =>
+        wb.getSheetAt(i)
+      }
+        .filter(_.getSheetName.toLowerCase == "measures")
+        .flatMap { sheet =>
+          sheet.rowIterator().asScala
         }
+        // drop header
+        .drop(1)
+        .map { row =>
+          val e = Try {
+            Measure(
+              Some(getCellValue(row.getCell(0))),
+              Some(getCellValue(row.getCell(1))),
+              getCellValue(row.getCell(2)),
+              getCellValue(row.getCell(3)),
+              getCellValue(row.getCell(4)),
+              formatter.parseLocalDate(getCellValue(row.getCell(5))),
+              formatter.parseLocalDate(getCellValue(row.getCell(6))),
+              Some(getCellValue(row.getCell(7)))
+            )
+          }
+          (row.getRowNum, e)
+        }.toList
+
+      // put errors xls into cache for later, return successes
+      val workbook = new XSSFWorkbook
+      val sheet1 = workbook.createSheet("Errors in measures")
+
+      // create header
+      val row = sheet1.createRow(0)
+      val c0 = row.createCell(0)
+      val c1 = row.createCell(1)
+      c0.setCellValue("Line number")
+      c1.setCellValue("Error message")
+
+      val failures = measures.filter(_._2.isFailure)
+      failures.map { fails =>
+        fails match {
+          case (rowNum, Failure(e)) => (rowNum, e)
+          case _ => (0, new Exception("will not happen"))
+        }
+      }.zipWithIndex.foreach {
+        case (f, i) => {
+          val row = sheet1.createRow(i + 1)
+          val rowNumCell = row.createCell(0)
+          rowNumCell.setCellValue(f._1)
+          val errorMsgCell = row.createCell(1)
+          errorMsgCell.setCellValue(f._2.getMessage)
+        }
+      }
+
+      val bos = new ByteArrayOutputStream
+      workbook.write(bos)
+
+      val file = File.createTempFile("errors", "xlsx")
+      val fos = new FileOutputStream(file)
+      bos.writeTo(fos)
+      fos.flush()
+      fos.close()
+
+      val token = Random.alphanumeric.take(10).toList.mkString("")
+
+      Logger.info("creating error xls for token: " + token)
+
+      cache.set(token, file.getAbsolutePath).map { _ =>
+        Ok(Json.toJson(MeasuresWithToken(
+          if (failures.nonEmpty) Some(token) else None,
+          measures.filter(_._2.isSuccess).map {
+            _._2.get
+          })))
+      }
+    }
 
     result.getOrElse {
-      Future {Ok("failed")}
+      Future {
+        Ok("failed")
+      }
     }
-
   }
 
-  def validate = Action.async(parse.multipartFormData) { request =>
+  def validate: Action[MultipartFormData[TemporaryFile]] = Action.async(parse.multipartFormData) { request =>
 
-    implicit val timeout = akka.util.Timeout(5 seconds)
-
-    val decider: Supervision.Decider = {
-      case NonFatal(th) =>
-
-        val sw = new StringWriter
-        th.printStackTrace(new PrintWriter(sw))
-        // print this to stdout as well
-        // TODO: Fix loging
-        Console.println(sw.toString)
-        Supervision.Resume
-
-      case _ => Supervision.Stop
-    }
-
-    implicit val materializer = ActorMaterializer(
-      ActorMaterializerSettings(actorSystem).withSupervisionStrategy(decider)
-    )
+    implicit val timeout: Timeout = akka.util.Timeout(5 seconds)
 
     request.body.file("inputData").map { file =>
       Source.fromIterator(() => BEDESTransform.fromXLS(None, file.ref.file, None, None))
         .groupBy(10000, _._1.propertyId.get)
-          .log("Validating Property")
+        .log("Validating Property")
         .fold(Seq.empty[BEDESTransformResult])(_ :+ _._1)
         .mergeSubstreams
         .via(validateFlow.run)
