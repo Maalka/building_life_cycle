@@ -3,7 +3,7 @@ import WebKeys._
 name := "building_life_cycle"
 organization in ThisBuild := "com.maalka"
 
-version := "1.1.0.1"
+version := "1.1.0.0"
 
 lazy val root = (project in file(".")).enablePlugins(PlayScala)
 
@@ -11,8 +11,8 @@ lazy val root = (project in file(".")).enablePlugins(PlayScala)
 maintainer in Linux := "Clay Teeter <clay.teeter@maalka.com>"
 maintainer in Docker := "Clay Teeter <clay.teeter@maalka.com>"
 
-packageSummary in Linux := "Maalka - Life Cycle Tool"
-packageDescription := "Maalka - Life Cycle Tool"
+packageSummary in Linux := "Maalka - Data Quality Tool"
+packageDescription := "Maalka - Data Quality Tool"
 
 dockerRepository := Some("maalka")
 dockerUpdateLatest := true
