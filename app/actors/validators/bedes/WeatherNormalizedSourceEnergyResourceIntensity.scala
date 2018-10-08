@@ -22,7 +22,6 @@ import actors.ValidatorActors.BedesValidators.{BedesValidator, BedesValidatorCom
 import actors.validators.Validator
 import actors.validators.basic.{ Exists, WithinRange }
 import akka.actor.{ActorSystem, Props}
-import akka.stream.ActorMaterializer
 import akka.stream.scaladsl.Sink
 import com.maalka.bedes.BEDESTransformResult
 import play.api.libs.json.{JsObject, Json}
@@ -51,10 +50,6 @@ case class WeatherNormalizedSourceEnergyResourceIntensity(guid: String,
                         propertyId: String,
                         validatorCategory: Option[String],
                         override val arguments: Option[JsObject] = None)(implicit actorSystem: ActorSystem) extends BedesValidator {
-
-  // the materializer to use.  this must be an ActorMaterializer
-
-  implicit val materializer = ActorMaterializer()
 
   val validator = "bedes_weather_normalized_source_energy_resource_intensity"
   val bedesCompositeName = "Weather Normalized Source Energy Resource Intensity"

@@ -23,14 +23,11 @@ import actors.validators.Validator
 import actors.validators.Validator.MapValid
 import actors.validators.basic.{Exists, Numeric, WithinRange}
 import akka.actor.{ActorSystem, Props}
-import akka.stream.ActorMaterializer
 import akka.stream.scaladsl.Sink
 import com.maalka.bedes.BEDESTransformResult
 import play.api.libs.json.{JsObject, Json}
 
 import scala.concurrent.Future
-
-import scala.concurrent.ExecutionContext.Implicits.global
 
 object EnergyStarScoreAssessmentValue extends BedesValidatorCompanion {
 
@@ -54,10 +51,6 @@ case class EnergyStarScoreAssessmentValue(guid: String,
                           propertyId: String,
                           validatorCategory: Option[String],
                           override val arguments: Option[JsObject] = None)(implicit actorSystem: ActorSystem) extends BedesValidator {
-
-  // the materializer to use.  this must be an ActorMaterializer
-
-  implicit val materializer = ActorMaterializer()
 
   val validator = "bedeas_energy_star_score_assessment_value"
   val bedesCompositeName = "ENERGY STAR Score Assessment Value"

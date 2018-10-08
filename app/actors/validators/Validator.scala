@@ -16,13 +16,16 @@
 
 package actors.validators
 
-import akka.actor.{Actor, ActorLogging, ActorRef, PoisonPill, Props}
+import akka.actor.{Actor, ActorLogging, ActorRef, ActorSystem, PoisonPill}
 import java.util.UUID
 
 import actors.{ActorMessage, CommonMessage}
 import actors.CommonMessage.Failed
 import org.joda.time.DateTime
-import play.api.libs.json.{Format, Json, Writes}
+import play.api.libs.json.{Json, Writes}
+import play.api.libs.json.JodaWrites._
+
+import scala.concurrent.ExecutionContextExecutor
 
 object Validator {
   trait ValidationCategory {}
@@ -85,7 +88,12 @@ object Validator {
 
 // TODO: Refactor this to ValidateActor
 trait Validator[A] extends Actor with ActorLogging{
+
   import Validator._
+
+  implicit val actorSystem: ActorSystem = context.system
+
+  implicit val executionContext: ExecutionContextExecutor = context.dispatcher
 
   val propertyId: String
 

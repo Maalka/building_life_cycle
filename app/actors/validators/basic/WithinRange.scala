@@ -56,9 +56,6 @@ case class WithinRange(guid: String,
 
   val validator = "validation_within_range"
 
-
-  import play.api.libs.concurrent.Execution.Implicits._
-
   def isValid(refId: UUID, value: Option[MaalkaMeterData]):Future[MapValid] = {
     log.debug("Found value: {}", value)
     Future {

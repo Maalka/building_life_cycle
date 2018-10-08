@@ -40,8 +40,6 @@ case class Exists(guid: String,
                   validatorCategory: Option[String],
                   override val arguments: Option[JsObject] = None) extends BasicValidator[MaalkaMeterData] {
 
-  import play.api.libs.concurrent.Execution.Implicits._
-
   val validator = "validation_exists"
 
   def isValid(refId: UUID, value: Option[MaalkaMeterData]): Future[MapValid] = {

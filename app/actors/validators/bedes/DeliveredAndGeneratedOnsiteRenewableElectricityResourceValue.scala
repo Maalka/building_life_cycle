@@ -53,9 +53,6 @@ case class DeliveredAndGeneratedOnsiteRenewableElectricityResourceValue(guid: St
                                             validatorCategory: Option[String],
                                             override val arguments: Option[JsObject] = None)(implicit actorSystem: ActorSystem) extends BedesValidator {
 
-  // the materializer to use.  this must be an ActorMaterializer
-
-  implicit val materializer = ActorMaterializer()
   val validator = "bedes_delivered_and_generated_onsite_renewable_electricity_resource_value"
   val bedesCompositeName =
     "Delivered and Generated Onsite Renewable Electricity Resource Value"

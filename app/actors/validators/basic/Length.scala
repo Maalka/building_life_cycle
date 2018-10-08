@@ -53,7 +53,6 @@ case class Length(guid: String,
                   validatorCategory: Option[String],
                   override val arguments: Option[JsObject] = None) extends BasicValidator[MaalkaMeterData] {
 
-  import play.api.libs.concurrent.Execution.Implicits._
   val validator = "validation_length"
   def isValid(refId: UUID, value: Option[MaalkaMeterData]): Future[MapValid] = {
     Future {

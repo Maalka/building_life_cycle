@@ -18,19 +18,18 @@ package actors.validators.basic
 
 import java.util.UUID
 
-import actors.CommonMessage
+import actors.materializers.AkkaMaterializer
 import actors.validators.Validator
 import actors.validators.Validator.{MapValid, UpdateObjectValidatedDocument}
-import akka.actor.{Actor, ActorLogging, PoisonPill}
+import akka.actor.{Actor, ActorLogging, ActorSystem, PoisonPill}
 import akka.stream.ActorMaterializer
-import models._
 import play.api.libs.json.JsObject
 
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionContext, Future}
 import scala.util.control.NonFatal
 import scala.concurrent.duration._
 
-trait BasicValidator[A] extends Actor with ActorLogging with Validator[A] {
+trait BasicValidator[A] extends Actor with ActorLogging with Validator[A] with AkkaMaterializer {
 
   val guid: String
   val name: String
@@ -39,11 +38,7 @@ trait BasicValidator[A] extends Actor with ActorLogging with Validator[A] {
   val validator: String
   val validatorCategory: Option[String]
 
-  implicit val materializer = ActorMaterializer()
-
   def isValid(refId: UUID, value: Option[A]):Future[MapValid]
-
-  import play.api.libs.concurrent.Execution.Implicits._
 
   val timer = context.system.scheduler.scheduleOnce(60 seconds, self, PoisonPill)
 
