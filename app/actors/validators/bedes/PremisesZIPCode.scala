@@ -22,7 +22,6 @@ import actors.ValidatorActors.BedesValidators.{BedesValidator, BedesValidatorCom
 import actors.validators.Validator
 import actors.validators.basic.{Exists, Length }
 import akka.actor.{ActorSystem, Props}
-import akka.stream.ActorMaterializer
 import akka.stream.scaladsl.Sink
 import com.maalka.bedes.BEDESTransformResult
 import play.api.libs.json.{JsObject, Json}
@@ -51,11 +50,6 @@ case class PremisesZIPCode(guid: String,
                          propertyId: String,
                          validatorCategory: Option[String],
                          override val arguments: Option[JsObject] = None)(implicit actorSystem: ActorSystem) extends BedesValidator {
-
-  // the materializer to use.  this must be an ActorMaterializer
-
-  implicit val materializer = ActorMaterializer()
-
 
   val validator = "bedes_premises_zip_code"
   val bedesCompositeName = "Premises ZIP Code"

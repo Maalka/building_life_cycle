@@ -21,9 +21,8 @@ import java.util.UUID
 import actors.ValidatorActors.BedesValidators.{BedesValidator, BedesValidatorCompanion}
 import actors.validators.Validator
 import actors.validators.Validator.MapValid
-import actors.validators.basic.{Exists, Numeric, WithinRange}
+import actors.validators.basic.{Exists, WithinRange}
 import akka.actor.{ActorSystem, Props}
-import akka.stream.ActorMaterializer
 import akka.stream.scaladsl.Sink
 import com.maalka.bedes.BEDESTransformResult
 import play.api.libs.json.{JsObject, Json}
@@ -52,10 +51,6 @@ case class NaturalGasResourceValue(guid: String,
                                        propertyId: String,
                                        validatorCategory: Option[String],
                                        override val arguments: Option[JsObject] = None)(implicit actorSystem: ActorSystem) extends BedesValidator {
-
-  // the materializer to use.  this must be an ActorMaterializer
-
-  implicit val materializer = ActorMaterializer()
 
   val validator = "bedeas_natural_gas_resource_value"
   val bedesCompositeName = "Natural Gas Resource Value"

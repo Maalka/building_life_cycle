@@ -19,6 +19,7 @@ package actors.validators.bedes
 import java.util.UUID
 
 import actors.ValidatorActors.BedesValidators.{BedesValidator, BedesValidatorCompanion}
+import actors.materializers.AkkaMaterializer
 import actors.validators.Validator
 import actors.validators.Validator.MapValid
 import actors.validators.basic.{Exists, Numeric, WithinRange}
@@ -51,14 +52,13 @@ case class BedesDensityValidator(guid: String,
                                  name: String,
                                  propertyId: String,
                                  validatorCategory: Option[String],
-                                 override val arguments: Option[JsObject] = None)(implicit actorSystem: ActorSystem) extends BedesValidator {
+                                 override val arguments: Option[JsObject] = None)(implicit actorSystem: ActorSystem)
 
-  // the materializer to use.  this must be an ActorMaterializer
+  extends BedesValidator {
+
   private val bedesGFACompositeField = play.Play.application.configuration.getString("maalka.bedesGFACompositeField")
 
-  implicit val materializer = ActorMaterializer()
-
-  val validator = "bedes_range_validator"
+    val validator = "bedes_range_validator"
   override val bedesCompositeName: String = arguments.flatMap { arg =>
     (arg \ "compositeName").asOpt[String]
   }.get

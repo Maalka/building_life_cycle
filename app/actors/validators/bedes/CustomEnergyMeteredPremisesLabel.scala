@@ -54,9 +54,6 @@ case class CustomEnergyMeteredPremisesLabel(guid: String,
                                            validatorCategory: Option[String],
                                            override val arguments: Option[JsObject] = None)(implicit actorSystem: ActorSystem) extends BedesValidator {
 
-  // the materializer to use.  this must be an ActorMaterializer
-
-  implicit val materializer = ActorMaterializer()
   val validator = "bedes_custom_energy_metered_premises_label"
   val bedesCompositeName = "Custom Energy Metered Premises Label"
 

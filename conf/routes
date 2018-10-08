@@ -7,18 +7,18 @@ GET     /                           controllers.Application.index(includeHeader:
 
 GET     /jsroutes.js                controllers.Application.jsRoutes()
 
-POST    /validate                   controllers.BuildingLifeCycle.validate()
-POST    /parseXls                   controllers.BuildingLifeCycle.parseXls()
-POST    /getXlsx                    controllers.BuildingLifeCycle.buildXlsx()
+POST    /validate                   @controllers.BuildingLifeCycle.validate()
+POST    /parseXls                   @controllers.BuildingLifeCycle.parseXls()
+POST    /getXlsx                    @controllers.BuildingLifeCycle.buildXlsx()
 
-GET     /getFile                    controllers.BuildingLifeCycle.getFile(token: Option[String])
+GET     /getFile                    @controllers.BuildingLifeCycle.getFile(token: Option[String])
 
-GET     /type1  controllers.StaticController.type1
-GET     /type2  controllers.StaticController.type2
-GET     /type3  controllers.StaticController.type3
-GET     /type4  controllers.StaticController.type4
-GET     /type5  controllers.StaticController.type5
-GET     /type6  controllers.StaticController.type6
+GET     /type1                      controllers.StaticController.type1
+GET     /type2                      controllers.StaticController.type2
+GET     /type3                      controllers.StaticController.type3
+GET     /type4                      controllers.StaticController.type4
+GET     /type5                      controllers.StaticController.type5
+GET     /type6                      controllers.StaticController.type6
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)

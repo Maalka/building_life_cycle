@@ -16,26 +16,25 @@
 
 package actors.ValidatorActors.BedesValidators
 
-import java.io.{PrintWriter, StringWriter}
 import java.util.UUID
 
 import actors.CommonMessage.Failed
+import actors.materializers.AkkaMaterializer
 import actors.validators.Validator.MapValid
 import actors.validators.Validator
 import actors.validators.Validator.UpdateObjectValidatedDocument
 import akka.actor.{Actor, ActorLogging, ActorSystem, Props}
 import akka.pattern.ask
-import akka.stream.{ActorMaterializer, ActorMaterializerSettings, Supervision}
 import akka.stream.scaladsl.Source
+import akka.util.Timeout
 import com.maalka.bedes.BEDESTransformResult
 import models.MaalkaMeterData
 import org.joda.time.DateTime
 import play.api.libs.json.JsObject
 
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionContextExecutor, Future}
 import scala.util.control.NonFatal
 import scala.concurrent.duration._
-import scala.concurrent.ExecutionContext.Implicits.global
 import scala.util.{Failure, Success, Try}
 
 trait BedesValidatorCompanion {
@@ -46,21 +45,9 @@ trait BedesValidatorCompanion {
             arguments: Option[JsObject] = None)(implicit actorSystem: ActorSystem): Props
 }
 
-trait BedesValidator extends Actor with ActorLogging with Validator[Seq[BEDESTransformResult]] {
+trait BedesValidator extends Actor with ActorLogging with Validator[Seq[BEDESTransformResult]] with AkkaMaterializer {
 
-  implicit val timeout = akka.util.Timeout(5 seconds)
-  val decider: Supervision.Decider = {
-    case NonFatal(th) =>
-
-      val sw = new StringWriter
-      th.printStackTrace(new PrintWriter(sw))
-      // print this to stdout as well
-      // TODO: Fix loging
-      Console.println(sw.toString)
-      Supervision.Resume
-
-    case _ => Supervision.Stop
-  }
+  implicit val timeout: Timeout = akka.util.Timeout(5 seconds)
 
   val guid: String
   val name: String

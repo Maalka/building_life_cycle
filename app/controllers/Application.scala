@@ -16,9 +16,13 @@
 
 package controllers
 
+import javax.inject.{Inject, Singleton}
+import play.api.cache.{AsyncCacheApi, Cached}
 import play.api.mvc._
 
-class Application extends Controller {
+/** Application controller, handles authentication */
+@Singleton
+class Application @Inject() (cached: Cached, val cache: AsyncCacheApi, cc: ControllerComponents) extends AbstractController(cc) {
 
   /**
     * Retrieves all routes via reflection.
