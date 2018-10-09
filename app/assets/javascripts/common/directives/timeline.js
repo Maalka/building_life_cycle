@@ -83,7 +83,6 @@ define(['angular', 'moment', 'highcharts', 'highcharts-drilldown', 'highcharts-e
                 var colors = ['#06A1F9', '#0D95BB', '#0A708C', '#2F4598', '#5D70D4'];
                 $scope.last5measures = [];
                 $scope.options = {
-
                     title: {
                         text: '',
                     },
@@ -105,9 +104,9 @@ define(['angular', 'moment', 'highcharts', 'highcharts-drilldown', 'highcharts-e
                             }
                         },
                         "type": "datetime",
-
+  
                         "labels": {
-                            "format": "{value:%m/%e/%Y}"
+                            "format": "{value:%b - %e - %Y}"
                         },
                         "gridLineWidth": 0,
                         "lineWidth": 1,
@@ -119,14 +118,9 @@ define(['angular', 'moment', 'highcharts', 'highcharts-drilldown', 'highcharts-e
                         min: 0,
                         max: 70,
                     },
-                    "legend": {
-                        "align": "center",
-                        "verticalAlign": "bottom",
-                        "x": 0,
-                        "y": 0,
-                        style: {
-                            fontFamily: '"Gesta", "Helvetica Neue", Arial, Helvetica, sans-serif'
-                        }
+
+                    legend: {
+                        enabled: false
                     },
                     tooltip: {
                         xDateFormat: 'End Date: ' + '%b - %e - %Y',
@@ -136,10 +130,11 @@ define(['angular', 'moment', 'highcharts', 'highcharts-drilldown', 'highcharts-e
                     },
                     "plotOptions": {
                         "column": {
-                            color: "#d3d3d3",
+                            color: "transparent",
                             maxPointWidth: 1,
-                            dataLabels: {
-                                enabled: true,
+                            dataLabels: { 
+                                align: 'center',
+                                enabled: true, 
                                 inside: false,
                                 borderWidth: 2,
                                 shape: 'callout',
@@ -158,7 +153,13 @@ define(['angular', 'moment', 'highcharts', 'highcharts-drilldown', 'highcharts-e
                         }
                     },
 
-                    series: $scope.groups
+                    series: [{
+                        type: 'column',
+                        name: 'Observations',
+                        id: 'dataseries',
+                        pointWidth: 1,
+                        data: [],
+                    }]
                 };
                  $timeout(function () {
                 }, 0);
